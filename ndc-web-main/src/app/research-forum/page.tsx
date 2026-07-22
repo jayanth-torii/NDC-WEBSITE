@@ -1,50 +1,19 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import ResearchForumBanner from "@/components/ResearchForum/ResearchForumBanner";
 import Forum from "@/components/ResearchForum/Forum";
 
-import axios from "axios";
-import { BASE_URL } from "../../config/apiService";
+import pageJson from "@/data-export/research-forum/data.json";
 
 const ResearchForum = () => {
-  const [ResearchForumData, setResearchForumData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const ResearchForumData: any = (pageJson["research-forum"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchResearchForumContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/research-forum`);
-        setResearchForumData(response?.data?.data);
-      } catch (err) {
-        setError(err);
-        console.error("Error fetching ResearchForum data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchResearchForumContent();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Research Forum...
-      </div>
-    );
-  }
-
-  if (error || !ResearchForumData) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load Research Forum content.
-      </div>
-    );
+  if (!ResearchForumData) {
+    return null;
   }
 
   return (

@@ -1,0 +1,91 @@
+{
+  "ed-cell": {
+    "data": {
+      "bannerSection": {
+        "title": "Entrepreneurial Development Cell",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_146_5_a2f0d6e4ca.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "A Big Business Starts Small",
+        "AboutDescription": [
+          "The EDC of Nagarjuna Degree College was started to impart entrepreneurial skill training to enable our students to become self- employable. This enables our students to strengthen their entrepreneurial qualities and to transform their innovative ideas into new products and services, that better serves the society. The Prime motto of Entrepreneurship Development Cell (EDC) in our college is to develop new ideas and to provide infrastructure, and technical support to the students for the betterment of the society, to Encourage Young Minds to Become Entrepreneurs."
+        ],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "The vision of Entrepreneurship cell is to create an awareness about entrepreneurship among students and develop the skill of creativity and innovative thinking by providing support and mentor them for the start up ideas and make them as a young entrepreneur so that they become Job Creator than Job Seekers.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "To be the leader in allowing & enabling entrepreneurs, support the sparks of budding entrepreneurs and manifesting the spirit and energy of young students from ideation to start-up to establishment and scaling up with integrity and sustainability through constant guidance & mentoring through various programs and schemes.",
+              "points": []
+            }
+          ]
+        },
+        "AccordienSection": []
+      },
+      "ImagesSection": {
+        "title": "Entrepreneurial Development Cell",
+        "images": []
+      },
+      "Coordinators": {
+        "title": "Coordinators",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Dr K Rajeswari",
+            "designation": null,
+            "role": "Faculty Coordinator",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Dr Nagarathinam R B",
+            "designation": null,
+            "role": "Faculty In - Charge",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Asst. Prof. Mahendra K Hegde",
+            "designation": null,
+            "role": "Faculty In - Charge",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Asst. Prof. Varshini R C",
+            "designation": null,
+            "role": "Faculty In - Charge",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Asst. Prof. Shubangi Pawar",
+            "designation": null,
+            "role": "Faculty In - Charge",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Asst. Prof. Sharath Natesh",
+            "designation": null,
+            "role": "Faculty In - Charge",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Asst. Prof. Neha",
+            "designation": null,
+            "role": "Faculty In - Charge",
+            "mobile": null,
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

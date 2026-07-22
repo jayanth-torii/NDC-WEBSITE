@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 // Interfaces for type safety
 interface Section {
@@ -25,23 +24,7 @@ const ProgrammeDetails = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const [apiData, setApiData] = useState<Record<string, CourseItem[]>>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/programme-details`);
-        setApiData(res?.data?.data || {});
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const apiData: Record<string, CourseItem[]> = (departmentJson["programme-details"] as any)?.data || {};
 
   // ✅ Normalize keys once (before any conditional returns)
   const normalizedMap = useMemo(() => {
@@ -67,22 +50,6 @@ const ProgrammeDetails = ({ haveContentCheck }: any) => {
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
   // ---- UI returns after all hooks ----
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Programme Details...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load programme details.
-      </div>
-    );
-  }
-
   if (!courseData) {
     return (
       <p className="text-center text-gray-500 mt-4">

@@ -1,51 +1,20 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Suspense } from "react";
 
- 
+
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import IICBanner from "@/components/IIC/IICBanner";
 import IICMembers from "@/components/IIC/IICMembers";
 
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/iic/data.json";
 
 
 function IIC() {
-  const [IICData, setIICData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const IICData: any = (pageJson["iic"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchIQACContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/iic`);
-        setIICData(response?.data?.data);
-      } catch (err) {
-        setError(err);
-        console.error("Error fetching IIC data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchIQACContent();
-  }, []);
-
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading IIC...
-      </div>
-    );
-  }
-
-  if (error || !IICData) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load IIC content.
-      </div>
-    );
+  if (!IICData) {
+    return null;
   }
 
   return (

@@ -1,9 +1,8 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/contact-us/data.json";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import ContactUsBanner from "@/components/ContactUs/ContactUsBanner";
@@ -13,30 +12,10 @@ import Map from "@/components/ContactUs/Map";
 import LoginPortals from "@/components/ContactUs/LoginPortals";
 
 const ContactUs = () => {
-  const [contactUsData, setContactUsData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const contactUsData: any = (pageJson["contact-us"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchContactUsContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/contact-us`);
-        setContactUsData(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching contact us data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchContactUsContent();
-  }, []);
-
-  if (loading || !contactUsData) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading ContactUs...
-      </div>
-    );
+  if (!contactUsData) {
+    return null;
   }
 
   return (

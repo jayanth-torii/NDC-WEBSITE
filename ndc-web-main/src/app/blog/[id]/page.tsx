@@ -1,45 +1,17 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { Suspense } from "react";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import BlogNavigation from "@/components/BlogsPage/BlogNavigation";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/blog/[id]/data.json";
 
 const BlogDetail = () => {
   const { id } = useParams();
-  const [blog, setBlog] = useState<any>(null);
-  const [blogsData, setBlogsData] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/blogs-content`);
-        const blogList = res?.data?.data?.blogs || [];
-        setBlogsData(blogList);
-
-        const selected = blogList.find(
-          (item: any) => item.id.toString() === id
-        );
-        setBlog(selected || null);
-      } catch (err) {
-        console.error("Failed to fetch blog data:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBlogs();
-  }, [id]);
-
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading blog...
-      </div>
-    );
-  }
+  const blogsData: any[] = (pageJson["blogs-content"] as any)?.data?.blogs || [];
+  const blog =
+    blogsData.find((item: any) => item.id.toString() === id) || null;
 
   if (!blog) {
     return (

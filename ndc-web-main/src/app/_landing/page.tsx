@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Suspense, useEffect, useState } from "react";
+import React from "react";
 
 import AboutNDC from "@/components/HomePage/AboutNDC"
 import Education from "@/components/HomePage/Education"
@@ -11,36 +11,15 @@ import Yrs25 from "@/components/HomePage/Yrs25"
 import LifeAtNDC from "@/components/HomePage/LifeAtNDC";
 import Notifications from "@/components/HomePage/Notifications"
 import Blogs from "@/components/HomePage/Blogs"
- 
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+
+import landingJson from "@/data-export/_landing/data.json";
 
 const Landing = () => {
 
-    const [apiData, setApiData] = useState(null);
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-      const fetchHomeContent = async () => {
-        try {
-          const response = await axios.get(`${BASE_URL}/home`);
-          setApiData(response?.data?.data?.[0]);
-        } catch (error) {
-          console.error("Error Fetching Home Data:", error);
-      } finally {
-        setLoading(false);
-      }
-      };
-      fetchHomeContent();
-    }, []);
+    const apiData: any = (landingJson["home"] as any)?.data?.[0] || null;
 
-    
-
-    if (loading || !apiData) {
-      return (
-        <div className="text-center py-20 text-gray-500 text-lg">
-          Loading HOME...
-        </div>
-      );
+    if (!apiData) {
+      return null;
     }
 
     const {

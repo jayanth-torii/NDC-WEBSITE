@@ -1,36 +1,18 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Suspense } from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
 import Banner from "@/components/Activities/CommonComponents/Banner";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/activities/student-oriented-cells/anti-sexual-harassment-cell/data.json";
 
 function AntiSexualHarassmentCell() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const data: any = (pageJson["anti-sexual-harassment-cell"] as any)?.data || null;
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/anti-sexual-harassment-cell`)
-      .then((res) => {
-        setData(res?.data?.data || null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch anti-sexual-harassment-cell content:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Anti-Sexual Harassment Cell...
-      </div>
-    );
+  if (!data) {
+    return null;
   }
 
   return (

@@ -1,0 +1,25 @@
+{
+  "faculties-welfare": {
+    "data": {
+      "bannerSection": {
+        "title": "faculties-welfare",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_146_2_9587818259.png"
+      },
+      "FacultiesWelfare": [
+        {
+          "title": "Faculty Welfare",
+          "descriptions": [],
+          "points": [
+            "Nagarjuna degree college has a thriving academic community where faculty members are empowered,motivated and inspired to Excel in teaching, research and service.",
+            "Institute has Supportive Environment with flexible policies which leads in work life Balance, which accommodate personal and professional needs.",
+            "Nagarjuna degree college encourages continuous learning,skill development and recognises,appreciates the faculty members through awards, Incentives on their achievements.Encourages collaboration among faculty members to share ideas,concerns and best practices.",
+            "With this we have an enhanced job satisfaction from our faculty which resulted in improved productivity and academic performance.",
+            "We have been recognised as positive Institutional culture with high quality teaching. Which has resulted in Student satisfaction and alumni relations with teaching staff.",
+            "We have topped in Academic Excellence and Higher reputation in the city.",
+            "Nagarjuna degree college has high dedication, Effective Study habits,Time management Which has contributed to a well rounded college development."
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,39 +1,18 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import ApplyNowBanner from "@/components/ApplyNow/ApplyNowBanner";
 import QueryForm from "@/components/ApplyNow/QueryForm";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/apply-now/data.json";
 
 const ApplyNow = () => {
-  const [applyData, setApplyData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const applyData: any = (pageJson["apply-now"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchApplyData = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/apply-now`);
-        setApplyData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching Apply Now data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchApplyData();
-  }, []);
-
-  if (loading || !applyData) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Apply Now...
-      </div>
-    );
+  if (!applyData) {
+    return null;
   }
 
   return (

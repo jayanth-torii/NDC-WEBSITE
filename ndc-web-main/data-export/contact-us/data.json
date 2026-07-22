@@ -1,0 +1,59 @@
+{
+  "contact-us": {
+    "data": {
+      "BannerSection": {
+        "title": " CONTACT US",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Contact_Us_1_a27dbca57f.png"
+      },
+      "contactDetails": {
+        "image": "https://cdn.nagarjunadegreecollege.co.in/image_7_2829742f6b.png",
+        "details": [
+          {
+            "title": "Get In Touch",
+            "points": [
+              "Thank you for visiting our website. If you have feedback we are eager to hear from you.",
+              "Call Us for General Queries – +91 9620383355",
+              "Call Us for Admissions Queries: +91 9513227717 | +91 8618984434",
+              "For Admission related queries, write to: admission@ndcmail.in\n"
+            ]
+          },
+          {
+            "title": "Address",
+            "points": [
+              "Nagarjuna Degree College #38/36, Ramagondanahalli, Yelahanka, Bangalore – 560064"
+            ]
+          },
+          {
+            "title": "Contact Us",
+            "points": [
+              "If you have any questions or feedback about Nagarjuna Degree College, please do not hesitate to get in touch with us. You can reach us by phone, email, or by visiting our campus.",
+              "The contact number and email address for University can be easily found on our website, along with the university address. Moreover, specific contact numbers and emails for different schools and programmes within the university are also available on our website. We are eager to hear from you and are here to assist in any way we can.\n"
+            ]
+          }
+        ]
+      },
+      "LoginPortals": [
+        {
+          "title": "STAFF LOGIN",
+          "url": "https://vapsecampus.azurewebsites.net/#/login/",
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Vector_7033b85c8a.png"
+        },
+        {
+          "title": "STUDENT LOGIN",
+          "url": "https://vapsecampus.azurewebsites.net/#/login/",
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Vector_1_14f6f7f633.png"
+        },
+        {
+          "title": "PARENT'S LOGIN",
+          "url": "https://vapsecampus.azurewebsites.net/#/login/",
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Vector_2_76ca28734f.png"
+        }
+      ],
+      "MAP": {
+        "BannerMap": "https://cdn.nagarjunadegreecollege.co.in/image_adac7af5ee.png",
+        "AdderssMAP": "https://cdn.nagarjunadegreecollege.co.in/image_9_18cba48f7d.png",
+        "MapLink": "https://www.google.com/maps?ll=13.116397,77.562246&z=16&t=m&hl=en&gl=IN&mapclient=embed&cid=17815594856769670624"
+      }
+    }
+  }
+}

@@ -1,6 +1,5 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Suspense } from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
 import Banner from "@/components/Activities/CommonComponents/Banner";
@@ -9,30 +8,13 @@ import AntiragginCommitte from "@/components/Activities/CommonComponents/Antirag
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 import Images from "@/components/Activities/CommonComponents/Images";
 
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/activities/student-oriented-cells/students-grievance-cell/data.json";
 
 function StudentsGrievanceRedressalCell() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const data: any = (pageJson["students-grievance-redressal-cell"] as any)?.data || null;
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/students-grievance-redressal-cell`)
-      .then((res) => {
-        setData(res?.data?.data || null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch students-grievance-redressal-cell content:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Students Grievance Redressal Cell...
-      </div>
-    );
+  if (!data) {
+    return null;
   }
 
   return (

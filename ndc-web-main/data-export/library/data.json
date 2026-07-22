@@ -1,0 +1,319 @@
+{
+  "library": {
+    "data": {
+      "BannerSection": {
+        "title": "Library",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_215_fa9182d643.png"
+      },
+      "aboutLibrary": {
+        "title": "About Library",
+        "aboutText": [
+          "The department of Library and Information Centre was established in the year 2013. Library has a vast collection of books, reference books, national and international journals, e-books, e-journals, dictionary and other resources. Nagarjuna Degree College Library subscribes journals, magazines and newspapers which include English and Kannada. I-Vidyalaya Resource Management software is used for Library services.",
+          "The motto of the Library is to provide services to students, faculties and research scholars of the institution through the development of important collections."
+        ],
+        "dropdowns": [
+          {
+            "title": "Library Services",
+            "points": [
+              "Reference Service",
+              "Current Awareness Service",
+              "Circulation",
+              "Question Papers Service\n",
+              "Assisting users in accessing e-resources\n",
+              "News paper information dissemination\n"
+            ]
+          },
+          {
+            "title": "Library Collection",
+            "points": [
+              "Total no. of Titles: 2842",
+              "Total no. of Volumes: 8598",
+              "No. of Journals: 24",
+              "No. of Magazines: 08",
+              "No. of Newspapers: 11"
+            ]
+          }
+        ]
+      },
+      "digitalResources": {
+        "title": "Digital Resources",
+        "tabs": [
+          "E-Books",
+          "E-Journals",
+          "Video Lectures"
+        ],
+        "resoursesTable": {
+          "E-BOOKS": [
+            {
+              "name": "National Digital Library of India",
+              "link": "https://ndl.iitkgp.ac.in/"
+            },
+            {
+              "name": "Directory of Open Access Books (DOAB)",
+              "link": "https://www.doabooks.org/"
+            },
+            {
+              "name": "PDF Drive",
+              "link": "https://www.pdfdrive.com/"
+            },
+            {
+              "name": "Many Books",
+              "link": "https://manybooks.net/"
+            },
+            {
+              "name": "Internet Archive",
+              "link": "https://archive.org/"
+            },
+            {
+              "name": "Open Library",
+              "link": "https://openlibrary.org/"
+            },
+            {
+              "name": "Library Genesis",
+              "link": "https://libgen.gs/"
+            },
+            {
+              "name": "The Universal Library",
+              "link": "http://ulib.isri.cmu.edu/"
+            },
+            {
+              "name": "Rare Book Room",
+              "link": "http://www.rarebookroom.org/"
+            },
+            {
+              "name": "LibriVox",
+              "link": "https://librivox.org/"
+            },
+            {
+              "name": "TradePub",
+              "link": "\t\nhttps://www.tradepub.com/"
+            },
+            {
+              "name": "Open Textbook",
+              "link": "https://open.umn.edu/opentextbooks"
+            },
+            {
+              "name": "arXiv",
+              "link": "https://arxiv.org/"
+            },
+            {
+              "name": "The Free Library",
+              "link": "https://www.thefreelibrary.com/"
+            },
+            {
+              "name": "IPL",
+              "link": "https://www.ipl.org/books-and-culture-a-christian-review/"
+            },
+            {
+              "name": "JustFreeBooks",
+              "link": "\t\nhttps://www.justfreebooks.info/"
+            },
+            {
+              "name": "OAPEN",
+              "link": "https://www.oapen.org/home"
+            }
+          ],
+          "E-JOURNALS": [
+            {
+              "name": "Taylor & Francis",
+              "link": "https://www.tandfonline.com/openaccess/openjournals"
+            },
+            {
+              "name": "JSTOR",
+              "link": "https://about.jstor.org/oa-and-free/open-access-journals/"
+            },
+            {
+              "name": "Paperity",
+              "link": "https://paperity.org/"
+            },
+            {
+              "name": "OXFORD ACADEMIC",
+              "link": "https://academic.oup.com/pages/open-research/open-access?login=false"
+            },
+            {
+              "name": "ACS Publications",
+              "link": "https://acs.figshare.com/search?q=artificial%20intelligence&itemTypes=3"
+            },
+            {
+              "name": "Omnics Group",
+              "link": "https://www.omicsonline.org/about.php"
+            },
+            {
+              "name": "MDPI",
+              "link": "https://www.mdpi.com/"
+            },
+            {
+              "name": "Microsoft MSROPENDATA",
+              "link": "https://www.microsoft.com/en-us/research/tools/?"
+            },
+            {
+              "name": "ERUDIT",
+              "link": "https://www.erudit.org/en/journals/"
+            },
+            {
+              "name": "Cogent oa",
+              "link": "https://www.tandfonline.com/openaccess/cogentoa"
+            },
+            {
+              "name": "DOAJ",
+              "link": "https://www.doaj.org/"
+            },
+            {
+              "name": "Airccse",
+              "link": "\t\nhttps://airccse.org/"
+            },
+            {
+              "name": "OALib Journal",
+              "link": "https://www.oalib.com/journal/"
+            },
+            {
+              "name": "MIT Press Direct",
+              "link": "https://direct.mit.edu/coli/search-results?page=1&q=artificial%20intelligence%20&fl_SiteID=1000003"
+            },
+            {
+              "name": "NIST Science Data Portal",
+              "link": "https://data.nist.gov/sdp/#/search?q=artificial%20intelligence%20"
+            },
+            {
+              "name": "impact journals",
+              "link": "https://www.impactjournals.us/index.php"
+            },
+            {
+              "name": "OAlster",
+              "link": "https://oaister.on.worldcat.org/discovery"
+            },
+            {
+              "name": "RePEc",
+              "link": "http://repec.org/"
+            },
+            {
+              "name": "ERUDIT",
+              "link": "https://zenodo.org/search?q=artificial%20intelligence%20&l=list&p=1&s=10&sort=bestmatch"
+            },
+            {
+              "name": "Google Dataset Search",
+              "link": "https://datasetsearch.research.google.com/"
+            },
+            {
+              "name": "ERIC",
+              "link": "https://eric.ed.gov/?"
+            }
+          ],
+          "VIDEO LECTURES": [
+            {
+              "name": "Swayam",
+              "link": "https://swayam.gov.in/"
+            },
+            {
+              "name": "National Digital Library of India",
+              "link": "https://ndl.iitkgp.ac.in/"
+            },
+            {
+              "name": "e-PG Pathshala",
+              "link": "https://epgp.inflibnet.ac.in/"
+            },
+            {
+              "name": "Mooc.org",
+              "link": "https://www.mooc.org/"
+            },
+            {
+              "name": "EDX",
+              "link": "https://www.edx.org/"
+            },
+            {
+              "name": "The INFLIBNET Centre",
+              "link": "https://eacharya.inflibnet.ac.in/vidya-mitra/"
+            },
+            {
+              "name": "Spoken Tutorial",
+              "link": "https://spoken-tutorial.org/"
+            },
+            {
+              "name": "FOSSEE (Free/Libre and Open Source Software for Education)",
+              "link": "https://fossee.in/"
+            },
+            {
+              "name": "VideoLectures.NET",
+              "link": "https://videolectures.net/"
+            },
+            {
+              "name": "\t Global Initiative of Academic Networks (GIAN)",
+              "link": "https://gian.iitkgp.ac.in/"
+            }
+          ],
+          "e-THESES-AND-DISSERTATIONS": [
+            {
+              "name": "Shodhganga – a reservoir of Indian theses",
+              "link": "https://shodhganga.inflibnet.ac.in/"
+            },
+            {
+              "name": "Networked Digital Library of Theses and Dissertation (NDLTD)",
+              "link": "https://ndltd.org/"
+            },
+            {
+              "name": "EBSCO Open Dissertations",
+              "link": "https://opendissertations.org/"
+            },
+            {
+              "name": "Open Access Theses and Dissertation (OATD)",
+              "link": "https://oatd.org/"
+            },
+            {
+              "name": "Swayam",
+              "link": "https://www.diva-portal.org/smash/search.jsf?dswid=7610"
+            }
+          ],
+          "DICTIONARIES": [
+            {
+              "name": "Cambridge Dictionary",
+              "link": "https://dictionary.cambridge.org/"
+            },
+            {
+              "name": "Oxford Learner’s Dictionary",
+              "link": "https://www.oxfordlearnersdictionaries.com/"
+            },
+            {
+              "name": "Macmillandictionary",
+              "link": "https://macmillaneducation.my.salesforce-sites.com/help/"
+            },
+            {
+              "name": "Dictionary.com",
+              "link": "https://www.dictionary.com/"
+            },
+            {
+              "name": "English to Kannada Dictionary",
+              "link": "https://www.english-kannada.com/#google_vignette"
+            }
+          ]
+        }
+      },
+      "EventsAndRules": {
+        "title": "Library Events & Rules",
+        "events": [
+          "Every year after the admission of the students we organize Library Orientation Programme for both UG and PG new students of our College. In this programme we give them some information about NDC Library collections, services and e-resources and guide them how to use the resources in Library. And also create awareness to students about MOOCs course.",
+          "𝐒𝐭𝐚𝐟𝐟 𝐎𝐫𝐢𝐞𝐧𝐭𝐚𝐭𝐢𝐨𝐧 𝐏𝐫𝐨𝐠𝐫𝐚𝐦𝐦𝐞",
+          "We also organized a staff Orientation Programme for the teaching staff about the e-resources every year."
+        ],
+        "rulesRegulations": {
+          "title": "Library Rules and Regulations",
+          "sections": [
+            "Library timings: 08:30 AM to 04:30 PM",
+            "All the students admitted to UG or PG program are eligible to become members of the Library.",
+            "Three books can be borrowed by a particular student according to 15 days duration. If the student can cross the due date they have to pay 2 rupees per day per book.",
+            "Journals and reference books cannot be issued. Students should refer within the Library for their assignment and project work.\n",
+            "Thesis and Dissertation books are not issued to students.\n",
+            "Books borrowed should be returned in good condition any damage, tearing of pages, writing with pencil or pen, soil up etc. notice at the time of return the member has to replace the book or pay the cost immediately.\n",
+            "The students are lost the book replace book with same title, author and publisher or pay double the cost of the books with overdue charges in both cases.\n",
+            "College identity card should be compulsory while entering to the Library. Students are check in the id card while entering to the Library. After using the facilities of the Library students are check out and then go for further work.\n",
+            "Renewal of books will be done depending upon the number of copies available for other members use.\n",
+            "Enter the details of the student like name, time in, time out and signature of the student is compulsory while entering to Library. Pen drive, laptop, mobile, data cable and eatables are not allowed inside the Library.\n",
+            "Personal books are not allowed in the Library.\n",
+            "Keep your belongings in property counter. Library staffs are not responsible for your valuable things.\n",
+            "Strict silence to be maintained inside the Library/reading room.\n",
+            "Users should obey the Library rules and regulations. Violation of rules and any act of misbehavior to the Library staff will lead to strong disciplinary action.\n"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "iqac": {
+    "data": {
+      "BannerSection": {
+        "title": "IQAC ",
+        "description": "INTERNAL QUALITY ASSURANCE CELL ROLE AT NDC",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_174_8969614918.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "About IQAC",
+        "AboutDescription": [
+          "In Pursuance of the National Action Plan of the National Assessment and Accreditation Council (NAAC) for performance evaluation, assessment, accreditation and quality upgradation of institutions of higher education, NAAC proposes that every institution establishes an Internal Quality Assurance Cell(IQAC). Since quality enhancement is a continuous process, IQAC advances to a part of the Institution’s system and strives towards continuous quality enhancement and sustenance.",
+          "The main goal of IQAC is to develop a system for conscious, consistent and catalytic action to improve the academic and administrative performance of the college. It ensures internalization of the quality culture, enhancement and coordination among various activities of the institution and institutionalizes all good practices. It helps in improving the overall institutional functioning. It acts as a dynamic system for quality changes in and helps in building an organized methodology of documentation and internal communication."
+        ],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "To make quality as the defining element of education and ensure all around excellence at the institutional level”",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "",
+              "points": [
+                "To stimulate the academic environment for promoting quality of teaching-learning and to encourage self-evaluation, accountability and innovative practices in the teaching fraternity to enhancequality in the delivery system.",
+                "To articulate and document the best practices for quality evaluation, promotion and sustenance and thereby develop an institutional database and documentation of various activities."
+              ]
+            }
+          ]
+        },
+        "AccordienSection": [
+          {
+            "title": "Objectives",
+            "ListPoints": [
+              "To develop a system for conscious, consistent and catalytic action to improve the academic and administrative performance of the college.",
+              "To promote measures for internalization of quality culture and institutionalization of best practices and ensure credibility of evaluation procedures.",
+              "To ensure timely, efficient and progressive performance of academic, administrative and financial tasks."
+            ]
+          },
+          {
+            "title": "Functions",
+            "ListPoints": [
+              "Development and application of quality benchmarks/parameters for various academic and administrative activities of the College.",
+              "Facilitating the creation of a learner-centric environment conducive to quality education and optimization and integration of modern methods of teaching and learning.",
+              "Arrangement for feedback response from students, parents and other stakeholders on quality-related institutional processes.",
+              "Organization of Inter and Intra college seminars on quality related themes.",
+              "Documentation of the various programmes/activities leading to quality improvement",
+              "Acting as a nodal agency of the Institution for coordinating quality-related activities, including adoption and dissemination of best practices.",
+              "Enhancing the relevance and quality of academic and research programmes, by introducing various value-added courses",
+              "Ensuring the adequacy, maintenance and proper allocation of support structure and service."
+            ]
+          }
+        ]
+      },
+      "CompositionOfIQACCell": {
+        "title": "Composition Of IQAC Cell",
+        "tableSection": [
+          {
+            "name": "Dr. Harish Babu S",
+            "designation": "Principal, Nagarjuna Degree College",
+            "contact": "",
+            "role": " Chairperson: Head of the Institution"
+          },
+          {
+            "name": "Dr. S G Gopala Krishna",
+            "designation": "Director, NES",
+            "contact": "",
+            "role": "Management Member"
+          },
+          {
+            "name": "   Dr. H A Raghavendra",
+            "designation": " Academic Coordinator, NDC",
+            "contact": "",
+            "role": "Teachers in the IQAC Cell"
+          },
+          {
+            "name": " Dr. Nagesh B",
+            "designation": "HOD, Department of Commerce-UG, NDC",
+            "contact": "",
+            "role": "Teachers in the IQAC Cell"
+          },
+          {
+            "name": " Prof. Manjula J M",
+            "designation": "Assistant Professor, NDC",
+            "contact": "",
+            "role": "Teachers in the IQAC Cell"
+          },
+          {
+            "name": "Dr. Vijaykumar R S",
+            "designation": "Associate Professor, NDC",
+            "contact": "",
+            "role": "Teachers in the IQAC Cell"
+          },
+          {
+            "name": " Dr. K Rajeshwari",
+            "designation": "Associate Professor, NDC",
+            "contact": "",
+            "role": "Teachers in the IQAC Cell"
+          },
+          {
+            "name": " Mr. Dhruva N",
+            "designation": "(BBA, Batch 2018-2022)",
+            "contact": "",
+            "role": "Nominees from local society, Students and Alumni"
+          },
+          {
+            "name": " Ms. Chandana T C",
+            "designation": "(M.Com Batch 2019-2022)",
+            "contact": "",
+            "role": "Nominees from local society, Students and Alumni"
+          },
+          {
+            "name": " Mr. Prajwal A",
+            "designation": "(BBA, Batch 2017-2020)",
+            "contact": "",
+            "role": "Nominees from local society, Students and Alumni"
+          },
+          {
+            "name": " Mr. Bharath Rajanna ",
+            "designation": "CEO, Edupinnacle",
+            "contact": "",
+            "role": "Nominees from Employers /Industrialists/stakeholders"
+          },
+          {
+            "name": " Mr. Bhimsen M",
+            "designation": "Director, AMF Edu Services",
+            "contact": "",
+            "role": "Nominees from Employers /Industrialists/stakeholders"
+          },
+          {
+            "name": " Ms. Bhavya",
+            "designation": "IQAC Cluster Member",
+            "contact": "",
+            "role": "Nominees from Employers /Industrialists/stakeholders"
+          },
+          {
+            "name": " Mr. Bhaskar Reddy",
+            "designation": "CFO, NES, Bengaluru",
+            "contact": "",
+            "role": "Senior Administrative Officer"
+          },
+          {
+            "name": "Dr. Vala Ghanshyam Kantilal",
+            "designation": "Placement-in-charge, NDC",
+            "contact": "",
+            "role": "Senior Administrative Officer"
+          },
+          {
+            "name": "Dr. M Nagarathna",
+            "designation": "Examination-in-charge, NDC",
+            "contact": "",
+            "role": "Senior Administrative Officer"
+          },
+          {
+            "name": "Dr Kavitha A Karkera",
+            "designation": "Coordinator",
+            "contact": "",
+            "role": "Coordinator/Director of the IQAC"
+          }
+        ]
+      }
+    }
+  }
+}

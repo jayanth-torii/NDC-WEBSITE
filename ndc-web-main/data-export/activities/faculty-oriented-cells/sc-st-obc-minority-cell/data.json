@@ -1,0 +1,86 @@
+{
+  "sc-st-obc-minority-cell": {
+    "data": {
+      "bannerSection": {
+        "title": "SC/ST Committee Members",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_146_3_c16072fe66.png"
+      },
+      "SCSTCommitteeMembers": {
+        "title": "SC/ST Committee Members",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Dr. Harish Babu S",
+            "designation": "Principal, Nagarjuna Degree College",
+            "role": "Chairman",
+            "mobile": "9901540808",
+            "email": null
+          },
+          {
+            "name": "Mr. Ajaykumar T",
+            "designation": "HOD - Management (UG), Nagarjuna Degree College",
+            "role": "Member",
+            "mobile": "7676883712",
+            "email": null
+          },
+          {
+            "name": "Dr. M Nagarathna",
+            "designation": "Associate Professor, Nagarjuna Degree College",
+            "role": "Member",
+            "mobile": "9845921282",
+            "email": null
+          },
+          {
+            "name": "Ms. Shwetha D",
+            "designation": "Student, Nagarjuna Degree College",
+            "role": "Student Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Mr. Deepak S",
+            "designation": "Student, Nagarjuna Degree College",
+            "role": "Student Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Mr. Ravi R",
+            "designation": "Student, Nagarjuna Degree College",
+            "role": "Student Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Ms. Gayathri",
+            "designation": "Assistant Professor, Nagarjuna Degree College",
+            "role": "Member",
+            "mobile": "7019532392",
+            "email": null
+          },
+          {
+            "name": "Ms. Pushpa S",
+            "designation": "Assistant Professor, Nagarjuna Degree College",
+            "role": "Member",
+            "mobile": "8867750128",
+            "email": null
+          },
+          {
+            "name": "Ms. Madhura D",
+            "designation": "Assistant Professor, Nagarjuna Degree College",
+            "role": "Member",
+            "mobile": "9986337909",
+            "email": null
+          },
+          {
+            "name": "Ms. Nandini V",
+            "designation": "Assistant Professor, Nagarjuna Degree College",
+            "role": "Member",
+            "mobile": "9632254028",
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

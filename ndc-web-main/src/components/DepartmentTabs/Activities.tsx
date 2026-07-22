@@ -2,7 +2,6 @@
 
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -10,7 +9,7 @@ import {
   faChevronUp,
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 // -------- Image Carousel (small, 4:3, auto-scroll, 1 mobile / 3 desktop) --------
 const ImageCarousel = ({ images }: { images: string[] }) => {
@@ -105,18 +104,8 @@ const Activities = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const [apiData, setApiData] = useState<Record<string, any>>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const apiData: Record<string, any> = (departmentJson["activities"] as any)?.data || {};
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/activities`)
-      .then((res) => setApiData(res?.data?.data || {}))
-      .catch(setError)
-      .finally(() => setLoading(false));
-  }, []);
 
   // Normalize keys
   const normalizedMap = useMemo(() => {
@@ -141,9 +130,6 @@ const Activities = ({ haveContentCheck }: any) => {
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
   // ---- UI returns AFTER all hooks ----
-  if (loading) return <div className="text-center py-20 text-gray-500">Loading Activities...</div>;
-  if (error) return <div className="text-center py-20 text-red-500">Failed to load Activities.</div>;
-
   if (!content) return <p className="text-center text-gray-500"> No activities found for <strong>{programme}</strong>.</p>;
 
   const title = content?.title || "Activities";

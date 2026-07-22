@@ -1,26 +1,12 @@
 'use client';
 
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import styles from "./Banner.module.css";
-import axios from "axios";
-import { BASE_URL } from "../../config/apiService";
+import bannerJson from "@/data-export/_shared/banner.json";
 
 const Banner: React.FC = () => {
 
-  const [bannerData, setBannerData] = useState<Record<string, any> | null>(null);
-
-  useEffect(() => {
-      const fetchPlacementContent = async () => {
-        try {
-          const response = await axios.get(`${BASE_URL}/headline-banner`);
-          setBannerData(response?.data?.data);
-        } catch (error) {
-          console.error("Error fetching Placement sections:", error);
-        }
-      };
-  
-      fetchPlacementContent();
-    }, []);
+  const bannerData: Record<string, any> | null = (bannerJson["headline-banner"] as any)?.data ?? null;
 
     const title = bannerData?.title?.trim();
     const message = bannerData?.message?.trim();

@@ -1,0 +1,269 @@
+{
+  "fetchedAt": "2026-07-22T05:13:40.524Z",
+  "pages": {
+    "_landing": {
+      "file": "_landing/data.json",
+      "endpoints": [
+        "home"
+      ]
+    },
+    "about-ndc": {
+      "file": "about-ndc/data.json",
+      "endpoints": [
+        "about-us"
+      ]
+    },
+    "admissions": {
+      "file": "admissions/data.json",
+      "endpoints": [
+        "admission"
+      ]
+    },
+    "alumni": {
+      "file": "alumni/data.json",
+      "endpoints": [
+        "alumni"
+      ]
+    },
+    "apply-now": {
+      "file": "apply-now/data.json",
+      "endpoints": [
+        "apply-now"
+      ]
+    },
+    "blog": {
+      "file": "blog/data.json",
+      "endpoints": [
+        "blogs-content"
+      ]
+    },
+    "blog/[id]": {
+      "file": "blog/[id]/data.json",
+      "endpoints": [
+        "blogs-content"
+      ]
+    },
+    "certificate-courses": {
+      "file": "certificate-courses/data.json",
+      "endpoints": [
+        "certificate-course"
+      ]
+    },
+    "contact-us": {
+      "file": "contact-us/data.json",
+      "endpoints": [
+        "contact-us"
+      ]
+    },
+    "departments": {
+      "file": "departments/data.json",
+      "endpoints": [
+        "department-page"
+      ]
+    },
+    "department": {
+      "file": "department/data.json",
+      "endpoints": [
+        "vision-missions",
+        "hod-messages",
+        "objectives",
+        "programme-details",
+        "about-departments",
+        "activities",
+        "admission-processes",
+        "books-patients",
+        "course-durations",
+        "department-researches",
+        "syllabus-details",
+        "department-faculty-member"
+      ]
+    },
+    "gallery": {
+      "file": "gallery/data.json",
+      "endpoints": [
+        "gallery"
+      ]
+    },
+    "iic": {
+      "file": "iic/data.json",
+      "endpoints": [
+        "iic"
+      ]
+    },
+    "iqac": {
+      "file": "iqac/data.json",
+      "endpoints": [
+        "iqac"
+      ]
+    },
+    "library": {
+      "file": "library/data.json",
+      "endpoints": [
+        "library"
+      ]
+    },
+    "question-bank": {
+      "file": "question-bank/data.json",
+      "endpoints": [
+        "question-banks"
+      ]
+    },
+    "research": {
+      "file": "research/data.json",
+      "endpoints": [
+        "research"
+      ]
+    },
+    "research-forum": {
+      "file": "research-forum/data.json",
+      "endpoints": [
+        "research-forum"
+      ]
+    },
+    "samashti": {
+      "file": "samashti/data.json",
+      "endpoints": [
+        "samashti"
+      ]
+    },
+    "sports": {
+      "file": "sports/data.json",
+      "endpoints": [
+        "sports"
+      ]
+    },
+    "students": {
+      "file": "students/data.json",
+      "endpoints": [
+        "students"
+      ]
+    },
+    "activities": {
+      "file": "activities/data.json",
+      "endpoints": [
+        "activities-page"
+      ]
+    },
+    "activities/academic-&-social-engagement-forums/ambedkar-study-circle": {
+      "file": "activities/academic-&-social-engagement-forums/ambedkar-study-circle/data.json",
+      "endpoints": [
+        "ambedkar-study-circle"
+      ]
+    },
+    "activities/academic-&-social-engagement-forums/commerce-and-management-forum": {
+      "file": "activities/academic-&-social-engagement-forums/commerce-and-management-forum/data.json",
+      "endpoints": [
+        "commerce-and-management-forum"
+      ]
+    },
+    "activities/academic-&-social-engagement-forums/industrial-visit": {
+      "file": "activities/academic-&-social-engagement-forums/industrial-visit/data.json",
+      "endpoints": [
+        "industrial-visit"
+      ]
+    },
+    "activities/academic-&-social-engagement-forums/ncc-cell": {
+      "file": "activities/academic-&-social-engagement-forums/ncc-cell/data.json",
+      "endpoints": [
+        "ncc"
+      ]
+    },
+    "activities/academic-&-social-engagement-forums/nss-cell": {
+      "file": "activities/academic-&-social-engagement-forums/nss-cell/data.json",
+      "endpoints": [
+        "nss-and-red-cross"
+      ]
+    },
+    "activities/faculty-oriented-cells/ed-cell": {
+      "file": "activities/faculty-oriented-cells/ed-cell/data.json",
+      "endpoints": [
+        "ed-cell"
+      ]
+    },
+    "activities/faculty-oriented-cells/faculties-welfare": {
+      "file": "activities/faculty-oriented-cells/faculties-welfare/data.json",
+      "endpoints": [
+        "faculties-welfare"
+      ]
+    },
+    "activities/faculty-oriented-cells/faculty-study-circle": {
+      "file": "activities/faculty-oriented-cells/faculty-study-circle/data.json",
+      "endpoints": [
+        "faculty-study-circle"
+      ]
+    },
+    "activities/faculty-oriented-cells/icc-cell": {
+      "file": "activities/faculty-oriented-cells/icc-cell/data.json",
+      "endpoints": [
+        "icc-cell"
+      ]
+    },
+    "activities/faculty-oriented-cells/sc-st-obc-minority-cell": {
+      "file": "activities/faculty-oriented-cells/sc-st-obc-minority-cell/data.json",
+      "endpoints": [
+        "sc-st-obc-minority-cell"
+      ]
+    },
+    "activities/student-oriented-cells/anti-ragging-cell": {
+      "file": "activities/student-oriented-cells/anti-ragging-cell/data.json",
+      "endpoints": [
+        "anti-ragging-cell"
+      ]
+    },
+    "activities/student-oriented-cells/anti-sexual-harassment-cell": {
+      "file": "activities/student-oriented-cells/anti-sexual-harassment-cell/data.json",
+      "endpoints": [
+        "anti-sexual-harassment-cell"
+      ]
+    },
+    "activities/student-oriented-cells/eco-clubs": {
+      "file": "activities/student-oriented-cells/eco-clubs/data.json",
+      "endpoints": [
+        "eco-cell"
+      ]
+    },
+    "activities/student-oriented-cells/equal-opportunity-cell": {
+      "file": "activities/student-oriented-cells/equal-opportunity-cell/data.json",
+      "endpoints": [
+        "equal-opportunity-cell"
+      ]
+    },
+    "activities/student-oriented-cells/students-grievance-cell": {
+      "file": "activities/student-oriented-cells/students-grievance-cell/data.json",
+      "endpoints": [
+        "students-grievance-redressal-cell"
+      ]
+    },
+    "activities/student-oriented-cells/women-cell": {
+      "file": "activities/student-oriented-cells/women-cell/data.json",
+      "endpoints": [
+        "women-cell"
+      ]
+    }
+  },
+  "shared": {
+    "footer": {
+      "file": "_shared/footer.json",
+      "endpoints": [
+        "footer"
+      ]
+    },
+    "banner": {
+      "file": "_shared/banner.json",
+      "endpoints": [
+        "headline-banner"
+      ]
+    }
+  },
+  "dead": {
+    "event": {
+      "status": 404,
+      "error": "HTTP 404"
+    },
+    "faculty-contents": {
+      "status": 404,
+      "error": "HTTP 404"
+    }
+  },
+  "errors": []
+}

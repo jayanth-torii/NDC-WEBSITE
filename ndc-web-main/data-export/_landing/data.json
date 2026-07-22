@@ -1,0 +1,240 @@
+{
+  "home": {
+    "data": [
+      {
+        "bannerSection": {
+          "location": "https://www.google.com/maps?ll=13.116397,77.562246&z=16&t=m&hl=en&gl=IN&mapclient=embed&cid=17815594856769670624",
+          "slides": [
+            {
+              "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_b22b30ec28.svg",
+              "title": "Embracing The Power Of Education",
+              "description": "Bringing technology and education together for a better future."
+            },
+            {
+              "image": "https://cdn.nagarjunadegreecollege.co.in/image_2_b76227a005.svg",
+              "title": "Unlocking Education's Transformative Power",
+              "description": "Empowering students with global knowledge and skills."
+            },
+            {
+              "image": "https://cdn.nagarjunadegreecollege.co.in/image_3_9b7f27f9c7.svg",
+              "title": "Applications for 2025 is now open",
+              "description": "Empowering students with global knowledge and skills."
+            }
+          ]
+        },
+        "Records": [
+          {
+            "title": "Happy Alumni",
+            "count": "2000+",
+            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_1_7ad3fd4eb9.svg",
+            "icon": "https://cdn.nagarjunadegreecollege.co.in/Vector_3a04fe6a88.svg"
+          },
+          {
+            "title": "Students Intake",
+            "count": "520 +",
+            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_b27a50ddd8.svg",
+            "icon": "https://cdn.nagarjunadegreecollege.co.in/Vector_3a04fe6a88.svg"
+          },
+          {
+            "title": "Library Resources",
+            "count": " 2000 +",
+            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_1_7ad3fd4eb9.svg",
+            "icon": "https://cdn.nagarjunadegreecollege.co.in/mdi_library_56d256222e.svg"
+          },
+          {
+            "title": "Certified Teachers",
+            "count": " 100 +",
+            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_b27a50ddd8.svg",
+            "icon": "https://cdn.nagarjunadegreecollege.co.in/icon_park_success_7123a733ab.svg"
+          },
+          {
+            "title": "Approved Courses",
+            "count": " 10 +",
+            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_1_7ad3fd4eb9.svg",
+            "icon": "https://cdn.nagarjunadegreecollege.co.in/icon_park_success_7123a733ab.svg"
+          },
+          {
+            "title": "Programmes",
+            "count": "40+",
+            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_b27a50ddd8.svg",
+            "icon": "https://cdn.nagarjunadegreecollege.co.in/Vector_3a04fe6a88.svg"
+          }
+        ],
+        "AboutNdcSection": {
+          "title": "Nagarjuna Degree College",
+          "subTitle": "A Gateway to Excellence",
+          "description": [
+            "Being one of the Top Degree Colleges in Bengaluru, Nagarjuna Degree College is a prominent pillar of the Nagarjuna Group of Institutions. This eminent institution was established in the year 2013 with the vision of Leadership and Excellence in Education. Therefore, with state-of-the-art campus and advanced facilities, it follows the path of experiential learning offering UG and PG programmes in the field of Commerce, Science and Management."
+          ],
+          "buttonText": "KNOW MORE",
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Group_14_0c6cac3b16.svg",
+          "link": ""
+        },
+        "Yrs25Section": {
+          "title": "Celebrating 25 Years of Academic Excellence",
+          "description": "For the past 25 years, Nagarjuna Degree College has been a hub of innovation, learning, and career-focused education. Our dedication to academic excellence has shaped countless bright minds, equipping them with the skills to excel in an ever-evolving world. As we mark this milestone, we reaffirm our commitment to fostering knowledge, embracing new advancements, and empowering the next generation of leaders. Here's to a future built on excellence and innovation!",
+          "image": "https://cdn.nagarjunadegreecollege.co.in/image_106d4b7b64.svg"
+        },
+        "ExploreCertificateCourses": {
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Group_13_b344ff1256.svg",
+          "title": "Explore Certificate Courses",
+          "link": "/certificate-courses"
+        },
+        "CampusLife": {
+          "title": "Glimpse of Campus Life",
+          "videos": [
+            "lxNiUoT0QbU",
+            "NAQkZCvtQkM",
+            "ihThoXRMHo8",
+            "pN-1-loJiCk",
+            "uRtJ0ptZjDE",
+            "XHEqHdcnBlw"
+          ]
+        },
+        "EducationExcellence": {
+          "title": "Education & Excellence For Everyone",
+          "subTitle": "Courses Offered",
+          "description": "Nagarjuna Degree College nurtures future-ready graduates through value-driven education, modern infrastructure, and industry-aligned programs. As part of the Nagarjuna Group of Institutions, it blends academics, mentorship, and innovation to shape leaders, entrepreneurs, and socially responsible individuals prepared to excel in a dynamic world.",
+          "buttons": [
+            {
+              "title": "View UG Programmes",
+              "url": "/ug-programme"
+            },
+            {
+              "title": "View PG Programmes",
+              "url": "/pg-programme"
+            }
+          ],
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Group_14_1_d6accd571c.svg"
+        },
+        "NotificationsData": {
+          "title": "Notifications",
+          "NotificationTabs": [
+            {
+              "tabName": "General notifications",
+              "Data": [
+                {
+                  "title": "BCU( NEP ) July - Aug 2024 - UG Exam commences from 10/7/24 - Even Semester",
+                  "pdf": ""
+                },
+                {
+                  "title": "Mega Job Fair 2023: Unlocking the Opportunities",
+                  "pdf": ""
+                },
+                {
+                  "title": " Duration Of the Program: ICT program",
+                  "pdf": ""
+                },
+                {
+                  "title": "ERCMET 2023",
+                  "pdf": "https://cdn.nagarjunadegreecollege.co.in/Final_ERCMET_2023_5009ccd32b.pdf"
+                },
+                {
+                  "title": "Basha Parimal 2023",
+                  "pdf": "https://cdn.nagarjunadegreecollege.co.in/Poster_Bhasha_Parimala_2023_01_1_792240e79a.pdf"
+                },
+                {
+                  "title": "Industrial visit to Ayesha Embroideries Pvt Ltd by BBA students on 1/6/2023",
+                  "pdf": ""
+                },
+                {
+                  "title": "BHUVI - world Environment Day celebrations on 5/6/2023",
+                  "pdf": ""
+                },
+                {
+                  "title": "An International Conference on Emerging Research in Commerce, Management, Economics and Research Technologies",
+                  "pdf": ""
+                },
+                {
+                  "title": " Ercmet registration link",
+                  "pdf": ""
+                },
+                {
+                  "title": "Guest Lecture on Posh Act - 23/1/2023",
+                  "pdf": ""
+                },
+                {
+                  "title": "Online Five Days FDP - 19/12/2022- 23/12/2022",
+                  "pdf": ""
+                },
+                {
+                  "title": "Guest lecture on corporate accounting - 15/3/2023",
+                  "pdf": ""
+                },
+                {
+                  "title": "A guest lecture on financial reporting - 20/12/2022",
+                  "pdf": ""
+                },
+                {
+                  "title": "Guest lecture on need for research and development and IPR activity - 7/2/2023",
+                  "pdf": ""
+                },
+                {
+                  "title": "Workshop on student’s discipline organized by department of BBA",
+                  "pdf": ""
+                },
+                {
+                  "title": " Inter class Kabbadi sport was organized by Final year BBA students",
+                  "pdf": ""
+                },
+                {
+                  "title": "Industrial visit for RBI with BBA 4 th sem students",
+                  "pdf": ""
+                },
+                {
+                  "title": "Guest Lecture on Corporate etiquette",
+                  "pdf": ""
+                },
+                {
+                  "title": "BSDC VIVA on field study for 6 th sem students",
+                  "pdf": ""
+                },
+                {
+                  "title": "6 Days FDP on NET &; KSET",
+                  "pdf": ""
+                },
+                {
+                  "title": "Industrial visit- Ayesha Textile Industry for 1 st sem students",
+                  "pdf": ""
+                },
+                {
+                  "title": "Industrial visit 3 Outbound to chikmaglur for 6 th sem students",
+                  "pdf": ""
+                },
+                {
+                  "title": "Seminar on Machine Intelligent-Insight on 28/11/2022",
+                  "pdf": ""
+                },
+                {
+                  "title": "Guest Lecturing on Discrete Mathematics for Computer Science - 24/12/22",
+                  "pdf": ""
+                },
+                {
+                  "title": "Cricket Tournament organized by Department of Physical Education and Sports and BCA V Semester students -21/1/23",
+                  "pdf": ""
+                },
+                {
+                  "title": " Five days online FDP (Faculty Development Program) on Research publication and",
+                  "pdf": ""
+                },
+                {
+                  "title": "One day orientation on Growth and opportunities in Fashion Design Field – 27/12/22",
+                  "pdf": ""
+                }
+              ]
+            },
+            {
+              "tabName": "Placement Notification",
+              "Data": [
+                {
+                  "title": "Career Mentoring and Pre-Placement Training- Conducted today for Final year BCA & BSC Students- by Mr. Alfred Wilson A, Lead Trainer and Career Mentor.",
+                  "pdf": "https://cdn.nagarjunadegreecollege.co.in/sample_6aeab4e079.pdf"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

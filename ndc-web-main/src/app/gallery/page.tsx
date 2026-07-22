@@ -1,39 +1,18 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/gallery/data.json";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import GalleryBanner from "@/components/GalleryPage/GalleryBanner";
 import GalleryImages from "@/components/GalleryPage/GalleryImages";
 
 const Gallery = () => {
-  const [galleryData, setGalleryData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const galleryData: any = (pageJson["gallery"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchGalleryContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/gallery`);
-        setGalleryData(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching gallery data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchGalleryContent();
-  }, []);
-
-  if (loading || !galleryData) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Gallery...
-      </div>
-    );
+  if (!galleryData) {
+    return null;
   }
 
   return (

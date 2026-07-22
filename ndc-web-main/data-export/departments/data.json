@@ -1,0 +1,481 @@
+{
+  "department-page": {
+    "data": {
+      "BannerSection": {
+        "title": "Department ",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Academics_1_6283bdba1f.svg"
+      },
+      "Programmes": {
+        "title": "PROGRAMME THAT YOU ARE LOOKING FOR",
+        "description": "Study what you love while working alongside supportive, expert faculty who prioritize hands-on research and service-learning.",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/image_981d5da59c.svg"
+      },
+      "International_Collaboration": {
+        "title": "International Collabration",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_13592d05a8.svg",
+        "Details": [
+          {
+            "title": "Lincoln University College, Malaysia",
+            "descriptions": [
+              "Lincoln University College, Petaling Jaya, Malaysia, was founded in the year in 2002 as Lincoln College and in 2011 Lincoln College was upgraded to Lincoln University College. Lincoln University College is a private institution that provides higher education, approved by the Malaysian Qualifications Agency (MQA, National Accreditation Board) and the Ministry of Higher Education. Situated in the cosmopolitan town of Petaling Jaya, the university college is close to the capital city, Kuala Lumpur.",
+              "At present Lincoln University College has two campuses in Petaling Jaya, along with its clinical campus at Kota Bharu. Lincoln University College Campuses in Petaling Jaya, Selangor."
+            ]
+          },
+          {
+            "title": "Main Campus",
+            "descriptions": [
+              "Wisma Lincoln, No. 12-18, Jalan SS6/12, 47301, Petaling Jaya, Selangor Darul Ehsan, Malaysia (Near Kelana Jaya Giant and Opposite to Paradigm Mall, Kelana Jaya) No. 2, Jalan Stadium, SS 7/15, Kelana Jaya, 47301, Petaling Jaya, Selangor Darul Ehsan, Malaysia."
+            ]
+          }
+        ]
+      },
+      "Professional_Courses": {
+        "title": "Professional Courses",
+        "TabsSection": [
+          {
+            "TabName": "CA",
+            "points": [
+              "About the CA program and its different stages",
+              "Chartered Accountancy is a three-level course that is offered by the Institute of Chartered Accountants of India (ICAI).The course is divided into three stages: Foundation, Intermediate, and Final. The average duration of the CA course is 4.5 years, including the three-year articleship or practical training.The minimum eligibility for the CA course is the 10+2 examination (or equivalent) from a recognized board.",
+              "The CA program primarily deals with accounting, taxation, law, audit, and finance. Meanwhile, the CMA course deals with cost accountancy, cost management, corporate finance, economics, performance management, internal controls, decision analysis, financial reporting, strategic planning, and organizational management."
+            ]
+          },
+          {
+            "TabName": "CMS",
+            "points": [
+              "Job profiles of Chartered Accountants, Cost & Management Accountants",
+              "Chartered Accountants can work on job profiles like internal audit, statutory audit, direct or indirect taxation, handling transfer pricing, investment decisions, and financial and accounting management among others.Some basic job profiles for Cost and Management Accountants include cost accounting, cost auditing, financial planning, business applications, business analysis, strategic management, and management accounting and reporting among others."
+            ]
+          },
+          {
+            "TabName": "Company Secretary",
+            "points": [
+              "Company Secretary is a 3 year course that trains students to handle the legal aspects of a firm including tax returns and record keeping. The Company Secretary is directly involved in a company’s startegy, decision making and ensuring all the activities comply with legal, ethical and regulatory requirements.",
+              "Company Secretary Course Fee is INR 3600 for CS Foundation, INR 7000 for CS Executive and INR 12,000 for CS Professional Course. Company Secretary Course duration is 8 months for CS Foundation, 9 months for CS executive and 15 months for CS Professional",
+              "Students pursuing Company Secretary course after 12th will need to pass 3 levels of examinations which are Foundation Programme, Executive Programme and Professional Programme to become a Company Secretary in India. Students who wish to pursue Company Secretary Course after graduation will need to complete 2 levels of examinations which are Executive Programme and Professional Programme."
+            ]
+          },
+          {
+            "TabName": "Aviation",
+            "points": [
+              "At NDC as an value added course, we are conducting Aviation Management a diploma course. This is conducted in 4 semesters over 2 years. At the end of the course an international certificate is provided.",
+              "Indian Aviation Industry is on a high growth path. It is the most opted career today as it offers lucrative opportunities & flexible academic requirements. It has a plenty of Job opportunities from ground staff to cabin crew.",
+              "We have joined hands with AARIT Academy leading trainers in Aviation industry. Experts  having more than 20 years  in the industry provide training in Aviation Management. This course prepares the students not only in Aviation Management but also in career opportunities placement training, communication and Grooming session."
+            ]
+          },
+          {
+            "TabName": "USCMA",
+            "points": [
+              "USCMA (Certified Management Accountant) (USCMA Course) Certified Management Accountant (CMA) is the highest level of certification in management accounting awarded by the Institute of Management Accountants (IMA)",
+              "The programme prepares you to meet the evolving needs of the business and make breakthrough into Finance Profession. CMA provides future outlook of the business and helps to create value."
+            ]
+          },
+          {
+            "TabName": "ACCA",
+            "points": [
+              "ACCA (the Association of Chartered Certified Accountants) is a global body for professional accountants with 219,000 members and 517,000 students in 179 countries. It was granted a Royal Charter in 1974 which commits it to acting in and upholding the public interest.",
+              "The ACCA Qualification is the world leading accountancy qualification for aspiring financial professionals – providing students with the skills, knowledge and values to have successful careers and lead the organisations they work with into the future."
+            ]
+          }
+        ]
+      },
+      "Language_Department": {
+        "title": "Language Department",
+        "AboutDescription": [],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "To bring awareness about literature and social values and concern in the students.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "",
+              "points": [
+                "To develop literary, Cultural activities and improve oratory skills and vocabulary of the students.",
+                "To enlighten the students with different forms of literature.",
+                "To improve the language competency of the students and prepare them for the competitive world."
+              ]
+            }
+          ]
+        },
+        "AccordienSection": [
+          {
+            "title": "Aim Of The Department",
+            "ListPoints": [
+              "To nurture the all-round development of students through literature.",
+              "To provide a suitable platform to exhibit the hidden talent and skills in the students.",
+              "Aims at their personality development asawhole."
+            ]
+          },
+          {
+            "title": "Department Milestones",
+            "ListPoints": [
+              "The Department organizes  BHASHA PARIMALA -literary and cultural fest every year to provide a platform for the students skills.",
+              "Poetry Recital Competition is conducted every year to encourage the students’ literary competence.",
+              "The Department has taken initiative to provide an environment of traditional and folk based activities to give an awareness of our rich culture.",
+              "Our students have participated in several Inter collegiate literary, cultural fests and have won prizes and have brought laurels to the Institution."
+            ]
+          }
+        ]
+      },
+      "Message_From_Hods": {
+        "title": "HoD's Message",
+        "Hods": [
+          {
+            "TabName": "Hindi",
+            "name": "Dr. Nagarathna M",
+            "designation": "HOD –  Department Of Hindi",
+            "message": "Hindi is the preferred official language in India, learning a heritage language is beneficial to Indian citizens and it enhances social and personal development. It is important to create interest among students about Hindi literature along with academics and encourage them to study the various literary works of Hindi language in depth. Through the class room teaching motivating them to understand that every language has its own beauty.",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/image_429e597ea9.svg"
+          },
+          {
+            "TabName": "Kannada",
+            "name": "Manjunath T N",
+            "designation": "HOD – Department Of Kannada ",
+            "message": "Kannada is one of the prominent ancient languages which has a rich history of literature and culture. Department of Kannada inculcates moral values, social concern in the student fraternity through various Kannada literature. Faculties of the department implement their innovative and creative ideas in creating awareness about the various forms and stages of Kannada literature. To give a deeper analysis about the Well versed Kannada poets  and their contributions to kannada literature.",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_bccbd8fcf0.svg"
+          },
+          {
+            "TabName": "English",
+            "name": "Rajendran Gopal",
+            "designation": "HOD – Department Of English  ",
+            "message": "The English language is one of the most prominent and widely spoken languages, boasting a rich history of literature and culture. The Department of English instills moral values and social awareness among students through various literary works. The faculty members actively implement innovative and creative approaches to raise awareness about the different forms and stages of English literature. They also provide an in-depth analysis of renowned English poets and their significant contributions to English literature.",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/image_2_8118a1f715.svg"
+          },
+          {
+            "TabName": "Sanskrit",
+            "name": "Ramesh S",
+            "designation": "HOD – Department Of Sanskrit",
+            "message": "Sanskrit is a historical Indo Aryan language. The main function of the department is to provide knowledge and opportunity to the students through under graduate courses. It has been carrying the great intellectual traditions of this land of sheers of great intellectual depths and spiritual heights. It is the most interesting and scientific language among the world.",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/image_3_975b96c592.svg"
+          }
+        ]
+      },
+      "Faculty_And_Publications": {
+        "title": "Faculty & Publications",
+        "Department_Faculties": {
+          "TabName": "Department Faculties",
+          "columns": [
+            "Sno",
+            "Name & Designation",
+            "Department & Experience",
+            "Qualification"
+          ],
+          "Rows": [
+            {
+              "Slno": "1",
+              "name": "Rajendran Gopal",
+              "designation": "Assistant Professor",
+              "department": "English",
+              "experience": "35 Years",
+              "qualification": "M.A. (English)"
+            },
+            {
+              "Slno": "2",
+              "name": "Dr. Shrilatha A",
+              "designation": "Assistant Professor",
+              "department": "Kannada",
+              "experience": "30 Years",
+              "qualification": "M.A., PhD, Eco., M.A. Pol. Sc., M.A. Kan., B.Ed."
+            },
+            {
+              "Slno": "3",
+              "name": "Dr. M Nagarathna",
+              "designation": "Assistant Professor",
+              "department": "Hindi",
+              "experience": "23 Years",
+              "qualification": "M.A., B.Ed., PGDT, KSET, PhD"
+            },
+            {
+              "Slno": "4",
+              "name": "Manjunath T.N",
+              "designation": "Assistant Professor",
+              "department": "Kannada",
+              "experience": "17 Years",
+              "qualification": "M.A., B.Ed., M.Phil."
+            },
+            {
+              "Slno": "5",
+              "name": "S. Ramesh",
+              "designation": "Assistant Professor",
+              "department": "English",
+              "experience": "17 Years",
+              "qualification": "M.A. in English, M.A. in Mass Communication and Journalism"
+            },
+            {
+              "Slno": "6",
+              "name": "Rai Rajesha K.  ",
+              "designation": "Assistant Professor",
+              "department": "English  ",
+              "experience": "15 Years",
+              "qualification": "M.A. in English,   M.A. in Mass Communication and Journalism  "
+            },
+            {
+              "Slno": "7",
+              "name": "Madhura D",
+              "designation": "Assistant Professor",
+              "department": "Kannada",
+              "experience": "14 Years",
+              "qualification": "M.A., B.Ed."
+            },
+            {
+              "Slno": "8",
+              "name": "B Gayathri",
+              "designation": "Assistant Professor",
+              "department": "English",
+              "experience": "9 Years",
+              "qualification": "PGELT, M.A."
+            },
+            {
+              "Slno": "9",
+              "name": "Lydia Roshini",
+              "designation": "Assistant Professor",
+              "department": "English",
+              "experience": "2 Years",
+              "qualification": "M.A. (English Literature)"
+            }
+          ]
+        },
+        "Books_Published": {
+          "TabName": "Books Published",
+          "columns": [
+            "Sno",
+            "Name & Publication House",
+            "Title of the Book",
+            "Edition & Year of Publishing"
+          ],
+          "TableRow": [
+            {
+              "Slno": "1",
+              "Name": "Dr. Shrilatha",
+              "Publication_House": "NES",
+              "Book_Title": "Economic Development of India",
+              "Edition": "Volume II",
+              "year_of_publishing": "2010"
+            },
+            {
+              "Slno": "2",
+              "Name": "Dr. Shrilatha",
+              "Publication_House": "Thapovana Prakashana",
+              "Book_Title": "Raktha Tharpana, Anthology",
+              "Edition": "Poetry",
+              "year_of_publishing": "2007"
+            },
+            {
+              "Slno": "3",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "NES",
+              "Book_Title": "Samvahava",
+              "Edition": "Poetry",
+              "year_of_publishing": "2010"
+            },
+            {
+              "Slno": "4",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Thapovana Prakashana",
+              "Book_Title": "Marukallike (Collection of Stories)",
+              "Edition": "Stories",
+              "year_of_publishing": "2012"
+            },
+            {
+              "Slno": "5",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Bharathiya Vidya Bhavan",
+              "Book_Title": "Bhumia Mele Shanti",
+              "Edition": "Translated from English to Kannada",
+              "year_of_publishing": "2010"
+            },
+            {
+              "Slno": "6",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Bharathiya Vidya Bhavan",
+              "Book_Title": "Bhumia Mele Shanti",
+              "Edition": "Translated from English to Kannada",
+              "year_of_publishing": "2010"
+            },
+            {
+              "Slno": "7",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Annapurna Prakashana",
+              "Book_Title": "Kenda Sampige",
+              "Edition": "Novel",
+              "year_of_publishing": "2012"
+            },
+            {
+              "Slno": "8",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Thapovana Prakashana",
+              "Book_Title": "Manassidare Marga",
+              "Edition": "Research Book",
+              "year_of_publishing": "2021"
+            },
+            {
+              "Slno": "9",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Thapovana Prakashana",
+              "Book_Title": "Sone Male",
+              "Edition": "Poetry",
+              "year_of_publishing": "2022"
+            },
+            {
+              "Slno": "10",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Thapovana Prakashana",
+              "Book_Title": "Udala Kadef (Tulu Poetry)",
+              "Edition": "Poetry",
+              "year_of_publishing": "2022"
+            },
+            {
+              "Slno": "11",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Sneha Prakashana",
+              "Book_Title": "Raja Ram Mohan Roy",
+              "Edition": "Translated from Kannada to English",
+              "year_of_publishing": "2022"
+            },
+            {
+              "Slno": "12",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Publisher & Writer",
+              "Book_Title": "Waves",
+              "Edition": "English Anthology",
+              "year_of_publishing": "2021"
+            },
+            {
+              "Slno": "13",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Govt. of Karnataka associated with Bharathiya Vidya Bhavan",
+              "Book_Title": "Peace on the Earth",
+              "Edition": "English book written by John Pope 23rd, Translated English to Kannada",
+              "year_of_publishing": "2010"
+            },
+            {
+              "Slno": "14",
+              "Name": "Dr. Shrilatha. A",
+              "Publication_House": "Thapovana Vedike",
+              "Book_Title": "Prakrutiya Seletha",
+              "Edition": "Children’s Story Collection",
+              "year_of_publishing": "2021"
+            }
+          ]
+        }
+      },
+      "Research_And_Awards": {
+        "title": "Research & Awards",
+        "Sections": [
+          {
+            "TabName": "Research Papers",
+            "ListPoints": [
+              "Dr. SHRILATHA. A.” Realisation “Poem Published with world Authors in Third Dimension, International Journal ISSN – 81- 901245-2-5, page no. 72.",
+              "Dr. SHRILATHA. A. “Special on Haikus.” PAGE NO. 34 BIZ BUZ Publication. International Journal. ISBN – 2277-886.",
+              "Dr. SHRILATHA. A.,” Desserted Life” Publised by Fifth Avenue Biz Buz, ISSN 81-88699-04-7",
+              "Dr. SHRILATHA. A. “Fury of the Soul” page no. 49, Pulication Contemporay poets. Of the world – ISBN 978-81-88699-22-3.",
+              "Dr. SHRILATHA. A, “Fossils” Desserted Life, Contemporary Poets page -81. ISBN 978-81-88699-17-9.",
+              "Dr. SHRILATHA.  “Challenges of Higher Education in India – Respective thought” Govt. First grade College, Yelahanka.",
+              "Dr. SHRILATHA. A  “ The Challenges of Banking in Rural India, “ Published by Seshadripuram First grade college, Yelahanka.",
+              "Dr.SHRILATHA. A.  “ Kannada Tulu Bhashegala samarasya ‘ISBN, in 2018  Chachahni. First grade College, ISBN – 978812068176.",
+              "Dr. SRILATHA. .A “ Empowerment of Women in Politics, School of Education – Pondicherry University. ISBN 978-93-5321-678-8.",
+              "Dr. SHRILATHA. A “ Tulu Janapada Vyvidhya samskutika mattu sahithyaka,  Amshagalu “ Kristu Jayanti College, National seminar, ISSN – 2454-5813.",
+              "Dr. SHRILATHA. A.” Rangabhumiya parikalpaneyalli Tala Maddale” pub. Kristu Jayanthi,  College, ISBN – 978-81-942108-5-6.",
+              "Dr. SHRILATHA. A. “ Mahila Shoshane vimuktiya patha chinthakaru”  ISBN, 978-93-5351-086-2. Govt. First Grade College, Devanahalli. B’lore.",
+              "Dr. SHRILATHA. A. “Indian Constitution Assembly “ Translated from English to Kannada. I volume  400 pages. Under the project of Government Of Karnataka & Kuvempu Bhasha Pradhikara – 201",
+              "Dr. SHRILATHA. A.  “kannada Madhyama mttu Jagtikarana.”  lal Bahadur Shastri First Grade College. R.T Nagar B’lore. ISBN 9978-81-940165-4-0.",
+              "Dr. SHRILATHA. A.  “Teachers – promoters of students” Think of India, UGC Care Journal, ISSN -0971-1260. Kristu Jayanthi college IQAC, National Conference, 2019.",
+              "Dr. SHRILATHA. A. “Ranga Bhumya parikalpaneyalli Mahile”  ISBN – 978-81-942108-5-6,M  Kristu Jayanti College. 2020.",
+              "Dr. SHRILATHA. A “Rannana Gadhayuddha” ISBN 978-93-91429-10-2,Kendriya Vidhalaya. Gulbarga. Karnataka.",
+              "Dr. SHRILATHA. A. Times of Kudla Newspaper – Poem published “Jeeva Tude. Published Mangalore. Branch.",
+              "Dr. SHRILATHA. A “Janapada Sinchana” Journal “ Tuluvara Habbagalu mattu nechcihna Paddhanagalu “ 2022",
+              "Dr. Dr.SHRILATHA. A. “Vachanakarthiyaru Pratipadhisid vycharikate” Aruhu Kuru UGC CARE LISTED & PEER REVEWED Journal,  ISSN 2347-5048.",
+              "Dr. SHRILATHA. A.” Kadalalada muttugalu Adigara Kayvagalu”International Conference   Nagarjuna Degree College, School of Management MBA.",
+              "Dr. SHRILATHA. A  “CHRONIC DISEASES BOOSTING IMMUNE SYSTEM by  ORGANIC FARMING “  Aruhu Kuruhu, Peer Reviewed Journal,  ISSN; 2347 – 5048 DATED 2023 SEP.",
+              "Dr. SHRILATHA. A.“ Role of Banking in Rural India”Journal UGC Care list      Seshadripuram Educational Trust. National seminar. ISBN – 978819278513.",
+              "Dr. SHRILATHA. A. “ Wellness Education – A critical Analysis” from, Pondicherry University. – ISBN – 9789353463212",
+              "Dr.SHRILATHA.A,“Teachers-promoters” Think of India  EDUINDEX   Journal      ,multidisciplinary/Peer Revewed  journal.  UGC Care listed. ISSN  0971-1260.",
+              "Dr. SHRILATHA. A. Published Haikus in SGL  Publication USA.",
+              "Dr. SHRILATHA. A – “ Kavya Parampareyalli Bhakti Sahithya mattu Manaveeya Moulyagalu. – Published in Harvest, an international multi disciplinary  multilingual journal     e – ISSN – 2582-9866.",
+              "Prof.Madhura.D, “Kannada Saahityadalli naatakagalu haagu praadeshika vaividhyate”, @ ‘Kannada Saahitya:naataka, Rangabhoomi mattu cinema’ -National conference 2020 organised by  Kristu Jayanti College, ISBN: 978-81-942108-5-6, Pg.No.51",
+              "Prof.Madhura.D, “Janapada Jeevaseleyaagi Siddalingaiah”, @ ‘Samateya Kadalu Mamateya Odalu’-Research articles on the life & writings of Dr.Siddalingaiah’ , Published by Pruthvi Prakashana, ISBN : 978-81-947781-2-7, Pg.No.116",
+              "Prof.Madhura.D, “ karonottara Kaaladalli Basavannanavara vachanagala prastutate” .",
+              "Prof. B Gayathri A study on new teaching through english proficiency ,pedagogy and media perfomance”, Multidisciplinary National Conference, ISBN 978-93-5382-464-8,Issue 20 September 2019.",
+              "Prof. B Gayathri Impact of online teaching on teaching community as well as student fraternity ISBN 978-93-92229",
+              "Dr M NAGARATHNA,”Bharatiya bhakti         sahitya ko karnataka ka yogdaan”,ISBN-978-81-931150-22-2016, Page no-194-198.",
+              "Dr M NAGARATHNA, ” Ashok Chakradhar ke vyangya sahitya me saamaajik evm naitik mulya”,ISSN -2277-6907-VOL-4 No III&IV Page 64-67,Mind&Society -Research journal.",
+              "Dr M NAGARATHNA, “Yuva varga me saamaajik evm Raashtriya chetanaa”,ISBN -978-93-84240-33-2,Page 192-194",
+              "Dr M NAGARATHNA, “Samkaaleen Hindi sahitya kahaani me kisaan evm majdoor,shramik varg”,ISBN-978-81-928158-6-2,Page 162-165.",
+              "Dr M NAGARATHNA, “Dakshin Bharat me Hindi ka Prabhaav”,RNI No-DELHIN/2017-75205,BHAASHA SAHODARI,Ank-5",
+              "Dr M NAGARATHNA, “Bhaashaao par social media ka Prabhaav”,ISSN-2455-4838, Special vol sep-2019.",
+              "Dr M NAGARATHNA, “Madhya kaal me Braj aur Avadhii ka saahityik Bhaashaao ke roop kii vikaas”,ISBN-978-81-941390-5-8.",
+              "Dr M NAGARATHNA,  “Markandey ke kathaa sahitya ka vichaar paksh”, ISSN-2581-3145-RNI No-DELBIL/2013/50974,AALOK PARV, International journal.",
+              "Dr M NAGARATHNA, “Hindi Saahitya me raam kaavya parampara”,ISBN-978-81-948862-5-9,Chaaru Charitra, Journal.",
+              "Dr M NAGARATHNA, “Hindi Saahitya me naatak ka vivechan”, ISBN -978-93-5493-463-6.",
+              "Dr M NAGARATHNA, “Chunouti svaabhumaan kii”, Translation ISBN -1978-93-91913-58-8.",
+              "Dr M NAGARATHNA, “Bhaasha Saahitya aur samaaj”,ISBN-978-93-92229-11-4,Page no 823.",
+              "Dr M NAGARATHNA, “Markandeya ke upanyaas sahitya me nari vimarsh “,ISBN-978-81-959235-3-3, Page no 14-18.",
+              "Prof. Lydia Roshini, “ Impact of online teaching on student community as well as teaching fraternity:”, ISBN 978-93-92229-11-4, Page No 777-783."
+            ]
+          },
+          {
+            "TabName": "Awards & Recognition",
+            "ListPoints": [
+              "Dr. SHRILATHA. A -” Kavanashri Prashasthi” Karnataka  State  Journalist assn. 1998",
+              "Dr. SHRILATHA. A -” Buddha Shanthi ‘ Prashasthi – 2004 For Music",
+              "Dr. SHRILATHA. A – ‘ INDIRA Priyadarshini Prashasti ‘ 2006 overall Literature & Mc.",
+              "Dr. SHRILATHA. A “  KAVIRATHNA Prashasti”  2010. Literature.",
+              "Dr. SHRILATHA. A “  Nadarathna Prashasti “ state level. Overall achievement",
+              "Dr. SHRILATHA. A “  Best Paper Award” Jagadagala Mantapa . International Award.",
+              "Dr. SHRILATHA. A “ Selected & honourned By Akhila Bharatha Kannada Sahithya",
+              "Parishat i 2010 , Kannada Sahithya Sammelana, Govt. Held at Chithradurga.",
+              "Dr. SHRILATHA. A Selected for Music – Kannada Sahithya Parishat, Akhila Bharatha  Kannada  Sahithya  Sammelana Held at Gangavathi. 2012",
+              "Dr. SHRILATHA. A. Selected for Kavighoshti by Karnataka Lekhakiyara Sanga 2012. At State level. Sahithya Sammelana.",
+              "Dr. SHRILATHA. A. –  Value added Course – 8/32022 to 19/3/ 2022      From Davanagere University. Department of Economics.",
+              "Dr. SHRILATHA. A- “ Writers Achievement Award “State Level KER    Karnataka Editors & Reporters Association, at Gandhi Bhavan – 2021.",
+              "Dr. SHRILATHA. A -“Corona Warrior Sava Rathna” Awared by MAX LIFE   Company.- 2022.",
+              "Dr. SHRILATHA. A.  Punith Seva Rathna Prashsthi for Literature by    By Shreya Media & Chandana T. V. – 2022.",
+              "Dr. SHRILATHA.A “ Rajkumar savinenpugalu “ Pashasti by Raj Kumar    Chalana chitra Academy – 2022.",
+              "Dr, SHRILATHA. A” Kannada Seva Rathna” Prashasthi “ by Bengaluru nagara jilla kannada Sahithya Parishat.",
+              "Dr. SHRILATHA.  Vishva kaanada Sahithyaka Samsthe Karnataka Rajya   “ Vishva Kannada Siddha ganga prhasti “ – 2022 at Hiriyur. Karnataka state.",
+              "STATE AWARD for Light Music, Yuvajana Mela held at Tumkur Government    Government of Karnataka. YOUTH RALLY.",
+              "Dr. SHRILATHA. A.  AIR – Radio Talk 0n  Rural Economy & Women, in 2022",
+              "Dr. SHRILATHA “ Sharada Suputhri Prashasti” Pusthaka Mane Associated with  Sammilana Karnataka.",
+              "Ramaiah College of Arts, Science and Commerce. – Delivered aLecture on   “ The Preamble is Spirit of the Constitution of India ‘’ on 28/11/2020.",
+              "Prathama Jila Sahithya Smmelana Bengauru Nagara Jilla kannada       Sahithya Parishat (Government).  Participated as  Resource Person & Samvada  with Sarvadhyaka.",
+              "Vijaya College Jayanagara – Talk on’ STREE DHVANI’ 22/5/2019",
+              "Kannada Samskruti Ilake, Government of Karnataka  “SOURABHA”   Music Program held at Doddala near Mysore ( State Level )",
+              "Sugama Sangeetha – 50.” by Kannada Sahithya Parishat direction by    C. Ashwat – participated.2007",
+              "Documentary Film released for overall achievement – Kannada & Culture  Department, Government of Karnataka & Karnataka Lekhakiyara Sanga 2018.",
+              "Bangalore City University – Selected for BOARD OF STUDIES in Economics  ( BOE in 2021).",
+              "ALL INDIA RADIO (AIR), “ To Write & Present a Story”. Program on     8/8/2018.",
+              "“ KAVYA KAVERY “ Sugama Sangeetha program held at Sadashiva Nagara   Marata Association Organised with Kannada Sahithya Parishat. Bangalore",
+              "Columnist. & freelancer in various NewsPapers.",
+              "Worked with Parisara Mattikere, & Journalist Associated  with Journalist   Association, Bangalore. – Slum – Sharifa Colony. Struggled for 15 days  & Demanded Government for providing social infrastructure facilities.",
+              "Navachaithanya organisation GANASHREE PRASHASTI ( State Leval   14/12/2019)",
+              "CHANDANA T.V – Yugadi Kavigoshti poetry recital program – 2017.",
+              "BIZ BUZ Award for English Literature, by BIZ BUZ Publication,  International Magazine.",
+              "Kannada Sahithya Parishat Sammelana – Poetry recital & honoured.",
+              "Bengaluru Nagara Jilla Cutuku Sahithya Parishat. -”Sarvaadhyaksha position ”  Of Chutuku Sahithya Sammelana State  level.",
+              "Prof.Madhura.D,  ” Outstanding Teacher Award ” – 2018, by Presidency University",
+              "Prof.Madhura.D, Best Research paper in National level conference @ Seshadripuram College 2019",
+              "Prof.Madhura.D,  won Second place in ‘ Kannada Maatanaaduva Spardhe’ organized by Kannada and culture Department,  Government of Karnataka",
+              "Prof.Madhura.D,  won the title ‘ Suvarna Super star ‘ in Star suvarna channel.",
+              "Prof.Madhura.D,  the directed play ‘ Hebbaala’ won the Best drama third place in Ranga sourabha Intercollege drama competition jointly organized by Kannada and culture department,  Government of Karnataka.",
+              "Newspaper Employees Working Journalist Union Associated With Citizen Consumer Council- “Award for Literature and Columnist”.",
+              "Dr. SHRILATHA  -Joint Secretary –  POETS INTERNATIONAL ORGANISATION",
+              "Dr. SHRILATHA. A –  Voice   President – TULUVERENKULU ( State)",
+              "Dr. SHRILATHA.A -Sub Editor     – Janatheya Dhvani.",
+              "Dr. SHRILATHA. A -Joint Secretary – KERA *( Karnataka Reporters &  Editors Associatiion)",
+              "Dr SHRILATHGA. A- Member  KANNADA SAHITHYA PARISHAT.",
+              "Dr. SHRILATHA. A  -Member   Kannada Sangarsha Samithi. (Organising  secretary)",
+              "Dr. SHRILATHA. A. -Founder President   Thapovana Prakashana.",
+              "Dr. SHRILATHA. A -Karavali Vedhike – Active Member.",
+              "Dr. SHRILATHA. A. Member  – Tulu language Horata Samithi.",
+              "Dr. SHRILATHA. A – Columnist in various News papers. More than   75 articles, reports,  poems published in Prajavani, Udayavaani,  Vijaya Karnataka, Kannada Prabha. Mangala. Tushara Priyaanka,   Kannada, tulu & English."
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

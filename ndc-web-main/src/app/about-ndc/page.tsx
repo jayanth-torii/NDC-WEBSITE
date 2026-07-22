@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
@@ -12,34 +12,13 @@ import Council from "@/components/AboutNDC/Council";
 import NewsLetter from "@/components/AboutNDC/NewsLetter";
 import ImpConsiderations from "@/components/AboutNDC/ImpConsiderations";
 
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/about-ndc/data.json";
 
 const AboutNDC = () => {
-  const [aboutData, setAboutData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const aboutData: any = (pageJson["about-us"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchAboutData = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/about-us`);
-        setAboutData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching About NDC data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAboutData();
-  }, []);
-
-  if (loading || !aboutData) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading About Us...
-      </div>
-    );
+  if (!aboutData) {
+    return null;
   }
 
   return (

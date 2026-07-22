@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState, useEffect, ReactNode, Suspense } from "react";
+import React, { useState, ReactNode, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { FaChevronRight, FaBars } from "react-icons/fa";
-import { BASE_URL } from "@/config/apiService";
-import axios from "axios";
+import questionBankJson from "@/data-export/question-bank/data.json";
 
 import FindQuestionBank from "./FindQuestionBank";
 import Bcom from "./Bcom";
@@ -33,16 +32,7 @@ export default function QuestionBankTabs() {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
-  const [allData, setAllData] = useState<Record<string, any>>({});
-  const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-    // Fetch all departments data
-    axios.get(`${BASE_URL}/question-banks`)
-      .then((response) => setAllData(response.data.data || {}))
-      .catch((err) => console.error("Fetch error:", err))
-      .finally(() => setLoading(false));
-  }, []);
+  const allData: Record<string, any> = (questionBankJson["question-banks"] as any)?.data || {};
 
 
 

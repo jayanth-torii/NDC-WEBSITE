@@ -6,7 +6,7 @@ import Image from "next/image";
 import UpArrow from "../../../public/images/Chevron2.svg";
 import DownArrow from "../../../public/images/Chevron.svg";
 import { motion, AnimatePresence, cubicBezier, type Variants } from "framer-motion";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 const easeInOut = cubicBezier(0.4, 0, 0.2, 1);
 
@@ -64,13 +64,11 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
   const searchParams = useSearchParams();
   const programme = searchParams.get("programme") || "";
 
-  const [facultyData, setFacultyData] = useState<Record<string, any>>({});
+  const facultyData: Record<string, any> = (departmentJson["department-faculty-member"] as any)?.data || {};
   const [selectedFaculty, setSelectedFaculty] = useState<Faculty | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);
   const [accordionStates, setAccordionStates] = useState<Record<string, boolean>>({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   const normalizedProgramme = programme.toLowerCase().replace(/&/g, "and").trim();
 
@@ -97,26 +95,6 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
   const totalPages = Math.ceil(content.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentFaculties = content.slice(startIndex, startIndex + itemsPerPage);
-
-  useEffect(() => {
-    const fetchFacultyData = async () => {
-      try {
-        const response = await fetch(`${BASE_URL}/department-faculty-member`);
-        const json = await response.json();
-        if (json?.data && typeof json.data === "object") {
-          setFacultyData(json.data);
-        } else {
-          setError("Invalid response format.");
-        }
-      } catch (err) {
-        console.error("API fetch error:", err);
-        setError("Failed to fetch faculty data.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchFacultyData();
-  }, []);
 
 
  haveContentCheck(!!facultyData[departmentKey]);
@@ -166,8 +144,6 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
       </button>
     ));
 
-  if (isLoading) return <p className="mt-10 text-gray-600">Loading faculty data...</p>;
-  if (error) return <p className="mt-10 text-red-500">{error}</p>;
   if (!department || !content.length)
     return <h1 className="text-center font-bold text-gray mt-10">No faculty data available for {programme}.</h1>;
 

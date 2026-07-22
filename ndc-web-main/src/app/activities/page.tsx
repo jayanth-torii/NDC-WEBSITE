@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useEffect, useState, Suspense } from 'react'
-import axios from 'axios'
+import React, { Suspense } from 'react'
 
 import Breadcrumb from '@/components/CommonComponents/BreadCrumb'
 import ActivitiesBanner from '@/components/Activities/ActivitiesBanner'
@@ -9,7 +8,7 @@ import KnowEverything from '@/components/Activities/KnowEverything'
 import CulturalActivities from '@/components/Activities/CulturalActivities'
 import CulturalLeadershipActivities from '@/components/Activities/CulturalLeadershipActivities'
 
-import { BASE_URL } from '@/config/apiService'
+import pageJson from '@/data-export/activities/data.json'
 
 interface ActivitiesPageData {
   BannerSection: {
@@ -35,30 +34,10 @@ interface ActivitiesPageData {
 
 
 function Activities() {
-  const [data, setData] = useState<ActivitiesPageData | null>(null)
-  const [loading, setLoading] = useState(true)
+  const data: ActivitiesPageData | null = (pageJson["activities-page"] as any)?.data || null
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/activities-page`)
-        setData(res.data?.data)   
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchData()
-  }, [])
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Activities...
-      </div>
-    )
+  if (!data) {
+    return null
   }
 
   return (

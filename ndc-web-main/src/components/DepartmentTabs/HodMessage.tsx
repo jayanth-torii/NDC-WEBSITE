@@ -3,8 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 interface HodData {
   hodImage: string;
@@ -21,24 +20,8 @@ const HodMessage = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const [apiData, setApiData] = useState<Record<string, HodData>>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const apiData: Record<string, HodData> = (departmentJson["hod-messages"] as any)?.data || {};
   const [isExpanded, setIsExpanded] = useState(false);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/hod-messages`);
-        setApiData(res?.data?.data || {});
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   const normalizedMap = useMemo(() => {
     const map: Record<string, HodData> = {};
@@ -59,22 +42,6 @@ const HodMessage = ({ haveContentCheck }: any) => {
       Object.prototype.hasOwnProperty.call(normalizedMap, normalizedProgramme);
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
-
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading HOD message...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load HOD message.
-      </div>
-    );
-  }
 
   if (!content) {
     return (

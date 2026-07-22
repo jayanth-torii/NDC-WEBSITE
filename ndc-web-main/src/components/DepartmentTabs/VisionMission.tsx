@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Text } from "@mantine/core";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 interface Section {
   title?: string;
@@ -16,27 +15,11 @@ const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
 
 export default function VisionMission({ haveContentCheck }: any) {
-  const [apiData, setApiData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
+  const apiData: any = (departmentJson["vision-missions"] as any)?.data || {};
 
   const searchParams = useSearchParams();
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/vision-missions`);
-        setApiData(res?.data?.data || {});
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
 
   // ✅ Build a normalized map once (hook runs before any returns)
   const normalizedMap: Record<string, Section[]> = useMemo(() => {
@@ -62,22 +45,6 @@ export default function VisionMission({ haveContentCheck }: any) {
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
   // ---- UI returns after all hooks ----
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Vision & Mission...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load vision & mission data.
-      </div>
-    );
-  }
-
   if (!apiData) {
     return (
       <p className="text-center text-red-500 mt-4">

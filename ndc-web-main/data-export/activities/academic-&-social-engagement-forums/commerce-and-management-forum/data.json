@@ -1,0 +1,88 @@
+{
+  "commerce-and-management-forum": {
+    "data": {
+      "bannerSection": {
+        "title": "Commerce And Management Forum ",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_202_1_dbaf012677.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "A Spirit For Exploring The Real Business World",
+        "AboutDescription": [
+          "The Department of Commerce and Management , Nagarjuna Degree College had introduce the “Commerce and Management Forum “on  2019. The main objective of the forum is to inculcate the students of commerce with latest knowledge of how, what, when and so on things happening in an around the surrounding of business world."
+        ],
+        "VisionMission": {
+          "title": "",
+          "sections": []
+        },
+        "AccordienSection": [
+          {
+            "title": "Objectives of Forum",
+            "ListPoints": [
+              "To encourage students to indulge in decision making process.",
+              "To develop self confidence, communication, Anayltical & Problem solving.",
+              "To broaden the students knowledge and skill theoretically as well as practicability",
+              "To allow the students to interact with business experts of industry or organization",
+              "To encourage students to explore prospective entrepreneur.",
+              "Enable transfer of learning"
+            ]
+          },
+          {
+            "title": "Activities/ Program of the forum",
+            "ListPoints": [
+              "Business Quiz",
+              " Poster presentation/Commerce and Management exhibition",
+              " Situation Analysis /Cases analysis",
+              " Power Point Presentation",
+              " Market Research",
+              "Group Discussion",
+              "Advertising /AD Display",
+              "Sensex Analysis",
+              "Financial Role-play"
+            ]
+          }
+        ]
+      },
+      "ForumCoordinators": {
+        "title": "Forum Coordinators",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Dr. Nagesh",
+            "designation": null,
+            "role": "Conveyor",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Ajay Kumar T",
+            "designation": null,
+            "role": "Conveyor",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Shashi Kumar D S",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "B R Divya Shree",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Badrinath",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}
