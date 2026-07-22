@@ -1,0 +1,65 @@
+{
+  "women-cell": {
+    "data": {
+      "bannerSection": {
+        "title": "Women's Cell",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_198_2_0c5176c7f4.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "Women's Cell",
+        "AboutDescription": [
+          "(Women of Worth, Wonder and Wise )",
+          "“I take this pledge in the name of my mother",
+          "I will always treat all women with dignity and respect",
+          "I will never physically or mentally abuse any women",
+          "I will remain committed to the elimination of violence against women”",
+          "Women Cell of Nagarjuna Degree College is established with the motto of “towards self empowered mind“. The cell aims to empower girl students and faculty, enhance their understanding of issues related to women and to make the college campus a safe place for girls and women and to address the practical issues related to the welfare and equal opportunities for Women faculty, staff and students.",
+          "With a view to take up women’s issues and problems, the cell aims at creating awareness of their rights and duties. It also provides a platform for women to share their experiences and views regarding their status in the society. Added to it suggestions for improvement and empowerment among themselves has been given. Aiming at intellectual and social upliftment of the female students, the cell stands for facilitating women’s empowerment through guest lectures, seminars, awareness programs and other welfare activities"
+        ],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "To promote general well-being of female students, teaching and non-teaching women staff of the College and to provide and maintain a dignified, congenial working environment for women and enable them to explore their imminent potential in all aspects.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "To train women to acquire wide range of skills and knowledge and to develop and increase their social, economic and intellectual capacities for peace, security and prosperity of mankind.",
+              "points": []
+            }
+          ]
+        },
+        "AccordienSection": []
+      },
+      "antiRaggingCommitteMembers": {
+        "title": "Women's Cell Members",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Prof. Eeshaashri R",
+            "designation": null,
+            "role": "Co-ordinator",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Prof. Aishwarya",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Prof. Priya Vinesh",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

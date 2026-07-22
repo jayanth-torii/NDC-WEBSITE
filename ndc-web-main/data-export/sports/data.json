@@ -1,0 +1,63 @@
+{
+  "sports": {
+    "data": {
+      "BannerSection": {
+        "title": "Sports",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_1_969d4e20e8.png"
+      },
+      "aboutSections": {
+        "title": "",
+        "sections": [
+          {
+            "title": "Our Vision",
+            "description": "To achieve excellence in the promotion and development of Physical Education and Sports through innovative programs in teaching, coaching, research, and evolving a holistic approach to the betterment of students’ fraternity.  ",
+            "points": []
+          },
+          {
+            "title": "Our Mission",
+            "description": "",
+            "points": [
+              "Building  the department as a wellness and sports centre.",
+              "Motivating the students and staff to attain the core values of sports activity.",
+              "Imparting the sports education to make them aware about the importance of sports in building their career to become assets of the nation. "
+            ]
+          },
+          {
+            "title": "Objectives",
+            "description": "",
+            "points": [
+              "To inspire Students to attain Health, Fitness & Social qualities.",
+              "To set a bench mark in the excellence of sports activities.",
+              "To prepare and publish literature in the fields of Physical Education, Games and Sports and Sports Sciences.",
+              "To provide a platform for professionals for discussions, meetings and professional transactions in the field of sports. "
+            ]
+          }
+        ]
+      },
+      "HodMessage": {
+        "title": "Director's Message",
+        "name": "Prof. Rajanna R",
+        "position": "Director, Department of Physical Education and Sports. NDC. ",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/image_90cac2cd99.png",
+        "message": [
+          "“A Sound mind in a Sound body”",
+          "Physical Education and sports activities play a crucial role in enhancing the healthy environment and build the society with health and wellness.  A well implemented fitness program is an essential tool for the growth of the health of mind and body.  Involvement of students in sports activities increase their concentration and reduces the stress and they will imbibe a positive attitude in their behaviour. The New Education Policy also has made it mandatory to take sports as a way of life and inculcate sportsman spirit.",
+          "We at NDC do our best to make our students to be identified among the National and International sports personalities. Come; let us have a healthy and cheerful college life of fun with sports and a healthy environment. "
+        ]
+      },
+      "gallerySection": {
+        "title": "Gallery",
+        "images": [
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2024_01_02_at_11_57_24_1_a5c0de6c6c.png",
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2023_05_05_at_15_40_20_8155bcac45.png",
+          "https://cdn.nagarjunadegreecollege.co.in/BCU_fencing_2197f95822.png",
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_12_13_at_12_48_32_1_rotated_c9f8287fe6.png",
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_07_02_at_10_15_08_AM_b9f1bd8ad9.png",
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_07_02_at_10_14_59_AM_2_420161a7e1.png",
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_07_02_at_10_14_59_AM_0c51a783a9.png",
+          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2024_01_02_at_11_57_24_1_scaled_1_cd3417daae.png"
+        ]
+      }
+    }
+  }
+}

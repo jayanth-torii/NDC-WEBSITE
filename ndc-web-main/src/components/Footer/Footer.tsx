@@ -1,16 +1,13 @@
 "use client";
-import React, { useEffect, useState, type ReactElement } from "react";
+import React, { useState, type ReactElement } from "react";
 import { IconMail, IconPhone, IconMapPin } from "@tabler/icons-react";
 import { FaLinkedin, FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import Image from "next/image";
 import { IoClose } from "react-icons/io5";
 import { motion } from "framer-motion";
 import logo from "/public/images/footer_logo.png";
-// import { FooterContent } from "../../app/Data/Footer";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import footerJson from "@/data-export/_shared/footer.json";
 import PdfModal from "../PdfModal";
-// import { event } from "@/lib/gtag";
 
 
 const socialIcons: Record<string, ReactElement> = {
@@ -23,21 +20,7 @@ const socialIcons: Record<string, ReactElement> = {
 const Footer = () => {
 
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
-  const [footerData, setFooterData] = useState<Record<string, any> | null>(null);
-
-  useEffect(() => {
-    const fetchPlacementContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/footer`);
-        console.log(response?.data?.data)
-        setFooterData(response?.data.data);
-      } catch (error) {
-        console.error("Error fetching Placement sections:", error);
-      }
-    };
-
-    fetchPlacementContent();
-  }, []);
+  const footerData: Record<string, any> | null = (footerJson.footer as any)?.data ?? null;
 
   const openPdf = (pdfUrl: string) => {
     setSelectedPdf(pdfUrl);

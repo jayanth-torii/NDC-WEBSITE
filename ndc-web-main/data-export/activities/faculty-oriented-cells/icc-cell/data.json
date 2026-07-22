@@ -1,0 +1,129 @@
+{
+  "icc-cell": {
+    "data": {
+      "bannerSection": {
+        "title": "ICC Cell",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_144_1_4b37ab4363.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "",
+        "AboutDescription": [],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "Our vision is to foster dignified, safe and congenial environment which will deter acts of sexual harassment and eliminate the culture of immodesty.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "Our mission is to promote gender and amity through educational customized awareness training sessions, formal and informal modes of communication and create mindfulness among the stakeholders.",
+              "points": []
+            }
+          ]
+        },
+        "AccordienSection": [
+          {
+            "title": "Functions",
+            "ListPoints": [
+              "To prevent discrimination and sexual harassment against girls by promoting gender equality among the students.",
+              "To conduct periodical programes on Women empowerment.",
+              "To provide conducive environment and congenial atmosphere for the girl students."
+            ]
+          }
+        ]
+      },
+      "Members": {
+        "title": "Members",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Dr Harish Babu S",
+            "designation": "Principal, Nagarjuna Degree College",
+            "role": "Chairperson",
+            "mobile": "9901540808",
+            "email": null
+          },
+          {
+            "name": "Dr. Vala Ghanshyam Kantilal",
+            "designation": "Professor and  Academic Coordinator,  MBA",
+            "role": "Member",
+            "mobile": "9845172211",
+            "email": null
+          },
+          {
+            "name": "Dr. Kavitha A Karkera",
+            "designation": "Associate Professor  MBA",
+            "role": "Member",
+            "mobile": "8886355662",
+            "email": null
+          },
+          {
+            "name": "Mrs. Neelambika K",
+            "designation": "Office  Superintendent",
+            "role": "Member  (Non –Teaching)",
+            "mobile": "8722333616",
+            "email": null
+          },
+          {
+            "name": "Mr. Somshekara Reddy",
+            "designation": "Student Welfare Officer",
+            "role": "Member (Non –Teaching)",
+            "mobile": "9060567733",
+            "email": null
+          },
+          {
+            "name": "Ms. Tulsi G",
+            "designation": "Student II year MBA",
+            "role": "Student Member",
+            "mobile": "9663563590",
+            "email": null
+          },
+          {
+            "name": "Mr. Mohammed Nadeem  Athar",
+            "designation": "Student III year BBA",
+            "role": "Student Member",
+            "mobile": "7676435180",
+            "email": null
+          },
+          {
+            "name": "Mr. Jayanth",
+            "designation": "Student III year BCA",
+            "role": "Student Member",
+            "mobile": "9738642020",
+            "email": null
+          },
+          {
+            "name": "Mrs. Abhileka",
+            "designation": "Social Worker, President, Rotract Club Yelahanka",
+            "role": "Member from NGO",
+            "mobile": "9880691074",
+            "email": null
+          },
+          {
+            "name": "Mr. Prajwal Manjunath",
+            "designation": "Social Worker, Rotract Member",
+            "role": "Member from NGO",
+            "mobile": "9901506623",
+            "email": null
+          },
+          {
+            "name": "Mrs. Chandrika Rajasekar",
+            "designation": "Student Counselor",
+            "role": "Member",
+            "mobile": "9952608352",
+            "email": null
+          },
+          {
+            "name": "Mrs. Sushma M N",
+            "designation": "Sub- Inspector,  Yelahanka  Police station",
+            "role": "Member",
+            "mobile": "9741412194",
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

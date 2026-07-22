@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from 'react';
+import React, { Suspense } from 'react';
 
 import Breadcrumb from '@/components/Breadcrumb/Breadcrumb';
 import DepartmentBanner from '@/components/DepartmentsPage/DepartmentBanner';
@@ -8,41 +8,20 @@ import FacultyPublications from '@/components/DepartmentsPage/FacultyPublication
 import HODSMessage from '@/components/DepartmentsPage/HODSMessage';
 import InternalCollaboration from '@/components/DepartmentsPage/InternalCollaboration';
 import ProfessionalCourses from '@/components/DepartmentsPage/ProfessionalCourses';
- 
+
 import Programme from '@/components/DepartmentsPage/Programme';
 import ResearchAwards from '@/components/DepartmentsPage/ResearchAwards';
 import VisionMission from '@/components/DepartmentsPage/VisionMission';
- 
-import { BASE_URL } from "@/config/apiService";
-import axios from "axios";
+
+import pageJson from "@/data-export/departments/data.json";
 
 
 const Departments = () => {
 
-    const [deptData, setDeptData] = useState<any>(null);
-    const [loading, setLoading] = useState(true);
+    const deptData: any = (pageJson["department-page"] as any)?.data || null;
 
-    useEffect(() => {
-        const fetchDeptData = async () => {
-        try {
-            const res = await axios.get(`${BASE_URL}/department-page`);
-            setDeptData(res?.data?.data);
-        } catch (error) {
-            console.error("Error fetching department data:", error);
-        } finally {
-            setLoading(false);
-        }
-        };
-
-        fetchDeptData();
-    }, []);
-
-    if (loading || !deptData) {
-        return (
-        <div className="text-center py-20 text-gray-500 text-lg">
-            Loading Department...
-        </div>
-        );
+    if (!deptData) {
+        return null;
     }
 
     const {

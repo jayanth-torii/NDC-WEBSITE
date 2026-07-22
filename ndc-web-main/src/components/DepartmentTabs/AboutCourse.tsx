@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 // Normalize any key (e.g., "B.Com" => "bcom", "Bcom_BDA" => "bcombda")
 const normalizeKey = (key: string) =>
@@ -14,23 +13,7 @@ const AboutCourse = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const [apiData, setApiData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/about-departments`);
-        setApiData(res?.data?.data || {});
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const apiData: any = (departmentJson["about-departments"] as any)?.data || {};
 
   // ✅ Always run hooks before any returns
   const normalizedMap = useMemo(() => {
@@ -55,24 +38,8 @@ const AboutCourse = ({ haveContentCheck }: any) => {
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
-  
+
   // ---- UI returns can come after all hooks ----
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading About Department...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load department data.
-      </div>
-    );
-  }
-
   if (!apiData) {
     return (
       <p className="text-center text-red-500 mt-4">

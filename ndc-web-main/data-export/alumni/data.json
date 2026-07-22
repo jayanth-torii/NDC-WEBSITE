@@ -1,0 +1,31 @@
+{
+  "alumni": {
+    "data": {
+      "BannerSection": {
+        "title": "Alumni ",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_153_2_9dee97d97e.png"
+      },
+      "VisionMission": {
+        "title": "Vision & Mission",
+        "Sections": [
+          {
+            "title": "Our Vision",
+            "Description": [
+              "Alumni Association would always be connecting factors in any institution. As the old adage goes, ‘Old is Gold’, anything learnt should be shared among others. NDC Alumni Association is working towards serving the present student community achieve its goals."
+            ]
+          },
+          {
+            "title": "Our Mission",
+            "Description": [
+              "NDC Alumni Association always strives to help build a cordial stage where the rich experiences achieved by our Alumni should not go unattended; on the contrary, it should be utilized in its right perspective."
+            ]
+          }
+        ]
+      },
+      "AlumniAssciation": {
+        "title": "Alumni Association",
+        "description": "NDC Alumni Association envisages connecting the present student community with the alumni. It creates a wide platform where experience could be shared at all levels. It helps the present students to carve their careers effectively and efficiently based on experiences churned out by their former peers."
+      }
+    }
+  }
+}

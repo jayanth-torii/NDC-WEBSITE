@@ -1,13 +1,12 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, Suspense } from "react";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import BlogCards from "@/components/BlogsPage/BlogCard";
 import Pagination from "@/components/BlogsPage/Pagination";
 import BlogsBanner from "@/components/BlogsPage/BlogsBanner";
 
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/blog/data.json";
 
 type BannerSectionType = {
   title: string;
@@ -17,37 +16,17 @@ type BannerSectionType = {
 const BlogList = () => {
   const articlesPerPage = 6;
   const [currentPage, setCurrentPage] = useState(0);
-  const [blogsData, setBlogsData] = useState<any[]>([]);
-  const [bannerSection, setBannerSection] = useState<BannerSectionType | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchBlogsContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/blogs-content`);
-        const data = response?.data?.data;
-  
-        setBlogsData(data?.blogs);
-        setBannerSection(data?.BannerSection || null);
-      } catch (error) {
-        console.error("Error Fetching blogsData Data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchBlogsContent();
-  }, []);
+  const blogsContent: any = (pageJson["blogs-content"] as any)?.data || null;
+  const blogsData: any[] = blogsContent?.blogs || [];
+  const bannerSection: BannerSectionType | null = blogsContent?.BannerSection || null;
 
   const totalPages = Math.ceil(blogsData.length / articlesPerPage);
   const startIndex = currentPage * articlesPerPage;
   const displayed = blogsData.slice(startIndex, startIndex + articlesPerPage);
 
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Blogs...
-      </div>
-    );
+  if (!blogsContent) {
+    return null;
   }
 
   return (

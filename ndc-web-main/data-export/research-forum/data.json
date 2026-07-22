@@ -1,0 +1,25 @@
+{
+  "research-forum": {
+    "data": {
+      "BannerSection": {
+        "title": "RESEARCH FORUM",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_3_0974d61bff.png"
+      },
+      "ResearchForum": {
+        "title": "RESEARCH FORUM",
+        "description": [
+          "Research comprises “creative and systematic work undertaken to and create the stock of knowledge, including knowledge of human and culture and society and the use of this stock of knowledge to devise new applicant. It is used to establish or confirm fact. Reaffirm the result of previous work, solve new or existing problems, support theorems or develop new theories. A research project may also be an expansion on past work in the field.",
+          "What research activities can students undertake at NDC?"
+        ],
+        "listOfPoints": [
+          "Minor research projects.",
+          "Internship projects.",
+          "Socially relevant projects (NGO, Government, etc).",
+          "Research paper presentations at inter – collegiate level.",
+          "Journal/Publications.",
+          "All research projects are guided by faculty and supported by the Institution."
+        ]
+      }
+    }
+  }
+}

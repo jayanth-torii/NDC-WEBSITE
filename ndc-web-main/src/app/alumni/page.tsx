@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
@@ -8,34 +8,13 @@ import AlumniBanner from "@/components/Alumni/AlumniBanner";
 import VisionMission from "@/components/Alumni/VisionMission";
 import Association from "@/components/Alumni/Association";
 
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/alumni/data.json";
 
 const Alumni = () => {
-  const [alumniData, setAlumniData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const alumniData: any = (pageJson["alumni"] as any)?.data || null;
 
-  useEffect(() => {
-    const fetchAlumniContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/alumni`);
-        setAlumniData(response.data.data);
-      } catch (error) {
-        console.error("Error fetching Alumni sections:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchAlumniContent();
-  }, []);
-
-  if (loading || !alumniData) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Alumni...
-      </div>
-    );
+  if (!alumniData) {
+    return null;
   }
 
   return (

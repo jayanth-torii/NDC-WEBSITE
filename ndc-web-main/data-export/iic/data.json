@@ -1,0 +1,39 @@
+{
+  "iic": {
+    "data": {
+      "BannerSection": {
+        "title": "IIC",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_2_9c27f57f99.png"
+      },
+      "IICMembers": {
+        "title": "Industry Institute Cell (IIC) Members",
+        "MembersTable": [
+          {
+            "name": "Dr Harish Babu S",
+            "designation": "Principal, Nagarjuna Degree College",
+            "role": "Chairperson",
+            "contact": "9901540808"
+          },
+          {
+            "name": "Dr Vala Ghanshyam Kantilal",
+            "designation": "Professor and  Academic Coordinator,  MBA",
+            "role": "Member",
+            "contact": "9845172211"
+          },
+          {
+            "name": "Prof Anil R",
+            "designation": "Assistant Professor",
+            "role": "Member",
+            "contact": "7760757383"
+          },
+          {
+            "name": "Prof Lakshmi P",
+            "designation": "Assistant Professor",
+            "role": "Member",
+            "contact": "9886775824"
+          }
+        ]
+      }
+    }
+  }
+}

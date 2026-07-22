@@ -1,35 +1,17 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Suspense } from "react";
 
 import Banner from "@/components/Activities/CommonComponents/Banner";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/industrial-visit/data.json";
 
 function IndustrialVisit() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const data: any = (pageJson["industrial-visit"] as any)?.data || null;
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/industrial-visit`)
-      .then((res) => {
-        setData(res?.data?.data || null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch industrial-visit:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading industrial-visit...
-      </div>
-    );
+  if (!data) {
+    return null;
   }
 
   return (

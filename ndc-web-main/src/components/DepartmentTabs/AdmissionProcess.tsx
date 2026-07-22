@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 interface Section {
   title: string;
@@ -24,23 +23,7 @@ const AdmissionProcess = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const [apiData, setApiData] = useState<Record<string, AdmissionData>>({});
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<any>(null);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`${BASE_URL}/admission-processes`);
-        setApiData(res?.data?.data || {});
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const apiData: Record<string, AdmissionData> = (departmentJson["admission-processes"] as any)?.data || {};
 
   // ✅ Normalize keys once, before any conditional returns
   const normalizedMap = useMemo(() => {
@@ -65,22 +48,6 @@ const AdmissionProcess = ({ haveContentCheck }: any) => {
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
   // ---- UI returns after all hooks ----
-  if (loading) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading admission process...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-20 text-red-500 text-lg">
-        Failed to load admission process data.
-      </div>
-    );
-  }
-
   if (!departmentData || !Array.isArray(departmentData.sections)) {
     return (
       <div className="text-center py-10 text-red-500">

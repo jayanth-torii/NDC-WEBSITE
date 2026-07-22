@@ -1,0 +1,63 @@
+{
+  "ncc": {
+    "data": {
+      "bannerSection": {
+        "title": "api::ncc.ncc",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_144_2_2bb1fcb136.png"
+      },
+      "Sections": [
+        {
+          "title": "National Cadet Corps",
+          "descriptions": [
+            "The NCC of Nagarjuna Degree College was started in the year 2021under 8 KAR BN NCC Bengaluru. The ‘Aims’ of the NCC laid out in 1988 have stood the test of time and continue to meet the requirements expected of it in the current socio–economic scenario of the country. The NCC aims at developing character, comradeship, discipline, a secular outlook, the spirit of adventure and ideals of selfless service amongst young citizens. Further, it aims at creating a pool of organized, trained and motivated youth with leadership qualities in all walks of life, who will serve the Nation regardless of which career they choose. Needless to say, the NCC also provides an environment conducive to motivating young Indians to join the armed forces."
+          ],
+          "points": []
+        },
+        {
+          "title": "Motto of NCC",
+          "descriptions": [
+            "The need for having motto for the Corps was discussed in the 11th Central Advisory Committee (CAC) meeting held on 11 Aug 1978. The mottos suggested were “Duty and Discipline”; “Duty, Unity and Discipline”; “Duty and Unity”; “Unity and Discipline”. The final decision for selection of “Unity and Discipline” as motto for the NCC was taken in the 12th CAC meeting held on 12 Oct 1980."
+          ],
+          "points": []
+        }
+      ],
+      "NccImage": "https://cdn.nagarjunadegreecollege.co.in/image_52_461adff61e.png",
+      "ImagesSection": {
+        "title": "Photos",
+        "images": [
+          "https://cdn.nagarjunadegreecollege.co.in/image003_2_cbe05751d9.png",
+          "https://cdn.nagarjunadegreecollege.co.in/image005_2_30670065be.png",
+          "https://cdn.nagarjunadegreecollege.co.in/image007_2_af9429e4de.png",
+          "https://cdn.nagarjunadegreecollege.co.in/image001_2_1cf397fd04.png"
+        ]
+      },
+      "CommitteMembers": {
+        "title": "Members",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Mr. Ajay kumar T",
+            "designation": null,
+            "role": "ANO",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Dr. Vala Ghanshyam kantilal",
+            "designation": null,
+            "role": "In-charge",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Mr. Madesha",
+            "designation": null,
+            "role": "In-charge",
+            "mobile": null,
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

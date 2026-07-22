@@ -1,0 +1,111 @@
+{
+  "admission": {
+    "data": {
+      "BannerSection": {
+        "title": "Admissions ",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_153_1_90a59e7c0c.svg"
+      },
+      "coursesEligibility": {
+        "title": "Courses & Eligibility",
+        "tabsCourses": [
+          {
+            "tabTitle": "Courses & Eligibility Criteria For UG",
+            "rowContent": [
+              {
+                "course": "Bachelor of Commerce (BCom)",
+                "eligibility": "A candidate who has passed two years Pre-University Examination conducted by the Pre-University Education Board in the State of Karnataka or any other examination considered as equivalent thereto and obtained an aggregate minimum of 60% marks, 50% of marks in Q. E. in case of SC, ST and Category-I of Karnataka candidates together in all the subjects shall be eligible for admission to Bcom program.\t",
+                "duration": "3 Years"
+              },
+              {
+                "course": "Bachelor of Commerce - Business Data Analytics (BCom-BDA)",
+                "eligibility": "A candidate who has passed two years Pre-University Examination conducted by the Pre-University Education Board in the State of Karnataka or any other examination considered as equivalent there to and obtained an aggregate minimum of 60% marks, 50% of marks in Q. E. in case of SC, ST and Category-I of Karnataka candidates together in all the subjects shall be eligible for admission to Bcom-BDA program.\t",
+                "duration": "3 Years"
+              },
+              {
+                "course": "Bachelor of Business Administration (BBA)",
+                "eligibility": "A candidate who has passed two years Pre-University Examination conducted by the Pre-University Education Board in the State of Karnataka (or) any other examination considered as equivalent thereto and obtained an aggregate minimum of 60% marks, 50% of marks in Q. E. in case of SC, ST and Category-I of Karnataka candidates together in all the subjects shall be eligible for admission to BBA program.",
+                "duration": "3 Years"
+              },
+              {
+                "course": "Bachelor of Computer Application (BCA)",
+                "eligibility": "A candidate who has passed two years Pre-University Examination conducted by the Pre-University Education Board in the State of Karnataka or JODC / Three years Diploma in Engineering of Government of Karnataka (or) any other examination considered as equivalent thereto and obtained an aggregate minimum of 60% marks, 50% of marks in Q. E. in case of SC, ST and Category-I of Karnataka candidates together in all the subjects shall be eligible for admission to BBA program.",
+                "duration": "3 Years"
+              }
+            ]
+          },
+          {
+            "tabTitle": "Courses & Eligibility Criteria For PG",
+            "rowContent": [
+              {
+                "course": "Master of Business Administration (MBA)",
+                "eligibility": "A candidate who has passed Recognized Bachelor’s Degree of minimum of 3 years duration examination or equivalent examination and obtained an aggregate minimum of 60% marks taken together in all the subjects including languages in all the years of the Degree Examination is eligible for admission to MBA courses. (50% of marks in Q. E. in case of SC, ST, and Category-I of Karnataka candidates)",
+                "duration": "2 Years"
+              },
+              {
+                "course": "Master of Computer Applications (MCA)",
+                "eligibility": "Candidate with any degree of minimum of 3 years duration (10+2+3) of Bangalore City University or of any other  University equivalent there in to provided further, that the candidate has studied mathematics /Statistics/computer application/Electronics as a subject at PUC level or equivalent HSC (XII standard) or at degree level and obtained an aggregate minimum of 60% marks, 50% of marks in Q. E. in case of SC, ST and Category-I of Karnataka candidates taken together in all the subjects in all the years of the Degree Examination is eligible for admission to MCA courses.",
+                "duration": "2 Years"
+              }
+            ]
+          }
+        ]
+      },
+      "applicationProcedure": {
+        "title": "Application Procedure",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Image_36adcacfd4.svg",
+        "procedures": [
+          {
+            "title": "Online Application",
+            "description": "A non-refundable application fee for the preferred program should be paid through Online Payment gateway Mode with the valid Credit Card / Debit Card or Net Banking facility."
+          },
+          {
+            "title": "Offline Application",
+            "description": "Candidates can purchase a non-refundable application form from the Admissions Office, Nagarjuna Degree College, Yelahanka, Bengaluru."
+          }
+        ]
+      },
+      "ImportentDocuments": {
+        "title": "Important Documents",
+        "tabs": [
+          {
+            "title": "For UG Programmes",
+            "note": "Parents are required to note the guidelines given below and submit the same during the interaction/admission.",
+            "content": [
+              "5 recent passport and 3 stamp size photographs in formal dress (Standard Indian Passport size and name of the applicant(s) and the application number to be written on the back side of the photographs)",
+              "10th Marks Sheet",
+              "12th Marks Sheet",
+              "Copy of Aadhar Card",
+              "Copy of Passport and Visa (if available) for international applicant(s)",
+              "Income and caste certificate (If applicable)",
+              "Transfer Certificate (TC)",
+              "Migration certificate (In case of change of university) has to be submitted.",
+              "Study certificate / Conduct certificate",
+              "No Objection certificate (NOC) in case of change of college for 2nd and 3rd year admission."
+            ]
+          },
+          {
+            "title": "For PG Programmes",
+            "note": "Parents are required to note the guidelines given below and submit the same during the interaction/admission.",
+            "content": [
+              "5 recent passport and 3 stamp size photographs in formal dress (Standard Indian Passport size and name of the applicant(s) and the application number to be written on the back side of the photographs)",
+              "10th Marks Sheet",
+              "12th Marks Sheet",
+              "Mark Statement of all the semesters / year of their bachelor’s degree. Applicant(s) who are pursuing their final semester / year need to submit mark Statements up to the preceding semester / year",
+              "Provisional Degree Certificate",
+              "Degree Certificate (Convocation Certificate)",
+              "Entrance exam result sheet. (PGCET/MAT/CAT/K-MAT, etc.,)",
+              "Admission order copy from Government bodies (if applicable)",
+              "Copy of Aadhar Card",
+              "Copy of Passport and Visa (if available) for international applicant(s)",
+              "Income and caste certificate (If applicable)",
+              "Transfer Certificate (TC)",
+              "Migration certificate (In case of change of university) has to be submitted.\n",
+              "Study certificate / Conduct certificate\n",
+              "No Objection certificate (NOC) in case of change of college for 2nd and 3rd year admission.\n"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,358 @@
+{
+  "activities-page": {
+    "data": {
+      "BannerSection": {
+        "title": "Samashti ",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_153_4_8473a047a7.png"
+      },
+      "Know_Every_Thing": {
+        "title": "Activities at Nagarjuna Degree College",
+        "description": "The institution fosters a holistic student experience through Statutory Cells ensuring safety and equal opportunities, Academic Enrichment enhancing learning with research and value-added programs, Community Service promoting social responsibility and cultural engagement.",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_af6c984401.png"
+      },
+      "Cultural_And_Leadership_Activities": {
+        "title": "Cultural And Leadership Activities",
+        "Sections": [
+          {
+            "TabName": "Ranga Chaithanya",
+            "About": null,
+            "VisionMission": [
+              {
+                "title": "Vision",
+                "description": "Pesonality development through Theatre",
+                "points": []
+              },
+              {
+                "title": "Mission",
+                "description": "Nagarjuna Degree College has laid a platform of theatre education to inculcate acting skills, communication skills, ethical values and social awareness by the students. The students will develop self confidence and through theatre art their personality blossoms unknowingly.",
+                "points": []
+              }
+            ],
+            "OtherSections": [
+              {
+                "title": "Objectives",
+                "ListPoints": [
+                  {
+                    "text": "To develop acting, oratory skills in students below mentioned theatre activities are been conducted by Ranga Chaithanya."
+                  },
+                  {
+                    "text": "Seminars"
+                  },
+                  {
+                    "text": "Guest Lecture"
+                  },
+                  {
+                    "text": "Kolata (Karnataka folk dance) Workshop"
+                  },
+                  {
+                    "text": "Handicrafts training"
+                  },
+                  {
+                    "text": "Minor Drama Production"
+                  },
+                  {
+                    "text": "Major Drama Production"
+                  },
+                  {
+                    "text": "Kamsale, Dollu kunitha"
+                  },
+                  {
+                    "text": "Yakshagana"
+                  },
+                  {
+                    "text": "Street Plays"
+                  }
+                ]
+              }
+            ],
+            "images": [
+              "https://cdn.nagarjunadegreecollege.co.in/image012_1b3a1a764f.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image020_1_90dc2805b8.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image008_987e442487.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image022_5411d4320c.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image016_5d18d84302.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image020_f9edbc5312.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image028_84cf60ce42.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image014_bd92285457.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image024_271d80c3c0.jpg"
+            ],
+            "Table_Section": {
+              "title": "",
+              "Rows": [
+                {
+                  "Slno": "1",
+                  "name": "Prof. Madhura D",
+                  "role": "Director"
+                },
+                {
+                  "Slno": "2",
+                  "name": "Prof. Manjunath T N",
+                  "role": "Co-ordinator"
+                }
+              ]
+            }
+          },
+          {
+            "TabName": "Raaga Chaithanya",
+            "About": {
+              "title": "",
+              "descriptions": [
+                {
+                  "text": "Music is the universal language of mankind. Without music life would be a mistake. Raga chaithanya is a musical forum, where it as provided the opportunity for the students to unlock their self-expressions, Intelligence and creativity in the field of music. Under this forum students were tuned-up in their fascinated compass like vocal, keyboard, Guitar etc."
+                }
+              ],
+              "image": ""
+            },
+            "VisionMission": [
+              {
+                "title": "Vision",
+                "description": "Build tutees well-furnished to flourish on music.",
+                "points": []
+              },
+              {
+                "title": "Mission",
+                "description": "Enlight, evolve and encourage students and furnish them the talent for long lasting endowment of music.",
+                "points": []
+              }
+            ],
+            "OtherSections": [
+              {
+                "title": "Objectives",
+                "ListPoints": [
+                  {
+                    "text": "To help students attain and enhance their own individual love for music."
+                  },
+                  {
+                    "text": "To provide an outlet for all students interested in music."
+                  },
+                  {
+                    "text": "Develop an analytic, creative and intuitive understanding of music as a cultural language."
+                  }
+                ]
+              },
+              {
+                "title": "Faculty Co-ordiantor",
+                "ListPoints": [
+                  {
+                    "text": "Prof. Roopa P"
+                  }
+                ]
+              },
+              {
+                "title": "Student Co-ordinator",
+                "ListPoints": [
+                  {
+                    "text": "Mr. Sanjay"
+                  },
+                  {
+                    "text": "Ms. Amitha Desai"
+                  }
+                ]
+              }
+            ],
+            "images": [],
+            "Table_Section": null
+          },
+          {
+            "TabName": "Fine Arts",
+            "About": {
+              "title": "Fine Arts",
+              "descriptions": [
+                {
+                  "text": "‘Art is not what you see, but what you make others see’."
+                },
+                {
+                  "text": "Fine arts are art forms practiced mainly for its aesthetic value and its beauty. The area of fine arts is constantly being extended to embrace new activities arising because of new technology. Fine arts is rooted in drawing and design based works such as painting, print maling, Nail art Mehandi, Face painting etc, Music with performing arts including theatre and dance. Fine arts is also referred as ‘ High arts’. It makes the work that is purely created."
+                },
+                {
+                  "text": "Fine arts is rooted in drawing and design based works such as painting, print maling, Nail art Mehandi, Face painting etc, Music with performing arts including theatre and dance. Fine arts is also referred as ‘ High arts’. It makes the work that is purely created. All kind of art can affect our mood in a positive way making us feel happier, calmer or even inspire to do something."
+                }
+              ],
+              "image": ""
+            },
+            "VisionMission": [],
+            "OtherSections": [
+              {
+                "title": "Objectives of Fine Arts Club",
+                "ListPoints": [
+                  {
+                    "text": "To enhance the creativity of the students"
+                  },
+                  {
+                    "text": "To development students to take up their skill and creativity as there career"
+                  }
+                ]
+              },
+              {
+                "title": "Activities of Fine Arts Club",
+                "ListPoints": [
+                  {
+                    "text": "Conducted intra college painting competition on 10th May 2018"
+                  },
+                  {
+                    "text": "On eve of Ikya Pravega fine arts exhibition was conducted on  19th march 2019"
+                  },
+                  {
+                    "text": "Advaya event has been organized for the students on 5th Oct 2019"
+                  }
+                ]
+              },
+              {
+                "title": "Faculty Co-ordiantor",
+                "ListPoints": [
+                  {
+                    "text": "Prof. Roopa P"
+                  }
+                ]
+              },
+              {
+                "title": "Student Coordinators",
+                "ListPoints": [
+                  {
+                    "text": "H –C2"
+                  },
+                  {
+                    "text": "Madhushree .B- C2"
+                  },
+                  {
+                    "text": "Swathi .B.N – B2"
+                  },
+                  {
+                    "text": "Rakshitha – B1"
+                  }
+                ]
+              }
+            ],
+            "images": [
+              "https://cdn.nagarjunadegreecollege.co.in/fine3_7e137aa55b.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/fine1_6dd5581e9b.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/fine4_0ed67a0cfd.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/fine2_6a986b2442.jpg"
+            ],
+            "Table_Section": null
+          },
+          {
+            "TabName": "Rotaract club",
+            "About": {
+              "title": "Rotaract club",
+              "descriptions": [
+                {
+                  "text": "Rotaract club of Nagarjuna Degree College is an institution-based club associated with Rotaract club of Yelahanka, Installed in 2018 with 15 members. It is service club for young men and women who are dedicated to the community and international services it is club committed to the core values of Rotary international: Service, Fellowship,Diversity ,Intergrity Leadership. Under the motto service above self through sustainable projects. The efforts of this club start at the community level but knows no Rotaract limits in its out rich."
+                }
+              ],
+              "image": "https://cdn.nagarjunadegreecollege.co.in/image005_2fa4a4655e.png"
+            },
+            "VisionMission": [
+              {
+                "title": "Vision",
+                "description": "To hone one’s leadership and business abilities and  give young people the chance to respond to community needs and issues ,  offer chances for working together with the sponsoring rotary club and participate in society to inspire young people to join eventually.",
+                "points": []
+              },
+              {
+                "title": "Mission",
+                "description": "The mission of Rotaract is to provide an opportunity for men and women to enhance the knowledge and skills that will assist them in personal development, to address the physical and social needs of their communities, and to promote better relations between all people worldwide through a framework of friendship and service.",
+                "points": []
+              }
+            ],
+            "OtherSections": [
+              {
+                "title": "Recent Activity",
+                "ListPoints": [
+                  {
+                    "text": "Nagarjuna Degree College, in collaboration with Rotaract Club Yelahanka, organized a blood donation camp on campus. Students and staff actively participated, donating blood to support local hospitals and raise awareness about the importance of regular blood donation. The event was a great success, reflecting the spirit of service, compassion, and social responsibility."
+                  },
+                  {
+                    "text": "Club had organized a social activity” Fist Full of Rice” on 29/12/2022.As part of this event our club members and student coordinators collected groceries from all students and faculties of Nagarjuna Degree College and were donated to AIMS Seva Ashrama and Snaha Jeevi Vrudha Ashrama, thus connecting with needy section of the society."
+                  }
+                ]
+              }
+            ],
+            "images": [
+              "https://cdn.nagarjunadegreecollege.co.in/image011_1_1024x768_660dd58b14.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/9865bcb5_0f44_484a_9980_f263a8ca19ce_1024x682_ebd5842270.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/18762301_7423_4be2_aed8_396e07822487_1024x681_64bceb3697.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image007_d85b181581.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/image009_1_fe81b0eaf5.jpg",
+              "https://cdn.nagarjunadegreecollege.co.in/cc47304a_4cfb_4bd5_9dc5_940bcc94dcb2_1024x682_9caad9c36e.jpg"
+            ],
+            "Table_Section": {
+              "title": "Committee coordinators",
+              "Rows": [
+                {
+                  "Slno": "1",
+                  "name": "Mr Vinaykumar A",
+                  "role": "Co-ordinator"
+                },
+                {
+                  "Slno": "2",
+                  "name": "Mrs. Divya Shree B R",
+                  "role": "Member"
+                },
+                {
+                  "Slno": "3",
+                  "name": "Mr. Madesha V",
+                  "role": "Member"
+                },
+                {
+                  "Slno": "4",
+                  "name": "Mrs.Lydia Roshini",
+                  "role": "Member"
+                }
+              ]
+            }
+          },
+          {
+            "TabName": "Leadership Cell",
+            "About": {
+              "title": "",
+              "descriptions": [
+                {
+                  "text": "NDC Leadership cell carves out the leadership qualities in the students and making them responsible enough to take the responsibility in every part of the work they take it in forefront."
+                },
+                {
+                  "text": "Leadership is not about just delegating work or instructing things to the people, but the ultimate leader is the one who takes the team together and in every step being standing by the team in every work forefront and failure."
+                },
+                {
+                  "text": "So, at NDC we develop all those qualities which make our student a successful leader throughout the lifetime."
+                }
+              ],
+              "image": ""
+            },
+            "VisionMission": [],
+            "OtherSections": [
+              {
+                "title": "NDC Leadership Cell activities include:",
+                "ListPoints": [
+                  {
+                    "text": "Team Building Exercises"
+                  },
+                  {
+                    "text": "Negotiation Skills"
+                  },
+                  {
+                    "text": "Assertiveness."
+                  },
+                  {
+                    "text": "Project Planning and Control"
+                  },
+                  {
+                    "text": "Business Simulation Program"
+                  }
+                ]
+              }
+            ],
+            "images": [
+              "https://cdn.nagarjunadegreecollege.co.in/leadership_cell_974d06e859.png"
+            ],
+            "Table_Section": null
+          }
+        ]
+      },
+      "Activities": {
+        "title": "Cultural Activities",
+        "description": "India is a county of Tradition and Culture. This tradition finds reflection in the cultural activities at NDC. The various opportunities to showcase the hidden talents lead the students to holistic development.",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/image_f895fbf7af.png"
+      }
+    }
+  }
+}

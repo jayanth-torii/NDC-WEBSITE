@@ -1,0 +1,139 @@
+{
+  "students-grievance-redressal-cell": {
+    "data": {
+      "bannerSection": {
+        "title": "Students Grievance Redressal Cell",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_200_1_5e3cc121b1.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "Students Grievance Redressal Cell",
+        "AboutDescription": [
+          "The Student’s Grievance Cell desires to promote and maintain a conducive and unprejudiced educational environment. The Cell enables a student to express feelings by initiating and pursuing the grievance procedure in accordance with the rules and regulations of the College. ‘Student’s Grievance Cell’ enquires and analyses the nature and pattern of the grievances in a strictly confidential manner. Emphasis on procedural fairness has been given with a view to “the right to be heard and right to be treated without bias”."
+        ],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "To develop a responsive and accountability among all the stakeholders in order to maintain a harmonious educational atmosphere in the institute.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "To create a conducive atmosphere for students to express their grievances freely and frankly without any fear of being victimized.",
+              "points": []
+            }
+          ]
+        },
+        "AccordienSection": [
+          {
+            "title": "Objectives",
+            "ListPoints": [
+              "To support, those students who have been deprived of the services offered by the college, for which he / she is entitled.",
+              "To make officials of the college responsive, accountable and courteous in dealing with the students.",
+              "To ensure effective solution to the students’ grievances with an impartial and fair approach."
+            ]
+          },
+          {
+            "title": "Functions",
+            "ListPoints": [
+              "Redressal of Students’ Grievances to solve their academic and administrative problems.",
+              "To co-ordinate between students and Departments / Sections to redress the grievances.",
+              "To guide ways and means to the students to redress their problems."
+            ]
+          }
+        ]
+      },
+      "proceduresSection": [
+        {
+          "title": "Procedure",
+          "descriptions": [],
+          "points": [
+            "Procedure for lodging complaint",
+            "The students can lodge their grievance through online mechanism in the link provided below- https://forms.gle/up7K5DsYu2AbjBFm7 for lodging grievance",
+            "The students may feel free to drop the writing (can be anonymous if required) in the grievance / suggestion box.",
+            "The Grievance Cell will act upon those cases which have been forwarded along with the necessary documents."
+          ]
+        }
+      ],
+      "ImagesSection": {
+        "title": "Students Grievance Redressal Cell",
+        "images": [
+          "https://cdn.nagarjunadegreecollege.co.in/grive_2_1024x768_a45355160d.png",
+          "https://cdn.nagarjunadegreecollege.co.in/grive_3_720e19d32b.png",
+          "https://cdn.nagarjunadegreecollege.co.in/grive_1_1024x768_2606aabe4c.png",
+          "https://cdn.nagarjunadegreecollege.co.in/grive_4_d12064d399.png"
+        ]
+      },
+      "Members": {
+        "title": "Members",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Dr Harish Babu S",
+            "designation": "Principal, Nagarjuna Degree College",
+            "role": "Chairman",
+            "mobile": "9901540808",
+            "email": "ndcprinicpal@ncetmail.com"
+          },
+          {
+            "name": "Dr. Vala Ghanshyam Kantilal",
+            "designation": "Professor,  Department of Management, MBA",
+            "role": "Member",
+            "mobile": "9845172211",
+            "email": "valaghanshyamk@ncetmail.com"
+          },
+          {
+            "name": "Dr. K Rajeshwari",
+            "designation": null,
+            "role": null,
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Prof. Gayathri",
+            "designation": "Assistant  Professor  NDC",
+            "role": "Member",
+            "mobile": "7019532932",
+            "email": "bgayathriramesh62426@gmail.com"
+          },
+          {
+            "name": "Mr Rejathesh",
+            "designation": "Student  II Year MBA",
+            "role": "Student  Representative",
+            "mobile": "6364545020",
+            "email": null
+          },
+          {
+            "name": "Ms M Sirisha",
+            "designation": "Student  II Year MBA",
+            "role": "Student  Representative",
+            "mobile": "6364545020",
+            "email": null
+          },
+          {
+            "name": "Ms M Sirisha",
+            "designation": "Student  III Year BBA",
+            "role": "Student  Representative",
+            "mobile": "8431691166",
+            "email": null
+          },
+          {
+            "name": "Ms Pratheeksha",
+            "designation": "Student  III Year BCA",
+            "role": "Student  Representative",
+            "mobile": "7760460477",
+            "email": null
+          },
+          {
+            "name": "Mr Sunil Edward Mandes",
+            "designation": "Academic  Council  Member",
+            "role": "University Nominee",
+            "mobile": "9742976219",
+            "email": "Sunil.mendes@gmail.com"
+          }
+        ]
+      }
+    }
+  }
+}

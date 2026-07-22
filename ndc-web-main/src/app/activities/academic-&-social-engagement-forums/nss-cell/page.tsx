@@ -1,37 +1,19 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Suspense } from "react";
 
 import Banner from '@/components/Activities/CommonComponents/Banner';
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
-import { BASE_URL } from "@/config/apiService";
 import Images from "@/components/Activities/CommonComponents/Images";
- 
+import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/nss-cell/data.json";
+
 
 function NSSCell() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const data: any = (pageJson["nss-and-red-cross"] as any)?.data || null;
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/nss-and-red-cross`)
-      .then((res) => {
-        setData(res?.data?.data || null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch NSS content:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading NSS Cell...
-      </div>
-    );
+  if (!data) {
+    return null;
   }
 
   return (

@@ -1,0 +1,60 @@
+{
+  "nss-and-red-cross": {
+    "data": {
+      "bannerSection": {
+        "title": "NSS And Red Cross",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_144_3_fd20069a33.png"
+      },
+      "Sections": [
+        {
+          "title": "National Service Scheme",
+          "descriptions": [
+            "National Service Scheme (NSS) is a voluntary program under which Youth students from higher education institutions can participate in the voluntary National Service Scheme (NSS), which works to connect campuses and the local community. This programme, known as NSS, is run by the Ministry of Youth Affairs & Sports. As they acquire in educational institutions and develop their personalities and inner feelings toward community welfare, the students are primarily oriented toward community service by the programme.",
+            "The NSS supports the student’s growth on an individual and group level. Students can gain leadership skills, confidence, and knowledge of people from all backgrounds by volunteering for various jobs as part of NSS events.",
+            "While helping to raise people’s living standards, students also learn about many life-essential skills, achieving NSS’s goal of helping everyone in need. Active NSS volunteers gain exposure and experience that help them develop into effective social leaders and administrators."
+          ],
+          "points": []
+        },
+        {
+          "title": "Our Vision",
+          "descriptions": [],
+          "points": [
+            "To cultivate in young minds a natural willingness to savour good and uplifting concepts.",
+            "To deepen the significance of life",
+            "To work toward virtuous human pursuits. ",
+            "To meet society’s educational, emotional, and intellectual needs.",
+            "To educate efforts both academic and extracurricular to sensibilize society.",
+            "Nation building to broaden the minds and intellects of the younger generation"
+          ]
+        },
+        {
+          "title": "Our Mission",
+          "descriptions": [],
+          "points": [
+            "The National Service Scheme has been functioning with the motto “NOT ME BUT YOU”",
+            "To deliver superior instruction",
+            "To make it possible for the entire personality to grow through extracurricular and co-curricular activities.",
+            "To instill moral principles like as love, truth, and non-violence.",
+            "To inspire others to strive for greatness in all aspects of life.",
+            "To expand our advisory and guidance services."
+          ]
+        },
+        {
+          "title": "Recent Activities",
+          "descriptions": [
+            "Nagarjuna Degree College, in collaboration with Rotaract Club Yelahanka, organized a blood donation camp on campus. Students and staff actively participated, donating blood to support local hospitals and raise awareness about the importance of regular blood donation. The event was a great success, reflecting the spirit of service, compassion, and social responsibility."
+          ],
+          "points": []
+        }
+      ],
+      "ImagesSection": {
+        "title": "",
+        "images": [
+          "https://cdn.nagarjunadegreecollege.co.in/cc47304a_4cfb_4bd5_9dc5_940bcc94dcb2_1024x682_4d03200903.jpg",
+          "https://cdn.nagarjunadegreecollege.co.in/9865bcb5_0f44_484a_9980_f263a8ca19ce_1024x682_b337e6a56f.jpg",
+          "https://cdn.nagarjunadegreecollege.co.in/18762301_7423_4be2_aed8_396e07822487_1024x681_84debb4c16.jpg"
+        ]
+      }
+    }
+  }
+}

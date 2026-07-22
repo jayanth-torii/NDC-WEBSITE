@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState, useRef} from "react";
+import React, { useRef} from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useParams } from "next/navigation";
@@ -10,8 +10,7 @@ import "swiper/css/navigation";
 import Arrow from "../../../public/images/IcocNew.svg";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
 import { Button } from "@mantine/core";
-import axios from "axios";
-import { BASE_URL } from "../../config/apiService";
+import blogJson from "@/data-export/blog/data.json";
 
 
 const Blogs = () => {
@@ -19,21 +18,8 @@ const Blogs = () => {
    const { id } = useParams();
    const link = `blog/${id}`
 
-   const [articles, setArticlesData] = useState<Record<string, any> | null>(null);
+   const articles: Record<string, any> | null = (blogJson["blogs-content"] as any)?.data?.blogs || null;
    const swiperRef = useRef<any>(null); // Ref for Swiper instance
-
-   useEffect(() => {
-    const fetchBlocksContent = async () => {
-      try {
-        const response = await axios.get(`${BASE_URL}/blogs-content`);
-        setArticlesData(response?.data?.data?.blogs);
-      } catch (error) {
-        console.error("Error fetching Placement sections:", error);
-      }
-    };
-
-    fetchBlocksContent();
-  }, []);
 
   return (
     <div className="bg-[#eeece9] rounded-lg relative flex flex-col items-center justify-center pt-10 m-auto w-[91%] mt-20 mb-10">

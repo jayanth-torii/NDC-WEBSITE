@@ -1,7 +1,6 @@
 "use client";
-import React, { useEffect, useState, Suspense } from "react";
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+import React, { Suspense } from "react";
+import pageJson from "@/data-export/activities/student-oriented-cells/anti-ragging-cell/data.json";
 
 import Banner from "@/components/Activities/CommonComponents/Banner";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
@@ -10,28 +9,10 @@ import Policies from "@/components/Activities/CommonComponents/Policies";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
 function AntiRaggingCell() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const data: any = (pageJson["anti-ragging-cell"] as any)?.data || null;
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/anti-ragging-cell`)
-      .then((res) => {
-        const content = res?.data?.data;
-        setData(content || null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch anti-ragging content:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Anti-Ragging Cell...
-      </div>
-    );
+  if (!data) {
+    return null;
   }
 
   return (

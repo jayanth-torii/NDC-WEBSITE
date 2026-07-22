@@ -1,34 +1,16 @@
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
-import axios from "axios";
+import React, { Suspense } from "react";
 import Banner from "@/components/Activities/CommonComponents/Banner";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import About from "@/components/Activities/CommonComponents/About";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
-import { BASE_URL } from "@/config/apiService";
+import pageJson from "@/data-export/activities/student-oriented-cells/women-cell/data.json";
 
 function WomenCell() {
-  const [data, setData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
+  const data: any = (pageJson["women-cell"] as any)?.data || null;
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}/women-cell`)
-      .then((res) => {
-        setData(res?.data?.data || null);
-      })
-      .catch((err) => {
-        console.error("Failed to fetch women-cell content:", err);
-      })
-      .finally(() => setLoading(false));
-  }, []);
-
-  if (loading || !data) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Women Cell...
-      </div>
-    );
+  if (!data) {
+    return null;
   }
 
   return (

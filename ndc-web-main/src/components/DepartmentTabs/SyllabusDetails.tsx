@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { BASE_URL } from "@/config/apiService";
+import departmentJson from "@/data-export/department/data.json";
 
 type Row = { name?: string; courses?: string };
 type Tab = { tabName?: string; rows?: Row[] };
@@ -16,28 +16,9 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const [apiData, setApiData] = useState<Record<string, DeptEntry>>({});
+  const apiData: Record<string, DeptEntry> = (departmentJson["syllabus-details"] as any)?.data || {};
 
-  const [error, setError] = useState<any>(null);
   const [activeTab, setActiveTab] = useState(0);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}/syllabus-details`);
-        const json = await res.json();
-        setApiData(json?.data || {});
-      } catch (err) {
-        console.error("Failed to fetch syllabus details:", err);
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
 
   // ✅ Normalize API keys once (before any conditional returns)
   const normalizedMap = useMemo(() => {
@@ -73,18 +54,6 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
   // ---- UI returns AFTER all hooks ----
-  if (loading) {
-    return <p className="text-center text-[#003333]">Loading...</p>;
-  }
-
-  if (error) {
-    return (
-      <p className="text-center text-[#003333]">
-        Failed to load syllabus details.
-      </p>
-    );
-  }
-
   if (!dept) {
     return (
       <p className="text-center text-[#003333]">

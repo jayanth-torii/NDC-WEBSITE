@@ -1,0 +1,235 @@
+{
+  "footer": {
+    "data": {
+      "id": 1,
+      "documentId": "aaddnfw27qjkb2tendxbzzmc",
+      "createdAt": "2025-06-19T12:52:25.930Z",
+      "updatedAt": "2026-07-16T04:34:34.396Z",
+      "publishedAt": null,
+      "locale": null,
+      "contactInfo": {
+        "id": 1,
+        "phone": "9620383355 | 9513227717 | 9353049066",
+        "email": "ndcprincipal@ncetmail.com, admission@ndcmail.in",
+        "address_link": "https://www.google.com/maps?ll=13.116397,77.562246&z=16&t=m&hl=en&gl=IN&mapclient=embed&cid=17815594856769670624",
+        "address": "Nagarjuna Degree College #38/36, Ramagondanahalli, Yelahanka, Bangalore - 560064",
+        "rights_reserved": "@ 2026 Nagarjuna Group of Institutions, All Rights Reserved",
+        "logo": "https://cdn.nagarjunadegreecollege.co.in/NGI_Logo_d53c56dedc_228e76e7bc.png"
+      },
+      "importantLinks": [
+        {
+          "id": 1,
+          "title": "Blogs",
+          "type": "link",
+          "link": "/blog",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 13,
+          "title": "Sports",
+          "type": "link",
+          "link": "/sports",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 29,
+          "title": "NIRF",
+          "type": "link",
+          "link": "https://cdn.nagarjunadegreecollege.co.in/NDC_NIRF_b9d7319741.pdf",
+          "pdf": {
+            "id": 944,
+            "documentId": "e89cl2336foqtal2bv865wd8",
+            "url": "https://cdn.nagarjunadegreecollege.co.in/NDC_NIRF_b9d7319741.pdf"
+          },
+          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/NDC_NIRF_b9d7319741.pdf"
+        },
+        {
+          "id": 30,
+          "title": "IQAC",
+          "type": "link",
+          "link": "/iqac",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 31,
+          "title": "IIC",
+          "type": "link",
+          "link": "/iic",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 32,
+          "title": "Research Forum",
+          "type": "link",
+          "link": "/research-forum",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 40,
+          "title": "Cultural Activities",
+          "type": "link",
+          "link": "/activities",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 76,
+          "title": "Activities",
+          "type": "link",
+          "link": "/activities",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 278,
+          "title": "Mandatory Disclosure",
+          "type": "link",
+          "link": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2026_10edfd6d41.pdf",
+          "pdf": {
+            "id": 945,
+            "documentId": "pr1omqhaky7n0bzcuvjxfvgh",
+            "url": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2026_10edfd6d41.pdf"
+          },
+          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2026_10edfd6d41.pdf"
+        }
+      ],
+      "acadamics": [
+        {
+          "id": 439,
+          "title": "ERP Login",
+          "type": "link",
+          "link": "https://vapsecampus.azurewebsites.net/#/login/",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 49,
+          "title": "Library",
+          "type": "link",
+          "link": "/library",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 50,
+          "title": "Prospectus",
+          "type": "pdf",
+          "link": "https://www.nagarjunadegreecollege.co.in/wp-content/uploads/2024/02/PG_Brochure_12-page_V4-1.pdf",
+          "pdf": {
+            "id": 373,
+            "documentId": "ipjkgra5k8n9qqjo0qnc4zsd",
+            "url": "https://cdn.nagarjunadegreecollege.co.in/PG_Brochure_12_page_V4_1_c76c895586.pdf"
+          },
+          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/PG_Brochure_12_page_V4_1_c76c895586.pdf"
+        },
+        {
+          "id": 51,
+          "title": "Alumni",
+          "type": "link",
+          "link": "/alumni",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 63,
+          "title": "Question Bank",
+          "type": "link",
+          "link": "/question-bank",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 77,
+          "title": "Student Fourm",
+          "type": "link",
+          "link": "/activities",
+          "pdf": null,
+          "pdf_link": null
+        }
+      ],
+      "reports_and_publications": [
+        {
+          "id": 106,
+          "title": "Samashti",
+          "type": "link",
+          "link": "/samashti",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 107,
+          "title": "Service Manual",
+          "type": "pdf",
+          "link": null,
+          "pdf": {
+            "id": 374,
+            "documentId": "hk6k3odunhwwkyeyfauh0p70",
+            "url": "https://cdn.nagarjunadegreecollege.co.in/Nds_Service_Manual_c357528fd6.pdf"
+          },
+          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/Nds_Service_Manual_c357528fd6.pdf"
+        }
+      ],
+      "policies": [
+        {
+          "id": 4,
+          "title": "Statutory Cells",
+          "type": "link",
+          "link": "/activities",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 124,
+          "title": "NDC Leadership Cell",
+          "type": "link",
+          "link": "/activities",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 125,
+          "title": "Career Advancement Center",
+          "type": "link",
+          "link": "/students",
+          "pdf": null,
+          "pdf_link": null
+        },
+        {
+          "id": 144,
+          "title": "Online Grievance Redressal Cell",
+          "type": "link",
+          "link": "https://docs.google.com/forms/d/e/1FAIpQLScc8aG2_usAVghn0SUOEYLcldNFIVxonVZmOpAWqlaHTHtPZQ/viewform",
+          "pdf": null,
+          "pdf_link": null
+        }
+      ],
+      "follow": [
+        {
+          "id": 1,
+          "title": "LinkedIn",
+          "link": "https://in.linkedin.com/school/nagarjuna-degree-college/"
+        },
+        {
+          "id": 4,
+          "title": "Facebook",
+          "link": "https://www.facebook.com/ndcbengaluru"
+        },
+        {
+          "id": 5,
+          "title": "Youtube",
+          "link": "https://www.youtube.com/@NDCYelahanka"
+        },
+        {
+          "id": 6,
+          "title": "Instagram",
+          "link": "https://www.instagram.com/ndcbangalore/"
+        }
+      ]
+    }
+  }
+}

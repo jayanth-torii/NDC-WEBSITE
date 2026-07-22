@@ -1,0 +1,64 @@
+{
+  "faculty-study-circle": {
+    "data": {
+      "bannerSection": {
+        "title": "faculty-study-circle",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_146_4_19230701c3.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "Faculty Study Circle ",
+        "AboutDescription": [
+          "The Department of Commerce, Management and the Faculty study circle are the teacher communities that learn from and support one another, with the ultimate aim of improving student learning outcomes. The groups reflect on current teaching practices and seek ways to enhance their instructional effectiveness. It was established in the college in 2019 with active participation all faculties. These groups move through a continuous cycle:",
+          "Reflection: Share experiences and identify challenges",
+          "Learning: Examine experiences and explore solutions",
+          "Planning: Create action plan for solutions",
+          "Action: Take action to test solutions",
+          "Evaluation: Reflect and evaluate effectiveness"
+        ],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "The Vision is organised around three elements for learning: Knowledge, Capabilities and Self. To be Leading library and learning centre in Commerce and Management, Science and Technology ,Social Science by delivering innovative services which echoes the diverse and dynamic spirit of Nagarjuna Degree College.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "To provide seamless access to compressive, quality resources and physical and digital formats in support of teaching, research and learning needs of the Nagarjuna Degree College",
+              "points": []
+            }
+          ]
+        },
+        "AccordienSection": []
+      },
+      "AntiRaggingCommitteMembers": {
+        "title": "Coordinators",
+        "descriptions": [],
+        "tableSection": [
+          {
+            "name": "Dr. Dhakshayini K N",
+            "designation": null,
+            "role": "Conveynor",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Divya Shree B R",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Nandini V",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

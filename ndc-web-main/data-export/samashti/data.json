@@ -1,0 +1,101 @@
+{
+  "samashti": {
+    "data": [
+      {
+        "BannerSection": {
+          "title": "samashti",
+          "image": "https://cdn.nagarjunadegreecollege.co.in/Samashti_1_ffe24cb666.png"
+        },
+        "About": {
+          "title": "BRIDGING INNOVATION, KNOWLEDGE, AND EXCELLENCE",
+          "description": [
+            "Welcome to Nagarjuna Samashti, the official magazine of Nagarjuna Group Of Institutes, where knowledge meets innovation. Every quarter, we bring you the latest updates on campus activities, groundbreaking research, student achievements, and faculty insights. Stay informed about upcoming workshops, seminars, industry partnerships, and career opportunities designed to shape the future of education and technology.",
+            "Dive into inspiring success stories, expert opinions, and thought-provoking discussions on emerging trends in engineering, science, and technology. Whether you're a student striving for academic excellence, a researcher exploring new frontiers, or an industry professional looking for collaboration, Nagarjuna  Samashti is your gateway to a world of knowledge, creativity, and progress.\nStay connected, stay inspired, and be a part of the innovation revolution!"
+          ]
+        },
+        "Editions": {
+          "title": "VIEW EDITIONS",
+          "description": "Stay updated with the latest developments, research, and events at Nagarjuna group of institutions. From groundbreaking innovations to student achievements and faculty insights, Nagarjuna Samashti keeps you informed and inspired.",
+          "buttons": [
+            "PREVIOUS",
+            "NEXT"
+          ],
+          "Editions": [
+            {
+              "title": "Samashti Edition 1",
+              "date": "July to Sep -2022- Volume 1",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_1_bcb419445e.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/1_e71340bb17_a2de769fda.png"
+            },
+            {
+              "title": "Samashti Edition 2",
+              "date": "October to December 2022",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_October_December_V4_Smallest_File_3bf721886c.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/2_43c908af84_89126c747a.png"
+            },
+            {
+              "title": "Samashti Edition 3",
+              "date": "January to March 2023",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_January_to_March_V2_Smallest_File_1_70d1a7f827.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/3_caa0fc42f3_234e34910c.png"
+            },
+            {
+              "title": "Samashti Edition 4",
+              "date": "April to June 2023",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_April_to_June_V4_1_0b7909a71e.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/4_0d2e2cd8fc_59687c85e4.png"
+            },
+            {
+              "title": "Samashti Edition 5",
+              "date": "July to September 2023",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_July_to_September_V2_Samllest_file_db8d2ed2b1.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/5_6f02abf374_b2faf9c49f.png"
+            },
+            {
+              "title": "Samashti Edition 6",
+              "date": "October to December 2023",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_Oct_Dec_2023_Vol_6_compressed_00f2e538fc.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/6_cf243dc691_692a5a077b.png"
+            },
+            {
+              "title": "Samashti Edition 7",
+              "date": "January to March 2024",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_Jan_to_Mar_Vol_7_V5_Website_compressed_1_1eb28fa275.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/7_6c31bfa8c2_5346cc82d7.png"
+            },
+            {
+              "title": "Samashti Edition 8",
+              "date": "April to June 2024",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_April_to_June_Vol_8_6116fe17f7.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/8_98986b4a0d_b8e6ddcf33.png"
+            },
+            {
+              "title": "Samashti Edition 9",
+              "date": "July to September 2024",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/July_to_September_Vol_9_2826bb10b6.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/9_30d5c502a0_17820ea2fa.png"
+            },
+            {
+              "title": "Samashti Edition 10",
+              "date": "October to December 2024",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Oct_to_Dec_Vol_10_13a9acadf1.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/10_b3f02c0b3c_5c17976750.png"
+            },
+            {
+              "title": "Samashti Edition 11",
+              "date": "January to March 2025",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_Vol_11_ebd91f7a2a.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/11_acbec03390_526d5d928a.png"
+            },
+            {
+              "title": "Samashti Edition 12",
+              "date": "April to June 2025",
+              "pdfUrl": "https://cdn.nagarjunadegreecollege.co.in/Samashti_Volume_12_70bd82fbf6.pdf",
+              "imageUrl": "https://cdn.nagarjunadegreecollege.co.in/12_50ce2dabf8.jpeg"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

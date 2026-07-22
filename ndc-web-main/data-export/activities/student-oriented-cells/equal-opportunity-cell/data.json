@@ -1,0 +1,63 @@
+{
+  "equal-opportunity-cell": {
+    "data": {
+      "bannerSection": {
+        "title": "Equal Opportunities Cell",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_146_1_1dbee9008a.png"
+      },
+      "AboutVisionMissionSections": {
+        "title": "Equal Opportunities Cell",
+        "AboutDescription": [
+          "The Department of Commerce, Management and the Equality Opportunity Cell has been set up in the gender equality and gender-related discrimination among the teachers and students should be addressed in college. It was created to supervise the efficient implementation of the policies and programmes for all the college’s disadvantaged groups. It aims to ensure diversity among the student, faculty, and staff communities and to end all forms of prejudice among all parties involved in the college. It aims to foster an environment that will foster the development of positive interpersonal relationships among the students from varied social backgrounds. Through equal opportunity, knowledge development and dissemination, and the promotion of diversity and inclusive practises at the college, the college is committed to achieving a lively and inclusive growth for all of its sections. The Equal Opportunity Cell periodically holds seminars, workshops, guest lectures, activities, and awareness programmes on topics with current significance and importance in order to further all of these objectives."
+        ],
+        "VisionMission": {
+          "title": "Our Vision & Mission",
+          "sections": [
+            {
+              "title": "Our Vision",
+              "description": "To provide high-quality education that is affordable, while also empowering students with the knowledge and skills necessary for success in their chosen field, instilling values, spotting hidden talents, and giving them the chance to reach their full potential. This will help students become future leaders, business owners, and, most importantly, decent people.",
+              "points": []
+            },
+            {
+              "title": "Our Mission",
+              "description": "To aim for high-quality education in line with the college’s slogan, “Excellence in Education,” and to get young minds ready for absorbing wisdom, talent, and sensitivity.",
+              "points": []
+            }
+          ]
+        },
+        "AccordienSection": [
+          {
+            "title": "Objectives",
+            "ListPoints": [
+              "Establish a space where students can explore their creative potential while fostering an entrepreneurial and critical thinking mindset. Equip students with the skills needed to adapt better to the changing global scenario and gain access to multiple career opportunities.",
+              "Offer inclusive education by making it available to all societal groups.",
+              "To uphold and encourage sustainability, compliance, and high standards of governance."
+            ]
+          }
+        ]
+      },
+      "Table": {
+        "title": "How Equal Opportunity Cell Supports Students' Career",
+        "descriptions": [
+          "Equal Opportunities covers the whole process of education but particularly embraces issues of multiculturalism, anti-racism, disability, ethnicity, gender and trans-gender, sexuality, and socio-economic disadvantage."
+        ],
+        "tableSection": [
+          {
+            "name": "Dr. Dhakshayini K N",
+            "designation": null,
+            "role": "Convener",
+            "mobile": null,
+            "email": null
+          },
+          {
+            "name": "Prof. Prakash",
+            "designation": null,
+            "role": "Member",
+            "mobile": null,
+            "email": null
+          }
+        ]
+      }
+    }
+  }
+}

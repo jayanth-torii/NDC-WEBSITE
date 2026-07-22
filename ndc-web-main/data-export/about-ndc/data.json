@@ -1,0 +1,232 @@
+{
+  "about-us": {
+    "data": {
+      "aboutUs": {
+        "title": "About Nagarjuna Degree College",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/UGC_SM_V31_1024x1018_29d4c12631.jpg",
+        "description": [
+          "Nagarjuna Degree College established in 2013 by Nagarjuna Education Society with an aim to lead the way for individuals into real life careers. This Degree College in Yelahanka is affiliated to Bengaluru City University, recognised by the Government of Karnataka (GOK) and approved by AICTE, New Delhi. ",
+          "It offers professional teaching, unbeatable mentoring, fully fledged placement assistance, certified add on courses, career advancement centre along with friendly campus. "
+        ]
+      },
+      "VisionMission": {
+        "dropdowns": [
+          {
+            "title": "Our Vision & Mission",
+            "content": [
+              {
+                "type": "text",
+                "bold": "true",
+                "text": "Our Vision",
+                "items": []
+              },
+              {
+                "type": "",
+                "bold": "",
+                "text": "",
+                "items": [
+                  "Leadership and Excellence in Education\n\n"
+                ]
+              },
+              {
+                "type": "text",
+                "bold": "true",
+                "text": "Our Mission",
+                "items": []
+              },
+              {
+                "type": "",
+                "bold": "",
+                "text": "",
+                "items": [
+                  "Drive to provide excellent educational opportunities that are responsive to the needs of the students: providing quality, responsive education and skill based programmes.",
+                  "Equipping the students with the skills necessary to respond to the opportunities and challenges associated with ever-changing societal demographics.",
+                  "Empowering the students to meet and exceed challenges as active participants in shaping the future."
+                ]
+              }
+            ]
+          },
+          {
+            "title": "History & Milestones",
+            "content": [
+              {
+                "type": "list",
+                "bold": "",
+                "text": "",
+                "items": [
+                  "Established in the year 2013. ",
+                  "Nagarjuna Degree College, a significant degree college and prominent management school in Yelahanka, is affiliated to Bengaluru City University, recognised by the Government of Karnataka (GOK) and approved by AICTE, New Delhi.  ",
+                  "The institution offers UG and PG programmes in the field of commerce, science and management. The learning spirit at NDC is enhanced with professional teaching, unbeatable mentoring, fully fledged placement assistance, certified add on courses, career advancement centre along with friendly campus.   ",
+                  "The Campus Culture adds value to every student’s life by creating self-learning opportunities, challenges, experiences and activities where they embrace and apply the power of education and create a world of excellence. "
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "principalMessage": {
+        "title": "Principal's Message",
+        "principalName": "Dr. Harish Babu S",
+        "position": "Principal, NDC & Director – Management Studies, NGI",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/principal_f52f754275.jpeg",
+        "message": [
+          "Greetings,",
+          "Our institution is recognised as a platform for students to build their wings and fly beyond the horizon. The college emphasis on developing and maintaining positive relationships which means that we know each student as individual and we lean to provide more personal support and greater access to opportunities in each student’s chosen field of interest. ",
+          "Parents and visitors compliment us on the warm and orderly college atmosphere and out strong sense to community. We encourage all our students to develop high expectations about themselves, their work and their behavior which is an expression to our values of personal best, integrity, respect and responsibility. ",
+          "Our approach involves working with parents to meet the individual need of every student and supporting them to fulfill their academic and co-curricular goals and dream. We score a centum on variables such as teacher’s effectiveness and empathy stimulated learning, student safety and connectedness to peers. In a world that rewards perseverance, resilience, initiative, problem-solving and co-operation, our students leave well prepared for future challenges. I am proud of the significant accomplishments of our students that reflects us being a better choice in pursuit of excellence. "
+        ]
+      },
+      "NewsLetter": {
+        "title": "Newsletter",
+        "sections": [
+          {
+            "title": "Volume 1",
+            "pdf": "https://cdn.nagarjunadegreecollege.co.in/NDC_NEWSLETTER_July_Sept_V3_9f72e68345.pdf"
+          },
+          {
+            "title": "Volume 2",
+            "pdf": "https://cdn.nagarjunadegreecollege.co.in/2_10ff6fb4af.pdf"
+          },
+          {
+            "title": "Volume 3",
+            "pdf": ""
+          },
+          {
+            "title": "Volume 4",
+            "pdf": "https://cdn.nagarjunadegreecollege.co.in/Volume_4_0df316f5b3.pdf"
+          }
+        ]
+      },
+      "OurCampuses": {
+        "title": "Our Campuses",
+        "campuses": [
+          {
+            "collegeName": "Nagarjuna College of Engineering and Technology",
+            "collegeDescription": "Nagarjuna College of Engineering and Technology (NCET), a self-financing engineering college started in the year 2001 under the aegis of Nagarjuna Education Society, Bangalore. A leading Industrialist and philanthropist, Sri J.V. Rangaraju established Nagarjuna Education Society (NES) in 1995.",
+            "location": "Bangalore",
+            "link": "https://ncet.co.in",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/ncet_639edb274b.jpg"
+          },
+          {
+            "collegeName": "Nagarjuna College of Management Studies",
+            "collegeDescription": "Nagarjuna College of Management Studies, a notable management institution established in 2015 by Nagarjuna Education Society. The institution is affiliated with Bengaluru North University and approved by AICTE, New Delhi. The drive of the institution is to provide an educational platform and skill-based programs that are responsive to the commitments of the students. ",
+            "location": "Bangalore",
+            "link": "https://ncms.co.in",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/ncms_1024x683_242e07c96a.jpg"
+          },
+          {
+            "collegeName": "Nagarjuna Degree College",
+            "collegeDescription": "Nagarjuna Degree College established in 2013 by Nagarjuna Education Society with an aim to lead the way for individuals into real life careers. This Degree College in Yelahanka is affiliated to Bengaluru City University, recognised by the Government of Karnataka (GOK) and approved by AICTE, New Delhi. It offers professional teaching, unbeatable mentoring, fully fledged placement assistance, certified add on courses, career advancement centre along with friendly campus. ",
+            "location": "Bangalore",
+            "link": "https://nagarjunadegreecollege.co.in",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/ndc_1_4534e74e85.jpg"
+          },
+          {
+            "collegeName": "Nagarjuna Pre-University College - Yelahanka",
+            "collegeDescription": "Nagarjuna Pre-University College (NPUC) established in 2000 runs under the guidance of Nagarjuna Education Society. The foremost institution imparts education in Science and Commerce streams. \n\nIt has become a prominent institution in Bangalore with an intake exceeding 2000 in population and empowered with 200+ teaching and supportive staff. ",
+            "location": "Bangalore",
+            "link": "https://nagarjunapucollege.co.in/chikkaballapur/",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/pu_61c9c83a65.png"
+          },
+          {
+            "collegeName": "Nagarjuna Vidyaniketan",
+            "collegeDescription": "Nagarjuna Vidyaniketan, established in the year 1995 is among the first institutions to be established under the guidance of Nagarjuna Education Society. The vision of excellence and leadership in education began with this prominent institution. The aim of this esteemed school emphasizes on the creation of leaders and responsible individuals through excellent value-based education. ",
+            "location": "Bangalore",
+            "link": "https://www.nagarjunavidyaniketan.com/",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/cbse_school_786b4290f4.webp"
+          },
+          {
+            "collegeName": "Nagarjuna Pre-University College - Chikkaballapur",
+            "collegeDescription": "Nagarjuna Pre-University College (NPUC) established in 2015 runs under the guidance of Nagarjuna Education Society. The eminent institution has been set up with the sole intention of providing an education that aids in achieving academic excellence. It imparts education in Science and Commerce streams and aims to provide the best facilities with day-scholars and residential program. ",
+            "location": "Bangalore",
+            "link": "https://nagarjunapucollege.co.in/chikkaballapur/",
+            "image": "https://cdn.nagarjunadegreecollege.co.in/ndc_99a7c86b4e.jpg"
+          }
+        ]
+      },
+      "GoverningCouncilMembers": {
+        "title": "Governing Council Members",
+        "members": [
+          {
+            "name": "Sri. J Chaitanya Varma",
+            "designation": "Secretary, NES, Bengaluru",
+            "position": "Chairman"
+          },
+          {
+            "name": "Smt. Bhanu Chaitanya Varma",
+            "designation": "Member, NES, Bengaluru",
+            "position": "Member"
+          },
+          {
+            "name": "Dr. S.G.Gopala Krishna",
+            "designation": "Sr. Director, NES, Bengaluru",
+            "position": "Member"
+          },
+          {
+            "name": "Sri. Sunil Edward Mandes",
+            "designation": "Academic Council Member",
+            "position": "Bangalore City University Nominee"
+          },
+          {
+            "name": "Dr M Jayappa",
+            "designation": "Special Officer, Karnataka Higher Education Council",
+            "position": "Member"
+          },
+          {
+            "name": "Dr. R S Bhartesh Rao",
+            "designation": "Secretary & Principal- RVD Institutions, Bengaluru",
+            "position": "Member"
+          },
+          {
+            "name": "Dr E Jerome Xavier",
+            "designation": "Principal, St Vincent Pallotti College, Bengaluru",
+            "position": "Member"
+          },
+          {
+            "name": "Mr. Bhaskar Reddy",
+            "designation": "CFO, NES, Bengaluru",
+            "position": "Member"
+          },
+          {
+            "name": "Prof. Nanjundappa V S",
+            "designation": "Principal, NPUC",
+            "position": "Member"
+          },
+          {
+            "name": "Dr. Harish Babu S",
+            "designation": "Principal, Nagarjuna Degree College",
+            "position": "Member Secretary"
+          },
+          {
+            "name": "Dr. Vala Ghanshyam Kantilal",
+            "designation": "Academic Coordinator- MBA",
+            "position": " Faculty Member"
+          },
+          {
+            "name": "Dr. Nagesh B",
+            "designation": "HOD – Commerce (UG and PG)",
+            "position": "Faculty Member"
+          },
+          {
+            "name": "Prof. Kavitha A Karkera",
+            "designation": "IQAC Coordinator",
+            "position": "Faculty Member"
+          }
+        ]
+      },
+      "ImportantConsiderations": {
+        "title": "Important Considerations",
+        "sections": [
+          {
+            "title": "Mandatory Disclosures ",
+            "pdf": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2025_f5241936ff.pdf"
+          },
+          {
+            "title": "NIRF",
+            "pdf": "https://cdn.nagarjunadegreecollege.co.in/nirf_2c2e970c0e.pdf"
+          }
+        ]
+      }
+    }
+  }
+}
