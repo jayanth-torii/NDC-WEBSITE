@@ -2,7 +2,8 @@
 import { BASE_URL } from "@/config/apiService";
 
 import { useState, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 // import { HomePageContent } from "@/app/Data/HomePageContent";
 // const { sideButtons} = HomePageContent.bannerSection;
@@ -156,30 +157,30 @@ export default function HomeHero({ data }: any) {
             className="w-full h-[25vh] lg:h-[70vh] aspect-[16/9] md:aspect-[3/1.2] object-cover"
           />
 
-          <div className="hidden lg:block absolute bottom-6 left-6 bg-[#cce8ee35] text-white bg-opacity-80 backdrop-blur-md rounded shadow-md p-4 max-w-[360px] z-10">
-            <h2 className="text-xl font-semibold text-white">
+          <div className="hidden lg:block absolute bottom-6 left-6 bg-navy/55 border-l-4 border-orange text-white backdrop-blur-md rounded-[14px] shadow-[var(--shadow-card-hover)] p-5 max-w-[360px] z-10">
+            <h2 className="text-xl font-bold text-white">
               {slides[index]?.title}
             </h2>
-            <p className="text-sm mt-1 mb-2 text-white">
+            <p className="text-sm mt-1 mb-3 text-white/85 leading-relaxed">
               {slides[index]?.description}
             </p>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-2">
               <a href={location} target="__blank" rel="noopener noreferrer">
-                <button className="bg-[#0E2455] text-white px-3 py-1 text-sm">
+                <Button variant="ghost-light" className="!px-4 !py-2 !text-xs !rounded-md">
                   View Location on Map
-                </button>
+                </Button>
               </a>
               <button
                 onClick={prevSlide}
-                className="p-1 border-2 border-white bg-transparent text-white rounded-full hover:bg-white hover:text-black transition"
+                className="p-2 border-2 border-white/60 bg-transparent text-white rounded-full transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-white hover:text-navy"
               >
-                <FaArrowLeft />
+                <ArrowLeft size={16} />
               </button>
               <button
                 onClick={nextSlide}
-                className="p-1 border-2 border-white bg-transparent text-white rounded-full hover:bg-white hover:text-black transition"
+                className="p-2 border-2 border-white/60 bg-transparent text-white rounded-full transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-white hover:text-navy"
               >
-                <FaArrowRight />
+                <ArrowRight size={16} />
               </button>
             </div>
           </div>
@@ -190,12 +191,12 @@ export default function HomeHero({ data }: any) {
         {/* Fixed Buttons */}
         <div className="fixed top-[60vh] right-[-9.5vw] transform rotate-[-90deg] hidden sm:flex z-[9999]">
           <a href="/contact-us">
-            <button className="bg-[#0e2455] text-white text-[1vw] py-[0.3vw] px-[2vw] rounded-sm cursor-pointer mr-1">
+            <button className="bg-navy text-white text-[1vw] py-[0.3vw] px-[2vw] rounded-sm cursor-pointer mr-1 shadow-[var(--shadow-cta)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-[#132a63]">
               Have a query?
             </button>
           </a>
           <a href="https://apply.nagarjunadegreecollege.co.in/" target="_blank" rel="noopener noreferrer">
-            <button className="bg-[#f6872a] text-white text-[1vw] py-[0.3vw] px-[2vw] rounded-sm cursor-pointer">
+            <button className="bg-orange text-white text-[1vw] py-[0.3vw] px-[2vw] rounded-sm cursor-pointer shadow-[var(--shadow-cta)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange-dark">
               Application Form
             </button>
           </a>

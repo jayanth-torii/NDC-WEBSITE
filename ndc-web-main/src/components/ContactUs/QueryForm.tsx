@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { BASE_URL } from "@/config/apiService";
+import Button from "@/components/ui/Button";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const QueryForm = () => {
   const [formData, setFormData] = useState({
@@ -115,15 +117,20 @@ const QueryForm = () => {
     setTimeout(() => setMessage(null), 3000);
   };
 
+  const inputClasses =
+    "w-full mt-1 mb-5 p-2.5 rounded-[10px] border border-card-border bg-white text-navy transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] focus:outline-none focus:ring-2 focus:ring-orange/40 focus:border-orange";
+  const errorInputClasses =
+    "w-full mt-1 p-2.5 mb-5 rounded-[10px] border border-red-400 bg-white text-navy transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] focus:outline-none focus:ring-2 focus:ring-orange/40 focus:border-orange";
+
   return (
-    <div className="mx-auto p-6 bg-white shadow-md rounded-lg mb-20">
-      <h2 className="text-2xl md:text-3xl font-bold text-[#101928] mb-10">SUBMIT YOUR QUERY HERE</h2>
+    <div className="mx-auto h-full p-6 rounded-[24px] border border-card-border bg-white sm:p-8 lg:p-10">
+      <SectionHeading eyebrow="We'd love to hear from you" title="Submit Your Query" className="mb-8" />
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Full Name */}
         <div>
-          <label className="block text-[#101928] font-medium">
-            Enter Your Full Name <span className="text-[#C60084]">*</span>
+          <label className="block text-navy font-medium">
+            Enter Your Full Name <span className="text-orange">*</span>
           </label>
           <input
             type="text"
@@ -131,15 +138,15 @@ const QueryForm = () => {
             value={formData.fullName}
             onChange={handleChange}
             required
-            className="w-full mt-1 mb-5 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className={inputClasses}
           />
         </div>
 
         {/* Mobile Number & Email */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[#101928] font-medium">
-              Enter Your Mobile Number <span className="text-[#C60084]">*</span>
+            <label className="block text-navy font-medium">
+              Enter Your Mobile Number <span className="text-orange">*</span>
             </label>
             <input
               type="tel"
@@ -147,9 +154,7 @@ const QueryForm = () => {
               value={formData.mobileNumber}
               onChange={handleChange}
               required
-              className={`w-full mt-1 p-2 border mb-5 ${
-                errors.mobileNumber ? "border-red-500" : "border-gray-300"
-              } rounded-md focus:ring-2 focus:ring-blue-500`}
+              className={errors.mobileNumber ? errorInputClasses : inputClasses}
               maxLength={10}
             />
             {errors.mobileNumber && (
@@ -158,8 +163,8 @@ const QueryForm = () => {
           </div>
 
           <div>
-            <label className="block text-[#101928] font-medium">
-              Enter Your E-Mail ID <span className="text-[#C60084]">*</span>
+            <label className="block text-navy font-medium">
+              Enter Your E-Mail ID <span className="text-orange">*</span>
             </label>
             <input
               type="email"
@@ -167,9 +172,7 @@ const QueryForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className={`w-full mt-1 p-2 border mb-5 ${
-                errors.email ? "border-red-500" : "border-gray-300"
-              } rounded-md focus:ring-2 focus:ring-blue-500`}
+              className={errors.email ? errorInputClasses : inputClasses}
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
@@ -177,25 +180,25 @@ const QueryForm = () => {
 
         {/* Subject */}
         <div>
-          <label className="block text-[#101928] font-medium">Subject Of Interest</label>
+          <label className="block text-navy font-medium">Subject Of Interest</label>
           <input
             type="text"
             name="subjectOfInterest"
             value={formData.subjectOfInterest}
             onChange={handleChange}
-            className="w-full mt-1 mb-5 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className={inputClasses}
           />
         </div>
 
         {/* Query Description */}
         <div>
-          <label className="block text-[#101928] font-medium">Short Description of Related Query</label>
+          <label className="block text-navy font-medium">Short Description of Related Query</label>
           <textarea
             name="message"
             value={formData.message}
             onChange={handleChange}
             rows={4}
-            className="w-full mt-1 mb-5 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className={inputClasses}
           ></textarea>
         </div>
 
@@ -207,19 +210,20 @@ const QueryForm = () => {
             name="consent"
             checked={formData.consent}
             onChange={handleChange}
-            className="mr-2 mt-2 text-[#14AE5C]  bg-[#14AE5C] "
+            className="mr-2 mt-2 accent-orange"
             required
           />
-          <label htmlFor="checkBox" className="text-[#101928] font-medium">
+          <label htmlFor="checkBox" className="text-navy font-medium">
             I Authorise Nagarjuna Degree College and its representatives to contact me with updates and notifications via email, SMS, WhatsApp, and Call.
           </label>
         </div>
 
         {/* Submit Button with Loading Spinner */}
-        <button
+        <Button
           type="submit"
-          className="w-full bg-[#0E2455] text-white py-5 rounded-md font-medium hover:bg-[#0C1E48] transition duration-300 text-xl flex items-center justify-center"
+          variant="primary"
           disabled={loading}
+          className="w-full justify-center py-5 text-xl"
         >
           {loading ? (
             <svg className="animate-spin h-6 w-6 mr-3 text-white" viewBox="0 0 24 24">
@@ -229,11 +233,11 @@ const QueryForm = () => {
           ) : (
             "Submit Request"
           )}
-        </button>
+        </Button>
 
         {/* Display Message Below Button */}
         {message && (
-          <div className={`mt-4 p-3 text-xl font-medium text-center rounded-md ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+          <div className={`mt-4 p-3 text-xl font-medium text-center rounded-[10px] ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
             {message.text}
           </div>
         )}

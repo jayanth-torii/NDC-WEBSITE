@@ -4,6 +4,7 @@ import { Tabs } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import Image from "next/image";
+import Card from "@/components/ui/Card";
 
 interface TabbedSectionProps {
     title: string;
@@ -46,16 +47,16 @@ const TabbedSection: React.FC<TabbedSectionProps> = ({
     return (
         <div className="mb-10 md:mb-20">
             <header className="mb-6">
-                <h1 className="text-xl md:text-3xl font-bold text-[#0E2455]">{title}</h1>
+                <h1 className="text-xl md:text-3xl font-extrabold text-navy">{title}</h1>
             </header>
             <div className="mb-6">
                 <Tabs value={selectedTab} onChange={(value) => value && setSelectedTab(value)}>
-                    <Tabs.List className="relative flex flex-col md:flex-row border-b-2 border-[#D9D9D9] space-x-7 text-lg md:text-xl">
+                    <Tabs.List className="relative flex flex-col md:flex-row border-b-2 border-card-border space-x-7 text-lg md:text-xl">
                         {tabsList.map((tab) => (
                             <Tabs.Tab
                                 key={tab}
                                 value={tab}
-                                className={`text-start py-3 text-[#003333] text-lg ${selectedTab === tab ? "border-b-4 border-[#F09300] font-bold" : ""
+                                className={`text-start py-3 text-lg transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${selectedTab === tab ? "border-b-4 border-orange font-bold text-navy" : "text-body-gray"
                                     }`}
                             >
                                 {tab}
@@ -65,20 +66,17 @@ const TabbedSection: React.FC<TabbedSectionProps> = ({
                 </Tabs>
             </div>
             <div>
-                <div className="flex flex-col w-full h-full justify-center space-y-2 overflow-auto">
+                <div className="flex flex-col w-full h-full justify-center space-y-3 overflow-auto">
                     {tabContent[selectedTab]?.map((item, index) => (
-                        <div
-                            key={index}
-                            className="flex justify-between items-center border-b border-[#9E9E9E] px-4 py-3 duration-200"
-                        >
-                            <span className="text-[#0e2455] font-medium text-lg">{item.name}</span>
+                        <Card key={index} className="flex justify-between items-center px-4 py-3">
+                            <span className="text-navy font-medium text-lg">{item.name}</span>
                             <button
-                                className="flex items-center border px-8 py-2 text-[#0e2455] hover:bg-[#0E2455] hover:text-[white] transition"
+                                className="flex items-center shrink-0 rounded-[10px] border-2 border-navy px-5 py-2 text-sm font-bold text-navy transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
                                 onClick={() => handleItemClick(item.path)}
                             >
                                 View <AiOutlineArrowRight className="ml-2" />
                             </button>
-                        </div>
+                        </Card>
                     ))}
                 </div>
             </div>

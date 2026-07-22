@@ -9,9 +9,9 @@ const IICBanner = ({ data }: any) => {
   return (
     <div className="relative m-auto overflow-hidden mt-10 mb-10 md:mb-20">
       {image && (
-        <Paper className="relative w-full aspect-[16/9] md:aspect-[3/1.2] overflow-hidden rounded-xl">
+        <Paper className="relative w-full aspect-[16/9] md:aspect-[3/1.2] overflow-hidden rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
           <Image
-            className="object-cover rounded-xl"
+            className="object-cover rounded-[18px]"
             src={image}
             alt="IIC Banner Image"
             layout="fill"

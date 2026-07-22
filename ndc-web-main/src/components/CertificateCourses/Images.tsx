@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 type ImagesBlock = {
   title?: string;
@@ -37,7 +39,7 @@ const Images = ({ data }: { data?: ImagesBlock }) => {
     if (!scrollContainer) return;
 
     setIsUserScrolling(true);
-    const scrollDistance = scrollContainer.clientWidth / 2; 
+    const scrollDistance = scrollContainer.clientWidth / 2;
 
     scrollContainer.scrollBy({
       left: direction === "left" ? -scrollDistance : scrollDistance,
@@ -54,11 +56,9 @@ const Images = ({ data }: { data?: ImagesBlock }) => {
   }
 
   return (
-    <div className="relative mb-10 md:mb-20">
+    <Reveal className="relative mb-10 md:mb-20">
 
-      <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6 text-left">
-        {title}
-      </h1>
+      {title && <SectionHeading title={title} align="left" className="mb-6" />}
       {/* Scroll Container */}
       <div
         ref={scrollRef}
@@ -70,7 +70,11 @@ const Images = ({ data }: { data?: ImagesBlock }) => {
       >
         {images.map((src, index) => (
           <div key={index} className="p-2 flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-1/2">
-            <img src={src} alt={`Image ${index + 1}`} className="w-full h-auto rounded-lg shadow-lg object-cover" />
+            <img
+              src={src}
+              alt={`Image ${index + 1}`}
+              className="w-full h-auto rounded-2xl border border-card-border shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] object-cover"
+            />
           </div>
         ))}
       </div>
@@ -79,22 +83,22 @@ const Images = ({ data }: { data?: ImagesBlock }) => {
           <>
           <button
             onClick={() => handleScroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-opacity-50 p-3 rounded-full transition duration-300 text-white"
+            className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center h-11 w-11 rounded-full bg-white text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange hover:text-white"
             aria-label="Scroll left"
           >
-            <Image src="/images/left-arrow-blue.svg" alt="Left Arrow" width={50} height={67} />
+            <ChevronLeft size={22} />
           </button>
 
           <button
             onClick={() => handleScroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-opacity-50 p-3 rounded-full transition duration-300 text-white"
+            className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center h-11 w-11 rounded-full bg-white text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange hover:text-white"
             aria-label="Scroll right"
           >
-            <Image src="/images/right-arrow-blue.svg" alt="Right Arrow" width={50} height={67} />
+            <ChevronRight size={22} />
           </button>
         </>
       )}
-    </div>
+    </Reveal>
   );
 };
 

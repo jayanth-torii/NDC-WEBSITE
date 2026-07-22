@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
 import { AiOutlineArrowRight } from "react-icons/ai";
+import Card from "@/components/ui/Card";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 interface ActivitiesSectionProps {
     title: string;
@@ -23,21 +25,23 @@ const ActivitiesSection: React.FC<ActivitiesSectionProps> = ({ title, activities
 
     return (
         <div className="mb-10 md:mb-20">
-            <h2 className="text-xl md:text-2xl font-bold text-[#0E2455] mb-4">{title}</h2>
+            <h2 className="text-xl md:text-2xl font-bold text-navy mb-4">{title}</h2>
 
-            <div className="bg-white space-y-5">
+            <RevealGroup className="space-y-4">
                 {activities.map((activity, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 border border-[#9E9E9E]">
-                        <span className="text-[#0E2455] font-medium text-lg">{activity.name}</span>
-                        <button
-                            className="flex items-center border px-4 py-1 text-[#0E2455] hover:bg-[#0E2455] hover:text-white transition"
-                            onClick={() => openPdf(activity.pdf)}
-                        >
-                            View <AiOutlineArrowRight className="ml-2" />
-                        </button>
-                    </div>
+                    <RevealItem key={index}>
+                        <Card className="flex justify-between items-center gap-4 p-4">
+                            <span className="text-navy font-medium text-lg">{activity.name}</span>
+                            <button
+                                className="flex items-center shrink-0 rounded-[10px] border-2 border-navy px-4 py-2 text-sm font-bold text-navy transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
+                                onClick={() => openPdf(activity.pdf)}
+                            >
+                                View <AiOutlineArrowRight className="ml-2" />
+                            </button>
+                        </Card>
+                    </RevealItem>
                 ))}
-            </div>
+            </RevealGroup>
 
             {/* PDF Modal Popup */}
             {selectedPdf && (

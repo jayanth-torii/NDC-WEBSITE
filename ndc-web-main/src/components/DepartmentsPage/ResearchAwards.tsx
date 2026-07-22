@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 const ResearchAwards = ({ data }: any) => {
   const researchData = data
@@ -11,19 +13,19 @@ const ResearchAwards = ({ data }: any) => {
   const activeSection = sections.find((section: any) => section.TabName === activeTab);
 
   return (
-    <div className="mb-30">
-      <h2 className="text-2xl md:text-3xl font-semibold mb-5 text-[#003333]">{researchData?.title}</h2>
+    <Reveal as="section" className="mb-30">
+      <SectionHeading title={researchData?.title} className="mb-6" />
 
       {/* Tabs */}
-      <div className="flex flex-wrap gap-4 border-b border-gray-300 mb-4">
+      <div className="flex flex-wrap gap-4 border-b border-card-border mb-4">
         {sections.map((section: any) => (
           <button
             key={section.TabName}
             onClick={() => setActiveTab(section.TabName)}
-            className={`pb-2 cursor-pointer !font-semibold !text-xl ${
+            className={`pb-2 cursor-pointer font-semibold text-lg md:text-xl transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
               activeTab === section.TabName
-                ? "border-b-4 border-[#FFB300] text-[#003333]"
-                : "text-gray-600"
+                ? "border-b-4 border-orange text-navy"
+                : "text-body-gray hover:text-navy"
             }`}
           >
             {section.TabName}
@@ -36,7 +38,7 @@ const ResearchAwards = ({ data }: any) => {
         {activeSection?.ListPoints?.map((item: string, idx: number) => (
           <p
             key={idx}
-            className="text-[#4D4D4D] font-medium text-justify mb-2 border-b border-[#AFAFAF] py-2 pb-2"
+            className="text-body-gray font-medium text-justify mb-2 border-b border-card-border py-2 pb-2"
           >
           <span>{idx+1}.</span>  {item}
           </p>
@@ -48,17 +50,17 @@ const ResearchAwards = ({ data }: any) => {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f3f3f3;
+          background: #f8fafc;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #f09300;
+          background: #f6872a;
           border-radius: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #d87d00;
+          background: #e5760f;
         }
       `}</style>
-    </div>
+    </Reveal>
   );
 };
 

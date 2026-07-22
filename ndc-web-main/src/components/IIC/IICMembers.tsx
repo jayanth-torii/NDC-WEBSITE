@@ -11,41 +11,41 @@ const IICMembers = ({ data }: { data: any }) => {
 
   return (
     <div className="mb-10 md:mb-20">
-      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-[#003333]">{title}</h1>
+      <h1 className="text-2xl md:text-3xl font-extrabold mb-6 text-navy">{title}</h1>
 
       {description?.map((para: string, index: number) => (
-        <p key={index} className="text-justify text-[#003333] mb-3">
+        <p key={index} className="text-justify text-body-gray mb-3 leading-[1.65]">
           {para}
         </p>
       ))}
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-[#003333] border border-gray-300">
-          <thead className="text-lg">
-            <tr className="bg-gray-100">
-              <th className="py-2 px-4 border border-gray-300">Sl. No</th>
-              <th className="py-2 px-4 border border-gray-300 text-start">Name & Designation</th>
-              {hasRole && <th className="py-2 px-4 border border-gray-300 text-start">Role</th>}
-              {hasContact && <th className="py-2 px-4 border border-gray-300 text-start">Contact</th>}
+      <div className="overflow-x-auto rounded-[14px] border border-card-border shadow-[var(--shadow-card)]">
+        <table className="w-full min-w-[560px] text-body-gray border-collapse">
+          <thead className="text-base">
+            <tr className="bg-surface-light">
+              <th className="py-3 px-4 border-b border-card-border font-semibold text-navy">Sl. No</th>
+              <th className="py-3 px-4 border-b border-card-border text-start font-semibold text-navy">Name & Designation</th>
+              {hasRole && <th className="py-3 px-4 border-b border-card-border text-start font-semibold text-navy">Role</th>}
+              {hasContact && <th className="py-3 px-4 border-b border-card-border text-start font-semibold text-navy">Contact</th>}
             </tr>
           </thead>
           <tbody>
             {table.map((row: any, index: number) => (
               <tr
                 key={index}
-                className="text-center border border-gray-300 hover:bg-gray-100 cursor-pointer"
+                className="text-center border-b border-card-border transition-colors duration-200 hover:bg-surface-light"
               >
-                <td className="py-2 px-4 border border-gray-300">{index + 1}</td>
-                <td className="py-2 px-4 border text-start border-gray-300">
-                  <strong>{row.name}</strong>
+                <td className="py-3 px-4">{index + 1}</td>
+                <td className="py-3 px-4 text-start">
+                  <strong className="text-navy">{row.name}</strong>
                   <br />
                   {row.designation}
                 </td>
                 {hasRole && (
-                  <td className="py-2 px-4 border text-start border-gray-300">{row.role}</td>
+                  <td className="py-3 px-4 text-start">{row.role}</td>
                 )}
                 {hasContact && (
-                  <td className="py-2 px-4 border text-start border-gray-300">{row.contact}</td>
+                  <td className="py-3 px-4 text-start">{row.contact}</td>
                 )}
               </tr>
             ))}

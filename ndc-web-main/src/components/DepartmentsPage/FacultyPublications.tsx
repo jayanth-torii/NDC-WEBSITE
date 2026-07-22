@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
 import { Box } from "@mantine/core";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 const FacultyPublications = ({ data }: any) => {
   const department = data?.Department_Faculties;
@@ -40,100 +42,107 @@ const FacultyPublications = ({ data }: any) => {
   const rows = activeSection.rows || [];
 
   return (
-    <Box className="mb-20">
-      <h1 className="text-2xl md:text-3xl font-bold text-[#003333] mb-8">
-        {data.Faculty_And_Publications?.title || "Faculty & Publications"}
-      </h1>
+    <Reveal as="section">
+      <Box className="mb-20">
+        <SectionHeading
+          title={data.Faculty_And_Publications?.title || "Faculty & Publications"}
+          className="mb-8"
+        />
 
-      {/* Tabs */}
-    {tabKeys.length > 0 ? (
-      <div className="w-full flex flex-col items-start md:flex-row md:justify-start md:space-x-8 mb-10 border-b border-gray-300">
-        {tabKeys.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`text-[#003333] cursor-pointer text-xl !font-semibold pb-2 ${
-              activeTab === tab ? "border-b-4 md:border-b-8 border-[#FFB300]" : ""
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
-    ) : (
-      <div>No data to display.</div>
-    )}
-
-      {/* Table */}
-      <div className="overflow-x-auto border border-gray-400 shadow-md">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="text-lg bg-[#C2C0C017] text-[#003333] border-b border-gray-400 text-left">
-              {columns.length > 0 ? ( columns.map((col: string, index: number) => (
-                <th
-                  key={index}
-                  className="p-3 border-r border-gray-400 text-lg"
-                >
-                  {col}
-                </th>
-              ))
-              ) : (
-                <th className="p-3">No columns found</th>
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {rows.length > 0 ? (rows.map((row: any, idx: number) => (
-              <tr
-                key={idx}
-                className=" bg-white border-b border-gray-400 text-[#003333] hover:bg-gray-200"
+        {/* Tabs */}
+        {tabKeys.length > 0 ? (
+          <div className="w-full flex flex-col items-start md:flex-row md:justify-start md:space-x-8 mb-8 border-b border-card-border">
+            {tabKeys.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`cursor-pointer text-lg md:text-xl font-semibold pb-3 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  activeTab === tab
+                    ? "text-navy border-b-4 border-orange"
+                    : "text-body-gray hover:text-navy"
+                }`}
               >
-                {activeSection.type === "department" ? (
-                  <>
-                    <td className="md:py-4 px-3 border-r border-gray-400 text-center">
-                      {row.Slno || idx + 1}
-                    </td>
-                    <td className="md:py-4 px-3 border-r border-gray-400">
-                      <div className="font-semibold">{row.name}</div>
-                      <div className="text-gray-700">{row.designation}</div>
-                    </td>
-                    <td className="md:py-4 px-3 border-r border-gray-400">
-                      {row.department} {row.experience ? "-" : "" } {row.experience}
-                    </td>
-                    <td className="md:py-4 px-3">
-                      {row.qualification }
-                    </td>
-                  </>
+                {tab}
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="text-body-gray">No data to display.</div>
+        )}
+
+        {/* Table */}
+        <div className="overflow-x-auto rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="text-base md:text-lg bg-surface-light text-navy border-b border-card-border text-left">
+                {columns.length > 0 ? (
+                  columns.map((col: string, index: number) => (
+                    <th
+                      key={index}
+                      className="p-3 border-r border-card-border font-semibold last:border-r-0"
+                    >
+                      {col}
+                    </th>
+                  ))
                 ) : (
-                  <>
-                    <td className="md:py-4 px-3 border-r border-gray-400 text-center">
-                      {row.Slno || idx + 1}
-                    </td>
-                    <td className="md:py-4 px-3 border-r border-gray-400">
-                      <div className="font-semibold">{row.Name}</div>
-                      <div className="text-gray-700">{row.Publication_House}</div>
-                    </td>
-                    <td className="md:py-4 px-3 border-r border-gray-400">
-                      {row.Book_Title }
-                    </td>
-                    <td className="md:py-4 px-3">
-                      {row.Edition} {row.year_of_publishing }
-                    </td>
-                  </>
+                  <th className="p-3">No columns found</th>
                 )}
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan={columns.length || 1} className="p-3 text-center">
-                No records found
-              </td>
-            </tr>
-          )}
-          </tbody>
-        </table>
-      </div>
-    </Box>
+            </thead>
+            <tbody>
+              {rows.length > 0 ? (
+                rows.map((row: any, idx: number) => (
+                  <tr
+                    key={idx}
+                    className="bg-white border-b border-card-border text-navy last:border-b-0 hover:bg-surface-light transition-colors duration-200"
+                  >
+                    {activeSection.type === "department" ? (
+                      <>
+                        <td className="md:py-4 px-3 border-r border-card-border text-center">
+                          {row.Slno || idx + 1}
+                        </td>
+                        <td className="md:py-4 px-3 border-r border-card-border">
+                          <div className="font-semibold">{row.name}</div>
+                          <div className="text-body-gray">{row.designation}</div>
+                        </td>
+                        <td className="md:py-4 px-3 border-r border-card-border text-body-gray">
+                          {row.department} {row.experience ? "-" : ""} {row.experience}
+                        </td>
+                        <td className="md:py-4 px-3 text-body-gray">
+                          {row.qualification}
+                        </td>
+                      </>
+                    ) : (
+                      <>
+                        <td className="md:py-4 px-3 border-r border-card-border text-center">
+                          {row.Slno || idx + 1}
+                        </td>
+                        <td className="md:py-4 px-3 border-r border-card-border">
+                          <div className="font-semibold">{row.Name}</div>
+                          <div className="text-body-gray">{row.Publication_House}</div>
+                        </td>
+                        <td className="md:py-4 px-3 border-r border-card-border text-body-gray">
+                          {row.Book_Title}
+                        </td>
+                        <td className="md:py-4 px-3 text-body-gray">
+                          {row.Edition} {row.year_of_publishing}
+                        </td>
+                      </>
+                    )}
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={columns.length || 1} className="p-3 text-center text-body-gray">
+                    No records found
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Box>
+    </Reveal>
   );
 };
 

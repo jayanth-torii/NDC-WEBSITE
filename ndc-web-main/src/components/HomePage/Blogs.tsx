@@ -7,10 +7,13 @@ import { Swiper, SwiperSlide ,} from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Arrow from "../../../public/images/IcocNew.svg";
+import { ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import { Button } from "@mantine/core";
 import blogJson from "@/data-export/blog/data.json";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 
 const Blogs = () => {
@@ -22,17 +25,17 @@ const Blogs = () => {
    const swiperRef = useRef<any>(null); // Ref for Swiper instance
 
   return (
-    <div className="bg-[#eeece9] rounded-lg relative flex flex-col items-center justify-center pt-10 m-auto w-[91%] mt-20 mb-10">
-      <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-[#003333]">EXPLORE OUR BLOGS</h2>
+    <Reveal className="bg-surface-tint rounded-[18px] relative flex flex-col items-center justify-center pt-10 m-auto w-[91%] mt-20 mb-10 pb-4">
+      <SectionHeading title="EXPLORE OUR BLOGS" align="center" className="mb-8" />
       {/* Swiper Slider */}
       <div className="relative w-full max-w-[90%]">
 
       {/* Left Arrow */}
       <button
           onClick={() => swiperRef.current?.slidePrev()}
-          className="cursor-pointer absolute left-[-20px] top-1/2 transform -translate-y-1/2 text-[#003333] z-20"
+          className="cursor-pointer absolute left-[-8px] sm:left-[-20px] top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
         >
-          <Image src="/images/left-arrow-blue.svg" alt="Right Arrow" width={50} height={67} />
+          <ChevronLeft size={20} />
         </button>
 
       <Swiper
@@ -52,24 +55,21 @@ const Blogs = () => {
       >
       {articles?.map((blog: any, index: any) => (
         <SwiperSlide key={index}>
-          <div
-            className="relative w-full max-w-[320px] md:max-w-[450px] bg-[#ffffff] h-[550px] mx-auto flex flex-col px-4 rounded-lg p-6"
-          >
-            <h3 className="text-xl font-bold mb-3 text-[#3A3F00]">
+          <Card className="w-full max-w-[320px] md:max-w-[450px] h-[550px] mx-auto flex flex-col px-4 p-6" accent="orange-left">
+            <h3 className="text-xl font-bold mb-3 text-navy">
               {blog?.title.slice(0, 40)}...
             </h3>
-            <p className="text-justify mb-4 text-[#3A3F00] ">
+            <p className="text-justify mb-4 text-body-gray">
               {blog?.description.slice(0, 70)}...
             </p>
             <div className="w-full flex justify-start">
               <Button
                 onClick={() => router.push(`blog/${blog.id}`)}
-                style={{ backgroundColor: "#3A3F00", color: "#ffffff" }}
-                className="px-5 py-2 rounded-md flex items-center gap-4"
-                variant="filled"
+                variant="primary"
+                className="!px-5 !py-2.5 !text-sm"
               >
                 VIEW BLOG
-                <Image src={Arrow} alt="Arrow Icon" width={20} height={20} className="w-5 h-5 md:w-6 md:h-6 ml-3" />
+                <ArrowRight size={18} />
               </Button>
             </div>
             <div className="mt-6 w-full h-64 relative rounded-lg overflow-hidden mb-10">
@@ -81,7 +81,7 @@ const Blogs = () => {
                 className="rounded-lg"
               />
             </div>
-          </div>
+          </Card>
         </SwiperSlide>
       ))}
       </Swiper>
@@ -89,12 +89,12 @@ const Blogs = () => {
       {/* Right Arrow */}
       <button
           onClick={() => swiperRef.current?.slideNext()}
-          className="cursor-pointer absolute right-[-20px] top-1/2 transform -translate-y-1/2 text-[#003333]  z-20"
+          className="cursor-pointer absolute right-[-8px] sm:right-[-20px] top-1/2 -translate-y-1/2 z-20 flex items-center justify-center w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
         >
-          <Image src="/images/right-arrow-blue.svg" alt="Right Arrow" width={50} height={67} />
+          <ChevronRight size={20} />
         </button>
       </div>
-    </div>
+    </Reveal>
   );
 };
 

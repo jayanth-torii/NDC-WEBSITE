@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Image from "next/image";
 import DownArrow from "../../../public/images/Chevron.svg";
 import UpArrow from "../../../public/images/Chevron2.svg";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 export default function VisionMission({ data }: { data: any }) {
   const { title, AboutDescription, VisionMission, AccordienSection } = data;
@@ -15,19 +17,17 @@ export default function VisionMission({ data }: { data: any }) {
   };
 
   return (
-    <div className="bg-white mb-20">
+    <Reveal as="section" className="bg-white mb-20">
       {/* Title */}
-      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-[#003333]">
-        {title}
-      </h1>
+      <SectionHeading title={title} className="mb-6" />
 
       {/* About Section */}
       {AboutDescription?.length > 0 && (
-        <div className="bg-[#F6F6F6] p-6 sm:p-8 rounded-md mb-3">
+        <div className="bg-surface-light p-6 sm:p-8 rounded-[18px] border border-card-border mb-3">
           {AboutDescription.map((desc: string, idx: number) => (
             <p
               key={idx}
-              className="text-justify text-[#003333] leading-relaxed mb-4"
+              className="text-justify text-body-gray leading-relaxed mb-4 last:mb-0"
             >
               {desc}
             </p>
@@ -39,10 +39,10 @@ export default function VisionMission({ data }: { data: any }) {
       {VisionMission?.sections?.length > 0 && (
         <div className="mb-3">
           <div
-            className="flex justify-between bg-[#F6F6F6] items-center cursor-pointer p-4 rounded-md"
+            className="flex justify-between bg-surface-light border border-card-border items-center cursor-pointer p-4 rounded-[14px] transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-card-border-hover"
             onClick={() => toggleAccordion(-1)}
           >
-            <span className="text-[#0e2455] font-medium text-xl">
+            <span className="text-navy font-medium text-xl">
               {VisionMission.title ?? "Our Vision & Mission"}
             </span>
             <Image
@@ -53,21 +53,21 @@ export default function VisionMission({ data }: { data: any }) {
             />
           </div>
           {openAccordion === -1 && (
-            <div className="px-6 py-4 bg-[#F6F6F6] mt-2 rounded-md space-y-6">
+            <div className="px-6 py-4 bg-surface-light border border-t-0 border-card-border mt-[-2px] rounded-b-[14px] space-y-6">
               {VisionMission.sections.map((sec: any, idx: number) => (
                 <div key={idx}>
-                  <h3 className="text-lg font-semibold text-[#003333] mb-1">
+                  <h3 className="text-lg font-semibold text-navy mb-1">
                     {sec.title}
                   </h3>
                   {sec.description && (
-                    <p className="text-[#003333] mb-2 text-justify">
+                    <p className="text-body-gray mb-2 text-justify">
                       {sec.description}
                     </p>
                   )}
                   {sec.points?.length > 0 && (
                     <ul className="list-disc ml-6 space-y-2">
                       {sec.points.map((pt: string, i: number) => (
-                        <li key={i} className="text-[#003333] text-justify">
+                        <li key={i} className="text-body-gray text-justify">
                           {pt}
                         </li>
                       ))}
@@ -86,10 +86,10 @@ export default function VisionMission({ data }: { data: any }) {
           {AccordienSection.map((acc: any, index: number) => (
             <div key={index}>
               <div
-                className="flex justify-between bg-[#F6F6F6] items-center cursor-pointer p-4 rounded-md"
+                className="flex justify-between bg-surface-light border border-card-border items-center cursor-pointer p-4 rounded-[14px] transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-card-border-hover"
                 onClick={() => toggleAccordion(index)}
               >
-                <span className="text-[#0e2455] font-medium text-xl">
+                <span className="text-navy font-medium text-xl">
                   {acc.title}
                 </span>
                 <Image
@@ -100,10 +100,10 @@ export default function VisionMission({ data }: { data: any }) {
                 />
               </div>
               {openAccordion === index && (
-                <div className="px-6 py-4 bg-[#F6F6F6] mt-2 rounded-md">
+                <div className="px-6 py-4 bg-surface-light border border-t-0 border-card-border mt-[-2px] rounded-b-[14px]">
                   <ul className="list-disc ml-6 space-y-2">
                     {acc.ListPoints?.map((point: string, idx: number) => (
-                      <li key={idx} className="text-[#003333] text-justify">
+                      <li key={idx} className="text-body-gray text-justify">
                         {point}
                       </li>
                     ))}
@@ -114,6 +114,6 @@ export default function VisionMission({ data }: { data: any }) {
           ))}
         </div>
       )}
-    </div>
+    </Reveal>
   );
 }

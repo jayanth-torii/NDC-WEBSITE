@@ -53,7 +53,7 @@ const OurGallery = ({ StudentCenterData }: OurGalleryProps) => {
   return (
     <div className="relative mb-10 md:mb-20">
 
-      <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6 text-left">
+      <h1 className="text-2xl md:text-3xl text-navy font-extrabold mb-6 text-left">
         {StudentCenterData.title}
       </h1>
       <div
@@ -66,22 +66,28 @@ const OurGallery = ({ StudentCenterData }: OurGalleryProps) => {
       >
         {StudentCenterData?.images?.map((image: string, index: number) => (
           <div key={index} className="p-2 space-y-3 flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-1/2">
-            <img src={image} alt={`Image ${index + 1}`} className="w-full h-full rounded-lg shadow-lg object-fill" />
+            <div className="group relative aspect-[4/3] w-full overflow-hidden rounded-[18px] border border-card-border shadow-[var(--shadow-card)] transition-shadow duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:shadow-[var(--shadow-card-hover)]">
+              <img
+                src={image}
+                alt={`Image ${index + 1}`}
+                className="h-full w-full object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105"
+              />
+            </div>
           </div>
 
         ))}
       </div>
       <button
         onClick={() => handleScroll("left")}
-        className="absolute bg-white left-0 top-1/2 transform -translate-y-1/2 bg-opacity-50 p-3 rounded-full transition duration-300 text-white"
+        className="absolute bg-white left-0 top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-orange"
       >
-         <FaArrowLeft size={20} className="text-[#003333]"/>
+         <FaArrowLeft size={20} className="text-navy"/>
       </button>
       <button
         onClick={() => handleScroll("right")}
-        className="absolute right-0 bg-white top-1/2 transform -translate-y-1/2  bg-opacity-50 p-3 rounded-full  transition duration-300 text-white"
+        className="absolute right-0 bg-white top-1/2 transform -translate-y-1/2 p-3 rounded-full shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-orange"
       >
-        <FaArrowRight size={20} className="text-[#003333]"/>
+        <FaArrowRight size={20} className="text-navy"/>
       </button>
     </div>
   );

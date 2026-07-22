@@ -2,8 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Card } from '@mantine/core';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import PdfModal from '../PdfModal';
+import Card from '@/components/ui/Card';
+import { Reveal } from '@/components/ui/Reveal';
 
 const ViewEditions = ({ data }: any) => {
   const { title, description, buttons, Editions } = data;
@@ -39,56 +41,58 @@ const ViewEditions = ({ data }: any) => {
 
   const fallbackImage = "/uploads/dummyimage_20de454cf2.png"; // use your actual fallback image
 
+  const navBtnGhost =
+    "cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-[10px] border-2 border-navy px-5 py-2 text-sm font-bold text-navy transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white md:text-base";
+  const navBtnPrimary =
+    "cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-[10px] bg-orange px-6 py-2 text-sm font-bold text-white shadow-[0_10px_24px_rgba(246,135,42,0.28)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange-dark hover:-translate-y-0.5 md:text-base";
+
   return (
-    <div className="flex flex-col md:flex-row items-center w-full gap-8 mb-20 md:mb-40">
+    <Reveal className="flex w-full flex-col items-stretch gap-8 mb-20 md:flex-row md:mb-40">
       {/* Left Section */}
-      <div className="p-8 md:p-15 bg-gray-100 w-full md:w-1/3 text-center md:text-left flex flex-col justify-between">
+      <div className="flex w-full flex-col justify-between rounded-[18px] bg-surface-light p-8 text-center md:w-1/3 md:p-12 md:text-left">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold md:mb-10 text-[#003333]">{title}</h2>
-          <p className="text-justify text-[#003333] mt-4 mb-5 md:mb-10">{description}</p>
+          <h2 className="text-2xl font-extrabold text-navy md:mb-8 md:text-3xl">{title}</h2>
+          <p className="mt-4 mb-5 text-justify leading-relaxed text-body-gray md:mb-10">{description}</p>
         </div>
-        <div className="hidden md:flex gap-5 justify-start">
-          <button onClick={prevSlide} className="cursor-pointer px-5 py-1 text-[#0E2455] border border-[#0E2455] text-sm md:text-base">
-            {buttons[0]}
+        <div className="hidden justify-start gap-4 md:flex">
+          <button onClick={prevSlide} className={navBtnGhost}>
+            <ChevronLeft size={16} /> {buttons[0]}
           </button>
-          <button onClick={nextSlide} className="cursor-pointer px-8 py-1 bg-[#0E2455] text-white text-sm md:text-base">
-            {buttons[1]}
+          <button onClick={nextSlide} className={navBtnPrimary}>
+            {buttons[1]} <ChevronRight size={16} />
           </button>
         </div>
       </div>
 
       {/* Right Section - Carousel */}
-      <div className="w-full md:w-2/3 overflow-hidden">
+      <div className="w-full overflow-hidden md:w-2/3">
         <div
-          className="flex transition-transform duration-700 ease-in-out"
+          className="flex transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
           style={{ transform: `translateX(-${currentIndex * 100}%)` }}
         >
           {Array.from({ length: totalSlides }).map((_, slideIndex) => (
-            <div key={slideIndex} className="min-w-full flex justify-center gap-5 flex-wrap">
+            <div key={slideIndex} className="flex min-w-full flex-wrap justify-center gap-5">
               {programs
                 ?.slice(slideIndex * imagesPerSlide, slideIndex * imagesPerSlide + imagesPerSlide)
                 .map((program: any, index: number) => (
                   <Card
                     key={index}
-                    shadow="sm"
-                    padding="lg"
-                    radius="md"
-                    className="overflow-hidden w-[90%] sm:w-1/2 md:w-[45%] lg:w-[48%] max-w-[500px] h-auto"
+                    className="h-auto w-[90%] max-w-[500px] overflow-hidden sm:w-1/2 md:w-[45%] lg:w-[48%]"
                   >
                     <Image
                       src={program.imageUrl || fallbackImage}
                       alt={program.title}
                       width={500}
                       height={350}
-                      className="w-full h-[250px] sm:h-[300px] md:h-[350px] object-contain"
+                      className="h-[250px] w-full object-contain sm:h-[300px] md:h-[350px]"
                     />
                     <div className="p-4">
-                      <p className="font-semibold text-[#F09300] text-md md:text-xl text-left">
+                      <p className="text-md text-left font-semibold text-orange md:text-xl">
                         {program.title}
                       </p>
-                      <p className="text-base md:text-lg text-[#0E2455] text-left">{program.date}</p>
+                      <p className="text-left text-base text-navy md:text-lg">{program.date}</p>
                       <button
-                        className="cursor-pointer w-full px-3 py-2 mt-4 bg-[#0E2455] text-sm md:text-base text-white"
+                        className="mt-4 w-full cursor-pointer rounded-[10px] bg-orange px-3 py-2.5 text-sm font-bold text-white transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange-dark md:text-base"
                         onClick={() => openPdf(program.pdfUrl)}
                       >
                         VIEW NOW
@@ -101,19 +105,19 @@ const ViewEditions = ({ data }: any) => {
         </div>
 
         {/* Mobile Navigation Buttons */}
-        <div className="md:hidden flex gap-5 justify-center mt-5">
-          <button onClick={prevSlide} className="cursor-pointer px-5 py-1 text-[#0E2455] border border-[#0E2455] text-sm md:text-base">
-            {buttons[0]}
+        <div className="mt-6 flex justify-center gap-4 md:hidden">
+          <button onClick={prevSlide} className={navBtnGhost}>
+            <ChevronLeft size={16} /> {buttons[0]}
           </button>
-          <button onClick={nextSlide} className="cursor-pointer px-8 py-1 bg-[#0E2455] text-white text-sm md:text-base">
-            {buttons[1]}
+          <button onClick={nextSlide} className={navBtnPrimary}>
+            {buttons[1]} <ChevronRight size={16} />
           </button>
         </div>
       </div>
 
       {/* PDF Modal Popup */}
       <PdfModal pdfUrl={selectedPdf} onClose={closePdf} />
-    </div>
+    </Reveal>
   );
 };
 

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { IoClose } from "react-icons/io5";
+import Button from "@/components/ui/Button";
 
 // Define Prop Types
 interface PolicyData {
@@ -37,27 +38,27 @@ export default function PolicyAndComposition({ data }: Props) {
     <div>
       <div className="items-center gap-6 mb-20 flex flex-col md:flex-row">
         {/* Text Section */}
-        <div className="space-y-4 bg-[#F6F6F6] p-6 h-74 md:h-80 w-full md:w-[40%]">
-          <h2 className="text-3xl font-bold text-[#003333]">{data?.title || "Default Title"}</h2>
-          <p className="md:text-lg lg:text-xl text-[#0E2455] mb-5">{data?.description || "Default Description"}</p>
+        <div className="space-y-4 rounded-[18px] border border-card-border bg-surface-light p-6 h-74 md:h-80 w-full md:w-[40%] shadow-[var(--shadow-card)]">
+          <h2 className="text-3xl font-extrabold text-navy">{data?.title || "Default Title"}</h2>
+          <p className="md:text-lg lg:text-xl text-body-gray mb-5 leading-[1.65]">{data?.description || "Default Description"}</p>
 
           {/* Buttons */}
-          <div className="flex flex-col space-y-6 w-full sm:w-1/2 md:w-4/5 lg:w-3/5 whitespace-nowrap"> 
-            <button className="cursor-pointer px-6 py-2 text-[#0E2455] border border-[#000000] font-semibold" onClick={() => openPdf(data?.policyPdf)}>
+          <div className="flex flex-col space-y-4 w-full sm:w-1/2 md:w-4/5 lg:w-3/5 whitespace-nowrap">
+            <Button variant="ghost" onClick={() => openPdf(data?.policyPdf)}>
                 {data?.policybutton}
-            </button>
-            <button className="cursor-pointer px-6 py-2 bg-[#0E2455] text-white font-semibold" onClick={() => openPdf(data?.compositionPdf)}>
+            </Button>
+            <Button variant="primary" onClick={() => openPdf(data?.compositionPdf)}>
                 {data?.compositionbutton}
-            </button>
+            </Button>
           </div>
         </div>
 
         {/* Image Section */}
-        <div className="relative w-full h-64 md:h-80 w-full md:w-[60%]">
+        <div className="relative w-full h-64 md:h-80 w-full md:w-[60%] overflow-hidden rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
           {data?.imageUrl ? (
             <Image src={data.imageUrl} alt="Policy Image" fill objectFit="cover" />
           ) : (
-            <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600">
+            <div className="w-full h-full flex items-center justify-center bg-surface-tint text-body-gray">
               No Image Available
             </div>
           )}

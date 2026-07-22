@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import DownArrow from "../../../public/images/Chevron.svg";
-import UpArrow from "../../../public/images/Chevron2.svg";
+import { ChevronDown } from "lucide-react";
+
+const EASE = "ease-[cubic-bezier(0.23,1,0.32,1)]";
 
 const AboutSections = ({ data }: { data: any }) => {
   const [openSection, setOpenSection] = useState<number | null>(null);
@@ -43,70 +43,79 @@ const AboutSections = ({ data }: { data: any }) => {
   return (
     <div className="mb-10 md:mb-20">
       {/* Title & Description */}
-      <div className="rounded-md mb-6">
-        <h1 className="text-3xl sm:text-4xl font-bold mb-4 text-[#003333]">
-          {data.title}
-        </h1>
-      </div>
+      {data.title && (
+        <div className="mb-6">
+          <h1 className="text-3xl font-extrabold tracking-[-0.5px] text-navy sm:text-4xl">
+            {data.title}
+          </h1>
+        </div>
+      )}
 
       {/* Accordion Sections */}
       <div className="space-y-4">
-        {accordionSections.map((section: any, index: number) => (
-          <div key={index} className=" rounded">
+        {accordionSections.map((section: any, index: number) => {
+          const isOpen = openSection === index;
+          return (
             <div
-              className="flex justify-between bg-[#F6F6F6] items-center cursor-pointer p-4"
-              onClick={() => toggleAccordion(index)}
+              key={index}
+              className={`overflow-hidden rounded-[14px] border bg-white shadow-[var(--shadow-card)] transition-all duration-250 ${EASE} ${
+                isOpen ? "border-card-border-hover" : "border-card-border"
+              }`}
             >
-              <span className="text-[#0e2455] font-semibold text-xl">
-                {section.title}
-              </span>
-              <Image
-                src={openSection === index ? UpArrow : DownArrow}
-                height={32}
-                width={32}
-                alt="toggle-arrow"
-              />
-            </div>
+              <button
+                className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left"
+                onClick={() => toggleAccordion(index)}
+              >
+                <span className="text-xl font-semibold text-navy">
+                  {section.title}
+                </span>
+                <ChevronDown
+                  className={`h-5 w-5 shrink-0 text-orange transition-transform duration-250 ${EASE} ${
+                    isOpen ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
-            {openSection === index && (
-              <div className="bg-[#F6F6F6] px-6 py-4 space-y-6">
-                {/* If combined section with innerSections */}
-                {section.innerSections ? (
-                  section.innerSections.map((inner: any, i: number) => (
-                    <div key={i}>
-                      <h3 className="text-lg font-semibold text-[#003333] mb-1">
-                        {inner.title}
-                      </h3>
-                      {inner.description && (
-                        <p className="text-[#003333] mb-2 text-base">{inner.description}</p>
+              {isOpen && (
+                <div className="space-y-6 border-t border-card-border bg-surface-light px-6 py-4">
+                  {/* If combined section with innerSections */}
+                  {section.innerSections ? (
+                    section.innerSections.map((inner: any, i: number) => (
+                      <div key={i}>
+                        <h3 className="mb-1 text-lg font-semibold text-navy">
+                          {inner.title}
+                        </h3>
+                        {inner.description && (
+                          <p className="mb-2 text-base text-body-gray">{inner.description}</p>
+                        )}
+                        {inner.list?.length > 0 && (
+                          <ul className="ml-5 list-disc space-y-1 marker:text-orange">
+                            {inner.list.map((item: string, j: number) => (
+                              <li key={j} className="text-base text-body-gray">{item}</li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <>
+                      {section.description && (
+                        <p className="mb-2 text-base text-body-gray">{section.description}</p>
                       )}
-                      {inner.list?.length > 0 && (
-                        <ul className="list-disc ml-5 text-[#003333]">
-                          {inner.list.map((item: string, j: number) => (
-                            <li key={j} className="text-base">{item}</li>
+                      {section.points?.length > 0 && (
+                        <ul className="ml-5 list-disc space-y-1 marker:text-orange">
+                          {section.points.map((item: string, i: number) => (
+                            <li key={i} className="text-base text-body-gray">{item}</li>
                           ))}
                         </ul>
                       )}
-                    </div>
-                  ))
-                ) : (
-                  <>
-                    {section.description && (
-                      <p className="text-[#003333] text-base mb-2">{section.description}</p>
-                    )}
-                    {section.points?.length > 0 && (
-                      <ul className="list-disc ml-5 text-[#003333]">
-                        {section.points.map((item: string, i: number) => (
-                          <li key={i} className="text-base">{item}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </>
-                )}
-              </div>
-            )}
-          </div>
-        ))}
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

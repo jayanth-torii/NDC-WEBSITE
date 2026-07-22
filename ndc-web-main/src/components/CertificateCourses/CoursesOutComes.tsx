@@ -1,4 +1,6 @@
 import React from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 type Row = {
   Slno?: string | number;
@@ -37,63 +39,67 @@ const CoursesOutCome = ({ data }: { data?: CourseOutcomeBlock }) => {
     <div className="mb-20">
       {/* Title and Description */}
       {title && (
-        <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6 text-left">
-          {title}
-        </h1>
+        <Reveal>
+          <SectionHeading title={title} align="left" className="mb-6" />
+        </Reveal>
       )}
 
       {description.length > 0 && (
-        <div className="text-[#003333] leading-relaxed mb-4">
-          {description.map((desc, index) => (
-            <p key={index} className="text-justify mb-2">
-              {desc}
-            </p>
-          ))}
-        </div>
+        <Reveal>
+          <div className="text-body-gray leading-relaxed mb-6">
+            {description.map((desc, index) => (
+              <p key={index} className="text-justify mb-2">
+                {desc}
+              </p>
+            ))}
+          </div>
+        </Reveal>
       )}
 
       {/* Faculties Table */}
       {rows.length > 0 && (
-        <div className="overflow-x-auto border border-gray-400">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="text-lg bg-[#C2C0C017] text-[#003333] border-b border-gray-400 text-left">
-                <th className="p-3 border-r border-gray-400">SI.No</th>
-                <th className="p-3 border-r border-gray-400">Name &amp; Designation</th>
-                <th className="p-3 border-r border-gray-400">Role - Governing Council</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((faculty, index) => {
-                const sl =
-                  faculty.Slno ?? faculty.slNo ?? faculty.slno ?? index + 1;
-                const name = faculty.name ?? faculty.Name ?? "";
-                const designation =
-                  faculty.designation ?? faculty.Designation ?? "";
-                const role = faculty.role ?? faculty.Role ?? "";
+        <Reveal>
+          <div className="overflow-x-auto rounded-2xl border border-card-border shadow-[var(--shadow-card)]">
+            <table className="w-full border-collapse">
+              <thead>
+                <tr className="text-sm sm:text-base bg-navy text-white text-left">
+                  <th className="p-4 font-semibold">SI.No</th>
+                  <th className="p-4 font-semibold">Name &amp; Designation</th>
+                  <th className="p-4 font-semibold">Role - Governing Council</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map((faculty, index) => {
+                  const sl =
+                    faculty.Slno ?? faculty.slNo ?? faculty.slno ?? index + 1;
+                  const name = faculty.name ?? faculty.Name ?? "";
+                  const designation =
+                    faculty.designation ?? faculty.Designation ?? "";
+                  const role = faculty.role ?? faculty.Role ?? "";
 
-                return (
-                  <tr
-                    key={index}
-                    className="bg-[#C2C0C017] border-b border-gray-400 text-[#003333] hover:bg-gray-200"
-                  >
-                    <td className="py-5 px-3 border-r border-gray-400">
-                      {sl}.
-                    </td>
-                    <td className="py-5 px-3 border-r border-gray-400">
-                     <span className="font-semibold">{name}</span>
-                      <br />
-                      {designation}
-                    </td>
-                    <td className="py-5 px-3 border-r border-gray-400">
-                      {role}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+                  return (
+                    <tr
+                      key={index}
+                      className="border-t border-card-border text-body-gray hover:bg-surface-light transition-colors duration-200"
+                    >
+                      <td className="py-4 px-4 align-top">
+                        {sl}.
+                      </td>
+                      <td className="py-4 px-4 align-top">
+                       <span className="font-semibold text-navy">{name}</span>
+                        <br />
+                        {designation}
+                      </td>
+                      <td className="py-4 px-4 align-top">
+                        {role}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </Reveal>
       )}
     </div>
   );

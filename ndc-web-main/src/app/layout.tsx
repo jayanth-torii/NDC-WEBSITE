@@ -4,19 +4,19 @@ import Script from "next/script";
 import AppliIntegration from "@/components/AppliIntegration";
 
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 
 import Banner from "@/components/Banner/Banner";
-import Navbar from "@/components/Navbar/Navbar";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import React from "react";
 
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -38,13 +38,12 @@ export default function RootLayout({
     <html lang="en">
       {/* <appli-integration id="68afee1c37e33175ed91cb17"></appli-integration> */}
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${poppins.variable} ${geistMono.variable} antialiased`}
       >
         <MantineProvider>
 
-          <main style={{ fontFamily: "Product Sans, sans-serif" }}>
+          <main className="font-sans">
             <Banner/>
-            <Navbar/>
             <Header/>
             {children}
             <Footer/>

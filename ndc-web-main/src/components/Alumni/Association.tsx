@@ -1,6 +1,9 @@
 "use client";
 
 import { Box } from "@mantine/core";
+import SectionHeading from "@/components/ui/SectionHeading";
+import Card from "@/components/ui/Card";
+import { Reveal } from "@/components/ui/Reveal";
 
 const Association = ({ data }: { data: any }) => {
   if (!data) return null;
@@ -8,17 +11,14 @@ const Association = ({ data }: { data: any }) => {
   const { title, description } = data;
 
   return (
-
-    <Box className="mb-20 text-[#003333]">
-      <h1 className="text-2xl md:text-3xl font-bold text-[#003333] mb-5">{title}</h1>
-      <div className=" rounded-lg">
-          <div  className="mb-10 md:mb-20 p-6 bg-[#F9F9F9]">
-            <ul className="list-disc space-y-3 text-justify">
-                <p className="text-[#003333] ">{description}</p>
-            </ul>
-          </div>
-      </div>
-    </Box>
+    <Reveal as="section">
+      <Box className="mb-20">
+        <SectionHeading title={title} className="mb-5" />
+        <Card className="mb-10 md:mb-20 p-6 md:p-8" accent="orange-left">
+          <p className="text-body-gray text-justify">{description}</p>
+        </Card>
+      </Box>
+    </Reveal>
   );
 };
 

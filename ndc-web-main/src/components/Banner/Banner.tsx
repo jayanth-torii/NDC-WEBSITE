@@ -16,7 +16,7 @@ const Banner: React.FC = () => {
  
 
   return (
-    <div className="bg-[#F6872A] text-white text-center py-3 px-4 w-full overflow-hidden">
+    <div className="bg-orange text-white text-center py-3 px-4 w-full overflow-hidden">
       <div className={`whitespace-nowrap ${styles["animate-marquee_slow"]}`}>
         <p className="text-xl font-bold tracking-wide inline-block">
           {title}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {message}

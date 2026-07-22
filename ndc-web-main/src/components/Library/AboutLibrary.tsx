@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import DownArrow from "../../../public/images/Chevron.svg";
-import UpArrow from "../../../public/images/Chevron2.svg";
+import { ChevronDown } from "lucide-react";
+
+const EASE = "ease-[cubic-bezier(0.23,1,0.32,1)]";
 
 export default function AboutLibrary({ data }: { data: any }) {
   const aboutText = data?.aboutText;
@@ -17,17 +17,17 @@ export default function AboutLibrary({ data }: { data: any }) {
   };
 
   return (
-    <div className="bg-white mb-20 md:mb-20">
+    <div className="mb-20 md:mb-20">
       <div>
         {/* About Library Section */}
-        <div className="bg-[#F6F6F6] p-6 sm:p-8 rounded-md mb-3">
-          <h1 className="text-2xl md:text-3xl font-bold mb-6 text-[#003333]">
+        <div className="mb-6 rounded-[18px] border border-card-border bg-white p-6 shadow-[var(--shadow-card)] sm:p-8">
+          <h1 className="mb-6 text-2xl font-extrabold tracking-[-0.5px] text-navy md:text-3xl">
             {title}
           </h1>
           {aboutText?.map((paragraph: string, index: number) => (
             <p
               key={index}
-              className="text-justify text-[#003333] leading-relaxed mb-4"
+              className="mb-4 text-justify leading-relaxed text-body-gray"
             >
               {paragraph}
             </p>
@@ -36,35 +36,42 @@ export default function AboutLibrary({ data }: { data: any }) {
 
         {/* Accordion Sections */}
         <div className="space-y-3">
-          {sections?.map((section: any, index: number) => (
-            <div key={index}>
+          {sections?.map((section: any, index: number) => {
+            const isOpen = openSection === index;
+            return (
               <div
-                className="flex justify-between bg-[#F6F6F6] items-center cursor-pointer p-4"
-                onClick={() => toggleAccordion(index)}
+                key={index}
+                className={`overflow-hidden rounded-[14px] border bg-white shadow-[var(--shadow-card)] transition-all duration-250 ${EASE} ${
+                  isOpen ? "border-card-border-hover" : "border-card-border"
+                }`}
               >
-                <span className="text-[#0e2455] pl-3 font-medium text-2xl">
-                  {section.title}
-                </span>
-                <Image
-                  src={openSection === index ? UpArrow : DownArrow}
-                  height={42}
-                  width={42}
-                  alt="arrow"
-                />
+                <button
+                  className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left"
+                  onClick={() => toggleAccordion(index)}
+                >
+                  <span className="text-xl font-semibold text-navy">
+                    {section.title}
+                  </span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-orange transition-transform duration-250 ${EASE} ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="border-t border-card-border bg-surface-light px-6 py-4">
+                    <ul className="list-disc space-y-2 pl-5 marker:text-orange">
+                      {section.points?.map((point: string, i: number) => (
+                        <li key={i} className="text-justify text-body-gray">
+                          {point}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
-              {openSection === index && (
-                <div className="px-8 py-3 bg-[#F6F6F6] mt-3">
-                  <ul className="list-disc pl-5 space-y-2">
-                    {section.points?.map((point: string, i: number) => (
-                      <li key={i} className="text-justify text-[#003333]">
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

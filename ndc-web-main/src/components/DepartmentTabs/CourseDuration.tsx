@@ -3,6 +3,8 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import Card from "@/components/ui/Card";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 interface Section {
   title: string;
@@ -57,31 +59,37 @@ const CourseDuration = ({ haveContentCheck }: any) => {
   }
 
   return (
-    <div className="text-[#003333] px-4 space-y-6">
-      <h1 className="text-3xl font-bold mb-4">{departmentData?.title}</h1>
+    <Reveal>
+      <div className="text-body-gray px-4 space-y-6">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-2">{departmentData?.title}</h1>
 
-      {departmentData?.sections?.map((section, idx) => (
-        <div key={idx} className="mb-10">
-          <h2 className="text-2xl font-semibold mb-2">{section?.title}</h2>
+        <RevealGroup className="space-y-6">
+          {departmentData?.sections?.map((section, idx) => (
+            <RevealItem key={idx}>
+              <Card accent="orange-left" className="p-5 md:p-6">
+                <h2 className="text-xl md:text-2xl font-semibold text-navy mb-3">{section?.title}</h2>
 
-          {section?.description && (
-            <p className="text-base leading-relaxed mb-2 whitespace-pre-line">
-              {section?.description}
-            </p>
-          )}
+                {section?.description && (
+                  <p className="text-base leading-relaxed mb-2 whitespace-pre-line text-body-gray">
+                    {section?.description}
+                  </p>
+                )}
 
-          {Array.isArray(section?.points) && section?.points?.length > 0 && (
-            <ol className="list-decimal pl-6 space-y-1">
-              {section?.points?.map((point, index) => (
-                <li key={index} className="text-base text-justify">
-                  {point}
-                </li>
-              ))}
-            </ol>
-          )}
-        </div>
-      ))}
-    </div>
+                {Array.isArray(section?.points) && section?.points?.length > 0 && (
+                  <ol className="list-decimal pl-6 space-y-1 marker:text-orange marker:font-semibold">
+                    {section?.points?.map((point, index) => (
+                      <li key={index} className="text-base text-justify text-body-gray">
+                        {point}
+                      </li>
+                    ))}
+                  </ol>
+                )}
+              </Card>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </Reveal>
   );
 };
 

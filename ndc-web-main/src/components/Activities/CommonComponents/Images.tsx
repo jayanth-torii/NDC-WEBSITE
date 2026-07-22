@@ -1,9 +1,11 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
+import SectionHeading from "@/components/ui/SectionHeading";
 
-
-const Images = ( {data} :any) => {
+const Images = ({ data }: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isUserScrolling, setIsUserScrolling] = useState(false);
 
@@ -32,7 +34,7 @@ const Images = ( {data} :any) => {
     if (!scrollContainer) return;
 
     setIsUserScrolling(true);
-    const scrollDistance = scrollContainer.clientWidth / 2; 
+    const scrollDistance = scrollContainer.clientWidth / 2;
 
     if (direction === "left") {
       scrollContainer.scrollBy({ left: -scrollDistance, behavior: "smooth" });
@@ -45,10 +47,8 @@ const Images = ( {data} :any) => {
 
   return (
     <div className="relative mb-10 md:mb-20">
-      
-      <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6 text-left">
-        {data.title}
-      </h1>
+      <SectionHeading title={data.title} className="mb-6" />
+
       {/* Scroll Container */}
       <div
         ref={scrollRef}
@@ -61,13 +61,12 @@ const Images = ( {data} :any) => {
         {data?.images?.map((image: string, index: number) => (
           <div key={index} className="flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-1/2 snap-start">
             {/* Responsive, shorter cards on larger screens */}
-            <div className="relative overflow-hidden rounded-lg shadow-lg
-                            aspect-[4/3] lg:aspect-video">
+            <div className="group relative overflow-hidden rounded-[18px] border border-card-border shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] aspect-[4/3] lg:aspect-video">
               <Image
                 src={image}
                 alt={`Image ${index + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-105"
                 sizes="(min-width: 1024px) 50vw, (min-width: 640px) 50vw, 100vw"
                 priority={index < 2}
               />
@@ -80,28 +79,39 @@ const Images = ( {data} :any) => {
       <button
         onClick={() => handleScroll("left")}
         aria-label="Scroll left"
-        className="hidden md:block shadow-md cursor-pointer absolute left-2 top-1/2 bg-white bg-opacity-70 p-1 md:p-3 rounded-full transition"
+        type="button"
+        className="hidden md:flex items-center justify-center cursor-pointer absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
       >
-         <FaArrowLeft size={20} className="text-[#003333] cursor-pointer"/>
+        <ChevronLeft size={20} />
       </button>
       <button
         onClick={() => handleScroll("right")}
         aria-label="Scroll right"
-        className="hidden md:block shadow-md cursor-pointer absolute right-2 top-1/2 bg-white bg-opacity-70 p-1 md:p-3 rounded-full transition"
+        type="button"
+        className="hidden md:flex items-center justify-center cursor-pointer absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
       >
-        <FaArrowRight size={20} className="text-[#003333] cursor-pointer"/>
+        <ChevronRight size={20} />
       </button>
 
       {/* Centered Arrows on Mobile */}
       <div className="sm:hidden flex justify-center mt-4 space-x-4">
-        <button onClick={() => handleScroll("left")} className="p-3 bg-opacity-50 rounded-full">
-         <FaArrowLeft size={20} className="text-[#003333] cursor-pointer"/>
+        <button
+          onClick={() => handleScroll("left")}
+          aria-label="Scroll left"
+          type="button"
+          className="flex items-center justify-center cursor-pointer w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
+        >
+          <ChevronLeft size={20} />
         </button>
-        <button onClick={() => handleScroll("right")} className="p-3 bg-opacity-50 rounded-full">
-         <FaArrowRight size={20} className="text-[#003333] cursor-pointer"/>        
+        <button
+          onClick={() => handleScroll("right")}
+          aria-label="Scroll right"
+          type="button"
+          className="flex items-center justify-center cursor-pointer w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white"
+        >
+          <ChevronRight size={20} />
         </button>
       </div>
-      
     </div>
   );
 };

@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface ResearchData {
   title?: string;
@@ -56,41 +57,43 @@ const Research = ({ haveContentCheck }: any) => {
   const points = Array.isArray(data.points) ? data.points : [];
 
   return (
-    <div className="mt-10 md:mt-0">
-      <h2 className="text-2xl md:text-3xl font-semibold mb-5 text-[#003333]">{data?.title}</h2>
+    <Reveal>
+      <div className="mt-10 md:mt-0">
+        <h2 className="text-2xl md:text-3xl font-extrabold mb-5 text-navy tracking-[-0.5px]">{data?.title}</h2>
 
-      <ol className="list-decimal list-outside pl-6 h-[500px] overflow-y-auto custom-scrollbar pr-4">
-        {points?.map((item, idx) => (
-          <li
-            key={idx}
-            className="text-base text-justify ml-2 text-[#4D4D4D] mb-2 border-b border-[#AFAFAF] py-2"
-          >
-            {item}
-          </li>
-        ))}
-        {points.length === 0 && (
-          <li className="text-base text-justify text-[#4D4D4D]">
-            No research points available.
-          </li>
-        )}
-      </ol>
+        <ol className="list-decimal list-outside pl-6 h-[500px] overflow-y-auto custom-scrollbar pr-4">
+          {points?.map((item, idx) => (
+            <li
+              key={idx}
+              className="text-base text-justify ml-2 text-body-gray mb-2 border-b border-card-border py-2"
+            >
+              {item}
+            </li>
+          ))}
+          {points.length === 0 && (
+            <li className="text-base text-justify text-body-gray">
+              No research points available.
+            </li>
+          )}
+        </ol>
 
-      <style jsx>{
-      `.custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f3f3f3;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #f09300;
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #d87d00;
-        }`
-        }</style>
-    </div>
+        <style jsx>{
+        `.custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f8fafc;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #f6872a;
+            border-radius: 4px;
+          }
+          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #e5760f;
+          }`
+          }</style>
+      </div>
+    </Reveal>
   );
 };
 

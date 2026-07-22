@@ -1,5 +1,7 @@
 "use client";
 import React from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
+import { Reveal } from "@/components/ui/Reveal";
 
 const AntiragginCommitte = ({ data }: any) => {
   const { title, descriptions = [], tableSection = [] } = data;
@@ -9,45 +11,50 @@ const AntiragginCommitte = ({ data }: any) => {
 
   return (
     <div className="mb-10 md:mb-20">
-      <h1 className="text-2xl md:text-3xl font-bold mb-6 text-[#003333]">{title}</h1>
+      <SectionHeading title={title} className="mb-6" />
 
       {descriptions.map((desc: string, idx: number) => (
-        <p key={idx} className="text-justify text-[#003333] mb-3">{desc}</p>
+        <p key={idx} className="text-justify text-body-gray leading-relaxed mb-3">{desc}</p>
       ))}
 
-      <div className="overflow-x-auto">
-        <table className="w-full text-[#003333] border border-gray-300">
-          <thead className="text-lg">
-            <tr className="bg-gray-100">
-              <th className="py-2 px-4 border border-gray-300">Sl.No</th>
-              <th className="py-2 px-4 border border-gray-300 text-left">Faculty</th>
-              {hasRole && <th className="py-2 px-4 border border-gray-300 text-left">Role</th>}
-              {hasContact && <th className="py-2 px-4 border border-gray-300 text-left">Contact</th>}
-            </tr>
-          </thead>
-          <tbody>
-            {tableSection.map((row: any, index: number) => (
-              <tr key={index} className="hover:bg-gray-50">
-                <td className="py-2 px-4 border border-gray-300 text-center">{index + 1}</td>
-                <td className="py-2 px-4 border border-gray-300 text-left">
-                  <strong>{row.name}</strong><br />{row.designation}
-                </td>
-                {hasRole && (
-                  <td className="py-2 px-4 border border-gray-300 text-left">
-                    {row.role}
-                  </td>
-                )}
-                {hasContact && (
-                  <td className="py-2 px-4 border border-gray-300 text-left">
-                    {row.mobile && <div>{row.mobile}</div>}
-                    {row.email && <div>{row.email}</div>}
-                  </td>
-                )}
+      <Reveal>
+        <div className="overflow-x-auto rounded-[14px] border border-card-border shadow-[var(--shadow-card)]">
+          <table className="w-full min-w-[560px] border-collapse">
+            <thead>
+              <tr className="bg-surface-tint text-navy border-b border-card-border">
+                <th className="py-3 px-4 border-r border-card-border font-semibold text-center">Sl.No</th>
+                <th className="py-3 px-4 border-r border-card-border text-left font-semibold">Faculty</th>
+                {hasRole && <th className="py-3 px-4 border-r border-card-border text-left font-semibold">Role</th>}
+                {hasContact && <th className="py-3 px-4 text-left font-semibold">Contact</th>}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {tableSection.map((row: any, index: number) => (
+                <tr
+                  key={index}
+                  className="bg-white border-b border-card-border last:border-b-0 text-body-gray hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                >
+                  <td className="py-3 px-4 border-r border-card-border text-center">{index + 1}</td>
+                  <td className="py-3 px-4 border-r border-card-border text-left">
+                    <strong className="text-navy font-semibold">{row.name}</strong><br />{row.designation}
+                  </td>
+                  {hasRole && (
+                    <td className="py-3 px-4 border-r border-card-border text-left">
+                      {row.role}
+                    </td>
+                  )}
+                  {hasContact && (
+                    <td className="py-3 px-4 text-left">
+                      {row.mobile && <div>{row.mobile}</div>}
+                      {row.email && <div>{row.email}</div>}
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Reveal>
     </div>
   );
 };

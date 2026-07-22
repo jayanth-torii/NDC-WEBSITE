@@ -4,6 +4,8 @@ import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Text } from "@mantine/core";
 import departmentJson from "@/data-export/department/data.json";
+import Card from "@/components/ui/Card";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 interface Section {
   title?: string;
@@ -60,33 +62,37 @@ export default function VisionMission({ haveContentCheck }: any) {
   }
 
   return (
-    <div className="bg-white mb-10 md:mb-20 px-4 space-y-8">
-      {/* <h2 className="text-3xl font-bold text-[#003333] mb-4">VISION & MISSION</h2> */}
+    <Reveal>
+      <div className="mb-10 md:mb-20 space-y-6">
+        <RevealGroup className="space-y-6">
+          {content.map((section, index) => (
+            <RevealItem key={index}>
+              <Card accent="orange-left" className="p-5 md:p-6">
+                {section.title && (
+                  <h3 className="text-2xl font-semibold text-navy mb-2">
+                    {section.title}
+                  </h3>
+                )}
 
-      {content.map((section, index) => (
-        <div key={index}>
-          {section.title && (
-            <h3 className="text-2xl font-semibold text-[#0E2455] mb-2">
-              {section.title}
-            </h3>
-          )}
-
-          {section.description && (
-            <p className="text-justify mb-4 text-[#003333]">
-              {section.description}
-            </p>
-          )}
-            {Array.isArray(section?.points) && section.points.length > 0 && (
-            <ul className="list-disc ml-6 space-y-2">
-                {section.points.map((point, i) => (
-                <li key={i} className="text-justify text-[#003333]">
-                    {point}
-                </li>
-                ))}
-            </ul>
-            )}
-        </div>
-      ))}
-    </div>
+                {section.description && (
+                  <p className="text-justify mb-4 text-body-gray leading-relaxed">
+                    {section.description}
+                  </p>
+                )}
+                {Array.isArray(section?.points) && section.points.length > 0 && (
+                  <ul className="list-disc ml-6 space-y-2 marker:text-orange">
+                    {section.points.map((point, i) => (
+                      <li key={i} className="text-justify text-body-gray">
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Card>
+            </RevealItem>
+          ))}
+        </RevealGroup>
+      </div>
+    </Reveal>
   );
 }

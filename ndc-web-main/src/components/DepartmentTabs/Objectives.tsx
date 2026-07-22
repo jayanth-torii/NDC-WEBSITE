@@ -3,6 +3,8 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import Card from "@/components/ui/Card";
+import { Reveal } from "@/components/ui/Reveal";
 
 type ObjectiveType = {
   title: string;
@@ -47,16 +49,20 @@ const Objectives = ({ haveContentCheck }: any) => {
   }
 
   return (
-    <div className="bg-white px-6 mb-6">
-      <h2 className="text-2xl md:text-3xl font-bold text-[#003333] mb-4">{data.title}</h2>
-      <ol className="list-decimal list-inside space-y-2 text-[#003333] text-base">
-        {data.points.map((point, index) => (
-          <li key={index} className="leading-relaxed text-justify">
-            {point}
-          </li>
-        ))}
-      </ol>
-    </div>
+    <Reveal>
+      <div className="px-0 md:px-6 mb-6">
+        <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-5">{data.title}</h2>
+        <Card accent="orange-left" className="p-5 md:p-6">
+          <ol className="list-decimal list-inside space-y-2 text-body-gray text-base marker:text-orange marker:font-semibold">
+            {data.points.map((point, index) => (
+              <li key={index} className="leading-relaxed text-justify">
+                {point}
+              </li>
+            ))}
+          </ol>
+        </Card>
+      </div>
+    </Reveal>
   );
 };
 

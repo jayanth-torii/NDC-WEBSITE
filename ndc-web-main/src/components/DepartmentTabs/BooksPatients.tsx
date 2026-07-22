@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import { Reveal } from "@/components/ui/Reveal";
 
 type Row = Record<string, any>;
 
@@ -77,76 +78,78 @@ const BooksPatients = ({ haveContentCheck }: any) => {
     data.Patient_Right!.Patient_Rights_Table!.length > 0;
 
   return (
-    <div className="px-4">
-      <h1 className="text-2xl md:text-3xl font-bold text-[#0E2455] mb-6">{`Books and Publications (${programme.toUpperCase()})`}</h1>
+    <Reveal>
+      <div className="px-4">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-6">{`Books and Publications (${programme.toUpperCase()})`}</h1>
 
-      {/* Books Table */}
-      {hasBooks && (
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold text-[#003333] mb-3">{data?.Books?.title || "Books Published"}</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse border border-gray-400">
-              <thead>
-                <tr className="bg-[#C2C0C017] text-[#003333] border-b border-gray-400">
-                  {data?.Books?.Columns?.map((col: string, i: number) => (
-                    <th key={i} className="p-3 border-r border-gray-400 text-left">{col}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="text-base">
-                {data?.Books?.BooksTable?.map((row: any, i: number) => (
-                  <tr key={i} className="bg-white border-b border-gray-300 text-[#003333] hover:bg-gray-100">
-                    {data?.Books?.Columns?.map((col: string, j: number) => {
-                      const key = Object.keys(row).find((k) => col.toLowerCase().includes(k.toLowerCase()));
-                      return <td key={j} className="py-2 px-3 border-r border-gray-300 whitespace-pre-line">{row[key!] || "-"}</td>;
-                    })}
+        {/* Books Table */}
+        {hasBooks && (
+          <div className="mb-10">
+            <h2 className="text-xl font-semibold text-navy mb-3">{data?.Books?.title || "Books Published"}</h2>
+            <div className="overflow-x-auto rounded-[14px] border border-card-border">
+              <table className="min-w-full border-collapse">
+                <thead>
+                  <tr className="bg-surface-tint text-navy border-b border-card-border">
+                    {data?.Books?.Columns?.map((col: string, i: number) => (
+                      <th key={i} className="p-3 border-r border-card-border text-left font-semibold">{col}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="text-base">
+                  {data?.Books?.BooksTable?.map((row: any, i: number) => (
+                    <tr key={i} className="bg-white border-b border-card-border text-body-gray hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
+                      {data?.Books?.Columns?.map((col: string, j: number) => {
+                        const key = Object.keys(row).find((k) => col.toLowerCase().includes(k.toLowerCase()));
+                        return <td key={j} className="py-3 px-3 border-r border-card-border whitespace-pre-line">{row[key!] || "-"}</td>;
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Patent Table */}
-      {hasPatents && (
-        <div className="mb-10">
-          <h2 className="text-xl font-semibold text-[#003333] mb-3">{data?.Patient_Right?.title || "Patent Rights"}</h2>
-          <div className="overflow-x-auto">
-            <table className="min-w-full border-collapse border border-gray-400">
-              <thead>
-                <tr className="bg-[#C2C0C017] text-[#003333] border-b border-gray-400">
-                  {data?.Patient_Right?.Columns?.map((col: string, i: number) => (
-                    <th key={i} className="p-3 border-r border-gray-400 text-left">{col}</th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {data?.Patient_Right?.Patient_Rights_Table?.map((row: any, i: number) => (
-                  <tr key={i} className="bg-white border-b border-gray-300 text-[#003333] hover:bg-gray-100">
-                    {data?.Patient_Right?.Columns?.map((col: string, j: number) => {
-                      let value = "-";
-                      if (col.toLowerCase().includes("serial")) value = row?.SlNo || "-";
-                      else if (col.toLowerCase().includes("patent & journal")) {
-                        value = [row?.Patent_No, row?.Published_Date, row?.Journal_No, row?.Journal_Date]
-                          .filter(Boolean)
-                          .map((v, idx) => `${["Patent No", "Published Date", "Journal No", "Journal Date"][idx]}: ${v}`)
-                          .join("\n");
-                      } else if (col.toLowerCase().includes("inventor & grant")) {
-                        value = [row?.Inventor && `Inventor: ${row?.Inventor}`, row?.Grant_Year && `Grant Year: ${row?.Grant_Year}`]
-                          .filter(Boolean)
-                          .join("\n");
-                      }
-                      return <td key={j} className="py-2 px-3 border-r border-gray-300 whitespace-pre-line">{value}</td>;
-                    })}
+        {/* Patent Table */}
+        {hasPatents && (
+          <div className="mb-10">
+            <h2 className="text-xl font-semibold text-navy mb-3">{data?.Patient_Right?.title || "Patent Rights"}</h2>
+            <div className="overflow-x-auto rounded-[14px] border border-card-border">
+              <table className="min-w-full border-collapse">
+                <thead>
+                  <tr className="bg-surface-tint text-navy border-b border-card-border">
+                    {data?.Patient_Right?.Columns?.map((col: string, i: number) => (
+                      <th key={i} className="p-3 border-r border-card-border text-left font-semibold">{col}</th>
+                    ))}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {data?.Patient_Right?.Patient_Rights_Table?.map((row: any, i: number) => (
+                    <tr key={i} className="bg-white border-b border-card-border text-body-gray hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
+                      {data?.Patient_Right?.Columns?.map((col: string, j: number) => {
+                        let value = "-";
+                        if (col.toLowerCase().includes("serial")) value = row?.SlNo || "-";
+                        else if (col.toLowerCase().includes("patent & journal")) {
+                          value = [row?.Patent_No, row?.Published_Date, row?.Journal_No, row?.Journal_Date]
+                            .filter(Boolean)
+                            .map((v, idx) => `${["Patent No", "Published Date", "Journal No", "Journal Date"][idx]}: ${v}`)
+                            .join("\n");
+                        } else if (col.toLowerCase().includes("inventor & grant")) {
+                          value = [row?.Inventor && `Inventor: ${row?.Inventor}`, row?.Grant_Year && `Grant Year: ${row?.Grant_Year}`]
+                            .filter(Boolean)
+                            .join("\n");
+                        }
+                        return <td key={j} className="py-3 px-3 border-r border-card-border whitespace-pre-line">{value}</td>;
+                      })}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Reveal>
   );
 };
 

@@ -7,6 +7,9 @@ import UpArrow from "../../../public/images/Chevron2.svg";
 import DownArrow from "../../../public/images/Chevron.svg";
 import { motion, AnimatePresence, cubicBezier, type Variants } from "framer-motion";
 import departmentJson from "@/data-export/department/data.json";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 const easeInOut = cubicBezier(0.4, 0, 0.2, 1);
 
@@ -98,7 +101,7 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
 
 
  haveContentCheck(!!facultyData[departmentKey]);
- 
+
 
   useEffect(() => {
     setItemsPerPage(getItemsPerPage());
@@ -136,8 +139,10 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
       <button
         key={index}
         onClick={() => handlePageChange(index + 1)}
-        className={`cursor-pointer px-3 py-1 rounded-lg ${
-          currentPage === index + 1 ? "border border-[black] text-[#0E2455]" : ""
+        className={`cursor-pointer w-9 h-9 flex items-center justify-center rounded-full text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+          currentPage === index + 1
+            ? "bg-navy text-white"
+            : "text-body-gray hover:bg-surface-tint"
         }`}
       >
         {index + 1}
@@ -145,34 +150,36 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
     ));
 
   if (!department || !content.length)
-    return <h1 className="text-center font-bold text-gray mt-10">No faculty data available for {programme}.</h1>;
+    return <h1 className="text-center font-bold text-body-gray mt-10">No faculty data available for {programme}.</h1>;
 
   return (
-    <div ref={facultySectionRef} className="mt-10 mb-20 text-[#003333] px-4 lg:px-8">
-      <h1 className="text-3xl font-bold mb-4">{department.title}</h1>
-      <p className="text-justify mb-6">{department.description}</p>
+    <div ref={facultySectionRef} className="mt-10 mb-20 text-body-gray px-4 lg:px-8">
+      <Reveal>
+        <h1 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-4">{department.title}</h1>
+        <p className="text-justify mb-8 leading-relaxed">{department.description}</p>
+      </Reveal>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {currentFaculties.map((faculty:any) => (
-          <div
-            key={faculty.id}
-            className="cursor-pointer p-4 shadow-lg border rounded-md text-center transition-transform duration-300 hover:scale-105 hover:z-10 bg-white"
-            onClick={() => setSelectedFaculty(faculty)}
-          >
-            <img
-              src={faculty.image}
-              alt={faculty.name}
-              className="w-40 h-40 object-cover rounded-full mx-auto shadow-md shadow-gray-400"
-            />
-            <button className="cursor-pointer bg-[#0E2455] text-white rounded-md px-6 py-1 mt-3 hover:bg-white hover:text-[#0E2455] border border-[#0E2455]">
-              READ MORE
-            </button>
-            <h2 className="text-xl font-semibold mt-3">{faculty.name}</h2>
-            <p className="text-sm">{faculty.designation}</p>
-            <p className="text-sm text-gray-600">{faculty.qualification}</p>
-          </div>
+          <RevealItem key={faculty.id}>
+            <div className="cursor-pointer h-full" onClick={() => setSelectedFaculty(faculty)}>
+              <Card className="p-5 text-center h-full flex flex-col items-center">
+                <img
+                  src={faculty.image}
+                  alt={faculty.name}
+                  className="w-32 h-32 object-cover rounded-full mx-auto shadow-[var(--shadow-card)]"
+                />
+                <button className="cursor-pointer bg-orange text-white rounded-full px-6 py-1.5 mt-4 text-xs font-bold uppercase tracking-wide hover:bg-orange-dark transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
+                  READ MORE
+                </button>
+                <h2 className="text-lg font-semibold text-navy mt-3">{faculty.name}</h2>
+                <p className="text-sm text-body-gray">{faculty.designation}</p>
+                <p className="text-sm text-body-gray/80">{faculty.qualification}</p>
+              </Card>
+            </div>
+          </RevealItem>
         ))}
-      </div>
+      </RevealGroup>
 
       {/* Modal */}
       <AnimatePresence>
@@ -187,29 +194,29 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="bg-white rounded-md p-6 w-full max-w-5xl max-h-[90vh] overflow-y-auto relative"
+              className="bg-white rounded-[18px] shadow-[var(--shadow-card-hover)] p-6 w-full max-w-5xl max-h-[90vh] overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="cursor-pointer absolute top-4 right-4 text-3xl font-bold text-[#0E2455] hover:text-red-500"
+                className="cursor-pointer absolute top-4 right-4 text-3xl font-bold text-navy hover:text-orange transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]"
                 onClick={() => setSelectedFaculty(null)}
               >
-               X
+               &times;
               </button>
 
               <div className="flex flex-col md:flex-row gap-6">
                 <img
                   src={selectedFaculty.image}
-                  className="w-40 h-40 border-b-2 object-cover rounded-full shadow-md shadow-gray-400"
+                  className="w-40 h-40 object-cover rounded-full shadow-[var(--shadow-card)]"
                   alt={selectedFaculty.name}
                 />
                 <div>
-                  <h2 className="text-2xl font-bold">{selectedFaculty.name}</h2>
-                  <hr className="mb-3 w-full border-t border-black" />
-                  <p className="text-sm">{selectedFaculty?.designation}</p>
-                  <p className="text-sm text-gray-600">{selectedFaculty.qualification}</p>
+                  <h2 className="text-2xl font-bold text-navy">{selectedFaculty.name}</h2>
+                  <hr className="mb-3 w-full border-t border-card-border" />
+                  <p className="text-sm text-body-gray">{selectedFaculty?.designation}</p>
+                  <p className="text-sm text-body-gray/80">{selectedFaculty.qualification}</p>
                   {selectedFaculty?.about?.map((desc, i) => (
-                    <p key={i} className="mt-2 text-sm">{desc}</p>
+                    <p key={i} className="mt-2 text-sm text-body-gray">{desc}</p>
                   ))}
                 </div>
               </div>
@@ -218,12 +225,12 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
               {selectedFaculty &&
                 selectedFaculty.listOfPublications &&
                 selectedFaculty.listOfPublications.content.length > 0 && (
-                <div className="rounded-lg overflow-hidden mt-6">
+                <div className="rounded-[14px] overflow-hidden mt-6 border border-card-border">
                   <div
-                    className="flex justify-between items-center bg-[#F6F6F6] p-4 cursor-pointer"
+                    className="flex justify-between items-center bg-surface-tint p-4 cursor-pointer"
                     onClick={() => toggleAccordion(selectedFaculty.id, 0)}
                   >
-                    <h2 className="text-xl text-[#0E2455]">
+                    <h2 className="text-xl text-navy font-semibold">
                       {selectedFaculty.listOfPublications.title}
                     </h2>
                     <Image
@@ -240,21 +247,21 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
                       height: accordionStates[`${selectedFaculty.id}-0`] ? "auto" : 0,
                     }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="overflow-hidden bg-[#F6F6F6]"
+                    className="overflow-hidden bg-white"
                   >
                     <div className="p-4 overflow-x-auto">
-                      <table className="w-full border border-gray-400">
-                        <thead className="bg-gray-200">
+                      <table className="w-full border border-card-border rounded-[10px]">
+                        <thead className="bg-surface-tint">
                           <tr>
                             {selectedFaculty.listOfPublications.content.map((_, idx) => (
-                              <th key={idx} className="border p-2">Column {idx + 1}</th>
+                              <th key={idx} className="border border-card-border p-2 text-navy font-semibold">Column {idx + 1}</th>
                             ))}
                           </tr>
                         </thead>
                         <tbody>
                           <tr className="text-center">
                             {selectedFaculty.listOfPublications.content.map((item, idx) => (
-                              <td key={idx} className="border p-2">{item}</td>
+                              <td key={idx} className="border border-card-border p-2 text-body-gray">{item}</td>
                             ))}
                           </tr>
                         </tbody>
@@ -266,12 +273,12 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
 
               {/* Other Details */}
               {selectedFaculty.details?.map(({ title, content }, index) => (
-                <div key={index + 1} className="rounded-lg overflow-hidden mt-6">
+                <div key={index + 1} className="rounded-[14px] overflow-hidden mt-6 border border-card-border">
                   <div
-                    className="flex justify-between items-center bg-[#F6F6F6] p-4 cursor-pointer"
+                    className="flex justify-between items-center bg-surface-tint p-4 cursor-pointer"
                     onClick={() => toggleAccordion(selectedFaculty.id, index + 1)}
                   >
-                    <h2 className="text-xl text-[#0E2455]">{title}</h2>
+                    <h2 className="text-xl text-navy font-semibold">{title}</h2>
                     <Image
                       src={
                         accordionStates[`${selectedFaculty.id}-${index + 1}`]
@@ -292,14 +299,14 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
                         : 0,
                     }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="overflow-hidden bg-[#F6F6F6]"
+                    className="overflow-hidden bg-white"
                   >
                     <div className="p-4">
                       {Array.isArray(content)
                         ? content.map((line, i) => (
-                            <p key={i} className="text-sm text-[#003333] mb-2">{line}</p>
+                            <p key={i} className="text-sm text-body-gray mb-2">{line}</p>
                           ))
-                        : <p className="text-sm text-[#003333] mb-2">{content}</p>}
+                        : <p className="text-sm text-body-gray mb-2">{content}</p>}
                     </div>
                   </motion.div>
                 </div>
@@ -311,21 +318,23 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
 
       {/* Pagination */}
       <div className="flex flex-wrap justify-center sm:justify-between items-center mt-12 gap-4">
-        <button
+        <Button
+          variant="ghost"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="cursor-pointer px-2 sm:px-4 text-sm py-2 border border-[#000000]"
+          className="!px-4 !py-2 !text-xs sm:!text-sm disabled:opacity-40 disabled:pointer-events-none"
         >
           PREVIOUS PAGE
-        </button>
+        </Button>
         <div className="hidden sm:flex flex-wrap gap-2">{renderPaginationButtons()}</div>
-        <button
+        <Button
+          variant="ghost"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="cursor-pointer px-2 sm:px-4 text-sm py-2 border border-[#000000]"
+          className="!px-4 !py-2 !text-xs sm:!text-sm disabled:opacity-40 disabled:pointer-events-none"
         >
           NEXT PAGE
-        </button>
+        </Button>
       </div>
     </div>
   );
