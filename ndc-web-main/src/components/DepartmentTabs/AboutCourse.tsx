@@ -3,6 +3,8 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import Card from "@/components/ui/Card";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 // Normalize any key (e.g., "B.Com" => "bcom", "Bcom_BDA" => "bcombda")
 const normalizeKey = (key: string) =>
@@ -57,49 +59,57 @@ const AboutCourse = ({ haveContentCheck }: any) => {
   }
 
   return (
-    <div className="md:px-6 space-y-8">
-      <h1 className="text-2xl md:text-3xl font-bold text-[#0E2455]">
-        {departmentData?.title || "About Department"}
-      </h1>
+    <Reveal>
+      <div className="md:px-6 space-y-8">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px]">
+          {departmentData?.title || "About Department"}
+        </h1>
 
-      {/* Sections */}
-      {departmentData?.sections?.map((section: any, idx: number) => (
-        <div key={idx} className="bg-[#F6F6F6] p-4 rounded-lg shadow">
-          <h2 className="text-xl font-semibold text-[#0E2455] mb-2">
-            {section?.title}
-          </h2>
-          <ul className="list-disc ml-5 space-y-2 text-[#003333]">
-            {section?.points?.map((pt: string, j: number) => (
-              <li className="text-justify" key={j}>{pt}</li>
+        {/* Sections */}
+        {Array.isArray(departmentData?.sections) && departmentData.sections.length > 0 && (
+          <RevealGroup className="space-y-6">
+            {departmentData.sections.map((section: any, idx: number) => (
+              <RevealItem key={idx}>
+                <Card accent="orange-left" className="p-5 md:p-6">
+                  <h2 className="text-xl font-semibold text-navy mb-3">
+                    {section?.title}
+                  </h2>
+                  <ul className="list-disc ml-5 space-y-2 text-body-gray marker:text-orange">
+                    {section?.points?.map((pt: string, j: number) => (
+                      <li className="text-justify leading-relaxed" key={j}>{pt}</li>
+                    ))}
+                  </ul>
+                </Card>
+              </RevealItem>
             ))}
-          </ul>
-        </div>
-      ))}
+          </RevealGroup>
+        )}
 
-      {/* Vision */}
-      {departmentData?.vision?.length > 0 && (
-        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-orange-500">
-          <h2 className="text-xl font-semibold text-[#f09300] mb-2">Vision</h2>
-          <ul className="list-disc ml-5 space-y-2 text-[#003333]">
-            {departmentData.vision.map((item: string, idx: number) => (
-              <li key={idx}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+        {/* Vision */}
+        {departmentData?.vision?.length > 0 && (
+          <Card accent="orange-left" className="p-5 md:p-6">
+            <h2 className="text-xl font-semibold text-orange mb-3">Vision</h2>
+            <ul className="list-disc ml-5 space-y-2 text-body-gray marker:text-orange">
+              {departmentData.vision.map((item: string, idx: number) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </Card>
+        )}
 
-      {/* Mission */}
-      {departmentData?.mission?.length > 0 && (
-        <div className="bg-white p-4 rounded-lg shadow border-l-4 border-orange-500">
-          <h2 className="text-xl font-semibold text-[#f09300] mb-2">Mission</h2>
-          <ul className="list-disc ml-5 space-y-2 text-[#003333]">
-            {departmentData.mission.map((item: string, idx: number) => (
-              <li key={idx}>{item}</li>
-            ))}
-          </ul>
-        </div>
-      )}
-    </div>
+        {/* Mission */}
+        {departmentData?.mission?.length > 0 && (
+          <Card accent="orange-left" className="p-5 md:p-6">
+            <h2 className="text-xl font-semibold text-orange mb-3">Mission</h2>
+            <ul className="list-disc ml-5 space-y-2 text-body-gray marker:text-orange">
+              {departmentData.mission.map((item: string, idx: number) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          </Card>
+        )}
+      </div>
+    </Reveal>
   );
 };
 

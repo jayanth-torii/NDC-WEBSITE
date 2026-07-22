@@ -51,9 +51,9 @@ const Breadcrumb: React.FC<{ className?: string }> = ({ className }) => {
   const pathSegments = pathname.split("/").filter(Boolean);
 
   return (
-    <nav className={`w-[90%] mt-8 mx-auto flex flex-wrap items-center space-x-2 mb-8 text-gray-700 ${className}`}>
+    <nav className={`w-[90%] mt-8 mx-auto flex flex-wrap items-center space-x-2 mb-8 text-[13px] text-body-gray ${className}`}>
       {/* Home Icon + Homepage Link */}
-      <Link href="/" className="flex items-center space-x-1 text-gray-500 hover:text-gray-700">
+      <Link href="/" className="flex items-center space-x-1 text-body-gray hover:text-orange transition-colors duration-200">
         <FaHome className="w-5 h-5" />
       </Link>
 
@@ -64,13 +64,13 @@ const Breadcrumb: React.FC<{ className?: string }> = ({ className }) => {
       {programmeCategory && (
         <>
 
-<     span className="text-gray-400">›</span>
-      <Link href="/departments" className="text-gray-500 hover:text-gray-700 capitalize break-words">
+<     span className="text-body-gray/50">›</span>
+      <Link href="/departments" className="text-body-gray hover:text-orange transition-colors duration-200 capitalize break-words">
         Departments
       </Link>
 
-          <span className="text-gray-400">›</span>
-          <Link href={`/departments#${programmeCategoryHash}`} className="text-gray-500 hover:text-gray-700 capitalize break-words">
+          <span className="text-body-gray/50">›</span>
+          <Link href={`/departments#${programmeCategoryHash}`} className="text-body-gray hover:text-orange transition-colors duration-200 capitalize break-words">
             {pathMappings[programmeCategory] || programmeCategory.replace("-", " ").toUpperCase()}
           </Link>
         </>
@@ -94,14 +94,14 @@ const Breadcrumb: React.FC<{ className?: string }> = ({ className }) => {
 
         return (
           <div key={href} className="flex items-center space-x-2 break-words">
-            <span className="text-gray-400">›</span>
+            <span className="text-body-gray/50">›</span>
             {!isLast ? (
-              <Link href={href} className="text-gray-500 hover:text-gray-700 capitalize break-words">
+              <Link href={href} className="text-body-gray hover:text-orange transition-colors duration-200 capitalize break-words">
                 {displayName}
               </Link>
             ) : (
               // Only show programme name at the end
-              <span className="text-orange-600 font-semibold capitalize break-words">
+              <span className="text-navy font-semibold capitalize break-words">
                 {programmeName || displayName}
               </span>
             )}

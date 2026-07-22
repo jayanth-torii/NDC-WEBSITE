@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, useRef, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
 
 export default function LifeAtNDC({data}:any) {
   const {title, videos} = data
@@ -34,14 +37,14 @@ export default function LifeAtNDC({data}:any) {
   }, []);
 
   return (
-    <div className="flex flex-col items-center w-[90%] mx-auto p-4 mb-10 md:mt-10">
-      <h1 className="text-2xl md:text-3xl text-[#003333] font-semibold text-left mb-5">
+    <Reveal className="flex flex-col items-center w-[90%] mx-auto p-4 mb-10 md:mt-10">
+      <h1 className="text-2xl md:text-3xl text-navy font-extrabold tracking-[-0.5px] text-left w-full mb-5">
         {title}
       </h1>
       {/* Top Container - Video Player */}
-      <div className="w-full aspect-video mb-4">
+      <div className="w-full aspect-video mb-4 overflow-hidden rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
         <iframe
-          className="w-full h-full rounded-xl"
+          className="w-full h-full"
           src={`https://www.youtube.com/embed/${currentVideo}`}
           title="YouTube Video Player"
           frameBorder="0"
@@ -53,10 +56,10 @@ export default function LifeAtNDC({data}:any) {
       <div className="relative w-full overflow-hidden">
         {/* Left Arrow */}
         <button
-          className="hidden md:block absolute left-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+          className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white z-10"
           onClick={() => scroll("left")}
         >
-          <FaChevronLeft size={24} />
+          <ChevronLeft size={20} />
         </button>
 
         {/* Scrollable Thumbnails */}
@@ -74,7 +77,7 @@ export default function LifeAtNDC({data}:any) {
 key={Math.random().toString().slice(2, 6)}
               src={`https://img.youtube.com/vi/${video.id}/hqdefault.jpg`}
               alt={video.title}
-              className="cursor-pointer w-60 sm:w-80 flex-shrink-0 rounded-md border-2 border-transparent hover:border-blue-500"
+              className="cursor-pointer w-60 sm:w-80 flex-shrink-0 rounded-[14px] border-2 border-transparent transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-orange hover:-translate-y-1"
               onClick={() => setCurrentVideo(video)}
             />
           ))}
@@ -82,12 +85,12 @@ key={Math.random().toString().slice(2, 6)}
 
         {/* Right Arrow */}
         <button
-          className="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 bg-gray-800 text-white p-2 rounded-full z-10"
+          className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white z-10"
           onClick={() => scroll("right")}
         >
-          <FaChevronRight size={24} />
+          <ChevronRight size={20} />
         </button>
       </div>
-    </div>
+    </Reveal>
   );
 }

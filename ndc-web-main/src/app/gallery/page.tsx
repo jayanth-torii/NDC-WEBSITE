@@ -1,11 +1,9 @@
 "use client";
 
-import React, { Suspense } from "react";
-import { Box } from "@mantine/core";
+import React from "react";
 import pageJson from "@/data-export/gallery/data.json";
 
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import GalleryBanner from "@/components/GalleryPage/GalleryBanner";
+import GlobalBanner from "@/components/GlobalBanner";
 import GalleryImages from "@/components/GalleryPage/GalleryImages";
 
 const Gallery = () => {
@@ -16,14 +14,22 @@ const Gallery = () => {
   }
 
   return (
-    <Box style={{ margin: "auto", width: "90%" }}>
-      <Suspense>
-        <Breadcrumb />
-      </Suspense>
+    <div className="flex flex-col min-h-screen">
+      <GlobalBanner
+        title={galleryData.BannerSection?.title || "Campus Gallery"}
+        eyebrow="Memories"
+        subtitle={galleryData.BannerSection?.description || "Discover the vibrant moments that define our journey — grand events, cultural festivities, and proud academic milestones, all captured in a stunning visual collection."}
+        image={galleryData.BannerSection?.image}
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Gallery" }
+        ]}
+      />
 
-      <GalleryBanner bannerData={galleryData.BannerSection} />
-      <GalleryImages imageData={galleryData.imagesSection.tabImages} />
-    </Box>
+      <div className="flex-1 bg-white">
+        <GalleryImages imageData={galleryData.imagesSection?.tabImages || {}} />
+      </div>
+    </div>
   );
 };
 

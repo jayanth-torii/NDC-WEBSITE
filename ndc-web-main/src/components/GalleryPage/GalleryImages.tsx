@@ -1,190 +1,270 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import { FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
+import React, { useState, useEffect, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaTimes, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const GalleryImages = ({ imageData = {} }: any) => {
+const PHOTOS_PER_ROW = 4;
+const INITIAL_ROWS = 4;
+const INITIAL_VISIBLE = PHOTOS_PER_ROW * INITIAL_ROWS; // 16
+
+const ExpandIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M4 8v-2a2 2 0 0 1 2 -2h2"></path>
+    <path d="M4 16v2a2 2 0 0 0 2 2h2"></path>
+    <path d="M16 4h2a2 2 0 0 1 2 2v2"></path>
+    <path d="M16 20h2a2 2 0 0 0 2 -2v-2"></path>
+  </svg>
+);
+
+const GalleryImages = ({ imageData = {} }: { imageData: Record<string, string[]> }) => {
   const [activeTab, setActiveTab] = useState("ALL");
+  const [popupIndex, setPopupIndex] = useState<number | null>(null);
+  const [visibleCount, setVisibleCount] = useState(INITIAL_VISIBLE);
   const tabsRef = useRef<HTMLDivElement>(null);
-  const [isScrollable, setIsScrollable] = useState(false);
-  const [imageAspectRatios, setImageAspectRatios] = useState<Record<string, number>>({});
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
-  const tabs = ["ALL", ...Object.keys(imageData).filter((key) => key !== "ALL")];
+  // Tabs computation
+  const categories = Object.keys(imageData).filter((k) => k !== "ALL");
+  const tabs = ["ALL", ...categories];
+  const allImages = categories.flatMap((k) => imageData[k] || []);
+
+  const displayedImages = activeTab === "ALL" ? allImages : (imageData[activeTab] || []);
+  const visibleImages = displayedImages.slice(0, visibleCount);
+  
+  const canLoadMore = visibleCount < displayedImages.length;
+  const canLoadLess = visibleCount > INITIAL_VISIBLE;
+
+  const countFor = (tab: string) => {
+    if (tab === "ALL") return allImages.length;
+    return (imageData[tab] || []).length;
+  };
+
+  const selectTab = (tab: string) => {
+    setPopupIndex(null);
+    setActiveTab(tab);
+    setVisibleCount(INITIAL_VISIBLE);
+  };
+
+  const loadMore = () => {
+    setVisibleCount((prev) => Math.min(prev + INITIAL_VISIBLE, displayedImages.length));
+  };
+
+  const loadLess = () => {
+    const nextCount = Math.max(INITIAL_VISIBLE, visibleCount - INITIAL_VISIBLE);
+    setVisibleCount(nextCount);
+    if (popupIndex !== null && popupIndex >= nextCount) {
+      setPopupIndex(null);
+    }
+  };
+
+  const closePopup = useCallback(() => setPopupIndex(null), []);
+  const prevImage = useCallback((e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setPopupIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : visibleImages.length - 1));
+  }, [visibleImages.length]);
+  
+  const nextImage = useCallback((e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setPopupIndex((prev) => (prev !== null && prev < visibleImages.length - 1 ? prev + 1 : 0));
+  }, [visibleImages.length]);
 
   useEffect(() => {
-    const fetchImageAspectRatios = async () => {
-      const ratios: Record<string, number> = {};
-      if (!imageData || Object.keys(imageData).length === 0) return;
-
-      for (const tab of Object.keys(imageData)) {
-        for (const src of imageData[tab] ?? []) {
-          const img = new Image();
-          img.src = src;
-          await new Promise<void>((resolve) => {
-            img.onload = () => {
-              ratios[src] = img.width / img.height;
-              resolve();
-            };
-          });
-        }
-      }
-      setImageAspectRatios(ratios);
+    if (popupIndex === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closePopup();
+      else if (e.key === "ArrowLeft") prevImage();
+      else if (e.key === "ArrowRight") nextImage();
     };
-    fetchImageAspectRatios();
-  }, [imageData]);
-
-  useEffect(() => {
-    const checkScrollable = () => {
-      if (tabsRef.current) {
-        setIsScrollable(tabsRef.current.scrollWidth > tabsRef.current.clientWidth);
-      }
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
     };
-
-    checkScrollable();
-    window.addEventListener("resize", checkScrollable);
-    return () => window.removeEventListener("resize", checkScrollable);
-  }, []);
-
-  const scrollTabs = (direction: "left" | "right") => {
-    if (tabsRef.current) {
-      const scrollAmount = 150;
-      tabsRef.current.scrollBy({
-        left: direction === "left" ? -scrollAmount : scrollAmount,
-        behavior: "smooth",
-      });
-    }
-  };
-
-  let displayedImages: string[] = [];
-  if (activeTab === "ALL") {
-    displayedImages = Object.keys(imageData)
-      .filter((key) => key !== "ALL")
-      .flatMap((tab) => imageData[tab] ?? []);
-  } else {
-    displayedImages = imageData[activeTab] ?? [];
-  }
-
-  const openPopup = (index: number) => {
-    setSelectedImage(displayedImages[index]);
-    setCurrentIndex(index);
-  };
-
-  const closePopup = () => {
-    setSelectedImage(null);
-  };
-
-  const prevImage = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prevIndex) => prevIndex - 1);
-      setSelectedImage(displayedImages[currentIndex - 1]);
-    }
-  };
-
-  const nextImage = () => {
-    if (currentIndex < displayedImages.length - 1) {
-      setCurrentIndex((prevIndex) => prevIndex + 1);
-      setSelectedImage(displayedImages[currentIndex + 1]);
-    }
-  };
+  }, [popupIndex, closePopup, prevImage, nextImage]);
 
   return (
-    <div className="mb-20">
-      <div className="relative flex items-center w-full border-b border-gray-300 mb-10 overflow-hidden">
-        <button
-          className="absolute left-0 z-10 p-1 md:p-2 bg-white shadow-md rounded-full"
-          onClick={() => scrollTabs("left")}
-        >
-          <FaChevronLeft size={20} color="#003333" />
-        </button>
-
-        <div
-          ref={tabsRef}
-          className="flex px-10 border-b-2 border-gray-200 transition-all duration-300 space-x-2 md:space-x-6 overflow-hidden"
-        >
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`text-[#003333] whitespace-nowrap px-2 md:px-4 py-2 text-xl md:text-2xl !font-semibold relative ${
-                activeTab === tab
-                  ? "after:absolute after:left-0 after:bottom-0 after:w-full after:h-[5px] after:bg-orange-500"
-                  : ""
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-
-        <button
-          className="absolute right-0 z-10 p-1 md:p-2 bg-white shadow-md rounded-full"
-          onClick={() => scrollTabs("right")}
-        >
-          <FaChevronRight size={20} color="#003333" />
-        </button>
-      </div>
-
-      <div className="grid grid-cols-3 gap-2">
-        {displayedImages.map((src: string, index: number) => {
-          const aspectRatio = imageAspectRatios[src] || 1;
-          return (
-            <div
-              key={index}
-              className="relative w-full overflow-hidden cursor-pointer"
-              style={{ height: `calc(24.6703vw)` }}
-              onClick={() => openPopup(index)}
-            >
-              <img
-                src={src}
-                alt={`Image ${index + 1}`}
-                className="absolute inset-0 w-full h-full object-cover shadow-md"
-                onError={(e) => (e.currentTarget.src = "/fallback-image.jpg")}
-              />
-            </div>
-          );
-        })}
-      </div>
-
-      {selectedImage && (
-        <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-80 z-50">
-          <button className="absolute top-5 z-10 right-5 text-white text-3xl" onClick={closePopup}>
-            <FaTimes />
+    <div className="py-20 lg:py-24 bg-white">
+      <div className="container mx-auto px-4 lg:px-8">
+        {/* Filter tabs */}
+        <div className="relative flex items-center w-full border-b border-gray-200 mb-10 pb-4">
+          <button
+            className="absolute left-0 z-10 p-2 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-full text-[#0e2455] hover:text-[#f6872a] transition-colors"
+            onClick={() => {
+              if (tabsRef.current) tabsRef.current.scrollBy({ left: -250, behavior: "smooth" });
+            }}
+          >
+            <FaChevronLeft size={16} />
           </button>
-          <div className="relative flex items-center w-full max-w-4xl">
-            <button
-              className="absolute left-2 md:left-8 text-white text-2xl md:text-3xl p-2 md:p-3 bg-gray-700 bg-opacity-70 rounded-full shadow-lg"
-              onClick={prevImage}
-              disabled={currentIndex === 0}
-            >
-              <FaChevronLeft />
-            </button>
-            
-            <img src={selectedImage} alt="Popup" className="max-w-4xl max-h-[80vh] m-auto rounded-md shadow-lg" />
-            
-            <button
-              className="absolute right-2 md:right-8 text-white text-2xl md:text-3xl p-2 md:p-3 bg-gray-700 bg-opacity-70 rounded-full shadow-lg"
-              onClick={nextImage}
-              disabled={currentIndex === displayedImages.length - 1}
-            >
-              <FaChevronRight />
-            </button>
+
+          <div
+            ref={tabsRef}
+            className="flex items-center gap-3 overflow-x-auto px-10 whitespace-nowrap scroll-smooth w-full scrollbar-hide"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            <style>{`.scrollbar-hide::-webkit-scrollbar { display: none; }`}</style>
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab;
+              return (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => selectTab(tab)}
+                  className={`relative shrink-0 px-5 py-2.5 rounded-full text-sm font-semibold transition-colors duration-200 ${
+                    isActive ? "text-white" : "text-gray-600 hover:text-[#f6872a] bg-gray-50 border border-gray-200 hover:bg-gray-100"
+                  }`}
+                >
+                  {isActive && (
+                    <motion.span
+                      layoutId="galleryTabBg"
+                      className="absolute inset-0 bg-gradient-to-r from-[#f6872a] to-[#ff6b00] rounded-full shadow-md z-0"
+                      transition={{ type: "spring", stiffness: 420, damping: 34 }}
+                    />
+                  )}
+                  <span className="relative z-10 flex items-center gap-2">
+                    {tab}
+                    <span className={`px-2 py-0.5 rounded-full text-xs ${isActive ? 'bg-white/20 text-white' : 'bg-gray-200 text-gray-500'}`}>
+                      {countFor(tab)}
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          <div className="mt-4 flex space-x-2 overflow-x-auto">
-            {displayedImages.map((thumb, index) => (
-              <img
-                key={index}
-                src={thumb}
-                alt="Thumbnail"
-                className={`w-16 h-16 cursor-pointer border-2 ${selectedImage === thumb ? "border-orange-500" : "border-gray-300"}`}
-                onClick={() => openPopup(index)}
-              />
-            ))}
-          </div>
+          <button
+            className="absolute right-0 z-10 p-2 bg-white shadow-[0_4px_12px_rgba(0,0,0,0.1)] rounded-full text-[#0e2455] hover:text-[#f6872a] transition-colors"
+            onClick={() => {
+              if (tabsRef.current) tabsRef.current.scrollBy({ left: 250, behavior: "smooth" });
+            }}
+          >
+            <FaChevronRight size={16} />
+          </button>
         </div>
-      )}
+
+        {/* Image Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeTab}
+            className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {visibleImages.map((src, index) => (
+              <motion.button
+                type="button"
+                key={`${activeTab}-${index}`}
+                className="group relative w-full aspect-square overflow-hidden rounded-[16px] bg-gray-100 shadow-sm"
+                onClick={() => setPopupIndex(index)}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "0px 0px -40px 0px" }}
+                transition={{ duration: 0.4, ease: "easeOut", delay: (index % INITIAL_VISIBLE) * 0.03 }}
+              >
+                <img
+                  src={src}
+                  alt={`Gallery ${index + 1}`}
+                  loading="lazy"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                />
+                <span className="absolute inset-0 bg-[#0a1a3f]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <span className="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                    <ExpandIcon />
+                  </span>
+                </span>
+              </motion.button>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Pagination Actions */}
+        {(canLoadMore || canLoadLess) && (
+          <div className="mt-16 flex justify-center gap-4">
+            {canLoadLess && (
+              <button
+                type="button"
+                className="px-8 py-3 rounded-full border-2 border-gray-200 text-gray-600 font-bold uppercase tracking-wider text-sm transition-colors hover:border-[#0e2455] hover:text-[#0e2455]"
+                onClick={loadLess}
+              >
+                Load Less
+              </button>
+            )}
+            {canLoadMore && (
+              <button
+                type="button"
+                className="px-8 py-3 rounded-full bg-[#f6872a] text-white font-bold uppercase tracking-wider text-sm transition-transform hover:-translate-y-1 shadow-lg shadow-orange-500/30"
+                onClick={loadMore}
+              >
+                Load More
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {popupIndex !== null && (
+          <motion.div
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm"
+            onClick={closePopup}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {/* Close Button */}
+            <button
+              className="absolute top-6 right-6 z-50 p-2 text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full"
+              onClick={closePopup}
+              aria-label="Close"
+            >
+              <FaTimes size={24} />
+            </button>
+
+            {/* Previous Button */}
+            <button
+              className="absolute left-4 lg:left-10 z-50 p-3 lg:p-4 text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full"
+              onClick={prevImage}
+              aria-label="Previous image"
+            >
+              <FaChevronLeft size={24} />
+            </button>
+
+            {/* Image Container */}
+            <motion.div
+              className="relative w-full max-w-6xl max-h-[85vh] px-16 lg:px-24 flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+              key={popupIndex}
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+            >
+              <img
+                src={visibleImages[popupIndex]}
+                alt="Gallery full view"
+                className="max-w-full max-h-[85vh] object-contain rounded-md shadow-2xl"
+              />
+            </motion.div>
+
+            {/* Next Button */}
+            <button
+              className="absolute right-4 lg:right-10 z-50 p-3 lg:p-4 text-white/70 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-full"
+              onClick={nextImage}
+              aria-label="Next image"
+            >
+              <FaChevronRight size={24} />
+            </button>
+
+            {/* Counter */}
+            <div className="absolute bottom-6 left-0 right-0 text-center text-white/70 font-medium tracking-wide text-sm">
+              {popupIndex + 1} / {visibleImages.length} <span className="mx-2 opacity-50">&bull;</span> {activeTab}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

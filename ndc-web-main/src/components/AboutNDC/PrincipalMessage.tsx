@@ -1,4 +1,7 @@
-import Image from "next/image";
+"use client";
+import React from "react";
+import { motion } from "framer-motion";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const PrincipalMessage = ({ data }: { data: any }) => {
   if (!data) return null;
@@ -6,28 +9,66 @@ const PrincipalMessage = ({ data }: { data: any }) => {
   const { title, image, principalName, position, message } = data;
 
   return (
-    <section className="container mb-8 md:mb-20">
-      <div className="bg-white p-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#0E2455] text-center md:text-left mb-10">{title}</h1> 
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-10">
-          {/* Left Container (Image) */}
-          <div className="w-full md:w-1/3 flex justify-center">
-            <Image 
-              src={image} 
-              alt="Principal" 
-              width={500} 
-              height={500} 
-              className="rounded-lg"
-            />
-          </div>
-          
-          {/* Right Container (Text Content) */}
-          <div className="w-full md:w-2/3 text-center md:text-left">
-            <h2 className="text-xl font-semibold mb-3 text-left">{principalName}</h2>
-            <p className="text-[#0E2455] font-semibold text-left mb-5">{position}</p>
-             {message?.map((each:any , index:any) => (
-              <p key={index} className="text-justify mt-4 text-[#0E2455] leading-relaxed mb-4"> {each} </p>
-            ))}
+    <section className="py-20 lg:py-28 bg-gray-50 relative overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <SectionHeading eyebrow="Leadership" title={title} align="center" className="mb-6" />
+        </div>
+
+        <div className="bg-white rounded-[40px] p-8 lg:p-12 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 max-w-6xl mx-auto relative overflow-hidden">
+          {/* Giant decorative quote */}
+          <span className="absolute -top-4 -left-2 text-[200px] text-gray-50 opacity-50 font-serif leading-none pointer-events-none">
+            "
+          </span>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center relative z-10">
+            {/* Left: Image */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="lg:col-span-4 relative"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0e2455] to-blue-500 rounded-3xl transform rotate-6 scale-105 opacity-20 -z-10" />
+              <div className="rounded-3xl overflow-hidden border-4 border-white shadow-xl relative z-10 bg-white">
+                <img
+                  src={image}
+                  alt={principalName}
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
+                  <h3 className="text-xl font-bold">{principalName}</h3>
+                  <p className="text-sm text-white/80 font-medium">{position}</p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Right: Message */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="lg:col-span-8 space-y-6"
+            >
+              <div className="hidden lg:block mb-8">
+                <h2 className="text-3xl font-bold text-[#0e2455] mb-2">{principalName}</h2>
+                <p className="text-[#f6872a] font-bold tracking-wider uppercase text-sm">{position}</p>
+              </div>
+
+              {message?.map((each: any, index: number) => (
+                <p key={index} className="text-gray-600 leading-relaxed text-lg">
+                  {each}
+                </p>
+              ))}
+
+              <div className="mt-8 pt-8 border-t border-gray-100 flex items-center justify-between">
+                <div className="font-serif italic text-gray-400 text-xl">
+                  "Empowering students to meet and exceed challenges."
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

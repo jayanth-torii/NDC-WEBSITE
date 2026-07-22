@@ -1,25 +1,29 @@
 "use client";
- 
+
 import React, { useEffect, useState } from "react";
-import { Button, Card, Tabs } from "@mantine/core";
+import { Tabs } from "@mantine/core";
 import { useRouter } from "next/navigation";
- 
- 
+import SectionHeading from "@/components/ui/SectionHeading";
+import Card from "@/components/ui/Card";
+import Button from "@/components/ui/Button";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
+
+
 const programmeOptions: Record<string, string[]> = {
   ug: [
-    "B.Com", 
+    "B.Com",
     "B.Com-BDA",
     "BBA",
     "BCA",
     // "B.Science",
   ],
   pg: [
-    "MBA", 
-    "MCA", 
+    "MBA",
+    "MCA",
     // "M.Com"
   ],
 };
- 
+
 const Programme = ({data}:any) => {
   const {title, description, image} = data;
   const router = useRouter();
@@ -41,32 +45,30 @@ const Programme = ({data}:any) => {
       window.location.hash = `${selectedTab}_programme`;
     }
   }, [selectedTab]);
- 
+
   const handleProgrammeClick = (programme: string) => {
     router.push(`/department?programme=${encodeURIComponent(programme)}`);
   };
-  
+
   return (
-    <div className="min-h-screen text-black text-left mb-10 md:mb-20">
+    <div className="text-left mb-10 md:mb-20">
       {/* Header Section */}
       <header className="py-6">
-        <h1 className="text-4xl md:text-3xl sm:text-2xl font-bold text-[#0E2455]">
-          {title}
-        </h1>
+        <SectionHeading title={title} />
       </header>
- 
+
       {/* Tabs Section */}
       <div className="w-full mb-6">
        <Tabs value={selectedTab} onChange={setSelectedTab} className="w-full">
-          <Tabs.List className="relative flex flex-col md:flex-row md:justify-start border-b-2 border-[#D9D9D9]">
+          <Tabs.List className="relative flex flex-col md:flex-row md:justify-start border-b-2 border-card-border">
             {["ug", "pg",  ].map((tab) => (
               <Tabs.Tab
                 key={tab}
                 value={tab}
-                className="  text-center px-6 py-3 font-semibold relative transition-none"
+                className="text-center px-6 py-3 font-semibold relative transition-none"
                 style={{
-                  borderBottom: selectedTab === tab ? "4px solid #F09300" : "4px solid #D9D9D9",
-                  color: "#003333",
+                  borderBottom: selectedTab === tab ? "4px solid #f6872a" : "4px solid transparent",
+                  color: selectedTab === tab ? "#0e2455" : "#53545b",
                   fontSize: "1.2rem",
                   fontWeight: selectedTab === tab ? "700" : "400",
                 }}
@@ -77,8 +79,8 @@ const Programme = ({data}:any) => {
           </Tabs.List>
         </Tabs>
       </div>
- 
-      
+
+
       {/* Image and Programme List Section Responsive */}
       <div className="w-full flex flex-col md:flex-row gap-6">
         {/* Image Section */}
@@ -86,39 +88,40 @@ const Programme = ({data}:any) => {
           <img
             src={image}
             alt="Nagarjuna Group of Institutions"
-            className="w-full h-auto rounded-lg shadow-lg"
+            className="w-full h-auto rounded-[18px] shadow-[var(--shadow-card)] border border-card-border"
           />
         </div>
- 
+
         {/* Programme List Section */}
         <div className="w-full md:w-[70%]">
-          <p className="text-justify text-lg text-gray-700 font-normal my-6">
+          <p className="text-justify text-lg text-body-gray font-normal my-6">
             {description}
           </p>
-          <h2 className="text-2xl mb-4 text-[#0E2455]">
+          <h2 className="text-2xl mb-4 text-navy font-semibold">
             Explore {selectedTab?.toUpperCase()} Programmes
           </h2>
-          <div className="space-y-2 border-t border-[#D9D9D9]">
+          <RevealGroup className="space-y-3">
           {programmeOptions[selectedTab ?? "ug"]?.map((programme: string) => (
-            <div key={programme} className="flex justify-between items-center bg-[#F5F5F5] px-4 py-3">
-              <span className="text-[11px] sm:text-[8px] md:text-[14px] lg:text-[20px] font-semibold text-[#0E2455]">
-                {programme}
-              </span>
-              <Button
-                onClick={() => handleProgrammeClick(programme)}
-                variant="filled"
-                size="sm"
-                className="text-[white] px-2 md:px-4 font-semibold py-2 !bg-[#0E2455] rounded-md cursor-pointer hover:bg-[white] hover:text-[#0E2455]"
-              >
-                View →
-              </Button>
-            </div>
+            <RevealItem key={programme}>
+              <Card className="flex justify-between items-center px-4 py-3 md:px-6">
+                <span className="text-[13px] sm:text-[14px] md:text-[16px] lg:text-[18px] font-semibold text-navy">
+                  {programme}
+                </span>
+                <Button
+                  onClick={() => handleProgrammeClick(programme)}
+                  variant="primary"
+                  className="!px-4 !py-2 !text-[13px] md:!text-[15px]"
+                >
+                  View →
+                </Button>
+              </Card>
+            </RevealItem>
           ))}
-          </div>
+          </RevealGroup>
         </div>
       </div>
     </div>
   );
 };
- 
+
 export default Programme;

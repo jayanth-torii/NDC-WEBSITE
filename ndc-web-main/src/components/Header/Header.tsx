@@ -1,353 +1,233 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Burger, Drawer } from "@mantine/core";
 import "@mantine/core/styles.css";
 import { useRouter, usePathname } from "next/navigation";
+import { IconChevronDown } from "@tabler/icons-react";
 import Logo from "../../../public/images/NDC-Logo.png";
-import Image from 'next/image';
+import Image from "next/image";
+
+const APPLY_NOW_URL = "https://apply.nagarjunadegreecollege.co.in/";
+
+type NavLink = { label: string; href: string };
+type NavItem = { label: string; href: string; children?: NavLink[] };
+
+const NAV_ITEMS: NavItem[] = [
+  { label: "Home", href: "/" },
+  {
+    label: "Academics",
+    href: "/departments",
+    children: [
+      { label: "Departments", href: "/departments" },
+      { label: "Admissions", href: "/admissions" },
+      { label: "Research", href: "/research" },
+      { label: "Library", href: "/library" },
+    ],
+  },
+  {
+    label: "Students",
+    href: "/students",
+    children: [
+      { label: "Students", href: "/students" },
+      { label: "Activities", href: "/activities" },
+      { label: "Gallery", href: "/gallery" },
+    ],
+  },
+  { label: "Alumni", href: "/alumni" },
+  { label: "About Us", href: "/about-ndc" },
+  { label: "Contact Us", href: "/contact-us" },
+];
+
+const isItemActive = (item: NavItem, pathname: string) =>
+  item.href === pathname || (item.children?.some((c) => c.href === pathname) ?? false);
+
+const desktopLinkClass = (active: boolean) =>
+  `relative flex cursor-pointer items-center gap-1 text-[15px] font-semibold text-navy transition-colors duration-250 hover:text-orange focus:outline-none after:absolute after:left-0 after:-bottom-1 after:h-[2px] after:bg-orange after:transition-transform after:duration-250 after:ease-[cubic-bezier(0.23,1,0.32,1)] after:content-[''] ${
+    active ? "text-orange after:w-full after:scale-x-100" : "after:w-full after:scale-x-0 hover:after:scale-x-100"
+  }`;
+
+const dropdownLinkClass =
+  "block whitespace-nowrap px-4 py-2.5 text-sm font-medium text-navy transition-colors duration-150 hover:bg-chip-bg hover:text-orange";
+
+const mobileLinkClass = (active: boolean) =>
+  `cursor-pointer text-left text-base font-semibold transition-colors duration-200 focus:outline-none ${
+    active ? "text-orange" : "text-navy hover:text-orange"
+  }`;
 
 const Header = () => {
-  const [menuOpen, setMenuOpen] =
-    useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [openDesktopDropdown, setOpenDesktopDropdown] = useState<string | null>(null);
+  const [openMobileDropdown, setOpenMobileDropdown] = useState<string | null>(null);
+  const [isSticky, setIsSticky] = useState(false);
   const router = useRouter();
-  const pathname = usePathname(); // Get current page URL
-  const [departmentsOpen, setDepartmentsOpen] = useState(false);
+  const pathname = usePathname();
+  const navRef = useRef<HTMLElement>(null);
 
+  useEffect(() => {
+    const onScroll = () => setIsSticky(window.pageYOffset > 100);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const handleAboutNdc = () => {
-    setDepartmentsOpen(!departmentsOpen);
-    router.push("/about-ndc");
+  useEffect(() => {
+    const onClickOutside = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpenDesktopDropdown(null);
+      }
+    };
+    document.addEventListener("mousedown", onClickOutside);
+    return () => document.removeEventListener("mousedown", onClickOutside);
+  }, []);
+
+  const go = (href: string) => {
+    router.push(href);
     setMenuOpen(false);
+    setOpenDesktopDropdown(null);
+    setOpenMobileDropdown(null);
   };
-
-  const handleDepartmentsClick = () => {
-    setDepartmentsOpen(!departmentsOpen);
-    router.push("/departments");
-    setMenuOpen(false);
-  };
-
-  const handleGalleryClick = () => {
-    setDepartmentsOpen(!departmentsOpen);
-    router.push("/gallery");
-    setMenuOpen(false);
-  };
-
-  const handleDepartmentHome = () => {
-    router.push("/");
-    setMenuOpen(false);
-  }
-
-  const handleStudentsClick = () => {
-    router.push("/students");
-    setMenuOpen(false);
-  }
-
-  const handleActivitiesClick = () => {
-    router.push("/activities");
-    setMenuOpen(false);
-  }
-
-
-  const handleContactUsClick = () => {
-    router.push("/contact-us");
-    setMenuOpen(false);
-  }
-
-  const handleAdmissionClick = () => {
-    router.push("/admissions");
-    setMenuOpen(false);
-  }
-
-  const handleResearchClick = () => {
-    router.push("/research");
-    setMenuOpen(false);
-  }
-
-  const handleAlumniClick = () => {
-    router.push("/alumni");
-    setMenuOpen(false);
-  }
-
-  const handleLibraryClick = () => {
-    router.push("/library");
-    setMenuOpen(false);
-  }
-
-  const handleApplyNowClick = () => {
-    window.open("https://apply.nagarjunadegreecollege.co.in/", "_blank", "noopener,noreferrer");
-    setMenuOpen(false);
-  }
 
   return (
-    <nav className="flex items-center justify-between pl-0 pr-5 py-4 md:px-5 md:py-10  lg:py-10  bg-white shadow-md h-auto md:h-[100px] lg:h-[118px] relative">
-      {/* Logo */}
-      <div className="flex items-center">
-        <a href="/"><Image src={Logo} alt="Logo" width={200} height={50} className="object-contain ml-6 lg:ml-5 md:ml-3" /></a>
-      </div>
+      <nav
+        ref={navRef}
+        className={`sticky top-0 z-40 flex items-center justify-between border-b border-card-border bg-white/95 backdrop-blur-sm pl-0 pr-5 md:px-6 transition-[height,padding] duration-300 ${
+          isSticky ? "h-[70px] md:h-[76px] py-2 shadow-md" : "h-auto md:h-[100px] lg:h-[110px] py-4 md:py-8 lg:py-8"
+        }`}
+      >
+        {/* Logo */}
+        <button onClick={() => go("/")} className="flex items-center">
+          <Image
+            src={Logo}
+            alt="Nagarjuna Degree College"
+            width={200}
+            height={50}
+            className={`object-contain ml-6 lg:ml-1 md:ml-1 transition-all duration-300 ${isSticky ? "h-12 w-auto" : "h-auto"}`}
+          />
+        </button>
 
-      {/* Desktop Menu */}
-      <div className="hidden md:flex md:justify-end gap-3 lg:mr-10 lg:gap-5 text-gray-700 text-xs md:text-lg whitespace-nowrap relative justify-end">
-
-
-        <div className="hidden md:flex md:justify-end gap-3  lg:gap-5 text-gray-700 text-xs md:text-lg whitespace-nowrap relative justify-end">
-          <div
-            className="relative group"
-            onMouseEnter={() => setDepartmentsOpen(true)}
-            onMouseLeave={() => setDepartmentsOpen(false)}
-          >
-            <button
-              onClick={handleAboutNdc}
-              className={` cursor-pointer text-lg hover:text-blue-500 focus:outline-none ${pathname === "/about-ndc" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              About Us
-            </button>
-          </div>
-        </div>
-
-
-        <div
-          className="relative group"
-          onMouseEnter={() => setDepartmentsOpen(true)}
-          onMouseLeave={() => setDepartmentsOpen(false)}
-        >
-          <button
-            onClick={handleDepartmentsClick}
-            className={`cursor-pointer text-lg  hover:text-blue-500 focus:outline-none ${pathname === "/departments" ? "border-b-2 border-[#F09300]" : ""
-              }`}
-          >
-            Departments
-          </button>
-          {/* {departmentsOpen && (
-            <div className="absolute left-0 mt-2 w-48 bg-white border rounded shadow-lg z-50">
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">About Nagarjuna</a>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">Admissions</a>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">About University</a>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">Principal’s Message</a>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">Academic Council</a>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">Governing Council</a>
-              <a href="#" className="block px-4 py-2 hover:bg-gray-100">Policy Documents</a>
+        {/* Desktop Menu */}
+        <div className="hidden md:flex md:items-center gap-7 lg:gap-8 whitespace-nowrap">
+          {NAV_ITEMS.map((item) => (
+            <div key={item.label} className="relative">
+              {item.children ? (
+                <>
+                  <button
+                    onClick={() =>
+                      setOpenDesktopDropdown(openDesktopDropdown === item.label ? null : item.label)
+                    }
+                    onMouseEnter={() => setOpenDesktopDropdown(item.label)}
+                    className={desktopLinkClass(isItemActive(item, pathname))}
+                  >
+                    {item.label}
+                    <IconChevronDown
+                      size={15}
+                      className={`transition-transform duration-200 ${openDesktopDropdown === item.label ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {openDesktopDropdown === item.label && (
+                    <div
+                      onMouseLeave={() => setOpenDesktopDropdown(null)}
+                      className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-xl border border-card-border bg-white py-2 shadow-card-hover"
+                    >
+                      {item.children.map((child) => (
+                        <button
+                          key={child.href}
+                          onClick={() => go(child.href)}
+                          className={`${dropdownLinkClass} w-full text-left`}
+                        >
+                          {child.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </>
+              ) : (
+                <button onClick={() => go(item.href)} className={desktopLinkClass(isItemActive(item, pathname))}>
+                  {item.label}
+                </button>
+              )}
             </div>
-          )} */}
-        </div>
+          ))}
 
-
-        <div className="hidden md:flex md:justify-end gap-3  lg:gap-5 text-gray-700 whitespace-nowrap relative justify-end">
-          <div
-            className="relative group"
-            onMouseEnter={() => setDepartmentsOpen(true)}
-            onMouseLeave={() => setDepartmentsOpen(false)}
+          <a
+            href={APPLY_NOW_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-2 rounded-full bg-orange px-6 py-2.5 text-sm font-bold text-white shadow-cta transition-all duration-200 hover:bg-orange-dark hover:shadow-cta-hover"
           >
-            <button
-              onClick={handleStudentsClick}
-              className={`cursor-pointer text-xs md:text-lg hover:text-blue-500 focus:outline-none ${pathname === "/students" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Students
-            </button>
-          </div>
-        </div>
-
-
-
-        <div className="hidden md:flex md:justify-end gap-3  lg:gap-5 text-gray-700 text-xs md:text-lg whitespace-nowrap relative justify-end">
-          <div
-            className="relative group"
-            onMouseEnter={() => setDepartmentsOpen(true)}
-            onMouseLeave={() => setDepartmentsOpen(false)}
-          >
-            <button
-              onClick={handleActivitiesClick}
-              className={`cursor-pointer text-xs md:text-lg hover:text-blue-500 focus:outline-none ${pathname === "/activities" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Activities
-            </button>
-          </div>
-        </div>
-
-
-
-        <div className="hidden md:flex md:justify-end gap-3  lg:gap-5 text-gray-700 text-xs md:text-lg whitespace-nowrap relative justify-end">
-          <div
-            className="relative group"
-            onMouseEnter={() => setDepartmentsOpen(true)}
-            onMouseLeave={() => setDepartmentsOpen(false)}
-          >
-            <button
-              onClick={handleGalleryClick}
-              className={`cursor-pointer text-lg hover:text-blue-500 focus:outline-none ${pathname === "/gallery" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Gallery
-            </button>
-          </div>
-        </div>
-
-
-        <div className="hidden md:flex md:justify-end gap-3  lg:gap-5 text-gray-700 text-xs md:text-lg whitespace-nowrap relative justify-end">
-          <div
-            className="relative group"
-            onMouseEnter={() => setDepartmentsOpen(true)}
-            onMouseLeave={() => setDepartmentsOpen(false)}
-          >
-            <button
-              onClick={handleContactUsClick}
-              className={`cursor-pointer text-lg hover:text-blue-500 focus:outline-none ${pathname === "/contact-us" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Contact Us
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-      {/* Mobile Menu Button */}
-      <div className="md:hidden ">
-        <Burger opened={menuOpen} onClick={() => setMenuOpen(!menuOpen)} />
-      </div>
-
-      {/* Mobile Drawer Menu */}
-      <Drawer opened={menuOpen} onClose={() => setMenuOpen(false)} padding="md">
-        <div className="flex flex-col space-y-4 text-gray-700 text-sm">
-          <a href="#" onClick={handleDepartmentHome} className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/" ? "border-b-1 border-[#F09300]" : ""
-            }`} >
-            Home
+            Apply Now
           </a>
+        </div>
 
+        {/* Mobile Menu Button */}
+        <div className="md:hidden">
+          <Burger opened={menuOpen} onClick={() => setMenuOpen(!menuOpen)} color="#0e2455" />
+        </div>
 
-          <div>
-            <button
-              onClick={handleAboutNdc}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/about-ndc" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              About Us
-            </button>
-          </div>
+        {/* Mobile Drawer Menu */}
+        <Drawer
+          opened={menuOpen}
+          onClose={() => setMenuOpen(false)}
+          padding="md"
+          title={<Image src={Logo} alt="Nagarjuna Degree College" width={140} height={36} className="object-contain" />}
+          styles={{
+            content: { background: "#ffffff" },
+            header: { borderBottom: "1px solid var(--color-card-border, #e6ebf3)" },
+          }}
+        >
+          <div className="flex flex-col space-y-1 pt-2">
+            {NAV_ITEMS.map((item) =>
+              item.children ? (
+                <div key={item.label} className="border-b border-card-border/60 py-2">
+                  <button
+                    onClick={() =>
+                      setOpenMobileDropdown(openMobileDropdown === item.label ? null : item.label)
+                    }
+                    className={`flex w-full items-center justify-between ${mobileLinkClass(isItemActive(item, pathname))}`}
+                  >
+                    {item.label}
+                    <IconChevronDown
+                      size={16}
+                      className={`transition-transform duration-200 ${openMobileDropdown === item.label ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {openMobileDropdown === item.label && (
+                    <div className="mt-2 flex flex-col space-y-3 pl-3">
+                      {item.children.map((child) => (
+                        <button
+                          key={child.href}
+                          onClick={() => go(child.href)}
+                          className={mobileLinkClass(pathname === child.href)}
+                        >
+                          {child.label}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <button
+                  key={item.label}
+                  onClick={() => go(item.href)}
+                  className={`border-b border-card-border/60 py-3 ${mobileLinkClass(pathname === item.href)}`}
+                >
+                  {item.label}
+                </button>
+              )
+            )}
 
-          <div>
-            <button
-              onClick={handleDepartmentsClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/departments" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Departments
-            </button>
-            {/* {departmentsOpen && (
-              <div className="mt-2 bg-white border rounded shadow-lg">
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">About Nagarjuna</a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">Admissions</a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">About University</a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">Principal’s Message</a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">Academic Council</a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">Governing Council</a>
-                <a href="#" className="block px-4 py-2 hover:bg-gray-100">Policy Documents</a>
-              </div>
-            )} */}
-          </div>
-
-
-
-          <div>
-            <button
-              onClick={handleAdmissionClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/admissions" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Admissions
-            </button>
-          </div>
-
-          <div>
-            <button
-              onClick={handleResearchClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/research" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Research
-            </button>
-          </div>
-
-          <div>
-            <button
-              onClick={handleAlumniClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/alumni" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Alumni
-            </button>
-          </div>
-
-          <div>
-            <button
-              onClick={handleLibraryClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/library" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Library
-            </button>
-          </div>
-
-          <div>
-            <button
-              onClick={handleApplyNowClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/apply-now " ? "border-b-2 border-[#F09300]" : ""
-                }`}
+            <a
+              href={APPLY_NOW_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="mt-4 rounded-full bg-orange px-6 py-3 text-center text-base font-bold text-white shadow-cta transition-all duration-200 hover:bg-orange-dark"
             >
               Apply Now
-            </button>
+            </a>
           </div>
-
-
-          <div>
-            <button
-              onClick={handleStudentsClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/students" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Students
-            </button>
-          </div>
-
-
-          <div>
-            <button
-              onClick={handleActivitiesClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/activities" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Activities
-            </button>
-          </div>
-
-
-          <div>
-            <button
-              onClick={handleGalleryClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/gallery" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Gallery
-            </button>
-          </div>
-
-
-          <div>
-            <button
-              onClick={handleContactUsClick}
-              className={`cursor-pointer hover:text-blue-500 focus:outline-none ${pathname === "/contact-us" ? "border-b-2 border-[#F09300]" : ""
-                }`}
-            >
-              Contact Us
-            </button>
-          </div>
-
-        </div>
-      </Drawer>
-    </nav>
+        </Drawer>
+      </nav>
   );
 };
 

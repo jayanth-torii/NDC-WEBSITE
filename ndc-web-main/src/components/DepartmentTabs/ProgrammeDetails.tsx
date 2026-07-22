@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import { Reveal } from "@/components/ui/Reveal";
 
 // Interfaces for type safety
 interface Section {
@@ -59,39 +60,43 @@ const ProgrammeDetails = ({ haveContentCheck }: any) => {
   }
 
   return (
-    <div className="overflow-x-auto">
-      <h2 className="text-2xl md:text-3xl font-bold text-[#003333] mb-4">
-        PROGRAMME DETAILS
-      </h2>
-      <table className="min-w-full border border-[#9E9E9E] rounded-lg">
-        <tbody className="bg-white text-[#003333]">
-          {courseData.map((item, index) => (
-            <tr key={index} className="border-t border-gray-400 align-top">
-              <td className="px-6 py-4 font-medium border-r border-gray-400 w-1/3">
-                {item.label}
-              </td>
-              <td className="px-6 py-4 w-2/3">
-                {item?.value && <p>{item?.value}</p>}
-                {item?.sections?.map((section, i) => (
-                  <div key={i} className="mb-3">
-                    {section?.title && (
-                      <p className="font-semibold text-[#0E2455] mb-1">
-                        {section?.title}
-                      </p>
-                    )}
-                    <ul className="list-disc list-outside ml-4">
-                      {section?.points?.map((point, j) => (
-                        <li className="text-justify text-base" key={j}>{point}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Reveal>
+      <div>
+        <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-5">
+          PROGRAMME DETAILS
+        </h2>
+        <div className="overflow-x-auto rounded-[14px] border border-card-border">
+          <table className="min-w-full">
+            <tbody className="bg-white text-body-gray">
+              {courseData.map((item, index) => (
+                <tr key={index} className="border-t border-card-border first:border-t-0 align-top">
+                  <td className="px-6 py-4 font-semibold text-navy border-r border-card-border w-1/3 bg-surface-tint">
+                    {item.label}
+                  </td>
+                  <td className="px-6 py-4 w-2/3">
+                    {item?.value && <p>{item?.value}</p>}
+                    {item?.sections?.map((section, i) => (
+                      <div key={i} className="mb-3">
+                        {section?.title && (
+                          <p className="font-semibold text-navy mb-1">
+                            {section?.title}
+                          </p>
+                        )}
+                        <ul className="list-disc list-outside ml-4 marker:text-orange">
+                          {section?.points?.map((point, j) => (
+                            <li className="text-justify text-base" key={j}>{point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </Reveal>
   );
 };
 

@@ -1,101 +1,51 @@
 'use client';
 
 import React from 'react';
-import { Card } from '@mantine/core';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import Image from 'next/image';
+import { ArrowUpRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import SectionHeading from '@/components/ui/SectionHeading';
+import { RevealGroup, RevealItem } from '@/components/ui/Reveal';
+
+const ACCENTS = [
+  { ring: 'group-hover:border-navy/40', chip: 'bg-surface-tint', arrow: 'text-navy' },
+  { ring: 'group-hover:border-orange/50', chip: 'bg-chip-bg', arrow: 'text-orange' },
+  { ring: 'group-hover:border-blue-accent/40', chip: 'bg-surface-tint', arrow: 'text-blue-accent' },
+];
 
 const LoginPortals = ({ portals }: any) => {
   const router = useRouter();
 
   return (
-    <div className="bg-gray-100 py-10 px-5 md:px-20 flex flex-col md:flex-row items-center w-full rounded-lg mb-10 md:mb-20">
-      {/* Mobile View: Swiper */}
-      <div className="w-full md:hidden">
-        <Swiper 
-          modules={[Pagination]} 
-          spaceBetween={10} 
-          slidesPerView={1} 
-          pagination={{ clickable: true }}
-          className="w-full"
-        >
-          {portals.map((program: any, index: any) => (
-            <SwiperSlide key={index}>
-              <Card
-                shadow="sm"
-                padding="lg"
-                radius="md"
-                className="w-full max-w-[90%] bg-white mb-10 sm:max-w-[400px] h-auto mx-auto"
+    <div>
+      <SectionHeading eyebrow="Quick Access" title="Login Portals" align="center" className="mb-10" />
+
+      <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {portals.map((program: any, index: number) => {
+          const accent = ACCENTS[index % ACCENTS.length];
+          return (
+            <RevealItem key={index}>
+              <button
+                type="button"
+                onClick={() => router.push(program.url)}
+                className={`group flex w-full cursor-pointer items-center gap-4 rounded-[18px] border border-card-border bg-white p-5 text-left shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] ${accent.ring}`}
               >
-                <img 
-                  src={program.image} 
-                  alt={program.title} 
-                  className="w-full h-[200px] sm:h-[250px] object-contain" 
+                <span className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-[14px] ${accent.chip}`}>
+                  <Image src={program.image} alt="" width={30} height={30} className="object-contain" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-base font-bold text-navy">{program.title}</span>
+                  <span className="block text-sm text-body-gray">Login to continue</span>
+                </span>
+                <ArrowUpRight
+                  size={20}
+                  className={`shrink-0 transition-transform duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 ${accent.arrow}`}
                 />
-                <div className="p-4 text-center">
-                  <p className="font-semibold text-base text-[#0E2455]">{program.title}</p>
-                  <button 
-                    onClick={() => router.push(program.url)}  
-                    className="mt-4 bg-[#003333] cursor-pointer w-full text-white text-lg py-2 px-6 rounded-sm hover:bg-[#09203F] transition"
-                  >
-                    Login Here
-                  </button>
-                </div>
-              </Card>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
-
-      {/* Desktop View: Side-by-Side Cards */}
-      <div className="hidden md:flex w-full gap-5 justify-center">
-        {portals.map((program: any, index: any) => (
-          <Card
-            key={index}
-            shadow="sm"
-            padding="lg"
-            radius="md"
-            className="w-full bg-white rounded-md h-auto"
-          >
-            <img 
-              src={program.image} 
-              alt={program.title} 
-              className="w-full h-[200px] object-contain" 
-            />
-            <div className="p-4 text-center">
-              <p className="font-semibold text-lg text-[#0E2455]">{program.title}</p>
-              <button 
-                onClick={() => router.push(program.url)} 
-                className="mt-4 bg-[#003333] cursor-pointer w-full text-white text-lg py-2 px-6 rounded-sm hover:bg-[#09203F] transition"
-              >
-                Login Here
               </button>
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      {/* Inline Styles for Swiper Pagination */}
-      <style jsx>{`
-        :global(.swiper-pagination-bullet) {
-          background-color: orange !important;
-          width: 10px !important;
-          height: 10px !important;
-          opacity: 0.6;
-          transition: all 0.3s ease-in-out;
-        }
-
-        :global(.swiper-pagination-bullet-active) {
-          width: 30px !important;
-          height: 10px !important;
-          border-radius: 5px !important;
-          background-color: orange !important;
-          opacity: 1;
-        }
-      `}</style>
+            </RevealItem>
+          );
+        })}
+      </RevealGroup>
     </div>
   );
 };

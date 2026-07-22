@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { articles } from "@/app/Data/BlogsPageContent";
 import React from "react";
+import Button from "@/components/ui/Button";
 
 interface BlogNavigationProps {
     currentIndex: number;
@@ -22,28 +23,28 @@ const BlogNavigation: React.FC<BlogNavigationProps> = ({ currentIndex }) => {
     };
 
     return (
-        <div className="mt-6 flex justify-center gap-10 w-full px-4 md:px-8">
+        <div className="mt-6 flex flex-wrap justify-center gap-4 sm:gap-10 w-full px-4 md:px-8">
             {/* Previous Blog Button */}
-            <button
+            <Button
+                variant="ghost"
+                type="button"
                 disabled={!prevBlog}
-                className={`px-6 py-2 border border-[#000000] text-[#141629] text-sm sm:text-md transition ${
-                    !prevBlog ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-gray-200"
-                }`}
+                className={!prevBlog ? "pointer-events-none opacity-50" : ""}
                 onClick={() => prevBlog && handleNavigation(prevBlog.id)}
             >
                 READ PREVIOUS BLOG
-            </button>
+            </Button>
 
             {/* Next Blog Button */}
-            <button
+            <Button
+                variant="primary"
+                type="button"
                 disabled={!nextBlog}
-                className={`px-6 py-2 bg-[#0E2455] text-white text-sm sm:text-md transition ${
-                    !nextBlog ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-[#092034]"
-                }`}
+                className={!nextBlog ? "pointer-events-none opacity-50" : ""}
                 onClick={() => nextBlog && handleNavigation(nextBlog.id)}
             >
                 READ NEXT BLOG
-            </button>
+            </Button>
         </div>
     );
 };

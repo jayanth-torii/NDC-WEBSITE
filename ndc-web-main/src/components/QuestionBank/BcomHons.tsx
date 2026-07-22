@@ -1,8 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { AiOutlineArrowRight } from "react-icons/ai";
+import { Download } from "lucide-react";
 import PdfModal from "../PdfModal";
+import Card from "@/components/ui/Card";
+import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 export default function BcomHons({ data }: { data?: Record<string, any> }) {
   const [departmentData, setDepartmentData] = useState<any>(null);
@@ -33,52 +35,58 @@ export default function BcomHons({ data }: { data?: Record<string, any> }) {
   const closePdf = () => setSelectedPdf(null);
 
   if (!departmentData) {
-    return <p>Loading department data…</p>;
+    return <p className="px-6 text-body-gray">Loading department data…</p>;
   }
 
   return (
-    <div className="px-6">
+    <div className="px-1 sm:px-6">
       {departmentData.map((entry: any) => (
         <div key={entry.year} className="mb-12">
-          <h2 className="text-xl font-bold mb-2">B.Com (Hons)- Question Papers {entry.year}</h2>
-          <div className="border-b border-gray-300 flex flex-wrap gap-4 mb-4">
+          <h2 className="mb-4 border-l-4 border-orange pl-3 text-xl font-extrabold text-navy">
+            B.Com (Hons)- Question Papers {entry.year}
+          </h2>
+          <div className="mb-5 flex flex-wrap gap-1 overflow-x-auto border-b border-card-border">
             {entry.tabs.map((tab: string) => (
               <button
                 key={tab}
                 onClick={() => setActiveTabs((prev) => ({ ...prev, [entry.year]: tab }))}
-                className={`py-2 text-lg relative transition-all duration-300 ${
-                  activeTabs[entry.year] === tab ? "text-[#003333] font-semibold" : "text-gray-600"
+                className={`relative whitespace-nowrap px-4 py-2.5 text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] sm:text-base ${
+                  activeTabs[entry.year] === tab ? "text-orange" : "text-body-gray hover:text-navy"
                 }`}
               >
                 {tab.replace("semester", "Semester ")}
                 {activeTabs[entry.year] === tab && (
-                  <div className="absolute left-0 bottom-0 w-full h-[4px] bg-orange-500"></div>
+                  <span className="absolute inset-x-0 -bottom-px h-[2px] bg-orange" />
                 )}
               </button>
             ))}
           </div>
           <div>
             {entry.semData[activeTabs[entry.year]]?.length > 0 ? (
-              entry.semData[activeTabs[entry.year]].map((item: any, idx: number) => (
-                <div
-                  key={idx}
-                  className="flex justify-between items-center p-3 mb-2 border-b-2 border-gray-300"
-                >
-                  <span className="text-[#0e2455] font-medium text-lg">{item.subjectName}</span>
-                  {item.subjectPdf ? (
-                    <button
-                      className="flex items-center border border-black cursor-pointer px-5 py-0 hover:bg-[#0E2455] rounded bg-white text-[#0e2455] hover:text-white transition"
-                      onClick={() => openPdf(item.subjectPdf)}
+              <RevealGroup className="grid gap-3">
+                {entry.semData[activeTabs[entry.year]].map((item: any, idx: number) => (
+                  <RevealItem key={idx}>
+                    <Card
+                      accent="orange-left"
+                      className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5"
                     >
-                      View <AiOutlineArrowRight className="ml-2" />
-                    </button>
-                  ) : (
-                    <span className="text-red-500">No PDF available</span>
-                  )}
-                </div>
-              ))
+                      <span className="font-medium text-navy">{item.subjectName}</span>
+                      {item.subjectPdf ? (
+                        <button
+                          className="inline-flex shrink-0 items-center gap-2 self-start rounded-[10px] border-2 border-navy px-4 py-2 text-sm font-bold text-navy transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-navy hover:text-white sm:self-auto"
+                          onClick={() => openPdf(item.subjectPdf)}
+                        >
+                          <Download size={16} /> View
+                        </button>
+                      ) : (
+                        <span className="text-sm font-medium text-red-500">No PDF available</span>
+                      )}
+                    </Card>
+                  </RevealItem>
+                ))}
+              </RevealGroup>
             ) : (
-              <p className="text-gray-500">No data available</p>
+              <p className="text-body-gray">No data available</p>
             )}
           </div>
         </div>

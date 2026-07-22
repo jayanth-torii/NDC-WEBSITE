@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useState, useRef, ReactNode, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { FaChevronRight, FaBars } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 
 import AboutCourse from "./AboutCourse";
 import VisionMission from "./VisionMission";
@@ -14,21 +16,21 @@ import AdmissionProcess from "./AdmissionProcess";
 import CourseDuration from "./CourseDuration";
 import SyllabusDetails from "./SyllabusDetails";
 import DepartmentFaculty from "./DepartmentFaculty";
- 
-  const tabs = [
-    "About Department",
-    "Vision & Mission",
-    "HOD’S Message",
-    "Department Faculty Members",
-    "Objectives",
-    "Admission Process",
-    "Course Duration",
-    "Programme Details",
-    "Research",
-    "Books/Patients",
-    "Activities",
-    "Syllabus Details",
-  ];
+
+const tabs = [
+  "About Department",
+  "Vision & Mission",
+  "HOD’S Message",
+  "Department Faculty Members",
+  "Objectives",
+  "Admission Process",
+  "Course Duration",
+  "Programme Details",
+  "Research",
+  "Books/Patients",
+  "Activities",
+  "Syllabus Details",
+];
 
 // Utility to check if data is not empty
 const isDataNotEmpty = (data: any): boolean => {
@@ -44,7 +46,6 @@ export default function DepartmentTabs() {
   const searchParams = useSearchParams();
   const department = searchParams.get("programme") || "bca";
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
-  const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   // Availability flags (null = unknown yet, true = show, false = hide)
@@ -61,16 +62,12 @@ export default function DepartmentTabs() {
   const [activitiesOk, setActivitiesOk] = useState<boolean | null>(null);
   const [syllabusOk, setSyllabusOk] = useState<boolean | null>(null);
 
-
-
-
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
-    setMenuOpen(false);
     // Scroll to content on tab change
     setTimeout(() => {
       contentRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 0); 
+    }, 0);
   }
 
   const components: Record<string, ReactNode> = {
@@ -136,68 +133,73 @@ export default function DepartmentTabs() {
     ),
   };
 
+  // Same hide rules as before, expressed as a single filter pass
+  const visibleTabs = tabs.filter((tab) => {
+    if (tab === "About Department" && aboutOk === false) return false;
+    if (tab === "Vision & Mission" && visionOk === false) return false;
+    if (tab === "HOD’S Message" && hodOk === false) return false;
+    if (tab === "Department Faculty Members" && facultyOk === false) return false;
+    if (tab === "Objectives" && objectivesOk === false) return false;
+    if (tab === "Admission Process" && admissionOk === false) return false;
+    if (tab === "Course Duration" && courseDurationOk === false) return false;
+    if (tab === "Programme Details" && programmeDetailsOk === false) return false;
+    if (tab === "Research" && researchOk === false) return false;
+    if (tab === "Books/Patients" && booksPatientsOk === false) return false;
+    if (tab === "Activities" && activitiesOk === false) return false;
+    if (tab === "Syllabus Details" && syllabusOk === false) return false;
+    return true;
+  });
 
   return (
-    <div className="relative flex flex-col md:flex-row w-full min-h-screen mb-20">
+    <div className="relative flex flex-col lg:flex-row w-full min-h-screen mb-20 gap-6 lg:gap-10">
 
-      {/* Mobile Hamburger Menu */}
-      <div className="relative w-20 -mt-20 md:hidden flex justify-end px-1 self-end">
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="relative flex items-center justify-center w-12 h-12 bg-[#F6F6F6] rounded-full shadow-lg focus:outline-none"
-        >
-          {/* Three Orange Dots */}
-          <span className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex space-x-1">
-            <span className="w-2 h-2 bg-[#F09300] rounded-full"></span>
-            <span className="w-2 h-2 bg-[#F09300] rounded-full"></span>
-            <span className="w-2 h-2 bg-[#F09300] rounded-full"></span>
-          </span>
-        </button>
-      </div>
+      {/* Mobile / tablet: horizontally scrollable tab strip (overflow handled via scroll, not a drawer) */}
+      <nav className="lg:hidden -mx-4 px-4 sm:mx-0 sm:px-0">
+        <div className="flex gap-2 overflow-x-auto pb-3 snap-x snap-mandatory">
+          {visibleTabs.map((tab) => {
+            const isActive = activeTab === tab;
+            return (
+              <button
+                key={tab}
+                onClick={() => handleTabClick(tab)}
+                className={`cursor-pointer snap-start shrink-0 whitespace-nowrap rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  isActive
+                    ? "bg-navy text-white border-navy"
+                    : "bg-white text-body-gray border-card-border hover:border-card-border-hover hover:bg-surface-tint"
+                }`}
+              >
+                {tab}
+              </button>
+            );
+          })}
+        </div>
+      </nav>
 
-
-      {/* Sidebar Navigation - Hidden on Mobile */}
-      <aside
-        className={`md:w-[20%] md:block ${
-          menuOpen ? "absolute block shadow-lg" : "hidden"
-        } md:relative w-2/3 md:w-[35%] lg:w-[20%] bg-white border-r border-gray-300 p-2 z-10`}
-        style={{ alignSelf: "flex-start" }}
-      >
-
-        <nav className="flex flex-col space-y-2">
-          {tabs.map((tab) => {
-          // keep your hide rules based on callbacks
-          if (tab === "About Department" && aboutOk === false) return null;
-          if (tab === "Vision & Mission" && visionOk === false) return null;
-          if (tab === "HOD’S Message" && hodOk === false) return null;
-          if (tab === "Department Faculty Members" && facultyOk === false) return null;
-          if (tab === "Objectives" && objectivesOk === false) return null;
-          if (tab === "Admission Process" && admissionOk === false) return null;
-          if (tab === "Course Duration" && courseDurationOk === false) return null;
-          if (tab === "Programme Details" && programmeDetailsOk === false) return null;
-          if (tab === "Research" && researchOk === false) return null;
-          if (tab === "Books/Patients" && booksPatientsOk === false) return null;
-          if (tab === "Activities" && activitiesOk === false) return null;
-          if (tab === "Syllabus Details" && syllabusOk === false) return null;
-
-          return (
-            <button
-              key={tab}
-             onClick={() => handleTabClick(tab)}
-              className={`flex cursor-pointer items-center justify-between px-4 py-2 text-left w-full !text-lg ${
-                activeTab === tab ? "bg-[#0E2455] text-white" : "text-gray-800 hover:bg-gray-200"
-              }`}
-            >
-              {tab}
-              <FaChevronRight className="w-4 h-4" />
-            </button>
-          );
-        })}
+      {/* Desktop sidebar navigation */}
+      <aside className="hidden lg:block lg:w-[26%] xl:w-[22%] shrink-0 self-start">
+        <nav className="flex flex-col gap-1 rounded-[18px] border border-card-border bg-white p-2 shadow-[var(--shadow-card)]">
+          {visibleTabs.map((tab) => {
+            const isActive = activeTab === tab;
+            return (
+              <button
+                key={tab}
+                onClick={() => handleTabClick(tab)}
+                className={`flex cursor-pointer items-center justify-between gap-2 rounded-[10px] border-l-4 px-4 py-3 text-left text-[15px] font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  isActive
+                    ? "bg-navy text-white border-l-orange"
+                    : "text-body-gray border-l-transparent hover:bg-surface-tint hover:text-navy"
+                }`}
+              >
+                <span>{tab}</span>
+                <FaChevronRight className="w-3.5 h-3.5 shrink-0" />
+              </button>
+            );
+          })}
         </nav>
       </aside>
 
       {/* Main Content */}
-      <main ref={contentRef} className="w-full md:w-[80%] px-4 text-[#003333]">
+      <main ref={contentRef} className="w-full lg:flex-1 min-w-0 px-4 lg:px-0 text-body-gray">
         {tabs.map((tab) => {
           const isActive = activeTab === tab;
           return (
@@ -209,7 +211,7 @@ export default function DepartmentTabs() {
               {components[tab] || <p>Content not available.</p>}
             </div>
           );
-        })}              
+        })}
       </main>
     </div>
   );

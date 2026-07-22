@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { BASE_URL } from "@/config/apiService";
+import Button from "@/components/ui/Button";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const QueryForm = () => {
   const [formData, setFormData] = useState({
@@ -104,13 +106,13 @@ const QueryForm = () => {
   };
 
   return (
-    <div className="mx-auto p-6 bg-white shadow-md rounded-lg mb-20">
-      <h2 className="text-2xl md:text-3xl  font-bold text-[#101928] mb-10">SUBMIT YOUR QUERY HERE</h2>
+    <div className="mx-auto p-6 sm:p-8 bg-white border border-card-border shadow-[var(--shadow-card)] rounded-2xl mb-20">
+      <SectionHeading title="SUBMIT YOUR QUERY HERE" align="left" className="mb-8" />
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-[#101928] font-medium">
-            Enter Your Full Name <span className="text-[#C60084]">*</span>
+          <label className="block text-navy font-medium">
+            Enter Your Full Name <span className="text-orange">*</span>
           </label>
           <input
             type="text"
@@ -118,14 +120,14 @@ const QueryForm = () => {
             value={formData.fullName}
             onChange={handleChange}
             required
-            className="w-full mt-1 mb-5 p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
+            className="w-full mt-1 mb-5 p-3 border border-card-border rounded-xl outline-none transition-colors duration-200 focus:ring-2 focus:ring-orange focus:border-orange"
           />
         </div>
 
         <div>
           <div>
-            <label className="block text-[#101928] font-medium">
-              Enter Your Mobile Number <span className="text-[#C60084]">*</span>
+            <label className="block text-navy font-medium">
+              Enter Your Mobile Number <span className="text-orange">*</span>
             </label>
             <input
               type="tel"
@@ -133,15 +135,15 @@ const QueryForm = () => {
               value={formData.phoneNumber}
               onChange={handleChange}
               required
-              className={`w-full mt-1 p-2 border mb-5 ${errors.phoneNumber ? "border-red-500" : "border-gray-300"} rounded-md focus:ring-2 focus:ring-blue-500`}
+              className={`w-full mt-1 p-3 border mb-5 ${errors.phoneNumber ? "border-red-500" : "border-card-border"} rounded-xl outline-none transition-colors duration-200 focus:ring-2 focus:ring-orange focus:border-orange`}
               maxLength={10}
             />
             {errors.phoneNumber && <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>}
           </div>
 
           <div>
-            <label className="block text-[#101928] font-medium">
-              Enter Your E-Mail ID <span className="text-[#C60084]">*</span>
+            <label className="block text-navy font-medium">
+              Enter Your E-Mail ID <span className="text-orange">*</span>
             </label>
             <input
               type="email"
@@ -149,22 +151,22 @@ const QueryForm = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className={`w-full mt-1 p-2 border mb-5 ${errors.email ? "border-red-500" : "border-gray-300"} rounded-md focus:ring-2 focus:ring-blue-500`}
+              className={`w-full mt-1 p-3 border mb-5 ${errors.email ? "border-red-500" : "border-card-border"} rounded-xl outline-none transition-colors duration-200 focus:ring-2 focus:ring-orange focus:border-orange`}
             />
             {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
           </div>
         </div>
 
         <div>
-          <label className="block text-[#101928] font-medium">
-            Programs Offered <span className="text-[#C60084]">*</span>
+          <label className="block text-navy font-medium">
+            Programs Offered <span className="text-orange">*</span>
           </label>
           <select
             name="course"
             value={formData.course}
             onChange={handleChange}
             required
-            className={`w-full mt-1 p-3 border mb-5 ${errors.course ? "border-red-500" : "border-gray-300"} rounded-md focus:ring-2 focus:ring-blue-500`}
+            className={`w-full mt-1 p-3 border mb-5 ${errors.course ? "border-red-500" : "border-card-border"} rounded-xl outline-none transition-colors duration-200 focus:ring-2 focus:ring-orange focus:border-orange`}
           >
             <option value="" disabled>
               Select a course
@@ -197,20 +199,21 @@ const QueryForm = () => {
           {errors.course && <p className="text-red-500 text-sm mt-1">{errors.course}</p>}
         </div>
 
-        <button
+        <Button
           type="submit"
-          className="w-full bg-[#0E2455] text-white py-5 rounded-md font-medium hover:bg-[#0C1E48] transition duration-300 text-xl flex items-center justify-center"
+          variant="primary"
+          className="w-full !py-4 text-lg"
           disabled={loading}
         >
           {loading ? (
-            <svg className="animate-spin h-6 w-6 mr-3 text-white" viewBox="0 0 24 24">
+            <svg className="animate-spin h-6 w-6 text-white" viewBox="0 0 24 24">
               <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
               <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
             </svg>
           ) : (
             "Register Request"
           )}
-        </button>
+        </Button>
       </form>
 
       {/* Success/Error Message */}

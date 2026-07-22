@@ -1,108 +1,79 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import React from "react";
+import { motion } from "framer-motion";
+import { MapPin, ArrowUpRight } from "lucide-react";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 const OurCampus = ({ data }: { data: any }) => {
-  const { campuses = [], title: sectionTitle } = data || {};
+  if (!data) return null;
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const selectedCampus = campuses[currentIndex] || {};
-
-  const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % campuses.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + campuses.length) % campuses.length);
-  };
-
-  const goToSlide = (index: number) => {
-    setCurrentIndex(index);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(nextSlide, 2500);
-    return () => clearInterval(interval);
-  }, [campuses.length]);
-
-  if (!campuses.length) return null;
+  const { title, campuses } = data;
 
   return (
-    <div className="flex flex-col md:flex-row items-start w-full mb-20">
-      {/* Text Section */}
-      <div className="w-full md:w-1/2 text-center md:text-left px-6">
-        <h1 className="text-2xl md:text-3xl font-bold text-[#0E2455] hidden md:block mb-10">{sectionTitle}</h1>
-        <h6 className="text-lg font-semibold text-[#0E2455] mb-2 text-left">{selectedCampus.subtitle}</h6>
-        <p className="text-justify text-[#434554] mt-3">{selectedCampus.collegeDescription}</p>
-        <button className="mt-6 px-10 py-2 bg-[#0E2455] text-white w-full md:w-[50%]">
-          <a href={selectedCampus?.link} target="_blank" rel="noopener noreferrer">
-            KNOW MORE
-          </a>
-        </button>
-      </div>
+    <section className="py-20 lg:py-28 bg-white relative overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <SectionHeading eyebrow="Our Presence" title={title} align="center" className="mb-6" />
+          <p className="text-lg text-gray-600 leading-relaxed">
+            Discover our world-class campuses designed to provide the perfect environment for learning, growth, and innovation.
+          </p>
+        </div>
 
-      {/* Carousel Section */}
-      <div className="w-full md:w-1/2 relative pb-12 order-first md:order-last overflow-hidden">
-        <h1 className="text-3xl text-center md:hidden mb-5 font-bold text-[#0E2455]">
-          {sectionTitle}
-        </h1>
-
-        <div className="relative bg-[#FFB300] rounded-lg">
-          <div
-            className="relative w-full h-[300px] md:h-[400px] flex transition-transform duration-500 ease-in-out bottom-3"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
-          >
-            {campuses?.map((campus: any, index: number) => (
-              <div key={index} className="relative flex-none w-full md:w-[100%] pr-4">
-                <Image
-                  src={campus?.image}
-                  alt={campus?.collegeName}
-                  width={600}
-                  height={400}
-                  className="w-full h-[300px] md:h-[400px] object-cover rounded-md shadow-lg"
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {campuses?.map((campus: any, index: number) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1, duration: 0.5 }}
+              className="group rounded-[32px] overflow-hidden bg-white border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-2xl transition-all duration-500 relative flex flex-col h-full"
+            >
+              {/* Image Section */}
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={campus.image}
+                  alt={campus.collegeName}
+                  className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
                 />
-                <div className="w-[98%] h-[40%] absolute bottom-0 bg-[#1818186B] p-3 rounded-md shadow-lg">
-                  <h1 className="text-xl text-white font-bold text-left">{campus?.collegeName}</h1>
-                  <p className="text-lg text-white text-left">{campus?.location}</p>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80" />
+                
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="flex items-center gap-2 text-[#f6872a] font-bold text-xs uppercase tracking-wider mb-2">
+                    <MapPin size={14} />
+                    {campus.location}
+                  </div>
+                  <h3 className="text-white font-bold text-xl leading-tight">
+                    {campus.collegeName}
+                  </h3>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
 
-        {/* Mobile Dots */}
-        <div className="flex justify-center mt-4 md:hidden">
-          {campuses?.map((_:any, index:any) => (
-            <button
-              key={index}
-              className={`w-3 h-3 mx-1 rounded-full ${
-                currentIndex === index ? "bg-[#F6872A] w-8" : "bg-gray-400"
-              } transition-all`}
-              onClick={() => goToSlide(index)}
-            />
+              {/* Content Section */}
+              <div className="p-8 flex flex-col flex-grow relative bg-white">
+                <p className="text-gray-600 text-sm leading-relaxed mb-6 line-clamp-4">
+                  {campus.collegeDescription}
+                </p>
+
+                <div className="mt-auto pt-6 border-t border-gray-100">
+                  <a 
+                    href={campus.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-[#0e2455] font-bold hover:text-[#f6872a] transition-colors group/link"
+                  >
+                    Visit Website
+                    <span className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover/link:bg-[#f6872a] group-hover/link:text-white transition-colors">
+                      <ArrowUpRight size={16} />
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
-
-        {/* Desktop Arrows */}
-        <div className="hidden md:flex justify-center mt-6 space-x-4">
-          <button
-            className="cursor-pointer bg-[#0E2455] text-white p-3 rounded-full transition-all"
-            onClick={prevSlide}
-          >
-            <FaArrowLeft size={20} />
-          </button>
-          <button
-            className="cursor-pointer bg-[#0E2455] text-white p-3 rounded-full transition-all"
-            onClick={nextSlide}
-          >
-            <FaArrowRight size={20} />
-          </button>
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 

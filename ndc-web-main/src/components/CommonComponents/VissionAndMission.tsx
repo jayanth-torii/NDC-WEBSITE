@@ -28,20 +28,20 @@ const InfoSection: React.FC<InfoSectionProps> = ({ sections }) => {
     };
 
     return (
-        <div className="mb-10 md:mb-20 text-[#003333]">
+        <div className="mb-10 md:mb-20 text-body-gray">
             {/* Vision Section */}
-            <div className="bg-[#F6F6F6] p-6 mb-6">
-                <h2 className="text-xl md:text-2xl font-bold mb-2">{sections.vision.title}</h2>
+            <div className="rounded-[18px] border border-card-border bg-surface-light p-6 mb-6 shadow-[var(--shadow-card)]">
+                <h2 className="text-xl md:text-2xl font-bold text-navy mb-2">{sections.vision.title}</h2>
                 {sections.vision.description && (
-                    <p className="text-base md:text-lg">{sections.vision.description}</p>
+                    <p className="text-base md:text-lg leading-[1.65]">{sections.vision.description}</p>
                 )}
             </div>
 
             {/* Mission Section */}
-            <div className="bg-[#F6F6F6] p-6 mb-6">
-                <h2 className="text-xl md:text-2xl font-bold mb-2">{sections.mission.title}</h2>
+            <div className="rounded-[18px] border border-card-border bg-surface-light p-6 mb-6 shadow-[var(--shadow-card)]">
+                <h2 className="text-xl md:text-2xl font-bold text-navy mb-2">{sections.mission.title}</h2>
                 {sections.mission.points && (
-                    <ul className="list-disc pl-6 text-[#003333] text-base md:text-lg">
+                    <ul className="list-disc pl-6 text-body-gray text-base md:text-lg">
                         {sections.mission.points.map((point, index) => (
                             <li key={index} className="mb-2">{point}</li>
                         ))}
@@ -52,17 +52,17 @@ const InfoSection: React.FC<InfoSectionProps> = ({ sections }) => {
             {/* Collapsible Sections (Objectives, Functions, etc.) */}
             {sections.collapsibleSections &&
                 Object.entries(sections.collapsibleSections).map(([key, section]) => (
-                    <div key={key} className="bg-white mb-4 overflow-hidden">
+                    <div key={key} className="bg-white mb-4 overflow-hidden rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
                         <button
                             onClick={() => toggleSection(key)}
-                            className="w-full flex justify-between items-center p-4 bg-[#f6f6f6] text-lg font-semibold text-[#0E2455]"
+                            className="w-full flex justify-between items-center p-4 bg-surface-light text-lg font-semibold text-navy transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-surface-tint"
                         >
                             {section.title}
-                            {openSections[key] ? <AiOutlineUp className="text-xl" /> : <AiOutlineDown className="text-xl" />}
+                            {openSections[key] ? <AiOutlineUp className="text-xl text-orange" /> : <AiOutlineDown className="text-xl text-orange" />}
                         </button>
                         {openSections[key] && section.points && (
-                            <div className="p-4 bg-[#f6f6f6]">
-                                <ul className="list-disc pl-6 text-[#003333] text-base md:text-lg">
+                            <div className="p-4 bg-white">
+                                <ul className="list-disc pl-6 text-body-gray text-base md:text-lg">
                                     {section.points.map((point, index) => (
                                         <li key={index} className="mb-2">{point}</li>
                                     ))}

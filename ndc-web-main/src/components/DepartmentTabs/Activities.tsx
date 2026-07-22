@@ -10,6 +10,7 @@ import {
   faChevronDown,
 } from "@fortawesome/free-solid-svg-icons";
 import departmentJson from "@/data-export/department/data.json";
+import { Reveal } from "@/components/ui/Reveal";
 
 // -------- Image Carousel (small, 4:3, auto-scroll, 1 mobile / 3 desktop) --------
 const ImageCarousel = ({ images }: { images: string[] }) => {
@@ -51,7 +52,7 @@ const desktopWindow = Array.from({ length: Math.min(VISIBLE_DESKTOP, safeImages.
           <img
             src={safeImages[index]}
             alt={`Slide ${index + 1}`}
-            className="w-full h-full object-cover rounded-md shadow"
+            className="w-full h-full object-cover rounded-[14px] shadow-[var(--shadow-card)]"
           />
         </div>
       </div>
@@ -64,7 +65,7 @@ const desktopWindow = Array.from({ length: Math.min(VISIBLE_DESKTOP, safeImages.
               <img
                 src={src}
                 alt={`Slide ${((index + i) % safeImages.length) + 1}`}
-                className="w-full h-full object-cover rounded-md shadow"
+                className="w-full h-full object-cover rounded-[14px] shadow-[var(--shadow-card)]"
               />
             </div>
           </div>
@@ -75,19 +76,19 @@ const desktopWindow = Array.from({ length: Math.min(VISIBLE_DESKTOP, safeImages.
         <>
           <button
             onClick={prev}
-            className="cursor-pointer absolute top-1/2 left-2 -translate-y-1/2 bg-white px-2 rounded-full shadow"
+            className="cursor-pointer absolute top-1/2 left-2 -translate-y-1/2 bg-white px-2 py-1 rounded-full shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-x-0.5"
             aria-label="Previous"
             type="button"
           >
-            <FontAwesomeIcon icon={faChevronLeft} className="text-[#0E2455]" />
+            <FontAwesomeIcon icon={faChevronLeft} className="text-navy" />
           </button>
           <button
             onClick={next}
-            className="cursor-pointer absolute top-1/2 right-2 -translate-y-1/2 bg-white px-2 rounded-full shadow"
+            className="cursor-pointer absolute top-1/2 right-2 -translate-y-1/2 bg-white px-2 py-1 rounded-full shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:translate-x-0.5"
             aria-label="Next"
             type="button"
           >
-            <FontAwesomeIcon icon={faChevronRight} className="text-[#0E2455]" />
+            <FontAwesomeIcon icon={faChevronRight} className="text-navy" />
           </button>
         </>
       )}
@@ -130,41 +131,43 @@ const Activities = ({ haveContentCheck }: any) => {
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
   // ---- UI returns AFTER all hooks ----
-  if (!content) return <p className="text-center text-gray-500"> No activities found for <strong>{programme}</strong>.</p>;
+  if (!content) return <p className="text-center text-body-gray"> No activities found for <strong>{programme}</strong>.</p>;
 
   const title = content?.title || "Activities";
   const sections = Array.isArray(content?.sections) ? content.sections : [];
 
   return (
-    <div className="w-full mb-20">
-      <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6">{title}</h1>
+    <Reveal>
+      <div className="w-full mb-20">
+        <h1 className="text-2xl md:text-3xl text-navy font-extrabold mb-6 tracking-[-0.5px]">{title}</h1>
 
-      {sections.map((section: any, idx: number) => (
-        <div key={idx} className="border border-gray-300 rounded-lg overflow-hidden mb-3">
-          <button
-            onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-            className="w-full p-4 text-left bg-gray-100 cursor-pointer text-[#0E2455] text-lg md:text-xl font-semibold flex justify-between items-center"
-          >
-            {section.title}
-            <FontAwesomeIcon
-              icon={openIndex === idx ? faChevronUp : faChevronDown}
-              className="text-[#0E2455]"
-            />
-          </button>
+        {sections.map((section: any, idx: number) => (
+          <div key={idx} className="border border-card-border rounded-[14px] overflow-hidden mb-3 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-card-border-hover">
+            <button
+              onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+              className="w-full p-4 text-left bg-surface-tint cursor-pointer text-navy text-lg md:text-xl font-semibold flex justify-between items-center"
+            >
+              {section.title}
+              <FontAwesomeIcon
+                icon={openIndex === idx ? faChevronUp : faChevronDown}
+                className="text-orange"
+              />
+            </button>
 
-          {openIndex === idx && (
-            <div className="p-4 bg-white space-y-4">
-              {section?.description && (
-                <p className="text-[#0E2455] text-justify whitespace-pre-line">{section.description}</p>
-              )}
-              {Array.isArray(section?.images) && section.images.length > 0 && (
-                <ImageCarousel images={section.images} />
-              )}
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
+            {openIndex === idx && (
+              <div className="p-4 bg-white space-y-4">
+                {section?.description && (
+                  <p className="text-body-gray text-justify whitespace-pre-line leading-relaxed">{section.description}</p>
+                )}
+                {Array.isArray(section?.images) && section.images.length > 0 && (
+                  <ImageCarousel images={section.images} />
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </Reveal>
   );
 };
 

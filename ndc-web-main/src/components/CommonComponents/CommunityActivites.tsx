@@ -39,18 +39,18 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
       {/* Image container */}
       <div className="flex transition-transform duration-500 ease-in-out" style={{ transform: `translateX(-${index * 100}%)` }}>
         {(reversed ? [...images].reverse() : images).map((img, idx) => (
-          <img key={idx} src={img} alt={`Slide ${idx}`} className="min-w-full md:min-w-[33.33%] object-cover" />
+          <img key={idx} src={img} alt={`Slide ${idx}`} className="min-w-full md:min-w-[33.33%] aspect-[4/3] object-cover rounded-[14px]" />
         ))}
       </div>
 
       {/* Left Arrow */}
-      <button onClick={prevSlide} className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
-        <FontAwesomeIcon icon={faChevronLeft} className="text-[#0E2455] text-xl" />
+      <button onClick={prevSlide} className="absolute top-1/2 left-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-[var(--shadow-card)] transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-orange">
+        <FontAwesomeIcon icon={faChevronLeft} className="text-navy text-xl" />
       </button>
 
       {/* Right Arrow */}
-      <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-md">
-        <FontAwesomeIcon icon={faChevronRight} className="text-[#0E2455] text-xl" />
+      <button onClick={nextSlide} className="absolute top-1/2 right-2 transform -translate-y-1/2 bg-white p-2 rounded-full shadow-[var(--shadow-card)] transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:text-orange">
+        <FontAwesomeIcon icon={faChevronRight} className="text-navy text-xl" />
       </button>
     </div>
   );
@@ -74,21 +74,21 @@ const CommunityActivities: React.FC<CommunityActivitiesProps> = ({ accordionData
 
   return (
     <div className="w-full mb-20">
-     <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6 text-left">
+     <h1 className="text-2xl md:text-3xl text-navy font-extrabold mb-6 text-left">
         {title}
       </h1>
       {accordionData.map((item, idx) => (
-        <div key={idx} className="border border-gray-300 rounded-lg overflow-hidden mb-3">
+        <div key={idx} className="border border-card-border rounded-[18px] overflow-hidden mb-3 shadow-[var(--shadow-card)] transition-shadow duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:shadow-[var(--shadow-card-hover)]">
           <button
-            className="w-full p-4 text-left bg-gray-100 text-[#0E2455] font-semibold flex justify-between items-center"
+            className="w-full p-4 text-left bg-surface-light text-navy font-semibold flex justify-between items-center transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-surface-tint"
             onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
           >
             {item.title}
-            <FontAwesomeIcon icon={openIndex === idx ? faChevronUp : faChevronDown} className="text-[#0E2455]" />
+            <FontAwesomeIcon icon={openIndex === idx ? faChevronUp : faChevronDown} className="text-orange" />
           </button>
           {openIndex === idx && (
             <div className="p-4 bg-white space-y-3">
-              <p className="text-[#0E2455]">{item.description}</p>
+              <p className="text-body-gray leading-[1.65]">{item.description}</p>
               <ImageCarousel images={item.images} />
             </div>
           )}

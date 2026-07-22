@@ -1,64 +1,55 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
+import { motion } from "framer-motion";
+import { Users, UserCircle } from "lucide-react";
+import SectionHeading from "@/components/ui/SectionHeading";
 
-const Council = ({ data }: any) => {
-  const { title, members = [] } = data || {};
+const Council = ({ data }: { data: any }) => {
+  if (!data) return null;
 
-  const [visibleCount, setVisibleCount] = useState(5);
-  const [isAllVisible, setIsAllVisible] = useState(false);
-
-  const toggleVisibility = () => {
-    setVisibleCount(isAllVisible ? 5 : members.length);
-    setIsAllVisible(!isAllVisible);
-  };
-
-  if (!members.length) return null;
+  const { title, members } = data;
 
   return (
-    <div className="mb-10 md:mb-20">
-      <h1 className="text-2xl md:text-3xl text-[#003333] font-bold mb-6 text-left">
-        {title}
-      </h1>
+    <section className="py-20 lg:py-28 bg-gray-50 relative overflow-hidden">
+      {/* Decorative background element */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 opacity-50 pointer-events-none" />
 
-      <div className="w-full overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-500 min-w-[600px]">
-          <thead>
-            <tr className="bg-[#C2C0C017] text-[#003333] border-b border-gray-500">
-              <th className="p-3 border-r text-lg border-gray-500 ">SI.No</th>
-              <th className="p-3 border-r text-lg border-gray-500 text-start">Name & Designation</th>
-              <th className="p-3 text-lg border-gray-500 text-start">Role – Governing Council</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.slice(0, visibleCount).map((member:any, index:any) => (
-              <tr key={index} className="border-b border-gray-500 hover:bg-gray-200 text-[#003333]">
-                <td className="py-3 px-2 border border-gray-500 text-center">
-                  {index + 1}
-                </td>
-                <td className="py-3 px-2 border border-gray-500">
-                  {member.name}
-                  <br />
-                  <span className="text-sm text-[#003333]">{member?.designation}</span>
-                </td>
-                <td className="py-3 px-2 border border-gray-500">{member?.position}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Toggle Button */}
-      {members?.length > 5 && (
-        <div className="mt-6 flex justify-center">
-          <button
-            onClick={toggleVisibility}
-            className="cursor-pointer px-8 md:px-12 py-3 border-2 border-[#003333] text-[#003333] font-semibold rounded-sm hover:bg-gray-800 hover:text-white transition duration-300 text-sm md:text-base"
-          >
-            {isAllVisible ? "View Less" : "View More"}
-          </button>
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <div className="flex justify-center mb-6">
+            <div className="w-16 h-16 bg-[#0e2455]/5 rounded-2xl flex items-center justify-center text-[#0e2455]">
+              <Users size={32} />
+            </div>
+          </div>
+          <SectionHeading eyebrow="Leadership" title={title} align="center" className="mb-6" />
         </div>
-      )}
-    </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {members?.map((member: any, index: number) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05, duration: 0.4 }}
+              className="bg-white rounded-3xl p-6 border border-gray-100 shadow-[0_4px_20px_rgba(0,0,0,0.02)] hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group flex flex-col items-center text-center"
+            >
+              <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4 group-hover:bg-[#0e2455] group-hover:text-white transition-colors duration-300 border border-gray-100 text-gray-400">
+                <UserCircle size={40} />
+              </div>
+              <h3 className="font-bold text-[#0e2455] text-lg mb-1">{member.name}</h3>
+              <p className="text-sm font-semibold text-[#f6872a] uppercase tracking-wider mb-3">
+                {member.position}
+              </p>
+              <div className="w-8 h-1 bg-gray-200 rounded-full mb-3 group-hover:bg-[#f6872a] transition-colors" />
+              <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">
+                {member.designation}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 };
 

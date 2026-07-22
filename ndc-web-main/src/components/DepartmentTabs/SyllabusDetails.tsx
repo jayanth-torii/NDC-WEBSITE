@@ -3,6 +3,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
+import { Reveal } from "@/components/ui/Reveal";
 
 type Row = { name?: string; courses?: string };
 type Tab = { tabName?: string; rows?: Row[] };
@@ -56,77 +57,79 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   // ---- UI returns AFTER all hooks ----
   if (!dept) {
     return (
-      <p className="text-center text-[#003333]">
+      <p className="text-center text-body-gray">
         No data available for <strong>{programme}</strong>.
       </p>
     );
   }
 
   if (!currentTab) {
-    return <p className="text-center text-[#003333]">No data available.</p>;
+    return <p className="text-center text-body-gray">No data available.</p>;
   }
 
   const rows = Array.isArray(currentTab.rows) ? currentTab.rows : [];
 
   return (
-    <div className="w-full text-[#003333]">
-      {/* Title */}
-      {title && <h2 className="text-2xl font-bold mb-4 text-center">{title}</h2>}
+    <Reveal>
+      <div className="w-full text-body-gray">
+        {/* Title */}
+        {title && <h2 className="text-2xl font-extrabold text-navy tracking-[-0.5px] mb-4 text-center">{title}</h2>}
 
-      {/* Tabs */}
-      <div className="flex space-x-6 border-b border-gray-300 mb-4 overflow-x-auto">
-        {tabData.map((tab: any, index: number) => (
-          <button
-            key={index}
-            onClick={() => setActiveTab(index)}
-            className="relative cursor-pointer pb-2 text-lg font-semibold text-[#003333]"
-            type="button"
-          >
-            {tab.tabName}
-            {activeTab === index && (
-              <span className="absolute bottom-0 left-0 w-full h-1 bg-orange-500" />
-            )}
-          </button>
-        ))}
-      </div>
+        {/* Tabs */}
+        <div className="flex flex-wrap gap-2 mb-5 overflow-x-auto pb-1">
+          {tabData.map((tab: any, index: number) => (
+            <button
+              key={index}
+              onClick={() => setActiveTab(index)}
+              className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                activeTab === index
+                  ? "bg-navy text-white"
+                  : "text-body-gray hover:bg-surface-tint"
+              }`}
+              type="button"
+            >
+              {tab.tabName}
+            </button>
+          ))}
+        </div>
 
-      {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 text-left">
-          <thead>
-            <tr className="bg-gray-100">
-              <th className="px-4 py-2 border-b border-gray-300">Name</th>
-              <th className="px-4 py-2 border-b border-gray-300">Courses</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.length > 0 ? (
-              rows.map((row, index) => (
-                <tr key={index} className="hover:bg-[#C2C0C017]">
-                  <td className="px-4 py-2 border-b border-gray-200">
-                    {row?.name ?? "-"}
-                  </td>
-                  <td className="px-4 py-2 border-b border-gray-200 whitespace-pre-line">
-                    {row?.courses ?? "-"}
+        {/* Table */}
+        <div className="overflow-x-auto rounded-[14px] border border-card-border">
+          <table className="min-w-full text-left">
+            <thead>
+              <tr className="bg-surface-tint">
+                <th className="px-4 py-3 border-b border-card-border text-navy font-semibold">Name</th>
+                <th className="px-4 py-3 border-b border-card-border text-navy font-semibold">Courses</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rows.length > 0 ? (
+                rows.map((row, index) => (
+                  <tr key={index} className="hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
+                    <td className="px-4 py-3 border-b border-card-border">
+                      {row?.name ?? "-"}
+                    </td>
+                    <td className="px-4 py-3 border-b border-card-border whitespace-pre-line">
+                      {row?.courses ?? "-"}
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td
+                    className="px-4 py-3 border-b border-card-border"
+                    colSpan={2}
+                  >
+                    No rows available.
                   </td>
                 </tr>
-              ))
-            ) : (
-              <tr>
-                <td
-                  className="px-4 py-2 border-b border-gray-200"
-                  colSpan={2}
-                >
-                  No rows available.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </Reveal>
   );
 };
 
 export default SyllabusDetails;
-

@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import SectionHeading from "@/components/ui/SectionHeading";
 
 interface Tab {
   title: string;
@@ -22,23 +23,24 @@ const Policies: React.FC<PoliciesProps> = ({ data }) => {
 
   return (
     <div className="mb-10 md:mb-20">
-      <h1 className="text-2xl font-bold text-[#0E2455] mb-6">{data?.title}</h1>
+      <SectionHeading title={data?.title} className="mb-6" />
 
       {data?.description?.map((desc, idx) => (
-        <p key={idx} className="text-lg text-gray-700 mb-5">
+        <p key={idx} className="text-lg text-body-gray leading-relaxed mb-5">
           {desc}
         </p>
       ))}
 
-      <div className="border-b-2 border-gray-300 flex flex-wrap gap-4 mb-4">
+      <div className="border-b border-card-border flex flex-wrap gap-x-6 mb-6">
         {tabs.map((tab, idx) => (
           <button
             key={tab.title}
+            type="button"
             onClick={() => setSelectedIndex(idx)}
-            className={`cursor-pointer !font-semibold text-xl pb-2 ${
+            className={`cursor-pointer !font-semibold text-lg md:text-xl pb-3 border-b-[3px] -mb-px transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
               idx === selectedIndex
-                ? "border-b-5 text-[#003333] border-[#F09300] font-bold"
-                : "text-[#003333]"
+                ? "text-navy border-orange !font-bold"
+                : "text-body-gray border-transparent hover:text-navy"
             }`}
           >
             {tab.title}
@@ -47,15 +49,15 @@ const Policies: React.FC<PoliciesProps> = ({ data }) => {
       </div>
 
       {activeTab?.description && (
-        <p className="text-lg text-[#003333] mb-4 whitespace-pre-line">
+        <p className="text-lg text-body-gray leading-relaxed mb-4 whitespace-pre-line">
           {activeTab.description}
         </p>
       )}
 
       {activeTab?.points?.length > 0 && (
-        <ul className="list-disc pl-6 space-y-2">
+        <ul className="list-disc pl-6 space-y-2 marker:text-orange">
           {activeTab.points.map((point, idx) => (
-            <li key={idx} className="text-lg text-[#003333]">
+            <li key={idx} className="text-lg text-body-gray">
               {point}
             </li>
           ))}
@@ -66,6 +68,3 @@ const Policies: React.FC<PoliciesProps> = ({ data }) => {
 };
 
 export default Policies;
-
-
- 
