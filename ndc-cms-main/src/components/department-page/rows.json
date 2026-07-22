@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_department_page_rows",
+  "info": {
+    "displayName": "Rows"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Designation": {
+      "type": "string"
+    },
+    "Department": {
+      "type": "string"
+    },
+    "Experience": {
+      "type": "string"
+    },
+    "Qualification": {
+      "type": "string"
+    },
+    "Slno": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

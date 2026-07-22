@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_about_us_messages",
+  "info": {
+    "displayName": "message"
+  },
+  "options": {},
+  "attributes": {
+    "points": {
+      "type": "text"
+    }
+  }
+}

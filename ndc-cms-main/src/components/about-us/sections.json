@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_about_us_sections",
+  "info": {
+    "displayName": "Sections"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "pdf": {
+      "allowedTypes": [
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

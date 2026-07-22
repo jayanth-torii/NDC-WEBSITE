@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_programme_details_keys",
+  "info": {
+    "displayName": "key"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "sections": {
+      "displayName": "sections",
+      "type": "component",
+      "repeatable": true,
+      "component": "programme-details.sections"
+    }
+  }
+}

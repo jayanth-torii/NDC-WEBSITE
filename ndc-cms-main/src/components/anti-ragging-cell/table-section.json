@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_anti_ragging_cell_table_sections",
+  "info": {
+    "displayName": "TableSection"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "mobile": {
+      "type": "text"
+    },
+    "Email": {
+      "type": "string"
+    }
+  }
+}

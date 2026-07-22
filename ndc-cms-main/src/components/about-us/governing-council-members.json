@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_about_us_governing_council_members",
+  "info": {
+    "displayName": "Governing Council Members"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "members": {
+      "displayName": "members",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-us.members"
+    }
+  }
+}

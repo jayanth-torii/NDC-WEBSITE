@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_about_us_news_letters",
+  "info": {
+    "displayName": "NEWS LETTER"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Sections": {
+      "displayName": "Sections",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-us.sections"
+    }
+  }
+}

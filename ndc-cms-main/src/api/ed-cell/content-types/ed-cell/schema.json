@@ -1,0 +1,34 @@
+{
+  "kind": "singleType",
+  "collectionName": "ed_cells",
+  "info": {
+    "singularName": "ed-cell",
+    "pluralName": "ed-cells",
+    "displayName": "ED Cell"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "AboutVisionMissionSections": {
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "ImagesSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "students-grievance-redressal-cell.images-section"
+    },
+    "Coordinators": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

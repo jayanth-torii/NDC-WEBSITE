@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_library_tabs",
+  "info": {
+    "displayName": "tabs"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    }
+  }
+}

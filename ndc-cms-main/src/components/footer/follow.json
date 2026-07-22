@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_footer_follows",
+  "info": {
+    "displayName": "follow"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "link": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

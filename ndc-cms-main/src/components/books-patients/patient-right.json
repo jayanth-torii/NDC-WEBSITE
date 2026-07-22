@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_books_patients_patient_rights",
+  "info": {
+    "displayName": "Patient  Right"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Columns": {
+      "type": "json"
+    },
+    "Patient_Rights_Table": {
+      "displayName": "PatientRightsTable",
+      "type": "component",
+      "repeatable": true,
+      "component": "books-patients.patient-rights-table"
+    }
+  }
+}

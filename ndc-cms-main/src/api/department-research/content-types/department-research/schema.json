@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "department_researches",
+  "info": {
+    "singularName": "department-research",
+    "pluralName": "department-researches",
+    "displayName": "Department Research"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "ResearchPoints": {
+      "displayName": "points",
+      "type": "component",
+      "repeatable": true,
+      "component": "department-research.points"
+    }
+  }
+}

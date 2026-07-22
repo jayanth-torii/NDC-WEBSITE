@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_research_forum_lists",
+  "info": {
+    "displayName": "list"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

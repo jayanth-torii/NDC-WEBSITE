@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_library_about_libraries",
+  "info": {
+    "displayName": "About Library",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "aboutText": {
+      "displayName": "aboutText",
+      "type": "component",
+      "repeatable": true,
+      "component": "library.about-text"
+    },
+    "dropdowns": {
+      "displayName": "dropdowns",
+      "type": "component",
+      "repeatable": true,
+      "component": "library.dropdowns"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_iqac_vision_missions",
+  "info": {
+    "displayName": "VisionMission"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "sections": {
+      "displayName": "sections",
+      "type": "component",
+      "repeatable": true,
+      "component": "iqac.sections"
+    }
+  }
+}

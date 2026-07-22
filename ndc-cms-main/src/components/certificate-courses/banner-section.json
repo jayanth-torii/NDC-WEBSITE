@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_certificate_courses_banner_sections",
+  "info": {
+    "displayName": "BannerSection"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

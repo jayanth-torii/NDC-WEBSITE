@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_research_forum_research_forums",
+  "info": {
+    "displayName": "Research Forum"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "displayName": "description",
+      "type": "component",
+      "repeatable": true,
+      "component": "research-forum.description"
+    },
+    "listOfPoints": {
+      "displayName": "list",
+      "type": "component",
+      "repeatable": true,
+      "component": "research-forum.list"
+    }
+  }
+}

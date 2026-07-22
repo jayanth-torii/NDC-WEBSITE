@@ -1,0 +1,42 @@
+{
+  "kind": "singleType",
+  "collectionName": "nccs",
+  "info": {
+    "singularName": "ncc",
+    "pluralName": "nccs",
+    "displayName": "NCC"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "NccImage": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "Sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "students-grievance-redressal-cell.procedures-section"
+    },
+    "ImagesSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "students-grievance-redressal-cell.images-section"
+    },
+    "CommitteMembers": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

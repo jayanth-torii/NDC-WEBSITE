@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_students_facilities_tables",
+  "info": {
+    "displayName": "facilitiesTable"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    }
+  }
+}

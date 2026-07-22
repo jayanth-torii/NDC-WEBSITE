@@ -1,0 +1,1 @@
+export const BASE_URL: string = "https://cms.nagarjunadegreecollege.co.in/api";

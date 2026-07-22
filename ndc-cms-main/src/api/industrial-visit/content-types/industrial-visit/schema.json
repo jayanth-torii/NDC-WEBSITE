@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "industrial_visits",
+  "info": {
+    "singularName": "industrial-visit",
+    "pluralName": "industrial-visits",
+    "displayName": "Industrial Visit"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "IndustrialVisit": {
+      "type": "component",
+      "repeatable": true,
+      "component": "students-grievance-redressal-cell.procedures-section"
+    }
+  }
+}

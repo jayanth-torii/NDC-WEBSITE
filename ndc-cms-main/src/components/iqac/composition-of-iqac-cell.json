@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_iqac_composition_of_iqac_cells",
+  "info": {
+    "displayName": "COMPOSITION OF IQAC CELL"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "tableSection": {
+      "displayName": "tableSection",
+      "type": "component",
+      "repeatable": true,
+      "component": "iqac.table-section"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "syllabus_details",
+  "info": {
+    "singularName": "syllabus-detail",
+    "pluralName": "syllabus-details",
+    "displayName": "Syllabus Details"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "SyllabusSection": {
+      "displayName": "syllabusSection",
+      "type": "component",
+      "repeatable": true,
+      "component": "syllabus-details.syllabus-section"
+    }
+  }
+}

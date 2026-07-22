@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_department_faculty_members_contents",
+  "info": {
+    "displayName": "content"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "string"
+    }
+  }
+}

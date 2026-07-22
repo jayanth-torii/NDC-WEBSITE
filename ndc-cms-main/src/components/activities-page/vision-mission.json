@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_activities_page_vision_missions",
+  "info": {
+    "displayName": "VisionMission"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "points": {
+      "type": "component",
+      "component": "activities-page.points",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

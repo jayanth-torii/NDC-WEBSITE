@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_students_grievance_redressal_cell_descriptions",
+  "info": {
+    "displayName": "descriptions"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}

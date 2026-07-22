@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_iqac_table_sections",
+  "info": {
+    "displayName": "tableSection",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    }
+  }
+}

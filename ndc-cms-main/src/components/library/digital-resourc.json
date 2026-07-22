@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_library_digital_resourcs",
+  "info": {
+    "displayName": "digitalResourc"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "tabsText": {
+      "displayName": "tabsText",
+      "type": "component",
+      "repeatable": true,
+      "component": "library.tabs-text"
+    },
+    "resoursesTable": {
+      "type": "component",
+      "repeatable": false,
+      "component": "library.resourses-table"
+    }
+  }
+}

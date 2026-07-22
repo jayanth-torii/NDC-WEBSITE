@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_department_page_sections",
+  "info": {
+    "displayName": "Sections"
+  },
+  "options": {},
+  "attributes": {
+    "TabName": {
+      "type": "string"
+    },
+    "ListPoints": {
+      "type": "component",
+      "component": "department-page.list-points",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

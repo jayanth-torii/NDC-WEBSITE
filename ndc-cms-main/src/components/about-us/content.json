@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_about_us_contents",
+  "info": {
+    "displayName": "content",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "text",
+        "list"
+      ]
+    },
+    "text": {
+      "type": "string"
+    },
+    "items": {
+      "displayName": "items",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-us.items"
+    },
+    "textBold": {
+      "type": "enumeration",
+      "enum": [
+        "true",
+        "false"
+      ]
+    }
+  }
+}

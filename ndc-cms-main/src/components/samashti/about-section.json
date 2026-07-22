@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_samashti_about_sections",
+  "info": {
+    "displayName": "aboutSection",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "descriptions": {
+      "displayName": "description",
+      "type": "component",
+      "repeatable": true,
+      "component": "samashti.description"
+    }
+  }
+}

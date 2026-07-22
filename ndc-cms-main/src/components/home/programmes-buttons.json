@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_home_programmes_buttons",
+  "info": {
+    "displayName": " ProgrammesButtons"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "url": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

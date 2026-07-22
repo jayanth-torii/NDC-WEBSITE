@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_sports_points",
+  "info": {
+    "displayName": "points"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

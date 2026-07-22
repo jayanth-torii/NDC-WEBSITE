@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_samashti_buttons",
+  "info": {
+    "displayName": "Buttons",
+    "icon": "cursor"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

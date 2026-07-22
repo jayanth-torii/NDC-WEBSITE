@@ -1,0 +1,39 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_uses",
+  "info": {
+    "singularName": "contact-us",
+    "pluralName": "contact-uses",
+    "displayName": "ContactUs",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "displayName": "BannerSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "contact-us.banner-section"
+    },
+    "contactDeatils": {
+      "displayName": "contactDetails",
+      "type": "component",
+      "repeatable": false,
+      "component": "contact-us.contact-details"
+    },
+    "LoginPortals": {
+      "displayName": "Login Portals",
+      "type": "component",
+      "repeatable": true,
+      "component": "contact-us.login-portals"
+    },
+    "MAP": {
+      "displayName": "Map",
+      "type": "component",
+      "repeatable": false,
+      "component": "contact-us.map"
+    }
+  }
+}

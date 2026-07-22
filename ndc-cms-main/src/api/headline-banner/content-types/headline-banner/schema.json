@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "headline_banners",
+  "info": {
+    "singularName": "headline-banner",
+    "pluralName": "headline-banners",
+    "displayName": "Headline Banner"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    }
+  }
+}

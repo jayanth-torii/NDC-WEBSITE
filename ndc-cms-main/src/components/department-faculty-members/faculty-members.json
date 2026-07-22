@@ -1,0 +1,49 @@
+{
+  "collectionName": "components_department_faculty_members_faculty_members",
+  "info": {
+    "displayName": "Faculty Members"
+  },
+  "options": {},
+  "attributes": {
+    "order": {
+      "type": "integer",
+      "unique": false,
+      "required": true
+    },
+    "name": {
+      "type": "string"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "qualification": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "About": {
+      "displayName": "About",
+      "type": "component",
+      "repeatable": true,
+      "component": "department-faculty-members.about"
+    },
+    "listOfPublications": {
+      "displayName": "listOfPublications",
+      "type": "component",
+      "repeatable": false,
+      "component": "department-faculty-members.list-of-publications"
+    },
+    "details": {
+      "displayName": "details",
+      "type": "component",
+      "repeatable": true,
+      "component": "department-faculty-members.details"
+    }
+  }
+}

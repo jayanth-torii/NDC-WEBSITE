@@ -1,0 +1,6 @@
+node_modules/
+.env
+.env.local
+.DS_Store
+Page_Assignments.xlsx
+create_excel.js

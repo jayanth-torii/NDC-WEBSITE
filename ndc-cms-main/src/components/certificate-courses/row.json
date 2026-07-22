@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_certificate_courses_rows",
+  "info": {
+    "displayName": "Row"
+  },
+  "options": {},
+  "attributes": {
+    "Slno": {
+      "type": "string"
+    },
+    "Name": {
+      "type": "string"
+    },
+    "Designation": {
+      "type": "string"
+    },
+    "Role": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

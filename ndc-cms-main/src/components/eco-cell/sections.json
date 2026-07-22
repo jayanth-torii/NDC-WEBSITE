@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_eco_cell_sections",
+  "info": {
+    "displayName": "Sections"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "descriptions": {
+      "displayName": "description",
+      "type": "component",
+      "repeatable": true,
+      "component": "eco-cell.description"
+    }
+  }
+}

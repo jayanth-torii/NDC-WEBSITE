@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_students_procedure_points",
+  "info": {
+    "displayName": "procedure points"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_books_patients_books",
+  "info": {
+    "displayName": "Books",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Columns": {
+      "type": "json"
+    },
+    "BooksTable": {
+      "displayName": "BooksTable",
+      "type": "component",
+      "repeatable": true,
+      "component": "books-patients.books-table"
+    }
+  }
+}

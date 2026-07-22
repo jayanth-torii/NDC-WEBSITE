@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_department_page_hods",
+  "info": {
+    "displayName": "Hods"
+  },
+  "options": {},
+  "attributes": {
+    "TabName": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_department_research_points",
+  "info": {
+    "displayName": "points"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

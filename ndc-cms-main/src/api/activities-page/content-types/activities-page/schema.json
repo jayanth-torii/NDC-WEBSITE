@@ -1,0 +1,35 @@
+{
+  "kind": "singleType",
+  "collectionName": "activities_pages",
+  "info": {
+    "singularName": "activities-page",
+    "pluralName": "activities-pages",
+    "displayName": "Activities Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "component": "activities-page.banner-section",
+      "repeatable": false
+    },
+    "Know_Every_Thing": {
+      "type": "component",
+      "component": "activities-page.know-every-thing",
+      "repeatable": false
+    },
+    "Activities": {
+      "type": "component",
+      "component": "activities-page.activities",
+      "repeatable": false
+    },
+    "Cultural_And_Leadership_Activities": {
+      "type": "component",
+      "component": "activities-page.cultural-and-leadership-activities",
+      "repeatable": false
+    }
+  }
+}

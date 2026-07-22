@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_students_placement_partners",
+  "info": {
+    "displayName": "PlacementPartners"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    }
+  }
+}

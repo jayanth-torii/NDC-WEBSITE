@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_certificate_courses_descriptions",
+  "info": {
+    "displayName": "description"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

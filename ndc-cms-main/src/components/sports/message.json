@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_sports_messages",
+  "info": {
+    "displayName": "message"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

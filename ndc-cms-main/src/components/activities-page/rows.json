@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_activities_page_rows",
+  "info": {
+    "displayName": "Rows"
+  },
+  "options": {},
+  "attributes": {
+    "Slno": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

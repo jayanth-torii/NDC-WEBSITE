@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_anti_ragging_cell_points",
+  "info": {
+    "displayName": "points"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

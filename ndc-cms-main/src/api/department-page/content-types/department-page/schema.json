@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "department_pages",
+  "info": {
+    "singularName": "department-page",
+    "pluralName": "department-pages",
+    "displayName": "Department Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "component": "department-page.banner-section",
+      "repeatable": false
+    },
+    "Programmes": {
+      "type": "component",
+      "component": "department-page.programmes",
+      "repeatable": false
+    },
+    "International_Collaboration": {
+      "type": "component",
+      "component": "department-page.international-collaboration",
+      "repeatable": false
+    },
+    "Professional_Courses": {
+      "type": "component",
+      "component": "department-page.professional-courses",
+      "repeatable": false
+    },
+    "Language_Department": {
+      "type": "component",
+      "component": "iqac.about-vision-mission-sections",
+      "repeatable": false
+    },
+    "Message_From_Hods": {
+      "type": "component",
+      "component": "department-page.message-from-hods",
+      "repeatable": false
+    },
+    "Research_And_Awards": {
+      "type": "component",
+      "component": "department-page.research-and-awards",
+      "repeatable": false
+    },
+    "Faculty_And_Publications": {
+      "type": "component",
+      "component": "department-page.faculty-and-publications",
+      "repeatable": false
+    }
+  }
+}

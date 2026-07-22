@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "commerce_and_management_forums",
+  "info": {
+    "singularName": "commerce-and-management-forum",
+    "pluralName": "commerce-and-management-forums",
+    "displayName": "Commerce And Management Forum"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "AboutVisionMissionSections": {
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "ForumCoordinators": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

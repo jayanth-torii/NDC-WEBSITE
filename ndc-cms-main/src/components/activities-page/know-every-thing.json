@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_activities_page_know_every_things",
+  "info": {
+    "displayName": "Know Every Thing"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

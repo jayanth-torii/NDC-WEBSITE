@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_department_page_international_collaborations",
+  "info": {
+    "displayName": "International Collaboration"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Details": {
+      "type": "component",
+      "component": "department-page.details",
+      "repeatable": true
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

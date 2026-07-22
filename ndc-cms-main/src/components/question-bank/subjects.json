@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_question_bank_subjects",
+  "info": {
+    "displayName": "Subjects"
+  },
+  "options": {},
+  "attributes": {
+    "SubjectName": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "SubjectPdf": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_department_faculty_members_list_of_publications",
+  "info": {
+    "displayName": "listOfPublications"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "displayName": "content",
+      "type": "component",
+      "repeatable": true,
+      "component": "department-faculty-members.content"
+    }
+  }
+}

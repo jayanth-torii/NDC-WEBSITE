@@ -1,0 +1,37 @@
+{
+  "kind": "singleType",
+  "collectionName": "anti_ragging_cells",
+  "info": {
+    "singularName": "anti-ragging-cell",
+    "pluralName": "anti-ragging-cells",
+    "displayName": "Anti Ragging Cell "
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "displayName": "Banner Section",
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "aboutSections": {
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "PolicyAndConsiderations": {
+      "displayName": "Policy And Considerations",
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.policy-and-considerations"
+    },
+    "AntiRaggingCommitteMembers": {
+      "displayName": "Anti Ragging Committe Members",
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

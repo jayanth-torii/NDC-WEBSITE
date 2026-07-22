@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_admissions_courses_eligibilities",
+  "info": {
+    "displayName": "coursesEligibility",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "tabsCourses": {
+      "displayName": "tabsCourses",
+      "type": "component",
+      "repeatable": true,
+      "component": "admissions.tabs-courses"
+    }
+  }
+}

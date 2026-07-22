@@ -1,0 +1,13 @@
+@keyframes marquee_slow {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
+  .animate-marquee_slow {
+    animation: marquee_slow 25s linear infinite; /* Slow down the scrolling */
+  }
+  

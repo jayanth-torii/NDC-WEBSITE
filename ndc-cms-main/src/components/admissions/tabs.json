@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_admissions_tabs",
+  "info": {
+    "displayName": "tabs"
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "string"
+    },
+    "label": {
+      "type": "text"
+    }
+  }
+}

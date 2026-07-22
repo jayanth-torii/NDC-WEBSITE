@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_department_page_table_rows",
+  "info": {
+    "displayName": "TableRow"
+  },
+  "options": {},
+  "attributes": {
+    "Name": {
+      "type": "string"
+    },
+    "Publication_House": {
+      "type": "string"
+    },
+    "Book_Title": {
+      "type": "string"
+    },
+    "Edition": {
+      "type": "string"
+    },
+    "Year_Of_Publishing": {
+      "type": "string"
+    },
+    "Slno": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

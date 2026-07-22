@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_activities_page_points",
+  "info": {
+    "displayName": "points"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

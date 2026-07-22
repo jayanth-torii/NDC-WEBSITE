@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_about_us_principal_messages",
+  "info": {
+    "displayName": "Principal Message",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "PrincipalName": {
+      "type": "string"
+    },
+    "position": {
+      "type": "string"
+    },
+    "PrincipalImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "message": {
+      "displayName": "message",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-us.message"
+    }
+  }
+}

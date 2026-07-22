@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_blogs_contents",
+  "info": {
+    "displayName": "content"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "iqacs",
+  "info": {
+    "singularName": "iqac",
+    "pluralName": "iqacs",
+    "displayName": "IQAC",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "displayName": "BannerSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.banner-section"
+    },
+    "AboutVisionMissionSections": {
+      "displayName": "About Vision Mission Sections",
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "CompositionOfIQACCell": {
+      "displayName": "COMPOSITION OF IQAC CELL",
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.composition-of-iqac-cell"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_department_page_message_from_hods",
+  "info": {
+    "displayName": "Message From Hods"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Hods": {
+      "type": "component",
+      "component": "department-page.hods",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

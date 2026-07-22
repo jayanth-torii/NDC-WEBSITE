@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_gallery_images_sections",
+  "info": {
+    "displayName": "imagesSection"
+  },
+  "options": {},
+  "attributes": {
+    "tabImages": {
+      "displayName": "images",
+      "type": "component",
+      "repeatable": true,
+      "component": "gallery.images"
+    }
+  }
+}

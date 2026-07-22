@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_home_campus_life_at_ndcs",
+  "info": {
+    "displayName": "CampusLifeAtNDC"
+  },
+  "options": {},
+  "attributes": {
+    "videoid": {
+      "type": "string"
+    }
+  }
+}

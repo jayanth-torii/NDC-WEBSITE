@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_activities_page_other_sections",
+  "info": {
+    "displayName": "OtherSections"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "ListPoints": {
+      "type": "component",
+      "component": "activities-page.list-points",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

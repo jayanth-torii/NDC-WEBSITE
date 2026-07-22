@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_iqac_about_descriptions",
+  "info": {
+    "displayName": "About Description"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

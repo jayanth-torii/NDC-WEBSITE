@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "apply_nows",
+  "info": {
+    "singularName": "apply-now",
+    "pluralName": "apply-nows",
+    "displayName": "Apply Now",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "displayName": "BannerSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "apply-now.banner-section"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "faculty_study_circles",
+  "info": {
+    "singularName": "faculty-study-circle",
+    "pluralName": "faculty-study-circles",
+    "displayName": "Faculty Study Circle"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "AboutVisionMissionSections": {
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "AntiRaggingCommitteMembers": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

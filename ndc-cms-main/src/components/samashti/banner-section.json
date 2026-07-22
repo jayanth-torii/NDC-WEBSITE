@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_samashti_banner_sections",
+  "info": {
+    "displayName": "banner-section",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

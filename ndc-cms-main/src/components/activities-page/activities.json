@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_activities_page_activities",
+  "info": {
+    "displayName": "Activities"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

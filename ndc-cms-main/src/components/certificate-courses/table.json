@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_certificate_courses_tables",
+  "info": {
+    "displayName": "Table"
+  },
+  "options": {},
+  "attributes": {
+    "Row": {
+      "type": "component",
+      "component": "certificate-courses.row",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

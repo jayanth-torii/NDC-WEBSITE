@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "blogs_contents",
+  "info": {
+    "singularName": "blogs-content",
+    "pluralName": "blogs-contents",
+    "displayName": "Blogs Content"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Blogs": {
+      "displayName": "Blogs",
+      "type": "component",
+      "repeatable": true,
+      "component": "blogs.blogs"
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_anti_ragging_cell_policy_and_considerations",
+  "info": {
+    "displayName": "Policy And Considerations"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "displayName": "description",
+      "type": "component",
+      "repeatable": true,
+      "component": "anti-ragging-cell.description"
+    },
+    "TabsSection": {
+      "displayName": "Tabs Section",
+      "type": "component",
+      "repeatable": true,
+      "component": "anti-ragging-cell.tabs-section"
+    }
+  }
+}

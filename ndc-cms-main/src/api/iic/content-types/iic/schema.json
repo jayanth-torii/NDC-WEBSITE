@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "iics",
+  "info": {
+    "singularName": "iic",
+    "pluralName": "iics",
+    "displayName": "IIC"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "displayName": "BannerSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "iic.banner-section"
+    },
+    "IICMembers": {
+      "displayName": "IIC Members",
+      "type": "component",
+      "repeatable": false,
+      "component": "iic.iic-members"
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_activities_page_cultural_and_leadership_activities",
+  "info": {
+    "displayName": "Cultural And Leadership Activities"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Sections": {
+      "type": "component",
+      "component": "activities-page.sections",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

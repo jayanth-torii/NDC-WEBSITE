@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_footer_contact_infos",
+  "info": {
+    "displayName": "contactInfo"
+  },
+  "options": {},
+  "attributes": {
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "address_link": {
+      "type": "text"
+    },
+    "address": {
+      "type": "text"
+    },
+    "rights_reserved": {
+      "type": "text"
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ]
+    }
+  },
+  "config": {}
+}

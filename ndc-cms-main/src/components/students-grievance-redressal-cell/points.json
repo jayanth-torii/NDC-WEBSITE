@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_students_grievance_redressal_cell_points",
+  "info": {
+    "displayName": "points"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

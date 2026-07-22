@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_about_department_sections",
+  "info": {
+    "displayName": "sections"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "points": {
+      "displayName": "points",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-department.points"
+    }
+  }
+}

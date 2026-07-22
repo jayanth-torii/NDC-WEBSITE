@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_home_yrs25_sections",
+  "info": {
+    "displayName": "Yrs25Section"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

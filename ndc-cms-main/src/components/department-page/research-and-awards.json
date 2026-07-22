@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_department_page_research_and_awards",
+  "info": {
+    "displayName": "Research And Awards"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Sections": {
+      "type": "component",
+      "component": "department-page.sections",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

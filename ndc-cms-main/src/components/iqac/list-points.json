@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_iqac_list_points",
+  "info": {
+    "displayName": "ListPoints"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

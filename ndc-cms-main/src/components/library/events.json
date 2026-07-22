@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_library_events",
+  "info": {
+    "displayName": "events"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "text"
+    }
+  }
+}

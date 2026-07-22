@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_library_about_texts",
+  "info": {
+    "displayName": "aboutText",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

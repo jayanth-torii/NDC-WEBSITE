@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_home_notification_tabs",
+  "info": {
+    "displayName": "NotificationTabs"
+  },
+  "options": {},
+  "attributes": {
+    "TabName": {
+      "type": "string"
+    },
+    "Data": {
+      "type": "component",
+      "component": "home.data",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "sc_st_obc_minority_cells",
+  "info": {
+    "singularName": "sc-st-obc-minority-cell",
+    "pluralName": "sc-st-obc-minority-cells",
+    "displayName": "SC ST OBC Minority Cell"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "SCSTCommitteeMembers": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

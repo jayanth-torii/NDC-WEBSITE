@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_about_us_dropdowns",
+  "info": {
+    "displayName": "dropdowns"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "content": {
+      "displayName": "content",
+      "type": "component",
+      "repeatable": true,
+      "component": "about-us.content"
+    }
+  }
+}

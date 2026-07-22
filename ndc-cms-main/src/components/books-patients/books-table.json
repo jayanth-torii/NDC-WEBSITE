@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_books_patients_books_tables",
+  "info": {
+    "displayName": "BooksTable"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Author": {
+      "type": "string"
+    },
+    "year": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "vision_missions",
+  "info": {
+    "singularName": "vision-mission",
+    "pluralName": "vision-missions",
+    "displayName": "VisionMission"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "sections": {
+      "displayName": "sections",
+      "type": "component",
+      "repeatable": true,
+      "component": "vision-mission.sections"
+    }
+  }
+}

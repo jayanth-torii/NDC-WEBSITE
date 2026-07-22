@@ -1,0 +1,12 @@
+{
+  "collectionName": "components_research_forum_descriptions",
+  "info": {
+    "displayName": "description"
+  },
+  "options": {},
+  "attributes": {
+    "point": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "women_cells",
+  "info": {
+    "singularName": "women-cell",
+    "pluralName": "women-cells",
+    "displayName": "Women Cell"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "admissions.banner-section"
+    },
+    "AboutVisionMissionSections": {
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "AntiRaggingCommitteMembers": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

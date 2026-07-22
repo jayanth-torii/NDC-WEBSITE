@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_contact_us_login_portals",
+  "info": {
+    "displayName": "Login Portals"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "link": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_iic_members_tables",
+  "info": {
+    "displayName": "Members Table"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "designation": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string"
+    },
+    "contact": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_department_page_books_publisheds",
+  "info": {
+    "displayName": "Books_Published"
+  },
+  "options": {},
+  "attributes": {
+    "TabName": {
+      "type": "string"
+    },
+    "TableRow": {
+      "type": "component",
+      "component": "department-page.table-row",
+      "repeatable": true
+    },
+    "Columns": {
+      "type": "json"
+    }
+  },
+  "config": {}
+}

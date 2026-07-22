@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "objectives",
+  "info": {
+    "singularName": "objective",
+    "pluralName": "objectives",
+    "displayName": "Objectives"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "Objectives": {
+      "displayName": "points",
+      "type": "component",
+      "repeatable": true,
+      "component": "objectives.points"
+    }
+  }
+}

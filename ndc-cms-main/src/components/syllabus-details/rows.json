@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_syllabus_details_rows",
+  "info": {
+    "displayName": "rows"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "courses": {
+      "type": "text"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "research_forums",
+  "info": {
+    "singularName": "research-forum",
+    "pluralName": "research-forums",
+    "displayName": "Research Forum"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "displayName": "BannerSection",
+      "type": "component",
+      "repeatable": false,
+      "component": "research-forum.banner-section"
+    },
+    "ResearchForum": {
+      "displayName": "Research Forum",
+      "type": "component",
+      "repeatable": false,
+      "component": "research-forum.research-forum"
+    }
+  }
+}

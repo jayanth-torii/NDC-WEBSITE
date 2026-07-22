@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_iqac_accordien_sections",
+  "info": {
+    "displayName": "Accordien Section"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "ListPoints": {
+      "displayName": "ListPoints",
+      "type": "component",
+      "repeatable": true,
+      "component": "iqac.list-points"
+    }
+  }
+}

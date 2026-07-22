@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_research_research_publications",
+  "info": {
+    "displayName": "ResearchPublications"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "sections": {
+      "displayName": "sections",
+      "type": "component",
+      "repeatable": true,
+      "component": "research.sections"
+    }
+  }
+}

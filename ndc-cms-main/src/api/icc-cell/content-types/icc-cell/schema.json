@@ -1,0 +1,29 @@
+{
+  "kind": "singleType",
+  "collectionName": "icc_cells",
+  "info": {
+    "singularName": "icc-cell",
+    "pluralName": "icc-cells",
+    "displayName": "ICC Cell"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "BannerSection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.banner-section"
+    },
+    "AboutVisionMissionSections": {
+      "type": "component",
+      "repeatable": false,
+      "component": "iqac.about-vision-mission-sections"
+    },
+    "Members": {
+      "type": "component",
+      "repeatable": false,
+      "component": "anti-ragging-cell.anti-ragging-committe-members"
+    }
+  }
+}

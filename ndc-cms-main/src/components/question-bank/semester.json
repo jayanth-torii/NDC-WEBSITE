@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_question_bank_semesters",
+  "info": {
+    "displayName": "Semester"
+  },
+  "options": {},
+  "attributes": {
+    "Semester": {
+      "type": "string",
+      "required": false,
+      "unique": false
+    },
+    "Subjects": {
+      "type": "component",
+      "component": "question-bank.subjects",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

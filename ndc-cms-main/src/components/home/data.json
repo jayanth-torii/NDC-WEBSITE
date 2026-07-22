@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_home_data",
+  "info": {
+    "displayName": "Data"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "pdf": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "files"
+      ]
+    },
+    "link": {
+      "type": "text"
+    }
+  },
+  "config": {}
+}

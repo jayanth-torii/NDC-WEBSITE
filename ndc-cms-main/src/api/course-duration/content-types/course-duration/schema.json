@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_durations",
+  "info": {
+    "singularName": "course-duration",
+    "pluralName": "course-durations",
+    "displayName": "Course Duration",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "key": {
+      "type": "string",
+      "unique": true,
+      "required": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "sections": {
+      "type": "component",
+      "repeatable": true,
+      "component": "vision-mission.sections"
+    }
+  }
+}
