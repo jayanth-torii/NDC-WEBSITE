@@ -1,15 +1,19 @@
-import React from 'react';
-import PageBanner from '@/components/ui/PageBanner';
+import React from "react";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 
 const QuestionBankBanner = ({ data }: any) => {
   const title = data?.title || "Question Bank";
   const image = data?.image || "/images/question-bank/banner.png";
 
   return (
-    <PageBanner
+    <GlobalBanner
+      eyebrow="Academics"
       title={title}
       image={image}
-      className="rounded-xl mt-10 mb-10 md:mb-20"
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Question Bank" },
+      ]}
     />
   );
 };

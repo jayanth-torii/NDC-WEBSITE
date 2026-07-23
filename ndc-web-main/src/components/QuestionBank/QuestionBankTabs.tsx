@@ -1,8 +1,6 @@
 "use client";
 
-import React, { useState, ReactNode, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { ChevronRight } from "lucide-react";
+import React, { useState, ReactNode, Suspense, useRef, useEffect } from "react";
 import questionBankJson from "@/data-export/question-bank/data.json";
 
 import FindQuestionBank from "./FindQuestionBank";
@@ -22,72 +20,167 @@ const tabs = [
   // "BBA",
   // "B.Sc",
   // "M.Com",
-  "MBA"
+  "MBA",
 ];
 
-
 export default function QuestionBankTabs() {
-  const searchParams = useSearchParams();
-  const department = searchParams.get("programme") || "Computer Science & Engineering";
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showLeftShadow, setShowLeftShadow] = useState(false);
+  const [showRightShadow, setShowRightShadow] = useState(true);
 
-  const allData: Record<string, any> = (questionBankJson["question-banks"] as any)?.data || {};
+  const allData: Record<string, any> =
+    (questionBankJson["question-banks"] as any)?.data || {};
 
-
-
-  const tabComponents: Record<string, ReactNode> = {
-    "Find Question Bank" :  <Suspense fallback={<p>Loading...</p>}> <FindQuestionBank data={allData}/> </Suspense>,
-    "B.Com": <Suspense fallback={<p>Loading...</p>}> <Bcom data={allData["B.Com"]}/> </Suspense>,
-    "B.Com (Hons)" : <Suspense fallback={<p>Loading...</p>}><BcomHons data={allData["B.Com (Hons)"]}/> </Suspense>,
-    "BCA": <Suspense fallback={<p>Loading...</p>}><BCA data={allData["BCA"]}/> </Suspense>,
-    "BBA": <Suspense fallback={<p>Loading...</p>}><BBA data={allData["BBA"]}/> </Suspense>,
-    "B.Sc": <Suspense fallback={<p>Loading...</p>}><BSC data={allData["B.Sc"]}/> </Suspense>,
-    "M.Com": <Suspense fallback={<p>Loading...</p>}><MCom data={allData["M.Com"]}/> </Suspense>,
-    "MBA" : <Suspense fallback={<p>Loading...</p>}><MBA data={allData["MBA"]}/> </Suspense>,
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setShowLeftShadow(scrollLeft > 0);
+      setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
+    }
   };
 
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("resize", handleScroll);
+    return () => window.removeEventListener("resize", handleScroll);
+  }, []);
+
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+    setTimeout(() => {
+      contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+  };
+
+  const tabComponents: Record<string, ReactNode> = {
+    "Find Question Bank": (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <FindQuestionBank data={allData} />
+      </Suspense>
+    ),
+    "B.Com": (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <Bcom data={allData["B.Com"]} />
+      </Suspense>
+    ),
+    "B.Com (Hons)": (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <BcomHons data={allData["B.Com (Hons)"]} />
+      </Suspense>
+    ),
+    BCA: (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <BCA data={allData["BCA"]} />
+      </Suspense>
+    ),
+    BBA: (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <BBA data={allData["BBA"]} />
+      </Suspense>
+    ),
+    "B.Sc": (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <BSC data={allData["B.Sc"]} />
+      </Suspense>
+    ),
+    "M.Com": (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <MCom data={allData["M.Com"]} />
+      </Suspense>
+    ),
+    MBA: (
+      <Suspense fallback={<p className="text-body-gray">Loading...</p>}>
+        <MBA data={allData["MBA"]} />
+      </Suspense>
+    ),
+  };
+
+  const activeIndex = Math.max(0, tabs.indexOf(activeTab));
+
   return (
-    <div className="relative flex w-full min-h-screen mb-20 flex-col gap-6 md:flex-row md:gap-8">
+    <div className="relative w-full scroll-mt-32">
+      <div className="sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-y border-navy/10">
+        <div className="container mx-auto px-4 lg:px-8 relative">
+          <div className="flex items-center gap-6 py-1">
+            <div className="hidden md:flex flex-col shrink-0 py-3 pr-6 border-r border-navy/10">
+              <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-orange">
+                Archive
+              </span>
+              <span className="text-navy font-bold text-sm tabular-nums mt-0.5">
+                {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                {String(tabs.length).padStart(2, "0")}
+              </span>
+            </div>
 
-      {/* Mobile tab bar: horizontal scroll */}
-      <nav className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1 md:hidden">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-              activeTab === tab
-                ? "bg-orange text-white shadow-[var(--shadow-cta)]"
-                : "bg-surface-light text-body-gray hover:text-navy"
-            }`}
-          >
-            {tab}
-          </button>
-        ))}
-      </nav>
+            <div className="relative flex-1 min-w-0">
+              <div
+                className={`absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
+                  showLeftShadow ? "opacity-100" : "opacity-0"
+                }`}
+              />
+              <div
+                className={`absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
+                  showRightShadow ? "opacity-100" : "opacity-0"
+                }`}
+              />
 
-      {/* Sidebar Navigation - desktop */}
-      <aside className="hidden shrink-0 md:block md:w-[230px] lg:w-[260px]">
-        <nav className="sticky top-24 flex flex-col gap-1.5 rounded-[18px] border border-card-border bg-white p-3 shadow-[var(--shadow-card)]">
-          {tabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`flex cursor-pointer items-center justify-between gap-2 rounded-[10px] px-4 py-3 text-left text-[15px] font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                activeTab === tab ? "bg-navy text-white" : "text-heading hover:bg-surface-tint"
-              }`}
-            >
-              {tab}
-              <ChevronRight className={`h-4 w-4 shrink-0 ${activeTab === tab ? "opacity-100" : "opacity-30"}`} />
-            </button>
-          ))}
-        </nav>
-      </aside>
+              <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="flex gap-1 overflow-x-auto py-3 hide-scrollbar"
+              >
+                {tabs.map((tab, idx) => {
+                  const isActive = activeTab === tab;
+                  return (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => handleTabClick(tab)}
+                      className={`relative shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-semibold transition-colors duration-300 cursor-pointer ${
+                        isActive
+                          ? "text-navy"
+                          : "text-body-gray hover:text-navy"
+                      }`}
+                    >
+                      <span className="text-[10px] font-bold tracking-[0.14em] text-orange/70 mr-2 tabular-nums">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      {tab}
+                      {isActive && (
+                        <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-orange" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-      {/* Main Content */}
-      <main className="min-w-0 flex-1 text-navy">
-        {tabComponents[activeTab] || <p>Content not available.</p>}
-      </main>
+      <div
+        ref={contentRef}
+        className="container mx-auto px-4 lg:px-8 pt-10 lg:pt-14 scroll-mt-40"
+      >
+        <div className="min-h-[420px] border border-navy/10 bg-white">
+          <div className="h-1 w-full bg-gradient-to-r from-navy via-orange to-navy/20" />
+          <div className="p-6 md:p-10 lg:p-12">
+            {tabComponents[activeTab] || <p>Content not available.</p>}
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 }
