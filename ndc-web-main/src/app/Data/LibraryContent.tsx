@@ -3,7 +3,7 @@ import { title } from "process";
 export const LibraryContent = {
 
     banner: {
-      image: "/images/placements-page/placement-banner.png"
+      image: "/images/library/banner.png"
     },
 
  

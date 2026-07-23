@@ -35,6 +35,7 @@ const NAV_ITEMS: NavItem[] = [
     ],
   },
   { label: "Alumni", href: "/alumni" },
+  { label: "Library", href: "/library" },
   { label: "About Us", href: "/about-ndc" },
   { label: "Contact Us", href: "/contact-us" },
 ];
