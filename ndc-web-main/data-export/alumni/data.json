@@ -2,7 +2,9 @@
   "alumni": {
     "data": {
       "BannerSection": {
-        "title": "Alumni ",
+        "eyebrow": "NDC Alumni Network",
+        "title": "Our Alumni",
+        "subtitle": "A global community of changemakers — celebrating the achievements, reunions, and stories of the people who define NDC.",
         "image": "https://cdn.nagarjunadegreecollege.co.in/Group_153_2_9dee97d97e.png"
       },
       "VisionMission": {

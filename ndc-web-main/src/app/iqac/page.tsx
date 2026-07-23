@@ -1,10 +1,9 @@
 "use client";
 
 import React, { Suspense } from "react";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import IqacBanner from "@/components/IQAC/IqacBanner";
-import About from "@/components/IQAC/About";
-import CompositionCell from "@/components/IQAC/CompositionCell";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
+import About from "@/components/Iqac/About";
+import CompositionCell from "@/components/Iqac/CompositionCell";
 import pageJson from "@/data-export/iqac/data.json";
 
 function IQAC() {
@@ -15,17 +14,18 @@ function IQAC() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <IqacBanner data={iqacData.BannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner 
+        eyebrow={iqacData.BannerSection.eyebrow}
+        title={iqacData.BannerSection.title}
+        subtitle={iqacData.BannerSection.subtitle}
+        image={iqacData.BannerSection.image}
+      />
 
       <About data={iqacData.AboutVisionMissionSections} />
 
       <CompositionCell data={iqacData.CompositionOfIQACCell} />
-    </div>
+    </main>
   );
 }
 

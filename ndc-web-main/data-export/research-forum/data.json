@@ -2,7 +2,9 @@
   "research-forum": {
     "data": {
       "BannerSection": {
+        "eyebrow": "Academic Research",
         "title": "RESEARCH FORUM",
+        "subtitle": "Discover, innovate, and contribute. Exploring new frontiers of knowledge through guided research and academic excellence.",
         "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_3_0974d61bff.png"
       },
       "ResearchForum": {

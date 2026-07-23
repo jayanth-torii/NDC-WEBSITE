@@ -1,9 +1,8 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Images from "@/components/Activities/CommonComponents/Images";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
@@ -17,19 +16,22 @@ function EDCell() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
+    <ActivitiesPageShell
+      eyebrow="Faculty Oriented Cells"
+      title="Entrepreneurial Development Cell"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Faculty Oriented Cells", path: "/activities#Faculty%20Oriented%20Cells" },
+        { label: "ED Cell" },
+      ]}
+    >
       <About data={data.AboutVisionMissionSections} />
 
       <Images data={data.ImagesSection} />
 
       <AntiragginCommitte data={data.Coordinators} />
-    </div>
+    </ActivitiesPageShell>
   );
 }
 

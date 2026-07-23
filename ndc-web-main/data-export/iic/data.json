@@ -2,7 +2,9 @@
   "iic": {
     "data": {
       "BannerSection": {
+        "eyebrow": "Industry Partnerships",
         "title": "IIC",
+        "subtitle": "Industry Institute Cell — Bridging the gap between academia and industry to foster innovation and practical learning.",
         "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_2_9c27f57f99.png"
       },
       "IICMembers": {

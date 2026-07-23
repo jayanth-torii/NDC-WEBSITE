@@ -1,7 +1,6 @@
 "use client";
-import React, { Suspense } from "react";
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import React from "react";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import About from "@/components/Activities/CommonComponents/About";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 import pageJson from "@/data-export/activities/student-oriented-cells/women-cell/data.json";
@@ -14,19 +13,20 @@ function WomenCell() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-     
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-       
+    <ActivitiesPageShell
+      eyebrow="Student Oriented Cells"
+      title="Women's Cell"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Student Oriented Cells", path: "/activities#Student%20Oriented%20Cells" },
+        { label: "Women's Cell" },
+      ]}
+    >
       <About data={data.AboutVisionMissionSections} />
 
       <AntiragginCommitte data={data.antiRaggingCommitteMembers} />
-
-    </div>
+    </ActivitiesPageShell>
   );
 }
 

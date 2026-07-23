@@ -1,9 +1,8 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
 import pageJson from "@/data-export/activities/student-oriented-cells/anti-sexual-harassment-cell/data.json";
@@ -16,17 +15,20 @@ function AntiSexualHarassmentCell() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
+    <ActivitiesPageShell
+      eyebrow="Student Oriented Cells"
+      title="Anti Sexual-Harassment Cell"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Student Oriented Cells", path: "/activities#Student%20Oriented%20Cells" },
+        { label: "Anti Sexual-Harassment Cell" },
+      ]}
+    >
       <About data={data.AboutVisionMissionSections} />
 
       <Procedure data={data.Definitions} />
-    </div>
+    </ActivitiesPageShell>
   );
 }
 

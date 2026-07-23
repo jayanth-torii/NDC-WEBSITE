@@ -1,8 +1,7 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
 import pageJson from "@/data-export/activities/student-oriented-cells/eco-clubs/data.json";
@@ -15,16 +14,18 @@ function ECOClubs() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
-      
+    <ActivitiesPageShell
+      eyebrow="Student Oriented Cells"
+      title="Eco Clubs"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Student Oriented Cells", path: "/activities#Student%20Oriented%20Cells" },
+        { label: "Eco Clubs" },
+      ]}
+    >
       <Procedure data={data.Sections} />
-    </div>
+    </ActivitiesPageShell>
   );
 }
 

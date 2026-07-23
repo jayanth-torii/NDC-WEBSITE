@@ -22,6 +22,7 @@
   --shadow-card-hover: 0 22px 48px rgba(15, 18, 22, 0.1);
   --shadow-cta: 0 10px 24px rgba(246, 135, 42, 0.28);
   --shadow-cta-hover: 0 14px 30px rgba(246, 135, 42, 0.38);
+  --shadow-navy: 0 24px 60px rgba(14, 36, 85, 0.16);
 
   --ease-editorial: cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -49,6 +50,7 @@
   --shadow-card-hover: var(--shadow-card-hover);
   --shadow-cta: var(--shadow-cta);
   --shadow-cta-hover: var(--shadow-cta-hover);
+  --shadow-navy: var(--shadow-navy);
 }
 
 body {
@@ -89,4 +91,32 @@ iframe {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* Shared decorative + utility primitives ("Refined Editorial" system) */
+.bg-dot-grid {
+  background-image: radial-gradient(rgba(14, 36, 85, 0.16) 1.5px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+
+.bg-dot-grid-light {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.35) 1.5px, transparent 1.6px);
+  background-size: 18px 18px;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.animate-float {
+  animation: editorial-float 5s ease-in-out infinite;
+}
+
+@keyframes editorial-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
 }

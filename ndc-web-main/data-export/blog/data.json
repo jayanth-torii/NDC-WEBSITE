@@ -1,6 +1,12 @@
 {
   "blogs-content": {
     "data": {
+      "BannerSection": {
+        "eyebrow": "Insights & Updates",
+        "title": "BLOG",
+        "subtitle": "Discover the latest news, ideas, and academic insights from Nagarjuna Degree College.",
+        "image": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_174_8969614918.png"
+      },
       "blogs": [
         {
           "id": 1,

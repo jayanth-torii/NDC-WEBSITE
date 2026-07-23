@@ -90,8 +90,8 @@ const Header = () => {
   return (
       <nav
         ref={navRef}
-        className={`sticky top-0 z-40 flex items-center justify-between border-b border-card-border bg-white/95 backdrop-blur-sm pl-0 pr-5 md:px-6 transition-[height,padding] duration-300 ${
-          isSticky ? "h-[70px] md:h-[76px] py-2 shadow-md" : "h-auto md:h-[100px] lg:h-[110px] py-4 md:py-8 lg:py-8"
+        className={`sticky top-0 z-[50] w-full flex items-center justify-between border-b border-card-border bg-white/95 backdrop-blur-sm pl-0 pr-5 md:px-6 transition-all duration-500 ease-[var(--ease-editorial)] ${
+          isSticky ? "h-[70px] md:h-[76px] py-2 shadow-md" : "h-[85px] md:h-[100px] lg:h-[110px] py-4 md:py-8"
         }`}
       >
         {/* Logo */}
@@ -101,7 +101,7 @@ const Header = () => {
             alt="Nagarjuna Degree College"
             width={200}
             height={50}
-            className={`object-contain ml-6 lg:ml-1 md:ml-1 transition-all duration-300 ${isSticky ? "h-12 w-auto" : "h-auto"}`}
+            className={`object-contain ml-6 lg:ml-1 md:ml-1 transition-all duration-500 ease-[var(--ease-editorial)] ${isSticky ? "h-11 md:h-12 w-auto" : "h-14 md:h-auto w-auto"}`}
           />
         </button>
 
@@ -127,7 +127,7 @@ const Header = () => {
                   {openDesktopDropdown === item.label && (
                     <div
                       onMouseLeave={() => setOpenDesktopDropdown(null)}
-                      className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-xl border border-card-border bg-white py-2 shadow-card-hover"
+                      className="absolute left-1/2 top-full z-50 mt-3 w-56 -translate-x-1/2 overflow-hidden rounded-xl border border-card-border bg-white py-2 shadow-[var(--shadow-card-hover)]"
                     >
                       {item.children.map((child) => (
                         <button
@@ -153,81 +153,81 @@ const Header = () => {
             href={APPLY_NOW_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-2 rounded-full bg-orange px-6 py-2.5 text-sm font-bold text-white shadow-cta transition-all duration-200 hover:bg-orange-dark hover:shadow-cta-hover"
+            className="ml-2 rounded-full bg-orange px-6 py-2.5 text-sm font-bold text-white shadow-[var(--shadow-cta)] transition-all duration-200 hover:bg-[#e07520]"
           >
             Apply Now
           </a>
         </div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <Burger opened={menuOpen} onClick={() => setMenuOpen(!menuOpen)} color="#0e2455" />
-        </div>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <Burger opened={menuOpen} onClick={() => setMenuOpen(!menuOpen)} color="#0e2455" />
+          </div>
 
-        {/* Mobile Drawer Menu */}
-        <Drawer
-          opened={menuOpen}
-          onClose={() => setMenuOpen(false)}
-          padding="md"
-          title={<Image src={Logo} alt="Nagarjuna Degree College" width={140} height={36} className="object-contain" />}
-          styles={{
-            content: { background: "#ffffff" },
-            header: { borderBottom: "1px solid var(--color-card-border, #e6ebf3)" },
-          }}
-        >
-          <div className="flex flex-col space-y-1 pt-2">
-            {NAV_ITEMS.map((item) =>
-              item.children ? (
-                <div key={item.label} className="border-b border-card-border/60 py-2">
+          {/* Mobile Drawer Menu */}
+          <Drawer
+            opened={menuOpen}
+            onClose={() => setMenuOpen(false)}
+            padding="md"
+            title={<Image src={Logo} alt="Nagarjuna Degree College" width={140} height={36} className="object-contain" />}
+            styles={{
+              content: { background: "#ffffff" },
+              header: { borderBottom: "1px solid var(--color-card-border, #e6ebf3)" },
+            }}
+          >
+            <div className="flex flex-col space-y-1 pt-2">
+              {NAV_ITEMS.map((item) =>
+                item.children ? (
+                  <div key={item.label} className="border-b border-card-border/60 py-2">
+                    <button
+                      onClick={() =>
+                        setOpenMobileDropdown(openMobileDropdown === item.label ? null : item.label)
+                      }
+                      className={`flex w-full items-center justify-between ${mobileLinkClass(isItemActive(item, pathname))}`}
+                    >
+                      {item.label}
+                      <IconChevronDown
+                        size={16}
+                        className={`transition-transform duration-200 ${openMobileDropdown === item.label ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {openMobileDropdown === item.label && (
+                      <div className="mt-2 flex flex-col space-y-3 pl-3">
+                        {item.children.map((child) => (
+                          <button
+                            key={child.href}
+                            onClick={() => go(child.href)}
+                            className={mobileLinkClass(pathname === child.href)}
+                          >
+                            {child.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
                   <button
-                    onClick={() =>
-                      setOpenMobileDropdown(openMobileDropdown === item.label ? null : item.label)
-                    }
-                    className={`flex w-full items-center justify-between ${mobileLinkClass(isItemActive(item, pathname))}`}
+                    key={item.label}
+                    onClick={() => go(item.href)}
+                    className={`border-b border-card-border/60 py-3 ${mobileLinkClass(pathname === item.href)}`}
                   >
                     {item.label}
-                    <IconChevronDown
-                      size={16}
-                      className={`transition-transform duration-200 ${openMobileDropdown === item.label ? "rotate-180" : ""}`}
-                    />
                   </button>
-                  {openMobileDropdown === item.label && (
-                    <div className="mt-2 flex flex-col space-y-3 pl-3">
-                      {item.children.map((child) => (
-                        <button
-                          key={child.href}
-                          onClick={() => go(child.href)}
-                          className={mobileLinkClass(pathname === child.href)}
-                        >
-                          {child.label}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <button
-                  key={item.label}
-                  onClick={() => go(item.href)}
-                  className={`border-b border-card-border/60 py-3 ${mobileLinkClass(pathname === item.href)}`}
-                >
-                  {item.label}
-                </button>
-              )
-            )}
+                )
+              )}
 
-            <a
-              href={APPLY_NOW_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className="mt-4 rounded-full bg-orange px-6 py-3 text-center text-base font-bold text-white shadow-cta transition-all duration-200 hover:bg-orange-dark"
-            >
-              Apply Now
-            </a>
-          </div>
-        </Drawer>
-      </nav>
+              <a
+                href={APPLY_NOW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="mt-4 rounded-full bg-orange px-6 py-3 text-center text-base font-bold text-white shadow-[var(--shadow-cta)] transition-all duration-200 hover:bg-[#e07520]"
+              >
+                Apply Now
+              </a>
+            </div>
+          </Drawer>
+        </nav>
   );
 };
 

@@ -1,14 +1,9 @@
 "use client";
 
 import React, { Suspense } from "react";
-
-
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import IICBanner from "@/components/IIC/IICBanner";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import IICMembers from "@/components/IIC/IICMembers";
-
 import pageJson from "@/data-export/iic/data.json";
-
 
 function IIC() {
   const IICData: any = (pageJson["iic"] as any)?.data || null;
@@ -18,15 +13,16 @@ function IIC() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <IICBanner data={IICData.BannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner 
+        eyebrow={IICData.BannerSection.eyebrow}
+        title={IICData.BannerSection.title}
+        subtitle={IICData.BannerSection.subtitle}
+        image={IICData.BannerSection.image}
+      />
 
       <IICMembers data={IICData.IICMembers} />
-    </div>
+    </main>
   );
 }
 
