@@ -2,8 +2,8 @@
 
 import React, { Suspense } from "react";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
-import About from "@/components/Iqac/About";
-import CompositionCell from "@/components/Iqac/CompositionCell";
+import About from "@/components/IQAC/About";
+import CompositionCell from "@/components/IQAC/CompositionCell";
 import pageJson from "@/data-export/iqac/data.json";
 
 function IQAC() {
