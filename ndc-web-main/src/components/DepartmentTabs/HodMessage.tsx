@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { Quote, User } from "lucide-react";
 import departmentJson from "@/data-export/department/data.json";
 import Button from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
@@ -22,7 +23,8 @@ const HodMessage = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, HodData> = (departmentJson["hod-messages"] as any)?.data || {};
+  const apiData: Record<string, HodData> =
+    (departmentJson["hod-messages"] as any)?.data || {};
   const [isExpanded, setIsExpanded] = useState(false);
 
   const normalizedMap = useMemo(() => {
@@ -48,18 +50,16 @@ const HodMessage = ({ haveContentCheck }: any) => {
   if (!content) {
     return (
       <h1 className="text-center text-red-500">
-        HOD'S Message Not Found for <span className="font-semibold">{programme}</span>
+        HOD&apos;S Message Not Found for{" "}
+        <span className="font-semibold">{programme}</span>
       </h1>
     );
   }
 
-  // ---------- MESSAGE LOGIC ----------
   const MAX_PREVIEW = 500;
-
   const fullMessage = (content.hodMessage || "").trim();
   const paragraphs = fullMessage.split(/\n+/).filter(Boolean);
 
-  // ⬇️ preview across paragraphs, max 100 chars total, preserve paragraph breaks
   let remaining = MAX_PREVIEW;
   let truncated = false;
   const previewParagraphs: string[] = [];
@@ -68,7 +68,6 @@ const HodMessage = ({ haveContentCheck }: any) => {
     if (remaining <= 0) break;
     if (p.length <= remaining) {
       previewParagraphs.push(p);
-      // subtract paragraph length + 1 (for an implied newline break)
       remaining -= p.length + 1;
     } else {
       previewParagraphs.push(p.slice(0, remaining));
@@ -82,62 +81,76 @@ const HodMessage = ({ haveContentCheck }: any) => {
 
   return (
     <Reveal>
-      <div className="mt-10 md:mt-0 mb-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* HOD Image Section */}
-          <div className="flex flex-col items-center">
+      <div>
+        <header className="pb-6 mb-8 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Leadership
+          </p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
+            HOD&apos;S MESSAGE
+          </h2>
+        </header>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-navy/10">
+          <div className="lg:col-span-5 relative min-h-[280px] bg-surface-tint overflow-hidden">
             <div
-              className="relative w-full max-w-md aspect-[4/3] bg-contain bg-center bg-no-repeat rounded-[18px] overflow-hidden shadow-[var(--shadow-card)]"
-              style={{
-                backgroundImage: 'url("/images/department-banners/Background.png")',
-              }}
-            >
+              className="absolute inset-0 opacity-40 bg-contain bg-center bg-no-repeat"
+              style={{ backgroundImage: 'url("/images/Background.png")' }}
+            />
+            {content.hodImage ? (
               <Image
                 src={content.hodImage}
                 fill
-                sizes="(max-width: 600px) 100vw, 50vw"
-                className="relative object-contain"
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                className="object-contain relative z-10"
                 alt="HOD Image"
               />
-            </div>
-            <div className="text-center mt-4">
-              <p className="font-bold text-xl text-navy">{content.hodName}</p>
-              <p className="text-lg text-orange">{content.hodDesignation}</p>
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center text-navy z-10">
+                <User size={56} strokeWidth={1.5} />
+              </div>
+            )}
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent p-6 z-20">
+              <p className="font-bold text-xl text-white">{content.hodName}</p>
+              <p className="text-orange text-sm font-bold tracking-wide uppercase mt-1">
+                {content.hodDesignation}
+              </p>
             </div>
           </div>
 
-          {/* HOD Message Section */}
-          <div className="mt-5 md:text-left">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-4 text-center md:text-start">
-              HOD’S MESSAGE
-            </h2>
-
-            {isExpanded ? (
-              // FULL: render all paragraphs
-              paragraphs.map((msg, idx) => (
-                <p key={idx} className="text-justify text-body-gray mb-3 whitespace-pre-line leading-relaxed">
-                  {msg}
-                </p>
-              ))
-            ) : (
-              // PREVIEW: render previewParagraphs; add "..." to the last one if truncated
-              previewParagraphs.map((msg, idx) => {
-                const isLast = idx === previewParagraphs.length - 1;
-                return (
-                  <p key={idx} className="text-justify text-body-gray mb-3 leading-relaxed">
-                    {msg}
-                    {isLast && truncated ? "..." : ""}
-                  </p>
-                );
-              })
-            )}
+          <div className="lg:col-span-7 p-6 md:p-10 relative">
+            <Quote
+              size={64}
+              className="text-orange/15 absolute top-4 right-6 -scale-x-100"
+              aria-hidden
+            />
+            <div className="relative z-10 space-y-3">
+              {isExpanded
+                ? paragraphs.map((msg, idx) => (
+                    <p
+                      key={idx}
+                      className="text-body-gray whitespace-pre-line leading-relaxed"
+                    >
+                      {msg}
+                    </p>
+                  ))
+                : previewParagraphs.map((msg, idx) => {
+                    const isLast = idx === previewParagraphs.length - 1;
+                    return (
+                      <p key={idx} className="text-body-gray leading-relaxed">
+                        {msg}
+                        {isLast && truncated ? "..." : ""}
+                      </p>
+                    );
+                  })}
+            </div>
 
             {showToggle && (
               <Button
                 variant="primary"
                 onClick={() => setIsExpanded((v) => !v)}
                 aria-expanded={isExpanded}
-                className="mt-2"
+                className="mt-6"
               >
                 {isExpanded ? "SHOW LESS" : "READ MORE..."}
               </Button>

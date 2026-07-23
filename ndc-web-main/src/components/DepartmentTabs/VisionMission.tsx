@@ -4,7 +4,6 @@ import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Text } from "@mantine/core";
 import departmentJson from "@/data-export/department/data.json";
-import Card from "@/components/ui/Card";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 interface Section {
@@ -23,7 +22,6 @@ export default function VisionMission({ haveContentCheck }: any) {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  // ✅ Build a normalized map once (hook runs before any returns)
   const normalizedMap: Record<string, Section[]> = useMemo(() => {
     if (!apiData) return {};
     const map: Record<string, Section[]> = {};
@@ -38,7 +36,6 @@ export default function VisionMission({ haveContentCheck }: any) {
     [normalizedMap, normalizedProgramme]
   );
 
-  // ✅ Notify parent if the programme key exists in response (true/false)
   useEffect(() => {
     const exists =
       apiData != null &&
@@ -46,7 +43,6 @@ export default function VisionMission({ haveContentCheck }: any) {
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
-  // ---- UI returns after all hooks ----
   if (!apiData) {
     return (
       <p className="text-center text-red-500 mt-4">
@@ -63,32 +59,46 @@ export default function VisionMission({ haveContentCheck }: any) {
 
   return (
     <Reveal>
-      <div className="mb-10 md:mb-20 space-y-6">
-        <RevealGroup className="space-y-6">
+      <div className="space-y-0">
+        <header className="pb-6 mb-2 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Direction
+          </p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
+            Vision & Mission
+          </h1>
+        </header>
+
+        <RevealGroup>
           {content.map((section, index) => (
             <RevealItem key={index}>
-              <Card accent="orange-left" className="p-5 md:p-6">
-                {section.title && (
-                  <h3 className="text-2xl font-semibold text-navy mb-2">
-                    {section.title}
-                  </h3>
-                )}
-
-                {section.description && (
-                  <p className="text-justify mb-4 text-body-gray leading-relaxed">
-                    {section.description}
-                  </p>
-                )}
-                {Array.isArray(section?.points) && section.points.length > 0 && (
-                  <ul className="list-disc ml-6 space-y-2 marker:text-orange">
-                    {section.points.map((point, i) => (
-                      <li key={i} className="text-justify text-body-gray">
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </Card>
+              <article className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-8 py-8 border-b border-navy/10 last:border-b-0">
+                <span className="text-orange font-extrabold text-sm tracking-[0.16em] tabular-nums pt-1">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <div>
+                  {section.title && (
+                    <h3 className="text-2xl font-bold text-navy mb-3 tracking-tight">
+                      {section.title}
+                    </h3>
+                  )}
+                  {section.description && (
+                    <p className="mb-5 text-body-gray leading-relaxed max-w-prose">
+                      {section.description}
+                    </p>
+                  )}
+                  {Array.isArray(section?.points) && section.points.length > 0 && (
+                    <ul className="space-y-3">
+                      {section.points.map((point, i) => (
+                        <li key={i} className="flex items-start gap-3">
+                          <span className="mt-2 w-1.5 h-1.5 shrink-0 bg-orange" />
+                          <span className="text-body-gray leading-relaxed">{point}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </article>
             </RevealItem>
           ))}
         </RevealGroup>

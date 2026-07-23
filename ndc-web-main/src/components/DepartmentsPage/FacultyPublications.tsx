@@ -1,15 +1,15 @@
 "use client";
+
 import { useState } from "react";
-import { Box } from "@mantine/core";
-import SectionHeading from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/Reveal";
+import { User, Book, GraduationCap, Award, Calendar } from "lucide-react";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 const FacultyPublications = ({ data }: any) => {
   const department = data?.Department_Faculties;
   const books = data?.Books_Published;
 
-  // Build tabs only if there is valid data
-  const tabs: Record<string, { type: string; columns: string[]; rows: any[] }> = {};
+  const tabs: Record<string, { type: string; columns: string[]; rows: any[] }> =
+    {};
 
   if (department && (department.TabName || department.columns || department.Rows)) {
     tabs[department?.TabName || "Department Faculties"] = {
@@ -28,120 +28,160 @@ const FacultyPublications = ({ data }: any) => {
   }
 
   const tabKeys = Object.keys(tabs);
+  const [activeTab, setActiveTab] = useState<string>(
+    tabKeys.length > 0 ? tabKeys[0] : ""
+  );
 
-  // Default activeTab to first tab key or empty string if none
-  const [activeTab, setActiveTab] = useState<string>(tabKeys.length > 0 ? tabKeys[0] : "");
-
-  // Only assign activeSection if activeTab is a valid key in tabs
   const activeSection =
     activeTab && tabs[activeTab]
       ? tabs[activeTab]
       : { columns: [], rows: [], type: "" };
 
-  const columns = activeSection.columns || [];
   const rows = activeSection.rows || [];
 
   return (
-    <Reveal as="section">
-      <Box className="mb-20">
-        <SectionHeading
-          title={data.Faculty_And_Publications?.title || "Faculty & Publications"}
-          className="mb-8"
-        />
-
-        {/* Tabs */}
-        {tabKeys.length > 0 ? (
-          <div className="w-full flex flex-col items-start md:flex-row md:justify-start md:space-x-8 mb-8 border-b border-card-border">
-            {tabKeys.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`cursor-pointer text-lg md:text-xl font-semibold pb-3 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                  activeTab === tab
-                    ? "text-navy border-b-4 border-orange"
-                    : "text-body-gray hover:text-navy"
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+    <Reveal as="section" className="relative border-b border-navy/10 bg-surface-light">
+      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-24">
+        <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 lg:mb-14">
+          <div>
+            <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+              Directory
+            </p>
+            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold text-navy tracking-[-0.03em] leading-tight">
+              {data?.title || "Faculty & Publications"}
+            </h2>
           </div>
-        ) : (
-          <div className="text-body-gray">No data to display.</div>
+
+          {tabKeys.length > 0 && (
+            <div className="flex gap-0 border-b border-navy/15">
+              {tabKeys.map((tab) => (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => setActiveTab(tab)}
+                  className={`relative px-5 py-3 text-sm font-semibold transition-colors duration-300 ${
+                    activeTab === tab
+                      ? "text-navy"
+                      : "text-body-gray hover:text-navy"
+                  }`}
+                >
+                  {tab}
+                  {activeTab === tab && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange" />
+                  )}
+                </button>
+              ))}
+            </div>
+          )}
+        </header>
+
+        {tabKeys.length === 0 && (
+          <div className="text-body-gray italic text-center py-12">
+            No data to display.
+          </div>
         )}
 
-        {/* Table */}
-        <div className="overflow-x-auto rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="text-base md:text-lg bg-surface-light text-navy border-b border-card-border text-left">
-                {columns.length > 0 ? (
-                  columns.map((col: string, index: number) => (
-                    <th
-                      key={index}
-                      className="p-3 border-r border-card-border font-semibold last:border-r-0"
-                    >
-                      {col}
-                    </th>
-                  ))
+        {rows.length > 0 ? (
+          <RevealGroup className="flex flex-col border-t border-navy/10">
+            {rows.map((row: any, idx: number) => (
+              <RevealItem key={idx}>
+                {activeSection.type === "department" ? (
+                  <article className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 py-6 border-b border-navy/10 group hover:bg-white/70 transition-colors duration-300 -mx-2 px-2">
+                    <div className="md:col-span-1 flex items-start">
+                      <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-1">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <div className="md:col-span-4 flex items-start gap-3">
+                      <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-navy/5 text-navy group-hover:bg-orange group-hover:text-white transition-colors duration-300">
+                        <User size={18} />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-navy text-lg leading-tight">
+                          {row.name}
+                        </h3>
+                        <p className="text-orange text-sm font-medium mt-1">
+                          {row.designation}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="md:col-span-3 flex items-start gap-2">
+                      <Award size={16} className="text-navy/30 mt-1 shrink-0" />
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.16em] text-body-gray/70 font-bold mb-0.5">
+                          Department & Exp
+                        </p>
+                        <p className="text-sm text-body-gray">
+                          {row.department}
+                          {row.experience ? ` · ${row.experience}` : ""}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="md:col-span-4 flex items-start gap-2">
+                      <GraduationCap
+                        size={16}
+                        className="text-navy/30 mt-1 shrink-0"
+                      />
+                      <div>
+                        <p className="text-[10px] uppercase tracking-[0.16em] text-body-gray/70 font-bold mb-0.5">
+                          Qualification
+                        </p>
+                        <p className="text-sm text-body-gray">{row.qualification}</p>
+                      </div>
+                    </div>
+                  </article>
                 ) : (
-                  <th className="p-3">No columns found</th>
+                  <article className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 py-6 border-b border-navy/10 group hover:bg-white/70 transition-colors duration-300 -mx-2 px-2">
+                    <div className="md:col-span-1 flex items-start">
+                      <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-1">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                    <div className="md:col-span-5 flex items-start gap-3">
+                      <div className="w-10 h-10 shrink-0 flex items-center justify-center bg-navy/5 text-navy group-hover:bg-orange group-hover:text-white transition-colors duration-300">
+                        <Book size={18} />
+                      </div>
+                      <h3 className="font-bold text-navy text-lg leading-snug">
+                        {row.Book_Title}
+                      </h3>
+                    </div>
+                    <div className="md:col-span-2">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-body-gray/70 font-bold mb-0.5">
+                        Author
+                      </p>
+                      <p className="text-sm font-medium text-navy">{row.Name}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-body-gray/70 font-bold mb-0.5">
+                        Edition
+                      </p>
+                      <p className="text-sm font-medium text-orange">{row.Edition}</p>
+                    </div>
+                    <div className="md:col-span-2">
+                      <p className="text-[10px] uppercase tracking-[0.16em] text-body-gray/70 font-bold mb-0.5">
+                        Publisher
+                      </p>
+                      <p className="text-sm text-body-gray line-clamp-2">
+                        {row.Publication_House}
+                      </p>
+                      <p className="text-xs text-body-gray/70 mt-1 flex items-center gap-1">
+                        <Calendar size={12} />
+                        {row.year_of_publishing}
+                      </p>
+                    </div>
+                  </article>
                 )}
-              </tr>
-            </thead>
-            <tbody>
-              {rows.length > 0 ? (
-                rows.map((row: any, idx: number) => (
-                  <tr
-                    key={idx}
-                    className="bg-white border-b border-card-border text-navy last:border-b-0 hover:bg-surface-light transition-colors duration-200"
-                  >
-                    {activeSection.type === "department" ? (
-                      <>
-                        <td className="md:py-4 px-3 border-r border-card-border text-center">
-                          {row.Slno || idx + 1}
-                        </td>
-                        <td className="md:py-4 px-3 border-r border-card-border">
-                          <div className="font-semibold">{row.name}</div>
-                          <div className="text-body-gray">{row.designation}</div>
-                        </td>
-                        <td className="md:py-4 px-3 border-r border-card-border text-body-gray">
-                          {row.department} {row.experience ? "-" : ""} {row.experience}
-                        </td>
-                        <td className="md:py-4 px-3 text-body-gray">
-                          {row.qualification}
-                        </td>
-                      </>
-                    ) : (
-                      <>
-                        <td className="md:py-4 px-3 border-r border-card-border text-center">
-                          {row.Slno || idx + 1}
-                        </td>
-                        <td className="md:py-4 px-3 border-r border-card-border">
-                          <div className="font-semibold">{row.Name}</div>
-                          <div className="text-body-gray">{row.Publication_House}</div>
-                        </td>
-                        <td className="md:py-4 px-3 border-r border-card-border text-body-gray">
-                          {row.Book_Title}
-                        </td>
-                        <td className="md:py-4 px-3 text-body-gray">
-                          {row.Edition} {row.year_of_publishing}
-                        </td>
-                      </>
-                    )}
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan={columns.length || 1} className="p-3 text-center text-body-gray">
-                    No records found
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </Box>
+              </RevealItem>
+            ))}
+          </RevealGroup>
+        ) : (
+          tabKeys.length > 0 && (
+            <div className="border border-dashed border-navy/15 py-16 text-center text-body-gray">
+              No records found for {activeTab}
+            </div>
+          )
+        )}
+      </div>
     </Reveal>
   );
 };

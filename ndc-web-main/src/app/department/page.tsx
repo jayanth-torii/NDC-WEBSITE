@@ -1,37 +1,24 @@
 "use client";
 
-import React, {Suspense} from "react";
-import { Box } from "@mantine/core";
+import React, { Suspense } from "react";
 
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import DepartmentTabs from "@/components/DepartmentTabs/DepartmentTabs";
 import HeroCourse from "@/components/DepartmentTabs/HeroCourse";
-// import HeroCourse from "@/components/HeroCourse/HeroCourse";
-
-
 
 const Department = () => {
+  return (
+    <main className="min-h-screen flex flex-col w-full overflow-x-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_40%,#f1f5f9_100%)]">
+      <Suspense>
+        <HeroCourse />
+      </Suspense>
 
-    return (
-        <div className="m-auto w-[90%]">
-    
+      <div className="relative pb-20 lg:pb-28">
         <Suspense>
-            <HeroCourse/>
+          <DepartmentTabs />
         </Suspense>
+      </div>
+    </main>
+  );
+};
 
-        <Suspense>
-            <Breadcrumb className="ml-0"/>
-        </Suspense>
-    
-
-        <Suspense>
-            <DepartmentTabs/>
-        </Suspense>
-            
-     
-        </div>
-
-    )
-}
-
-export default Department
+export default Department;
