@@ -4,7 +4,7 @@ import React, { useState, Suspense } from "react";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import BlogCards from "@/components/BlogsPage/BlogCard";
 import Pagination from "@/components/BlogsPage/Pagination";
-import BlogsBanner from "@/components/BlogsPage/BlogsBanner";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 
 import pageJson from "@/data-export/blog/data.json";
 
@@ -30,15 +30,16 @@ const BlogList = () => {
   }
 
   return (
-    <div className="m-auto w-[90%] mb-20">
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner 
+        eyebrow={bannerSection?.eyebrow || "Insights & Updates"}
+        title={bannerSection?.title || "BLOG"}
+        subtitle={bannerSection?.subtitle || "Discover the latest news, ideas, and academic insights from Nagarjuna Degree College."}
+        image={bannerSection?.image || "https://cdn.nagarjunadegreecollege.co.in/Rectangle_174_8969614918.png"}
+      />
 
-      <BlogsBanner data={bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
-      <BlogCards displayedArticles={displayed} />
+      <div className="container mx-auto px-4 lg:px-8 py-20 lg:py-28">
+        <BlogCards displayedArticles={displayed} />
 
       <Pagination
         totalPages={totalPages}
@@ -48,7 +49,8 @@ const BlogList = () => {
         totalArticles={blogsData.length}
       />
       
-    </div>
+      </div>
+    </main>
   );
 };
 

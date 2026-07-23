@@ -11,6 +11,7 @@ import Yrs25 from "@/components/HomePage/Yrs25"
 import LifeAtNDC from "@/components/HomePage/LifeAtNDC";
 import Notifications from "@/components/HomePage/Notifications"
 import Blogs from "@/components/HomePage/Blogs"
+import PlacementPartners from "@/components/HomePage/PlacementPartners"
 
 import landingJson from "@/data-export/_landing/data.json";
 
@@ -45,6 +46,7 @@ const Landing = () => {
             <LifeAtNDC data={CampusLife}/>
             <Education data={EducationExcellence}/>
             <Notifications data={NotificationsData}/>
+            <PlacementPartners />
             <Blogs/>
         </div>
     )

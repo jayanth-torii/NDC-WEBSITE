@@ -1,13 +1,9 @@
 "use client";
 
-import React, { Suspense } from "react";
-import { Box } from "@mantine/core";
-
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import AlumniBanner from "@/components/Alumni/AlumniBanner";
+import React from "react";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import VisionMission from "@/components/Alumni/VisionMission";
 import Association from "@/components/Alumni/Association";
-
 import pageJson from "@/data-export/alumni/data.json";
 
 const Alumni = () => {
@@ -18,17 +14,18 @@ const Alumni = () => {
   }
 
   return (
-    <Box style={{ margin: "auto", width: "90%" }}>
-      <AlumniBanner data={alumniData.BannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner 
+        eyebrow={alumniData.BannerSection.eyebrow}
+        title={alumniData.BannerSection.title} 
+        subtitle={alumniData.BannerSection.subtitle}
+        image={alumniData.BannerSection.image} 
+      />
 
       <VisionMission data={alumniData.VisionMission} />
 
       <Association data={alumniData.AlumniAssciation} />
-    </Box>
+    </main>
   );
 };
 

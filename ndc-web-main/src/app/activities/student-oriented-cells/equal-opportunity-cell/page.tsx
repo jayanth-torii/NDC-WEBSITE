@@ -1,9 +1,8 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
 import pageJson from "@/data-export/activities/student-oriented-cells/equal-opportunity-cell/data.json";
@@ -16,17 +15,20 @@ function EqualOpportunityCell() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
+    <ActivitiesPageShell
+      eyebrow="Student Oriented Cells"
+      title="Equal Opportunities Cell"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Student Oriented Cells", path: "/activities#Student%20Oriented%20Cells" },
+        { label: "Equal Opportunity Cell" },
+      ]}
+    >
       <About data={data.AboutVisionMissionSections} />
 
       <AntiragginCommitte data={data.Table} />
-    </div>
+    </ActivitiesPageShell>
   );
 }
 

@@ -2,7 +2,9 @@
   "sports": {
     "data": {
       "BannerSection": {
-        "title": "Sports",
+        "eyebrow": "NDC Sports & Athletics",
+        "title": "Physical Education & Sports",
+        "subtitle": "Achieving excellence in sports through innovative programs, coaching, and a holistic approach to student wellness.",
         "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_1_969d4e20e8.png"
       },
       "aboutSections": {

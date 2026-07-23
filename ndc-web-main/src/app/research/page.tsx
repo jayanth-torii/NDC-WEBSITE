@@ -16,7 +16,9 @@ const ResearchPage = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <GlobalBanner
+        eyebrow={researchData.BannerSection?.eyebrow}
         title={researchData.BannerSection?.title || "Research"}
+        subtitle={researchData.BannerSection?.subtitle}
         image={researchData.BannerSection?.image}
         breadcrumbs={[
           { label: "Home", path: "/" },

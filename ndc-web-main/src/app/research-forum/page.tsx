@@ -1,12 +1,8 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { Box } from "@mantine/core";
-
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import ResearchForumBanner from "@/components/ResearchForum/ResearchForumBanner";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import Forum from "@/components/ResearchForum/Forum";
-
 import pageJson from "@/data-export/research-forum/data.json";
 
 const ResearchForum = () => {
@@ -17,15 +13,16 @@ const ResearchForum = () => {
   }
 
   return (
-    <Box style={{ margin: "auto", width: "90%" }}>
-      <ResearchForumBanner data={ResearchForumData.BannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner 
+        eyebrow={ResearchForumData.BannerSection.eyebrow}
+        title={ResearchForumData.BannerSection.title}
+        subtitle={ResearchForumData.BannerSection.subtitle}
+        image={ResearchForumData.BannerSection.image}
+      />
 
       <Forum data={ResearchForumData.ResearchForum} />
-    </Box>
+    </main>
   );
 };
 

@@ -1,10 +1,7 @@
 "use client";
 
 import React, { Suspense } from "react";
-import { Box } from "@mantine/core";
-
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import SportsBanner from "@/components/Sports/SportsBanner";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import AboutSections from "@/components/Sports/AboutSections";
 import HodMessage from "@/components/Sports/HodMessage";
 import Gallery from "@/components/Sports/Gallery";
@@ -19,12 +16,13 @@ const Sports = () => {
   }
 
   return (
-    <Box style={{ margin: "auto", width: "90%" }}>
-      <SportsBanner data={sportsData.BannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner 
+        eyebrow={sportsData.BannerSection.eyebrow}
+        title={sportsData.BannerSection.title}
+        subtitle={sportsData.BannerSection.subtitle}
+        image={sportsData.BannerSection.image}
+      />
 
       <AboutSections data={sportsData.aboutSections} />
     
@@ -32,7 +30,7 @@ const Sports = () => {
 
       <Gallery data={sportsData.gallerySection} />
       
-    </Box>
+    </main>
   );
 };
 

@@ -1,9 +1,8 @@
 "use client"
 
-import React, { Suspense } from 'react'
+import React from 'react'
 
-import Breadcrumb from '@/components/CommonComponents/BreadCrumb'
-import ActivitiesBanner from '@/components/Activities/ActivitiesBanner'
+import GlobalBanner from '@/components/GlobalBanner/GlobalBanner'
 import KnowEverything from '@/components/Activities/KnowEverything'
 import CulturalActivities from '@/components/Activities/CulturalActivities'
 import CulturalLeadershipActivities from '@/components/Activities/CulturalLeadershipActivities'
@@ -41,19 +40,22 @@ function Activities() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <ActivitiesBanner data={data?.BannerSection} />
+    <main className="min-h-screen bg-gray-50 flex flex-col w-full overflow-hidden">
+      <GlobalBanner
+        eyebrow="Extracurriculars"
+        title={data?.BannerSection?.title || "Activities"}
+        image={data?.BannerSection?.image}
+        breadcrumbs={[{ label: "Home", path: "/" }, { label: "Activities" }]}
+      />
 
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-24">
+        <KnowEverything data={data?.Know_Every_Thing} />
 
-      <KnowEverything data={data?.Know_Every_Thing} />
+        <CulturalActivities data={data?.Activities} />
 
-      <CulturalActivities data={data?.Activities} />
-
-      <CulturalLeadershipActivities data={data?.Cultural_And_Leadership_Activities} />
-    </div>
+        <CulturalLeadershipActivities data={data?.Cultural_And_Leadership_Activities} />
+      </div>
+    </main>
   )
 }
 

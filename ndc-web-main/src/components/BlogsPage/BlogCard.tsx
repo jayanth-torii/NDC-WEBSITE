@@ -1,6 +1,6 @@
 import React from "react";
 import BlogCard from "@/components/BlogsPage/ArticleCard";
-import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { Reveal } from "@/components/ui/Reveal";
 
 interface BlogCardsProps {
     displayedArticles: { id: number; title: string; category: string; description: string; date: string }[];
@@ -8,17 +8,17 @@ interface BlogCardsProps {
 
 const BlogCards = ({ displayedArticles } : any) => {
     return (
-        <RevealGroup className="gap-6 text-base text-justify">
-            {displayedArticles.length > 0 ? (
-                displayedArticles.map((article: any) => (
-                    <RevealItem key={article.id}>
-                        <BlogCard article={article} />
-                    </RevealItem>
-                ))
-            ) : (
-                <p className="text-justify text-body-gray">No articles found.</p>
-            )}
-        </RevealGroup>
+        <Reveal>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                {displayedArticles.length > 0 ? (
+                    displayedArticles.map((article: any) => (
+                        <BlogCard key={article.id} article={article} />
+                    ))
+                ) : (
+                    <p className="text-justify text-gray-500 col-span-full">No articles found.</p>
+                )}
+            </div>
+        </Reveal>
     );
 };
 

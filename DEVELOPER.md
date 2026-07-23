@@ -41,6 +41,40 @@ The site used to fetch all content live from a Strapi CMS (`https://cms.nagarjun
 
 **Validation:** `npx tsc --noEmit` → 0 errors. `npx next build` → all 42 routes compile and statically prerender with 0 errors.
 
-## Known trade-off
+## UI Redesign & GlobalBanner migration
+
+### Commit `169c827` — "UI Redesign" (already committed, 149 files, +5434/-4569)
+
+The one-line git message ("Complete structural and aesthetic overhaul of Gallery, Students, Research, Admissions, and About pages... unified GlobalBanner system") undersells the actual scope — it was a combined snapshot of everything sitting uncommitted in the working tree at the time. Fuller breakdown of what's actually in it:
+
+- **New shared design-system primitives** in `src/components/ui/`: `Button`, `Card`, `IconChip`, `Kicker`, `PageBanner`, `Reveal` (scroll-reveal, respects `prefers-reduced-motion`), `SectionHeading`.
+- **New `GlobalBanner` component** (`src/components/GlobalBanner/`) — a single banner component (eyebrow / title / subtitle / image / facts / breadcrumbs) intended to replace the ~15 one-off `*Banner.tsx` components that used to exist per page.
+- **Header/Footer/Navbar rebuilt as a single unified header**, styled after the sibling NCET site: `Header.tsx` rewritten with dropdown nav groups (Academics, Students) + mobile drawer + Apply Now CTA; `Footer.tsx` rewritten with glass-card link columns, Toll Free/Email/Address contact rows, a social icon rail, and a "Powered by Torii Minds" credit; the old `Navbar.tsx` (dark utility bar + site search) was deleted, its links folded into the new Header. `next.config.ts` updated with the Torii Minds S3 image domain.
+- **Global theme**: `globals.css` and `layout.tsx` updated for the design tokens the new components rely on.
+- **Per-page visual redesign** using the new `ui/` primitives, touching effectively every content component across: Home, About NDC, Admissions, Contact Us, Departments (`DepartmentTabs` + `DepartmentsPage`), Students, Activities, Alumni, Gallery, Research, Library, Question Bank, Certificate Courses, IQAC, IIC, Samashti, Sports, Blog, and the shared `Breadcrumb`/`CommonComponents`.
+
+### Uncommitted, in progress — remaining pages onto `GlobalBanner`
+
+At the time of writing, these are modified/added but **not yet committed**:
+
+- **Banner content added to data-export JSON** (`eyebrow` + `subtitle` fields, matching the Sports/Alumni pattern) for: `alumni`, `blog`, `iic`, `iqac`, `research`, `research-forum`, `sports`.
+- **Pages wired onto `GlobalBanner`**, dropping their last dedicated banner component: `alumni/page.tsx`, `blog/page.tsx` + `blog/[id]/page.tsx`, `iic/page.tsx`, `iqac/page.tsx`, `research/page.tsx`, `research-forum/page.tsx`, `sports/page.tsx`. Deleted: `BlogsBanner.tsx`, `IICBanner.tsx`, `IqacBanner.tsx`, `ResearchForumBanner.tsx`, `SportsBanner.tsx`.
+- **Supporting section redesigns**: `AboutNDC/OurCampus.tsx`, `AboutNDC/PrincipalMessage.tsx`, `Alumni/Association.tsx`, `Alumni/VisionMission.tsx`, `BlogsPage/ArticleCard.tsx`, `BlogsPage/BlogCard.tsx`, `IIC/IICMembers.tsx`, `IQAC/About.tsx`, `IQAC/CompositionCell.tsx`, `ResearchForum/Forum.tsx`, `Sports/AboutSections.tsx`, `Sports/Gallery.tsx`, `Sports/HodMessage.tsx`.
+- **New untracked CSS files** (need `git add`, not just modified): `src/app/alumni/alumni-exact.css`, `src/components/AboutNDC/about-ndc.css`.
+- **Also untracked, not part of this feature work** — needs a decision before the next commit: `temp_contact.html` (looks like a scratch file at the repo root) and `NCET-main/` (a full separate project folder, presumably the sibling institution's site kept locally for design reference — likely belongs in `.gitignore` rather than getting committed).
+
+**Suggested commit message for the pending work above:**
+
+```
+Migrate remaining pages onto GlobalBanner (Alumni, Blog, IIC, IQAC, Research, Research Forum, Sports)
+
+- Add eyebrow/subtitle banner content to data-export JSON for the 7 remaining pages
+- Wire each page's GlobalBanner from that data, removing the last per-page Banner components
+- Redesign supporting sections (About NDC campus/principal message, Alumni association/vision,
+  Blog cards, IIC members, IQAC about/composition, Research Forum, Sports about/gallery/HOD message)
+  to match the ui/ design system introduced in 169c827
+```
+
+
 
 Content is now a frozen snapshot (taken 2026-07-22). Future edits made in the Strapi admin panel will **not** appear on the live site until someone reruns the CMS export and rebuilds/redeploys `ndc-web-main`. There is currently no automated refresh — worth adding an npm script (or a scheduled job) if the CMS is still the intended editing surface for content.

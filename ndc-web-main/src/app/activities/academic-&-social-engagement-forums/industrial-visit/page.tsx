@@ -1,8 +1,7 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
 import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/industrial-visit/data.json";
@@ -15,15 +14,18 @@ function IndustrialVisit() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
+    <ActivitiesPageShell
+      eyebrow="Academic & Social Engagement Forums"
+      title="Industrial Visit"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Academic & Social Engagement Forums", path: "/activities#Academic%20%26%20Social%20Engagement%20Forums" },
+        { label: "Industrial Visit" },
+      ]}
+    >
       <Procedure data={data.IndustrialVisit} />
-    </div>
+    </ActivitiesPageShell>
   );
 }
 

@@ -1,45 +1,40 @@
 "use client";
 
-import React, {Suspense} from "react";
-import { Box } from "@mantine/core";
-
-// import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-const Breadcrumb = React.lazy(() => import("@/components/Breadcrumb/Breadcrumb"));
-import SamashtiBanner from "@/components/SamashtiPage/SamashtiBanner";
-import SamashtiAbout from "@/components/SamashtiPage/SamashtiAbout";
-import ViewEditions from "@/components/SamashtiPage/ViewEditions";
-
+import React, { Suspense } from "react";
+import SamashtiHero from "@/components/Samashti/SamashtiHero";
+import SamashtiAbout from "@/components/Samashti/SamashtiAbout";
+import SamashtiFeatures from "@/components/Samashti/SamashtiFeatures";
+import SamashtiEditions from "@/components/Samashti/SamashtiEditions";
+import SamashtiCTA from "@/components/Samashti/SamashtiCTA";
 import samashtiJson from "@/data-export/samashti/data.json";
 
+const Breadcrumb = React.lazy(() => import("@/components/Breadcrumb/Breadcrumb"));
 
 const Samashti = () => {
-
   const data: any = (samashtiJson["samashti"] as any)?.data?.[0] || null;
 
-    if (!data) {
-      return null;
-    }
+  if (!data) {
+    return null;
+  }
 
+  const { BannerSection, About, Editions } = data;
 
-    console.log(data);
-
-    const { BannerSection, About, Editions } = data;
-
-
-    return (
-        <Box style={{ margin: "auto", width: "90%" }}>
-          <SamashtiBanner data={ BannerSection} />
+  return (
+    <main className="bg-white min-h-screen">
+      <SamashtiHero data={BannerSection} />
       
-          <Suspense>
-            <Breadcrumb className="ml-0" />
-          </Suspense>
-      
-          <SamashtiAbout data={ About} />
-      
-          <ViewEditions data={ Editions} />
-        </Box>
-      );
-      
-}
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl mt-4">
+        <Suspense>
+          <Breadcrumb className="ml-0" />
+        </Suspense>
+      </div>
 
-export default Samashti
+      <SamashtiAbout data={About} />
+      <SamashtiFeatures />
+      <SamashtiEditions data={Editions} />
+      <SamashtiCTA />
+    </main>
+  );
+};
+
+export default Samashti;

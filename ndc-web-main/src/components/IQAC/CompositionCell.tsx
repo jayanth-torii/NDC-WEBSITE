@@ -1,43 +1,70 @@
+"use client";
 
 import React from "react";
-import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
 const CompositionCell = ({ data }: any) => {
-  const title = data.title;
-  const table = data.tableSection || [];
+  const title = data?.title || "Composition of IQAC Cell";
+  const table = data?.tableSection || [];
+
+  if (!table.length) return null;
 
   return (
-    <Reveal as="section" className="mb-10 md:mb-20">
-      <SectionHeading title={title} className="mb-6" />
+    <section className="py-20 lg:py-28 bg-gray-50 relative overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8">
+        
+        <Reveal>
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <span className="inline-flex items-center justify-center gap-3 text-orange-500 font-bold tracking-[2.4px] uppercase text-sm mb-4">
+              <span className="w-8 h-[2px] bg-orange-500 rounded-full" />
+              Members
+              <span className="w-8 h-[2px] bg-orange-500 rounded-full" />
+            </span>
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-[#0e2455] tracking-tight">
+              {title}
+            </h2>
+          </div>
+        </Reveal>
 
-      <div className="overflow-x-auto rounded-[18px] border border-card-border shadow-[var(--shadow-card)]">
-        <table className="w-full text-navy border-collapse">
-          <thead className="text-base md:text-lg">
-            <tr className="bg-surface-light border-b border-card-border">
-              <th className="py-3 px-4 border-r border-card-border font-semibold">Sl.No</th>
-              <th className="py-3 px-4 border-r border-card-border text-start font-semibold">Name &amp; Designation</th>
-              <th className="py-3 px-4 text-start font-semibold">Category</th>
-              {/* <th className="py-2 px-4 border border-gray-300 text-start">Contact</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {table.map((row: any, index: number) => (
-              <tr key={index} className="text-center border-b border-card-border last:border-b-0 hover:bg-surface-light transition-colors duration-200">
-                <td className="py-3 px-4 border-r border-card-border">{index + 1}</td>
-                <td className="py-3 px-4 border-r text-start border-card-border">
-                  <strong>{row.name}</strong>
-                  <br />
-                  <span className="text-body-gray">{row.designation}</span>
-                </td>
-                <td className="py-3 px-4 text-start text-body-gray">{row.role}</td>
-                {/* <td className="py-2 px-4 border text-start border-gray-300">{row?.contact}</td> */}
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Reveal delay={0.2}>
+          <div className="max-w-6xl mx-auto bg-white rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="bg-[#0e2455] text-white">
+                    <th className="py-5 px-6 font-semibold text-sm uppercase tracking-wider w-20 text-center">Sl.No</th>
+                    <th className="py-5 px-6 font-semibold text-sm uppercase tracking-wider">Name & Designation</th>
+                    <th className="py-5 px-6 font-semibold text-sm uppercase tracking-wider">Category / Role</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {table.map((row: any, index: number) => (
+                    <tr 
+                      key={index} 
+                      className="hover:bg-gray-50 transition-colors duration-200 group"
+                    >
+                      <td className="py-5 px-6 text-center text-gray-400 font-medium group-hover:text-orange-500 transition-colors">
+                        {String(index + 1).padStart(2, '0')}
+                      </td>
+                      <td className="py-5 px-6">
+                        <div className="font-bold text-[#0e2455] text-lg mb-1">{row.name?.trim()}</div>
+                        <div className="text-gray-500 text-sm font-medium">{row.designation?.trim()}</div>
+                      </td>
+                      <td className="py-5 px-6">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-sm font-medium border border-blue-100">
+                          {row.role?.trim()}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </Reveal>
+
       </div>
-    </Reveal>
+    </section>
   );
 };
 

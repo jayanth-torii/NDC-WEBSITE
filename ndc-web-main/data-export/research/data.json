@@ -3,7 +3,9 @@
     "data": [
       {
         "BannerSection": {
-          "title": "research ",
+          "eyebrow": "NDC Research",
+          "title": "Research Publications",
+          "subtitle": "Peer-reviewed papers and scholarly work published by NDC faculty across Scopus-indexed, UGC-approved, and other recognized journals.",
           "image": "https://cdn.nagarjunadegreecollege.co.in/Research_1_f5caa611bb.svg"
         },
         "ResearchPublications": {

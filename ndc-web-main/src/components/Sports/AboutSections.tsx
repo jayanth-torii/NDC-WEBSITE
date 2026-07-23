@@ -1,123 +1,101 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChevronDown } from "lucide-react";
-
-const EASE = "ease-[cubic-bezier(0.23,1,0.32,1)]";
+import React from "react";
+import { Target, Activity, CheckCircle2 } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
 
 const AboutSections = ({ data }: { data: any }) => {
-  const [openSection, setOpenSection] = useState<number | null>(null);
+  if (!data || !data.sections) return null;
 
-  const toggleAccordion = (index: number) => {
-    setOpenSection(openSection === index ? null : index);
-  };
-
-  // Combine Our Vision & Our Mission
   const vision = data.sections.find((s: any) => s.title === "Our Vision");
   const mission = data.sections.find((s: any) => s.title === "Our Mission");
-
-  const combinedSection = {
-    title: "Our Vision & Mission",
-    innerSections: [
-      {
-        title: vision?.title || "",
-        description: vision?.description || "",
-        list: Array.isArray(vision?.points) ? vision.points : [],
-      },
-      {
-        title: mission?.title || "",
-        description: mission?.description || "",
-        list: Array.isArray(mission?.points) ? mission.points : [],
-      },
-    ],
-  };
-
-  // Filter rest of sections (excluding vision & mission)
-  const restSections = data.sections.filter(
-    (s: any) => s.title !== "Our Vision" && s.title !== "Our Mission"
-  );
-
-  // Final accordion sections to render
-  const accordionSections = [combinedSection, ...restSections];
+  const objectives = data.sections.find((s: any) => s.title === "Objectives");
 
   return (
-    <div className="mb-10 md:mb-20">
-      {/* Title & Description */}
-      {data.title && (
-        <div className="mb-6">
-          <h1 className="text-3xl font-extrabold tracking-[-0.5px] text-navy sm:text-4xl">
-            {data.title}
-          </h1>
-        </div>
-      )}
-
-      {/* Accordion Sections */}
-      <div className="space-y-4">
-        {accordionSections.map((section: any, index: number) => {
-          const isOpen = openSection === index;
-          return (
-            <div
-              key={index}
-              className={`overflow-hidden rounded-[14px] border bg-white shadow-[var(--shadow-card)] transition-all duration-250 ${EASE} ${
-                isOpen ? "border-card-border-hover" : "border-card-border"
-              }`}
-            >
-              <button
-                className="flex w-full cursor-pointer items-center justify-between gap-4 px-5 py-4 text-left"
-                onClick={() => toggleAccordion(index)}
-              >
-                <span className="text-xl font-semibold text-navy">
-                  {section.title}
-                </span>
-                <ChevronDown
-                  className={`h-5 w-5 shrink-0 text-orange transition-transform duration-250 ${EASE} ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-
-              {isOpen && (
-                <div className="space-y-6 border-t border-card-border bg-surface-light px-6 py-4">
-                  {/* If combined section with innerSections */}
-                  {section.innerSections ? (
-                    section.innerSections.map((inner: any, i: number) => (
-                      <div key={i}>
-                        <h3 className="mb-1 text-lg font-semibold text-navy">
-                          {inner.title}
-                        </h3>
-                        {inner.description && (
-                          <p className="mb-2 text-base text-body-gray">{inner.description}</p>
-                        )}
-                        {inner.list?.length > 0 && (
-                          <ul className="ml-5 list-disc space-y-1 marker:text-orange">
-                            {inner.list.map((item: string, j: number) => (
-                              <li key={j} className="text-base text-body-gray">{item}</li>
-                            ))}
-                          </ul>
-                        )}
-                      </div>
-                    ))
-                  ) : (
-                    <>
-                      {section.description && (
-                        <p className="mb-2 text-base text-body-gray">{section.description}</p>
-                      )}
-                      {section.points?.length > 0 && (
-                        <ul className="ml-5 list-disc space-y-1 marker:text-orange">
-                          {section.points.map((item: string, i: number) => (
-                            <li key={i} className="text-base text-body-gray">{item}</li>
-                          ))}
-                        </ul>
-                      )}
-                    </>
-                  )}
+    <section className="py-20 lg:py-28 bg-white relative overflow-hidden">
+      <div className="container mx-auto px-4 lg:px-8">
+        
+        {/* Vision & Mission Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16 lg:mb-20">
+          {/* Vision Card */}
+          {vision && (
+            <Reveal delay={0.1}>
+              <div className="h-full relative rounded-3xl p-8 lg:p-10 bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-orange-50 text-orange-500 flex items-center justify-center mb-8">
+                  <Target size={28} />
                 </div>
-              )}
+                <h3 className="text-2xl font-bold text-[#0e2455] mb-4">{vision.title}</h3>
+                <p className="text-gray-600 text-lg leading-relaxed">{vision.description}</p>
+                {vision.points?.length > 0 && (
+                  <ul className="mt-6 space-y-3">
+                    {vision.points.map((pt: string, i: number) => (
+                      <li key={i} className="flex gap-3 text-gray-600">
+                         <span className="w-1.5 h-1.5 rounded-full bg-orange-400 mt-2.5 flex-shrink-0" />
+                         <span className="leading-relaxed">{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </Reveal>
+          )}
+
+          {/* Mission Card */}
+          {mission && (
+            <Reveal delay={0.2}>
+              <div className="h-full relative rounded-3xl p-8 lg:p-10 bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.08)] transition-all duration-300">
+                <div className="w-14 h-14 rounded-2xl bg-blue-50 text-[#0e2455] flex items-center justify-center mb-8">
+                  <Activity size={28} />
+                </div>
+                <h3 className="text-2xl font-bold text-[#0e2455] mb-4">{mission.title}</h3>
+                {mission.description && <p className="text-gray-600 text-lg leading-relaxed mb-6">{mission.description}</p>}
+                {mission.points?.length > 0 && (
+                  <ul className="space-y-4">
+                    {mission.points.map((pt: string, i: number) => (
+                      <li key={i} className="flex gap-3 text-gray-600">
+                         <span className="w-1.5 h-1.5 rounded-full bg-[#0e2455] mt-2.5 flex-shrink-0" />
+                         <span className="leading-relaxed">{pt}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </Reveal>
+          )}
+        </div>
+
+        {/* Objectives */}
+        {objectives && (
+          <Reveal delay={0.3}>
+            <div className="relative rounded-3xl p-8 lg:p-12 bg-gradient-to-br from-[#0e2455] to-[#0a1a3f] shadow-[0_24px_54px_rgba(15,18,22,0.16)] overflow-hidden">
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-20"
+                style={{
+                  backgroundImage: 'radial-gradient(rgba(255,255,255,0.4) 1.5px, transparent 1.5px)',
+                  backgroundSize: '24px 24px'
+                }}
+              />
+              <div className="relative z-10">
+                <h3 className="text-center text-3xl font-extrabold text-white mb-10 tracking-tight">
+                  Our Objectives
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+                  {objectives.points?.map((obj: string, i: number) => (
+                    <div key={i} className="flex items-start gap-4 bg-white/5 p-6 rounded-2xl border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-colors">
+                      <span className="flex-shrink-0 w-8 h-8 rounded-xl bg-orange-500/20 text-orange-400 flex items-center justify-center shadow-sm border border-orange-500/20 mt-0.5">
+                        <CheckCircle2 size={18} strokeWidth={2.5} />
+                      </span>
+                      <span className="text-white/90 text-[15px] leading-relaxed font-medium">
+                        {obj}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-          );
-        })}
+          </Reveal>
+        )}
       </div>
-    </div>
+    </section>
   );
 };
 

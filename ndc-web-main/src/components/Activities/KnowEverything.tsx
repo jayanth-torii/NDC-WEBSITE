@@ -1,36 +1,29 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Tabs } from "@mantine/core";
 import { useRouter, usePathname } from "next/navigation";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Shield, Users, BookOpen, Award, Leaf, Scale, HeartHandshake, Target, Lightbulb, Compass, Flag } from "lucide-react";
 import StudentCenterContent from "@/app/Data/StudentCenterContent";
 import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/Reveal";
+import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 
 type Tab =
   | "Student Oriented Cells"
   | "Faculty Oriented Cells"
   | "Academic & Social Engagement Forums";
 
-// Map child slugs -> their parent tab
 const CHILD_TO_TAB: Record<string, Tab> = {
-  // Student Oriented Cells
   "anti-ragging-cell": "Student Oriented Cells",
   "women-cell": "Student Oriented Cells",
   "students-grievance-cell": "Student Oriented Cells",
   "anti-sexual-harassment-cell": "Student Oriented Cells",
   "equal-opportunity-cell": "Student Oriented Cells",
   "eco-clubs": "Student Oriented Cells",
-
-  // Faculty Oriented Cells
   "faculties-welfare": "Faculty Oriented Cells",
   "sc-st-obc-minority-cell": "Faculty Oriented Cells",
   "faculty-study-circle": "Faculty Oriented Cells",
   "ed-cell": "Faculty Oriented Cells",
   "icc-cell": "Faculty Oriented Cells",
-
-  // Academic & Social Engagement Forums
   "ncc-cell": "Academic & Social Engagement Forums",
   "nss-cell": "Academic & Social Engagement Forums",
   "commerce-and-management-forum": "Academic & Social Engagement Forums",
@@ -38,12 +31,13 @@ const CHILD_TO_TAB: Record<string, Tab> = {
   "industrial-visit": "Academic & Social Engagement Forums",
 };
 
-// Map parent route slugs -> tab label
 const parentSlugToTab: Record<string, Tab> = {
   "student-oriented-cells": "Student Oriented Cells",
   "faculty-oriented-cells": "Faculty Oriented Cells",
   "academic-and-social-engagement-forums": "Academic & Social Engagement Forums",
 };
+
+const ICONS = [Shield, Users, BookOpen, Award, Leaf, Scale, HeartHandshake, Target, Lightbulb, Compass, Flag];
 
 const KnowEverything = ({ data }: any) => {
   const { title, description, image } = data ?? {};
@@ -52,11 +46,8 @@ const KnowEverything = ({ data }: any) => {
 
   const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
 
-  // Decide tab from URL hash OR pathname (parent or child) before writing hash
   useEffect(() => {
-    // 1) If hash is present and valid, prefer it
-    const rawHash =
-      typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
+    const rawHash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
     const hash = decodeURIComponent(rawHash);
 
     if (StudentCenterContent.tabsList.includes(hash as Tab)) {
@@ -64,18 +55,13 @@ const KnowEverything = ({ data }: any) => {
       return;
     }
 
-    // 2) Derive from pathname
-    const segments = pathname.split("/").filter(Boolean); // e.g. ["activities","student-oriented-cells","anti-ragging-cell"]
-
-    // Parent present?
+    const segments = pathname.split("/").filter(Boolean);
     for (const seg of segments) {
       if (parentSlugToTab[seg]) {
         setSelectedTab(parentSlugToTab[seg]);
         return;
       }
     }
-
-    // Child present?
     for (const seg of segments) {
       if (CHILD_TO_TAB[seg]) {
         setSelectedTab(CHILD_TO_TAB[seg]);
@@ -83,11 +69,9 @@ const KnowEverything = ({ data }: any) => {
       }
     }
 
-    // 3) Fallback
     setSelectedTab("Student Oriented Cells");
   }, [pathname]);
 
-  // Keep URL hash in sync with the selected tab (but don't overwrite a correct hash)
   useEffect(() => {
     if (!selectedTab) return;
     const desired = `#${selectedTab}`;
@@ -102,88 +86,99 @@ const KnowEverything = ({ data }: any) => {
     router.push(`/activities/${tabPath}/${programmePath}`);
   };
 
-    return (
-        <div className="mb-10 md:mb-20">
-            <header className="mb-6">
-              <SectionHeading title={title ?? StudentCenterContent.title} />
-            </header>
+  const currentProgrammes = selectedTab ? StudentCenterContent.programmeOptions[selectedTab] : [];
 
-            <div className="mb-6 text-lg">
-              <Tabs
-                value={selectedTab ?? undefined}
-                onChange={(value) => setSelectedTab(value as Tab)}
+  return (
+    <div className="mb-24 md:mb-32 relative">
+      <header className="mb-10 text-center flex flex-col items-center">
+        <SectionHeading title={title ?? StudentCenterContent.title} className="mb-2" />
+        <p className="text-body-gray text-[17px] max-w-2xl text-center mt-4">
+          Discover the various cells, forums, and committees that make our campus vibrant and supportive.
+        </p>
+      </header>
+
+      {/* Floating Segmented Tabs */}
+      <div className="flex justify-center mb-12 md:mb-16 relative z-20">
+        <div className="inline-flex overflow-x-auto p-1.5 bg-surface-tint border border-card-border rounded-full shadow-sm max-w-[95vw] md:max-w-full no-scrollbar">
+          {StudentCenterContent.tabsList.map((tab) => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setSelectedTab(tab as Tab)}
+              className={`whitespace-nowrap px-6 md:px-8 py-3.5 rounded-full font-bold text-[14px] md:text-[15px] transition-all duration-500 ease-[var(--ease-editorial)] ${
+                selectedTab === tab
+                  ? "bg-white text-navy shadow-[0_8px_20px_rgba(14,36,85,0.08)] scale-100"
+                  : "bg-transparent text-body-gray hover:text-navy hover:bg-white/50 scale-95 hover:scale-100"
+              }`}
+            >
+              {tab}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Premium Bento Box Layout */}
+      <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
+        
+        {/* Main Hero Card (Spans 2x2 on large screens) */}
+        <RevealItem className="md:col-span-2 lg:col-span-2 xl:col-span-2 md:row-span-2 rounded-[32px] overflow-hidden group min-h-[450px] flex flex-col justify-end border border-card-border shadow-[var(--shadow-card)] relative">
+          <Image
+            src={image ?? StudentCenterContent.imageSrc}
+            alt={selectedTab || "Activities"}
+            fill
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+            className="object-cover transition-transform duration-[2000ms] ease-[var(--ease-editorial)] group-hover:scale-110"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent"></div>
+          
+          <div className="relative z-10 p-8 md:p-12">
+            <h2 className="text-3xl md:text-5xl font-black text-white mb-5 leading-[1.1] tracking-tight drop-shadow-md">
+              {selectedTab}
+            </h2>
+            <div className="w-12 h-1 bg-orange rounded-full mb-6"></div>
+            <p className="text-white/90 text-[16px] md:text-[18px] font-medium leading-relaxed drop-shadow-sm max-w-lg">
+              {description ?? StudentCenterContent.description}
+            </p>
+          </div>
+        </RevealItem>
+
+        {/* Programme Bento Cards */}
+        {currentProgrammes.map((prog: any, i: number) => {
+          const Icon = ICONS[i % ICONS.length];
+          return (
+            <RevealItem 
+              key={i} 
+              className="col-span-1"
+            >
+              <div 
+                onClick={() => handleProgrammeClick(prog.path)}
+                className="bg-white rounded-[32px] p-8 border border-card-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-orange/30 transition-all duration-500 cursor-pointer flex flex-col justify-between group relative overflow-hidden h-full min-h-[240px]"
               >
-                <Tabs.List className="relative flex flex-col md:flex-row border-b border-card-border gap-x-6 text-lg md:text-xl">
-                  {StudentCenterContent.tabsList.map((tab) => (
-                    <Tabs.Tab
-                      key={tab}
-                      value={tab}
-                      className={`text-start !text-lg pb-3 border-b-[3px] -mb-px transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                        selectedTab === tab ? "!text-navy !border-orange !font-bold" : "!text-body-gray !border-transparent hover:!text-navy"
-                      }`}
-                    >
-                      {tab}
-                    </Tabs.Tab>
-                  ))}
-                </Tabs.List>
-              </Tabs>
-            </div>
-
-            <Reveal>
-              <div className="grid grid-cols-1 lg:grid-cols-2 flex-row rounded-[18px] border border-card-border shadow-[var(--shadow-card)] overflow-hidden">
-                <div className="relative w-full h-72 lg:h-full">
-                  {/* Next 13+ prefers fill prop; layout/objectFit are legacy */}
-                  <Image
-                    src={image ?? StudentCenterContent.imageSrc}
-                    alt="Nagarjuna Group of Institutions"
-                    fill
-                    style={{ objectFit: "cover" }}
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                    priority
-                  />
+                {/* Subtle Hover Glow */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-orange/5 rounded-full blur-3xl group-hover:bg-orange/15 transition-colors duration-500 -mr-10 -mt-10 pointer-events-none"></div>
+                
+                <div className="w-14 h-14 rounded-full bg-surface-tint flex items-center justify-center text-navy mb-8 group-hover:-translate-y-1 group-hover:bg-orange group-hover:text-white transition-all duration-500 shadow-sm relative z-10">
+                  <Icon size={24} strokeWidth={1.5} />
                 </div>
-
-                <div>
-                  <div className="flex flex-col w-full h-full bg-white p-6 md:p-8 justify-center">
-                    <p className="text-justify text-body-gray leading-relaxed font-normal mb-8">
-                      {description ?? StudentCenterContent.description}
-                    </p>
-                    <h2 className="text-lg md:text-xl mb-6 pb-3 text-navy font-semibold border-b border-card-border">
-                      Explore {selectedTab ?? "—"}
-                    </h2>
-                    <div className="space-y-3">
-                      {(selectedTab
-                        ? StudentCenterContent.programmeOptions[selectedTab]
-                        : []
-                      ).map((programme: any, index: number) => (
-                        <div
-                          key={index}
-                          className="flex justify-between items-center gap-4 rounded-[14px] border border-card-border bg-surface-tint px-4 py-3 transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-card-border-hover"
-                        >
-                          <span className="text-navy font-medium text-lg">
-                            {programme.name}
-                          </span>
-                          <button
-                            type="button"
-                            className="flex cursor-pointer items-center gap-2 rounded-[8px] bg-orange px-5 py-2 text-sm font-bold text-white transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange-dark"
-                            onClick={() => handleProgrammeClick(programme.path)}
-                          >
-                            View <ArrowRight size={16} />
-                          </button>
-                        </div>
-                      ))}
-                      {!selectedTab && (
-                        <div className="text-sm text-body-gray">
-                          Select a tab to see available programmes.
-                        </div>
-                      )}
-                    </div>
-                  </div>
+                
+                <div className="relative z-10 mb-6">
+                  <h3 className="text-[20px] md:text-[22px] font-bold text-navy leading-[1.3] group-hover:text-orange transition-colors duration-300">
+                    {prog.name}
+                  </h3>
+                </div>
+                
+                {/* Arrow Button */}
+                <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-surface-tint border border-card-border flex items-center justify-center text-navy opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 group-hover:bg-navy group-hover:text-white group-hover:border-navy shadow-lg">
+                  <ArrowRight size={20} />
                 </div>
               </div>
-            </Reveal>
-        </div>
-    );
+            </RevealItem>
+          );
+        })}
+      </RevealGroup>
+    </div>
+  );
 };
 
 export default KnowEverything;

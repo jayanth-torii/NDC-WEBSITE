@@ -25,8 +25,10 @@ const Blogs = () => {
    const swiperRef = useRef<any>(null); // Ref for Swiper instance
 
   return (
-    <Reveal className="bg-surface-tint rounded-[18px] relative flex flex-col items-center justify-center pt-10 m-auto w-[91%] mt-20 mb-10 pb-4">
-      <SectionHeading title="EXPLORE OUR BLOGS" align="center" className="mb-8" />
+    <section className="py-16 md:py-24 bg-white">
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+    <Reveal className="bg-surface-tint rounded-[28px] relative flex flex-col items-center justify-center pt-12 pb-6">
+      <SectionHeading eyebrow="Blog" title="Explore Our Blogs" align="center" className="mb-8" />
       {/* Swiper Slider */}
       <div className="relative w-full max-w-[90%]">
 
@@ -42,7 +44,6 @@ const Blogs = () => {
         spaceBetween={30}
         slidesPerView={1}
         autoplay={{ delay: 2000, disableOnInteraction: false }}
-        // pagination={{ clickable: true }}
         modules={[Pagination, Autoplay]}
         onSwiper={(swiper) => (swiperRef.current = swiper)}
         breakpoints={{
@@ -51,35 +52,36 @@ const Blogs = () => {
           1024: { slidesPerView: 2 },
           1440: { slidesPerView: 3 },
         }}
-        className="h-[490px] relative z-10 mb-5"
+        className="h-[480px] w-full relative z-10 mb-5 pb-8"
       >
       {articles?.map((blog: any, index: any) => (
-        <SwiperSlide key={index}>
-          <Card className="w-full max-w-[320px] md:max-w-[450px] h-[550px] mx-auto flex flex-col px-4 p-6" accent="orange-left">
-            <h3 className="text-xl font-bold mb-3 text-navy">
-              {blog?.title.slice(0, 40)}...
-            </h3>
-            <p className="text-justify mb-4 text-body-gray">
-              {blog?.description.slice(0, 70)}...
-            </p>
-            <div className="w-full flex justify-start">
-              <Button
-                onClick={() => router.push(`blog/${blog.id}`)}
-                variant="primary"
-                className="!px-5 !py-2.5 !text-sm"
-              >
-                VIEW BLOG
-                <ArrowRight size={18} />
-              </Button>
-            </div>
-            <div className="mt-6 w-full h-64 relative rounded-lg overflow-hidden mb-10">
+        <SwiperSlide key={index} className="flex justify-center items-center py-2">
+          <Card className="w-full max-w-[320px] md:max-w-[420px] h-[460px] mx-auto flex flex-col overflow-hidden !p-0" accent="orange-left">
+            <div className="w-full h-44 relative overflow-hidden shrink-0 bg-surface-tint">
               <Image
-                src={blog?.blogImage || "/images/default-blog.png"} // fallback image
+                src={blog?.blogImage || "/images/default-blog.png"}
                 alt={blog?.title}
-                layout="fill"
-                objectFit="contain"
-                className="rounded-lg"
+                fill
+                className="object-cover transition-transform duration-500 ease-[var(--ease-editorial)] group-hover:scale-105"
               />
+            </div>
+            <div className="flex flex-col flex-1 p-6">
+              <h3 className="text-xl font-bold mb-3 text-navy line-clamp-2">
+                {blog?.title}
+              </h3>
+              <p className="text-justify mb-5 text-body-gray line-clamp-2">
+                {blog?.description}
+              </p>
+              <div className="w-full flex justify-start mt-auto">
+                <Button
+                  onClick={() => router.push(`blog/${blog.id}`)}
+                  variant="primary"
+                  className="!px-5 !py-2.5 !text-sm"
+                >
+                  VIEW BLOG
+                  <ArrowRight size={18} />
+                </Button>
+              </div>
             </div>
           </Card>
         </SwiperSlide>
@@ -95,6 +97,8 @@ const Blogs = () => {
         </button>
       </div>
     </Reveal>
+      </div>
+    </section>
   );
 };
 

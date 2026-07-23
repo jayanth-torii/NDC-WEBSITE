@@ -1,9 +1,8 @@
 "use client";
-import React, { Suspense } from "react";
+import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
-import Banner from "@/components/Activities/CommonComponents/Banner";
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 import Images from "@/components/Activities/CommonComponents/Images";
@@ -18,13 +17,16 @@ function StudentsGrievanceRedressalCell() {
   }
 
   return (
-    <div className="m-auto w-[90%]">
-      <Banner data={data.bannerSection} />
-
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
-
+    <ActivitiesPageShell
+      eyebrow="Student Oriented Cells"
+      title="Students Grievance Redressal Cell"
+      image={data.bannerSection?.image}
+      breadcrumbs={[
+        { label: "Home", path: "/" },
+        { label: "Student Oriented Cells", path: "/activities#Student%20Oriented%20Cells" },
+        { label: "Students Grievance Cell" },
+      ]}
+    >
       <About data={data.AboutVisionMissionSections} />
 
       <Procedure data={data.proceduresSection} />
@@ -32,7 +34,7 @@ function StudentsGrievanceRedressalCell() {
       <Images data={data.ImagesSection} />
 
       <AntiragginCommitte data={data.Members} />
-    </div>
+    </ActivitiesPageShell>
   );
 }
 
