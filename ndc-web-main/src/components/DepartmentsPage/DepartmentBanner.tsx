@@ -9,7 +9,7 @@ const DepartmentBanner = ({ data }: any) => {
     <PageBanner
       title={title}
       image={image}
-      className="rounded-xl mt-10 mb-10 md:mb-20"
+      className="rounded-2xl mt-8 mb-12 md:mb-16"
     />
   );
 };

@@ -3,7 +3,8 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 import { DepartmentBanners } from "@/app/Data/DepartmentBanners";
-import PageBanner from "@/components/ui/PageBanner";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
+import { Reveal } from "@/components/ui/Reveal";
 
 const HeroCourse: React.FC = () => {
   const searchParams = useSearchParams();
@@ -18,7 +19,6 @@ const HeroCourse: React.FC = () => {
        "mba": DepartmentBanners.MBA,
        "mca": DepartmentBanners.MCA,
        "m.com": DepartmentBanners.MCom,
-
   };
 
   // Normalize the programme from URL
@@ -26,10 +26,18 @@ const HeroCourse: React.FC = () => {
   const content = contentMapping[normalizedProgramme];
 
   return (
-    <PageBanner
-      title={content?.title ?? "Programme Not Found"}
-      image={content?.image}
-    />
+    <Reveal as="div" className="w-full">
+      <GlobalBanner
+        eyebrow="Department"
+        title={content?.title ?? "Programme Not Found"}
+        image={content?.image}
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Departments", path: "/departments" },
+          { label: content?.title ?? "Programme" },
+        ]}
+      />
+    </Reveal>
   );
 };
 

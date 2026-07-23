@@ -10,20 +10,17 @@ interface ResearchData {
   points?: string[];
 }
 
-// Same normalization as other components
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
 
 const Research = ({ haveContentCheck }: any) => {
   const searchParams = useSearchParams();
   const programme = searchParams.get("programme") || "";
-
   const normalizedProgramme = normalizeKey(programme);
 
+  const apiData: Record<string, ResearchData> =
+    (departmentJson["department-researches"] as any)?.data || {};
 
-    const apiData: Record<string, ResearchData> = (departmentJson["department-researches"] as any)?.data || {};
-
-  // ✅ Normalize keys once (hook before any returns)
   const normalizedMap = useMemo(() => {
     const map: Record<string, ResearchData> = {};
     Object.keys(apiData || {}).forEach((k) => {
@@ -37,7 +34,6 @@ const Research = ({ haveContentCheck }: any) => {
     [normalizedMap, normalizedProgramme]
   );
 
-  // ✅ Notify parent whether programme key exists in response
   useEffect(() => {
     const exists =
       apiData != null &&
@@ -45,53 +41,61 @@ const Research = ({ haveContentCheck }: any) => {
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
-  // ---- UI returns after all hooks ----
-    if (!data) {
-      return (
-        <p className="text-center text-red-500 mt-4">
-          No Research data available.
-        </p>
-      );
-    }
+  if (!data) {
+    return (
+      <p className="text-center text-red-500 mt-4">
+        No Research data available.
+      </p>
+    );
+  }
 
   const points = Array.isArray(data.points) ? data.points : [];
 
   return (
     <Reveal>
-      <div className="mt-10 md:mt-0">
-        <h2 className="text-2xl md:text-3xl font-extrabold mb-5 text-navy tracking-[-0.5px]">{data?.title}</h2>
+      <div>
+        <header className="pb-6 mb-2 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Scholarship
+          </p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
+            {data?.title}
+          </h2>
+        </header>
 
-        <ol className="list-decimal list-outside pl-6 h-[500px] overflow-y-auto custom-scrollbar pr-4">
-          {points?.map((item, idx) => (
-            <li
-              key={idx}
-              className="text-base text-justify ml-2 text-body-gray mb-2 border-b border-card-border py-2"
-            >
-              {item}
-            </li>
-          ))}
-          {points.length === 0 && (
-            <li className="text-base text-justify text-body-gray">
-              No research points available.
-            </li>
+        <div className="max-h-[420px] md:max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
+          {points.length > 0 ? (
+            <ol className="relative border-l-2 border-navy/10 ml-2">
+              {points.map((item, idx) => (
+                <li key={idx} className="relative pl-8 py-4 group">
+                  <span className="absolute left-0 top-6 -translate-x-[calc(50%+1px)] w-2.5 h-2.5 bg-white border-2 border-orange group-hover:bg-orange transition-colors duration-300" />
+                  <div className="flex gap-4 items-start">
+                    <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-0.5 shrink-0">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-body-gray leading-relaxed group-hover:text-navy transition-colors duration-300">
+                      {item}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="text-body-gray py-8">No research points available.</p>
           )}
-        </ol>
+        </div>
 
-        <style jsx>{
-        `.custom-scrollbar::-webkit-scrollbar {
-            width: 8px;
+        <style jsx>{`
+          .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
           }
           .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f8fafc;
+            background: transparent;
           }
           .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #f6872a;
-            border-radius: 4px;
+            background: var(--color-orange);
           }
-          .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: #e5760f;
-          }`
-          }</style>
+        `}</style>
       </div>
     </Reveal>
   );

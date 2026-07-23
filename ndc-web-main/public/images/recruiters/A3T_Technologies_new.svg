@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 80">
+  <circle cx="40" cy="40" r="30" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M40 40 L40 10 A30 30 0 0 1 70 40 Z" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M40 40 L70 40 A30 30 0 0 1 40 70 Z" fill="none" stroke="#333" stroke-width="2"/>
+  <path d="M40 40 L40 70 A30 30 0 0 1 10 40 Z" fill="none" stroke="#333" stroke-width="2"/>
+  <text x="85" y="45" font-family="Arial, sans-serif" font-size="28" fill="#333">A3T Technologies</text>
+  <text x="85" y="60" font-family="Arial, sans-serif" font-size="8" fill="#666" letter-spacing="1">BRINGING TECHNOLOGY TO YOU</text>
+</svg>

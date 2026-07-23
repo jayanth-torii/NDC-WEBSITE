@@ -17,11 +17,11 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, DeptEntry> = (departmentJson["syllabus-details"] as any)?.data || {};
+  const apiData: Record<string, DeptEntry> =
+    (departmentJson["syllabus-details"] as any)?.data || {};
 
   const [activeTab, setActiveTab] = useState(0);
 
-  // ✅ Normalize API keys once (before any conditional returns)
   const normalizedMap = useMemo(() => {
     const map: Record<string, DeptEntry> = {};
     Object.entries(apiData || {}).forEach(([k, v]) => {
@@ -30,23 +30,22 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
     return map;
   }, [apiData]);
 
-  // ✅ Select department entry by normalized programme
   const dept = useMemo<DeptEntry | undefined>(
     () => normalizedMap[normalizedProgramme],
     [normalizedMap, normalizedProgramme]
   );
 
   const title = dept?.title ?? "";
-  const tabData = Array.isArray(dept?.SyllabusSection) ? dept!.SyllabusSection! : [];
+  const tabData = Array.isArray(dept?.SyllabusSection)
+    ? dept!.SyllabusSection!
+    : [];
 
-  // Keep active tab in range when programme/data changes
   useEffect(() => {
     setActiveTab(0);
   }, [normalizedProgramme, tabData.length]);
 
   const currentTab: Tab | undefined = tabData[activeTab];
 
-  // ✅ Inform parent whether programme key exists in API response
   useEffect(() => {
     const exists =
       apiData != null &&
@@ -54,7 +53,6 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
-  // ---- UI returns AFTER all hooks ----
   if (!dept) {
     return (
       <p className="text-center text-body-gray">
@@ -72,54 +70,70 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   return (
     <Reveal>
       <div className="w-full text-body-gray">
-        {/* Title */}
-        {title && <h2 className="text-2xl font-extrabold text-navy tracking-[-0.5px] mb-4 text-center">{title}</h2>}
+        <header className="pb-6 mb-6 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Syllabus
+          </p>
+          {title && (
+            <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
+              {title}
+            </h2>
+          )}
+        </header>
 
-        {/* Tabs */}
-        <div className="flex flex-wrap gap-2 mb-5 overflow-x-auto pb-1">
+        <div className="flex flex-wrap gap-0 mb-6 border-b border-navy/15 overflow-x-auto">
           {tabData.map((tab: any, index: number) => (
             <button
               key={index}
               onClick={() => setActiveTab(index)}
-              className={`cursor-pointer whitespace-nowrap rounded-full px-4 py-2 text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+              className={`relative cursor-pointer whitespace-nowrap px-4 py-3 text-sm font-semibold transition-colors duration-300 ${
                 activeTab === index
-                  ? "bg-navy text-white"
-                  : "text-body-gray hover:bg-surface-tint"
+                  ? "text-navy"
+                  : "text-body-gray hover:text-navy"
               }`}
               type="button"
             >
+              <span className="text-[10px] font-bold tracking-[0.14em] text-orange/70 mr-2 tabular-nums">
+                {String(index + 1).padStart(2, "0")}
+              </span>
               {tab.tabName}
+              {activeTab === index && (
+                <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-orange" />
+              )}
             </button>
           ))}
         </div>
 
-        {/* Table */}
-        <div className="overflow-x-auto rounded-[14px] border border-card-border">
+        <div className="overflow-x-auto border border-navy/10">
           <table className="min-w-full text-left">
             <thead>
-              <tr className="bg-surface-tint">
-                <th className="px-4 py-3 border-b border-card-border text-navy font-semibold">Name</th>
-                <th className="px-4 py-3 border-b border-card-border text-navy font-semibold">Courses</th>
+              <tr className="bg-navy text-white">
+                <th className="px-4 py-3.5 text-sm font-semibold tracking-wide w-1/3">
+                  Name
+                </th>
+                <th className="px-4 py-3.5 text-sm font-semibold tracking-wide">
+                  Courses
+                </th>
               </tr>
             </thead>
             <tbody>
               {rows.length > 0 ? (
                 rows.map((row, index) => (
-                  <tr key={index} className="hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
-                    <td className="px-4 py-3 border-b border-card-border">
+                  <tr
+                    key={index}
+                    className="border-b border-navy/10 hover:bg-surface-light/80 transition-colors duration-250 even:bg-surface-light/40"
+                  >
+                    <td className="px-4 py-3.5 font-medium text-navy align-top">
                       {row?.name ?? "-"}
                     </td>
-                    <td className="px-4 py-3 border-b border-card-border whitespace-pre-line">
+                    <td className="px-4 py-3.5 whitespace-pre-line text-sm">
                       {row?.courses ?? "-"}
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td
-                    className="px-4 py-3 border-b border-card-border"
-                    colSpan={2}
-                  >
+                  <td className="px-4 py-3.5" colSpan={2}>
                     No rows available.
                   </td>
                 </tr>

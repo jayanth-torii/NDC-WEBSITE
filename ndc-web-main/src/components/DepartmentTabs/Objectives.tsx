@@ -3,7 +3,6 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
-import Card from "@/components/ui/Card";
 import { Reveal } from "@/components/ui/Reveal";
 
 type ObjectiveType = {
@@ -19,9 +18,9 @@ const Objectives = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, ObjectiveType> = (departmentJson["objectives"] as any)?.data || {};
+  const apiData: Record<string, ObjectiveType> =
+    (departmentJson["objectives"] as any)?.data || {};
 
-  // ✅ normalize keys once
   const normalizedMap = useMemo(() => {
     const map: Record<string, ObjectiveType> = {};
     Object.keys(apiData).forEach((key) => {
@@ -32,7 +31,6 @@ const Objectives = ({ haveContentCheck }: any) => {
 
   const data = normalizedMap[normalizedProgramme];
 
-  // ✅ notify parent whether programme key exists in response
   useEffect(() => {
     const exists =
       apiData != null &&
@@ -50,17 +48,29 @@ const Objectives = ({ haveContentCheck }: any) => {
 
   return (
     <Reveal>
-      <div className="px-0 md:px-6 mb-6">
-        <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-5">{data.title}</h2>
-        <Card accent="orange-left" className="p-5 md:p-6">
-          <ol className="list-decimal list-inside space-y-2 text-body-gray text-base marker:text-orange marker:font-semibold">
-            {data.points.map((point, index) => (
-              <li key={index} className="leading-relaxed text-justify">
-                {point}
-              </li>
-            ))}
-          </ol>
-        </Card>
+      <div>
+        <header className="pb-6 mb-2 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Goals
+          </p>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
+            {data.title}
+          </h2>
+        </header>
+
+        <ol className="relative border-l-2 border-navy/10 ml-2 space-y-0">
+          {data.points.map((point, index) => (
+            <li key={index} className="relative pl-8 py-5">
+              <span className="absolute left-0 top-7 -translate-x-[calc(50%+1px)] w-3 h-3 bg-white border-2 border-orange" />
+              <div className="flex gap-4 items-start">
+                <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-1 shrink-0">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="text-body-gray leading-relaxed">{point}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </div>
     </Reveal>
   );
