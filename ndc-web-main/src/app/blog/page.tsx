@@ -9,7 +9,9 @@ import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import pageJson from "@/data-export/blog/data.json";
 
 type BannerSectionType = {
+  eyebrow?: string;
   title: string;
+  subtitle?: string;
   image: string;
 };
 
