@@ -2,21 +2,13 @@
 
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-  faChevronUp,
-  faChevronDown,
-} from "@fortawesome/free-solid-svg-icons";
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 
-// -------- Image Carousel (small, 4:3, auto-scroll, 1 mobile / 3 desktop) --------
 const ImageCarousel = ({ images }: { images: string[] }) => {
   const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
   const [index, setIndex] = useState(0);
-
   const VISIBLE_DESKTOP = 3;
 
   const next = useCallback(() => {
@@ -29,7 +21,6 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
     setIndex((i) => (i - 1 + safeImages.length) % safeImages.length);
   }, [safeImages.length]);
 
-  // Auto-advance every 2.5s
   useEffect(() => {
     if (safeImages.length <= 1) return;
     const t = setInterval(next, 2500);
@@ -38,34 +29,34 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
 
   if (safeImages.length === 0) return null;
 
-// Show up to VISIBLE_DESKTOP images without repeating
-const desktopWindow = Array.from({ length: Math.min(VISIBLE_DESKTOP, safeImages.length) }, (_, i) => {
-  const pos = (index + i) % safeImages.length;
-  return safeImages[pos];
-});
+  const desktopWindow = Array.from(
+    { length: Math.min(VISIBLE_DESKTOP, safeImages.length) },
+    (_, i) => {
+      const pos = (index + i) % safeImages.length;
+      return safeImages[pos];
+    }
+  );
 
   return (
-    <div className="relative w-full   mx-auto overflow-hidden mb-4">
-      {/* Mobile: single image */}
+    <div className="relative w-full overflow-hidden mb-2">
       <div className="sm:hidden w-full">
-        <div className="w-full aspect-[4/3]">
+        <div className="w-full aspect-[4/3] overflow-hidden border border-navy/10">
           <img
             src={safeImages[index]}
             alt={`Slide ${index + 1}`}
-            className="w-full h-full object-cover rounded-[14px] shadow-[var(--shadow-card)]"
+            className="w-full h-full object-cover"
           />
         </div>
       </div>
 
-      {/* Desktop: 3 images */}
       <div className="hidden sm:flex gap-3 items-center justify-center">
         {desktopWindow.map((src, i) => (
           <div key={`${index}-${i}`} className="w-1/3">
-            <div className="w-full aspect-[4/3]">
+            <div className="w-full aspect-[4/3] overflow-hidden border border-navy/10">
               <img
                 src={src}
                 alt={`Slide ${((index + i) % safeImages.length) + 1}`}
-                className="w-full h-full object-cover rounded-[14px] shadow-[var(--shadow-card)]"
+                className="w-full h-full object-cover"
               />
             </div>
           </div>
@@ -76,19 +67,19 @@ const desktopWindow = Array.from({ length: Math.min(VISIBLE_DESKTOP, safeImages.
         <>
           <button
             onClick={prev}
-            className="cursor-pointer absolute top-1/2 left-2 -translate-y-1/2 bg-white px-2 py-1 rounded-full shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-x-0.5"
+            className="cursor-pointer absolute top-1/2 left-2 -translate-y-1/2 bg-white/95 border border-navy/15 p-2 text-navy hover:bg-orange hover:text-white hover:border-orange transition-all duration-300"
             aria-label="Previous"
             type="button"
           >
-            <FontAwesomeIcon icon={faChevronLeft} className="text-navy" />
+            <ChevronLeft size={18} />
           </button>
           <button
             onClick={next}
-            className="cursor-pointer absolute top-1/2 right-2 -translate-y-1/2 bg-white px-2 py-1 rounded-full shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:translate-x-0.5"
+            className="cursor-pointer absolute top-1/2 right-2 -translate-y-1/2 bg-white/95 border border-navy/15 p-2 text-navy hover:bg-orange hover:text-white hover:border-orange transition-all duration-300"
             aria-label="Next"
             type="button"
           >
-            <FontAwesomeIcon icon={faChevronRight} className="text-navy" />
+            <ChevronRight size={18} />
           </button>
         </>
       )}
@@ -96,7 +87,6 @@ const desktopWindow = Array.from({ length: Math.min(VISIBLE_DESKTOP, safeImages.
   );
 };
 
-// ---------------- Activities ----------------
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
 
@@ -105,10 +95,10 @@ const Activities = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, any> = (departmentJson["activities"] as any)?.data || {};
+  const apiData: Record<string, any> =
+    (departmentJson["activities"] as any)?.data || {};
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // Normalize keys
   const normalizedMap = useMemo(() => {
     const map: Record<string, any> = {};
     Object.keys(apiData || {}).forEach((k) => {
@@ -122,7 +112,6 @@ const Activities = ({ haveContentCheck }: any) => {
     [normalizedMap, normalizedProgramme]
   );
 
-  // Inform parent whether the programme key exists
   useEffect(() => {
     const exists =
       apiData != null &&
@@ -130,42 +119,81 @@ const Activities = ({ haveContentCheck }: any) => {
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
-  // ---- UI returns AFTER all hooks ----
-  if (!content) return <p className="text-center text-body-gray"> No activities found for <strong>{programme}</strong>.</p>;
+  if (!content)
+    return (
+      <p className="text-center text-body-gray">
+        {" "}
+        No activities found for <strong>{programme}</strong>.
+      </p>
+    );
 
   const title = content?.title || "Activities";
   const sections = Array.isArray(content?.sections) ? content.sections : [];
 
   return (
     <Reveal>
-      <div className="w-full mb-20">
-        <h1 className="text-2xl md:text-3xl text-navy font-extrabold mb-6 tracking-[-0.5px]">{title}</h1>
+      <div className="w-full">
+        <header className="pb-6 mb-2 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Campus life
+          </p>
+          <h1 className="text-3xl md:text-4xl text-navy font-extrabold tracking-tight">
+            {title}
+          </h1>
+        </header>
 
-        {sections.map((section: any, idx: number) => (
-          <div key={idx} className="border border-card-border rounded-[14px] overflow-hidden mb-3 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:border-card-border-hover">
-            <button
-              onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
-              className="w-full p-4 text-left bg-surface-tint cursor-pointer text-navy text-lg md:text-xl font-semibold flex justify-between items-center"
-            >
-              {section.title}
-              <FontAwesomeIcon
-                icon={openIndex === idx ? faChevronUp : faChevronDown}
-                className="text-orange"
-              />
-            </button>
+        {sections.map((section: any, idx: number) => {
+          const open = openIndex === idx;
+          return (
+            <div key={idx} className="border-b border-navy/15 first:border-t">
+              <button
+                onClick={() => setOpenIndex(open ? null : idx)}
+                className="w-full py-5 text-left cursor-pointer text-navy flex justify-between items-center gap-4 group"
+                type="button"
+                aria-expanded={open}
+              >
+                <span className="flex items-baseline gap-3">
+                  <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span
+                    className={`text-lg md:text-xl font-bold tracking-tight transition-colors duration-300 ${
+                      open ? "text-orange" : "group-hover:text-orange"
+                    }`}
+                  >
+                    {section.title}
+                  </span>
+                </span>
+                <ChevronDown
+                  size={20}
+                  className={`shrink-0 text-navy/40 transition-transform duration-400 ease-[var(--ease-editorial)] ${
+                    open ? "rotate-180 text-orange" : ""
+                  }`}
+                />
+              </button>
 
-            {openIndex === idx && (
-              <div className="p-4 bg-white space-y-4">
-                {section?.description && (
-                  <p className="text-body-gray text-justify whitespace-pre-line leading-relaxed">{section.description}</p>
-                )}
-                {Array.isArray(section?.images) && section.images.length > 0 && (
-                  <ImageCarousel images={section.images} />
-                )}
+              <div
+                className={`grid transition-all duration-500 ease-[var(--ease-editorial)] ${
+                  open
+                    ? "grid-rows-[1fr] opacity-100 pb-8"
+                    : "grid-rows-[0fr] opacity-0"
+                }`}
+              >
+                <div className="overflow-hidden space-y-4 pl-0 sm:pl-10">
+                  {section?.description && (
+                    <p className="text-body-gray whitespace-pre-line leading-relaxed max-w-prose">
+                      {section.description}
+                    </p>
+                  )}
+                  {Array.isArray(section?.images) &&
+                    section.images.length > 0 && (
+                      <ImageCarousel images={section.images} />
+                    )}
+                </div>
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          );
+        })}
       </div>
     </Reveal>
   );

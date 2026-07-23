@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useState, useRef, ReactNode, Suspense } from "react";
+import React, { useState, useRef, ReactNode, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { FaChevronRight } from "react-icons/fa";
 
 import AboutCourse from "./AboutCourse";
 import VisionMission from "./VisionMission";
@@ -20,7 +19,7 @@ import DepartmentFaculty from "./DepartmentFaculty";
 const tabs = [
   "About Department",
   "Vision & Mission",
-  "HOD’S Message",
+  "HOD'S Message",
   "Department Faculty Members",
   "Objectives",
   "Admission Process",
@@ -32,23 +31,15 @@ const tabs = [
   "Syllabus Details",
 ];
 
-// Utility to check if data is not empty
-const isDataNotEmpty = (data: any): boolean => {
-  if (!data) return false;
-  if (Array.isArray(data)) return data.length > 0;
-  if (typeof data === "object") return Object.keys(data).length > 0;
-  if (typeof data === "string") return data.trim().length > 0;
-  return true;
-};
-
 export default function DepartmentTabs() {
-
   const searchParams = useSearchParams();
   const department = searchParams.get("programme") || "bca";
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const contentRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const [showLeftShadow, setShowLeftShadow] = useState(false);
+  const [showRightShadow, setShowRightShadow] = useState(true);
 
-  // Availability flags (null = unknown yet, true = show, false = hide)
   const [aboutOk, setAboutOk] = useState<boolean | null>(null);
   const [visionOk, setVisionOk] = useState<boolean | null>(null);
   const [hodOk, setHodOk] = useState<boolean | null>(null);
@@ -62,82 +53,98 @@ export default function DepartmentTabs() {
   const [activitiesOk, setActivitiesOk] = useState<boolean | null>(null);
   const [syllabusOk, setSyllabusOk] = useState<boolean | null>(null);
 
+  const handleScroll = () => {
+    if (scrollContainerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+      setShowLeftShadow(scrollLeft > 0);
+      setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    handleScroll();
+    window.addEventListener("resize", handleScroll);
+    return () => window.removeEventListener("resize", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setActiveTab(tabs[0]);
+  }, [department]);
+
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
-    // Scroll to content on tab change
     setTimeout(() => {
-      contentRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 0);
-  }
+      contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 100);
+  };
 
   const components: Record<string, ReactNode> = {
     "About Department": (
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
         <AboutCourse haveContentCheck={setAboutOk} />
       </Suspense>
     ),
     "Vision & Mission": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <VisionMission haveContentCheck={setVisionOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <VisionMission haveContentCheck={setVisionOk} />
       </Suspense>
     ),
-    "HOD’S Message": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <HodMessage haveContentCheck={setHodOk}  />
+    "HOD'S Message": (
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <HodMessage haveContentCheck={setHodOk} />
       </Suspense>
     ),
     "Department Faculty Members": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <DepartmentFaculty haveContentCheck={setFacultyOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <DepartmentFaculty haveContentCheck={setFacultyOk} />
       </Suspense>
     ),
-    "Objectives": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <Objectives haveContentCheck={setObjectivesOk}  />
+    Objectives: (
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <Objectives haveContentCheck={setObjectivesOk} />
       </Suspense>
     ),
     "Admission Process": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <AdmissionProcess haveContentCheck={setAdmissionOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <AdmissionProcess haveContentCheck={setAdmissionOk} />
       </Suspense>
     ),
     "Course Duration": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <CourseDuration haveContentCheck={setCourseDurationOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <CourseDuration haveContentCheck={setCourseDurationOk} />
       </Suspense>
     ),
     "Programme Details": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <ProgrammeDetails haveContentCheck={setProgrammeDetailsOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <ProgrammeDetails haveContentCheck={setProgrammeDetailsOk} />
       </Suspense>
     ),
-    "Research": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <Research haveContentCheck={setResearchOk}  />
+    Research: (
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <Research haveContentCheck={setResearchOk} />
       </Suspense>
     ),
     "Books/Patients": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <BooksPatients haveContentCheck={setBooksPatientsOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <BooksPatients haveContentCheck={setBooksPatientsOk} />
       </Suspense>
     ),
-    "Activities": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <Activities haveContentCheck={setActivitiesOk}  />
+    Activities: (
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <Activities haveContentCheck={setActivitiesOk} />
       </Suspense>
     ),
     "Syllabus Details": (
-      <Suspense fallback={<p>Loading...</p>}>
-        <SyllabusDetails haveContentCheck={setSyllabusOk}  />
+      <Suspense fallback={<div className="animate-pulse h-32 bg-surface-tint" />}>
+        <SyllabusDetails haveContentCheck={setSyllabusOk} />
       </Suspense>
     ),
   };
 
-  // Same hide rules as before, expressed as a single filter pass
   const visibleTabs = tabs.filter((tab) => {
     if (tab === "About Department" && aboutOk === false) return false;
     if (tab === "Vision & Mission" && visionOk === false) return false;
-    if (tab === "HOD’S Message" && hodOk === false) return false;
+    if (tab === "HOD'S Message" && hodOk === false) return false;
     if (tab === "Department Faculty Members" && facultyOk === false) return false;
     if (tab === "Objectives" && objectivesOk === false) return false;
     if (tab === "Admission Process" && admissionOk === false) return false;
@@ -150,69 +157,103 @@ export default function DepartmentTabs() {
     return true;
   });
 
+  const activeIndex = Math.max(0, visibleTabs.indexOf(activeTab));
+
   return (
-    <div className="relative flex flex-col lg:flex-row w-full min-h-screen mb-20 gap-6 lg:gap-10">
-
-      {/* Mobile / tablet: horizontally scrollable tab strip (overflow handled via scroll, not a drawer) */}
-      <nav className="lg:hidden -mx-4 px-4 sm:mx-0 sm:px-0">
-        <div className="flex gap-2 overflow-x-auto pb-3 snap-x snap-mandatory">
-          {visibleTabs.map((tab) => {
-            const isActive = activeTab === tab;
-            return (
-              <button
-                key={tab}
-                onClick={() => handleTabClick(tab)}
-                className={`cursor-pointer snap-start shrink-0 whitespace-nowrap rounded-full border px-5 py-2.5 text-sm font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                  isActive
-                    ? "bg-navy text-white border-navy"
-                    : "bg-white text-body-gray border-card-border hover:border-card-border-hover hover:bg-surface-tint"
-                }`}
-              >
-                {tab}
-              </button>
-            );
-          })}
-        </div>
-      </nav>
-
-      {/* Desktop sidebar navigation */}
-      <aside className="hidden lg:block lg:w-[26%] xl:w-[22%] shrink-0 self-start">
-        <nav className="flex flex-col gap-1 rounded-[18px] border border-card-border bg-white p-2 shadow-[var(--shadow-card)]">
-          {visibleTabs.map((tab) => {
-            const isActive = activeTab === tab;
-            return (
-              <button
-                key={tab}
-                onClick={() => handleTabClick(tab)}
-                className={`flex cursor-pointer items-center justify-between gap-2 rounded-[10px] border-l-4 px-4 py-3 text-left text-[15px] font-semibold transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-                  isActive
-                    ? "bg-navy text-white border-l-orange"
-                    : "text-body-gray border-l-transparent hover:bg-surface-tint hover:text-navy"
-                }`}
-              >
-                <span>{tab}</span>
-                <FaChevronRight className="w-3.5 h-3.5 shrink-0" />
-              </button>
-            );
-          })}
-        </nav>
-      </aside>
-
-      {/* Main Content */}
-      <main ref={contentRef} className="w-full lg:flex-1 min-w-0 px-4 lg:px-0 text-body-gray">
-        {tabs.map((tab) => {
-          const isActive = activeTab === tab;
-          return (
-            <div
-              key={tab}
-              className={isActive ? "block" : "hidden"}
-              aria-hidden={!isActive}
-            >
-              {components[tab] || <p>Content not available.</p>}
+    <div className="relative w-full scroll-mt-32">
+      {/* Sticky index bar */}
+      <div className="sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-y border-navy/10 shadow-[0_1px_0_rgba(14,36,85,0.04)]">
+        <div className="container mx-auto px-4 lg:px-8 relative">
+          <div className="flex items-center gap-6 py-1">
+            <div className="hidden md:flex flex-col shrink-0 py-3 pr-6 border-r border-navy/10">
+              <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-orange">
+                Contents
+              </span>
+              <span className="text-navy font-bold text-sm tabular-nums mt-0.5">
+                {String(activeIndex + 1).padStart(2, "0")} /{" "}
+                {String(visibleTabs.length).padStart(2, "0")}
+              </span>
             </div>
-          );
-        })}
-      </main>
+
+            <div className="relative flex-1 min-w-0">
+              <div
+                className={`absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
+                  showLeftShadow ? "opacity-100" : "opacity-0"
+                }`}
+              />
+              <div
+                className={`absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
+                  showRightShadow ? "opacity-100" : "opacity-0"
+                }`}
+              />
+
+              <div
+                ref={scrollContainerRef}
+                onScroll={handleScroll}
+                className="flex gap-1 overflow-x-auto py-3 hide-scrollbar"
+              >
+                {visibleTabs.map((tab, idx) => {
+                  const isActive = activeTab === tab;
+                  return (
+                    <button
+                      key={tab}
+                      type="button"
+                      onClick={() => handleTabClick(tab)}
+                      className={`relative shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
+                        isActive
+                          ? "text-navy"
+                          : "text-body-gray hover:text-navy"
+                      }`}
+                    >
+                      <span className="text-[10px] font-bold tracking-[0.14em] text-orange/70 mr-2 tabular-nums">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      {tab}
+                      {isActive && (
+                        <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-orange" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Content band */}
+      <div
+        ref={contentRef}
+        className="container mx-auto px-4 lg:px-8 pt-10 lg:pt-14 scroll-mt-40"
+      >
+        <div className="min-h-[420px] border border-navy/10 bg-white">
+          <div className="h-1 w-full bg-gradient-to-r from-navy via-orange to-navy/20" />
+          <div className="p-6 md:p-10 lg:p-12">
+            {tabs.map((tab) => {
+              const isActive = activeTab === tab;
+              return (
+                <div
+                  key={tab}
+                  className={isActive ? "block" : "hidden"}
+                  aria-hidden={!isActive}
+                >
+                  {isActive && (components[tab] || <p>Content not available.</p>)}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
+        }
+        .hide-scrollbar {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
 }

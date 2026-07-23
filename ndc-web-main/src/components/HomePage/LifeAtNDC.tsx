@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Video } from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
 import SectionHeading from "@/components/ui/SectionHeading";
 
@@ -13,7 +13,7 @@ export default function LifeAtNDC({data}:any) {
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount: number = direction === "left" ? -300 : 300;
+      const scrollAmount: number = direction === "left" ? -320 : 320;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
@@ -22,53 +22,68 @@ export default function LifeAtNDC({data}:any) {
   useEffect(() => {
     const interval = setInterval(() => {
       if (scrollRef.current) {
-        // Check if scroll has reached the end
         if (
           scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
           scrollRef.current.scrollWidth
         ) {
-          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" }); // Reset to start
+          scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
         } else {
-          scrollRef.current.scrollBy({ left: 250, behavior: "smooth" }); // Scroll right
+          scrollRef.current.scrollBy({ left: 280, behavior: "smooth" });
         }
       }
-    }, 2000); // Change every 3 seconds
+    }, 3000);
 
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+    <section className="relative py-20 lg:py-28 bg-gradient-to-b from-white to-surface-light overflow-hidden">
+      {/* Decorative Background */}
+      <div className="absolute inset-0 bg-dot-grid opacity-[0.02]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange/5 rounded-full blur-3xl" />
+
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
         <Reveal>
-          <SectionHeading eyebrow="Campus Life" title={title} className="mb-9" />
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-orange/10 text-orange mb-6">
+              <Video size={28} />
+            </div>
+            <SectionHeading eyebrow="Campus Life" title={title} className="justify-center" />
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto mt-4">
+              Experience the vibrant campus life through our video gallery
+            </p>
+          </div>
         </Reveal>
 
-        {/* Top Container - Video Player */}
-        <Reveal delay={0.1} className="w-full aspect-video mb-5 overflow-hidden rounded-[24px] border border-card-border shadow-[var(--shadow-navy)]">
-          <iframe
-            className="w-full h-full"
-            src={`https://www.youtube.com/embed/${currentVideo}`}
-            title="YouTube Video Player"
-            frameBorder="0"
-            allowFullScreen
-          ></iframe>
+        {/* Enhanced Video Player */}
+        <Reveal delay={0.1} className="w-full aspect-video mb-8 overflow-hidden rounded-[32px] border border-gray-200 shadow-[0_30px_80px_rgba(14,36,85,0.15)] bg-navy">
+          <div className="relative w-full h-full">
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${currentVideo}`}
+              title="YouTube Video Player"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+            {/* Video Overlay Gradient */}
+            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-navy/20 to-transparent" />
+          </div>
         </Reveal>
 
-        {/* Bottom Container - Scrollable Video List */}
+        {/* Enhanced Video Gallery */}
         <Reveal delay={0.15} className="relative w-full overflow-hidden">
           {/* Left Arrow */}
           <button
-            className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[var(--ease-editorial)] hover:bg-navy hover:text-white z-10"
+            className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-2xl bg-white border border-gray-200 text-navy shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-navy hover:text-white hover:shadow-[0_12px_40px_rgba(14,36,85,0.2)] z-10"
             onClick={() => scroll("left")}
           >
-            <ChevronLeft size={20} />
+            <ChevronLeft size={24} />
           </button>
 
           {/* Scrollable Thumbnails */}
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap px-1 py-1"
+            className="flex gap-5 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap px-2 py-2"
           >
             {[...videos, ...videos]?.map((video: string, index: number) => {
               const isActive = video === currentVideo;
@@ -77,26 +92,32 @@ export default function LifeAtNDC({data}:any) {
                   key={`${video}-${index}`}
                   onClick={() => setCurrentVideo(video)}
                   aria-label={`Play campus life video ${(index % videos.length) + 1}`}
-                  className={`group relative w-60 sm:w-80 flex-shrink-0 rounded-[16px] overflow-hidden border-2 transition-all duration-250 ease-[var(--ease-editorial)] ${
-                    isActive ? "border-orange shadow-[var(--shadow-cta)]" : "border-transparent hover:-translate-y-1 hover:border-orange/60"
+                  className={`group relative w-72 sm:w-80 flex-shrink-0 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
+                    isActive ? "border-orange shadow-[0_16px_40px_rgba(246,135,42,0.3)]" : "border-transparent hover:-translate-y-2 hover:border-orange/30 hover:shadow-[0_12px_30px_rgba(0,0,0,0.1)]"
                   }`}
                 >
                   <img
                     src={`https://img.youtube.com/vi/${video}/hqdefault.jpg`}
                     alt=""
-                    className="w-full aspect-video object-cover"
+                    className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <span className={`absolute inset-0 flex items-center justify-center bg-navy/20 transition-opacity duration-250 ${isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"}`}>
-                    <span className="flex items-center justify-center w-10 h-10 rounded-full bg-white/90 text-navy">
-                      <Play size={16} fill="currentColor" className="ml-0.5" />
+                  {/* Play Button Overlay */}
+                  <span className={`absolute inset-0 flex items-center justify-center bg-navy/30 transition-opacity duration-300 ${isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"}`}>
+                    <span className="flex items-center justify-center w-14 h-14 rounded-full bg-white/95 text-navy shadow-lg">
+                      <Play size={20} fill="currentColor" className="ml-0.5" />
                     </span>
                   </span>
+                  {/* Active Indicator */}
                   {isActive && (
-                    <span className="absolute top-2 right-2 flex items-center gap-1.5 bg-orange text-white text-[10px] font-bold uppercase tracking-wide px-2.5 py-1 rounded-full">
+                    <span className="absolute top-3 right-3 flex items-center gap-2 bg-gradient-to-r from-orange to-orange-dark text-white text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow-lg">
                       <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                       Playing
                     </span>
                   )}
+                  {/* Video Number Badge */}
+                  <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold px-2 py-1 rounded-lg">
+                    #{(index % videos.length) + 1}
+                  </div>
                 </button>
               );
             })}
@@ -104,10 +125,10 @@ export default function LifeAtNDC({data}:any) {
 
           {/* Right Arrow */}
           <button
-            className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white border border-card-border text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[var(--ease-editorial)] hover:bg-navy hover:text-white z-10"
+            className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-2xl bg-white border border-gray-200 text-navy shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-navy hover:text-white hover:shadow-[0_12px_40px_rgba(14,36,85,0.2)] z-10"
             onClick={() => scroll("right")}
           >
-            <ChevronRight size={20} />
+            <ChevronRight size={24} />
           </button>
         </Reveal>
       </div>

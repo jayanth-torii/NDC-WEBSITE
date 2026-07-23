@@ -32,9 +32,9 @@ const BooksPatients = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, DeptData> = (departmentJson["books-patients"] as any)?.data || {};
+  const apiData: Record<string, DeptData> =
+    (departmentJson["books-patients"] as any)?.data || {};
 
-  // ✅ Normalize keys once (before any early returns)
   const normalizedMap = useMemo(() => {
     const map: Record<string, DeptData> = {};
     Object.keys(apiData || {}).forEach((k) => {
@@ -48,7 +48,6 @@ const BooksPatients = ({ haveContentCheck }: any) => {
     [normalizedMap, normalizedProgramme]
   );
 
-  // ✅ Inform parent whether the programme key exists in API response
   useEffect(() => {
     const exists =
       apiData != null &&
@@ -56,7 +55,6 @@ const BooksPatients = ({ haveContentCheck }: any) => {
     haveContentCheck(exists);
   }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
 
-  // ---- UI returns after all hooks ----
   if (!data) {
     return (
       <p className="text-center text-red-500">
@@ -79,28 +77,54 @@ const BooksPatients = ({ haveContentCheck }: any) => {
 
   return (
     <Reveal>
-      <div className="px-4">
-        <h1 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.5px] mb-6">{`Books and Publications (${programme.toUpperCase()})`}</h1>
+      <div>
+        <header className="pb-6 mb-8 border-b border-navy/10">
+          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+            Publications
+          </p>
+          <h1 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
+            {`Books and Publications (${programme.toUpperCase()})`}
+          </h1>
+        </header>
 
-        {/* Books Table */}
         {hasBooks && (
-          <div className="mb-10">
-            <h2 className="text-xl font-semibold text-navy mb-3">{data?.Books?.title || "Books Published"}</h2>
-            <div className="overflow-x-auto rounded-[14px] border border-card-border">
+          <div className="mb-12">
+            <h2 className="text-xl font-bold text-navy mb-4 tracking-tight flex items-baseline gap-3">
+              <span className="text-orange text-[11px] tracking-[0.16em]">01</span>
+              {data?.Books?.title || "Books Published"}
+            </h2>
+            <div className="overflow-x-auto border border-navy/10">
               <table className="min-w-full border-collapse">
                 <thead>
-                  <tr className="bg-surface-tint text-navy border-b border-card-border">
+                  <tr className="bg-navy text-white">
                     {data?.Books?.Columns?.map((col: string, i: number) => (
-                      <th key={i} className="p-3 border-r border-card-border text-left font-semibold">{col}</th>
+                      <th
+                        key={i}
+                        className="p-3.5 text-left text-sm font-semibold tracking-wide border-r border-white/10 last:border-r-0"
+                      >
+                        {col}
+                      </th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="text-base">
+                <tbody>
                   {data?.Books?.BooksTable?.map((row: any, i: number) => (
-                    <tr key={i} className="bg-white border-b border-card-border text-body-gray hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
+                    <tr
+                      key={i}
+                      className="border-b border-navy/10 text-body-gray hover:bg-surface-light/80 transition-colors duration-250 even:bg-surface-light/40"
+                    >
                       {data?.Books?.Columns?.map((col: string, j: number) => {
-                        const key = Object.keys(row).find((k) => col.toLowerCase().includes(k.toLowerCase()));
-                        return <td key={j} className="py-3 px-3 border-r border-card-border whitespace-pre-line">{row[key!] || "-"}</td>;
+                        const key = Object.keys(row).find((k) =>
+                          col.toLowerCase().includes(k.toLowerCase())
+                        );
+                        return (
+                          <td
+                            key={j}
+                            className="py-3.5 px-3.5 border-r border-navy/8 last:border-r-0 whitespace-pre-line text-sm"
+                          >
+                            {row[key!] || "-"}
+                          </td>
+                        );
                       })}
                     </tr>
                   ))}
@@ -110,39 +134,84 @@ const BooksPatients = ({ haveContentCheck }: any) => {
           </div>
         )}
 
-        {/* Patent Table */}
         {hasPatents && (
-          <div className="mb-10">
-            <h2 className="text-xl font-semibold text-navy mb-3">{data?.Patient_Right?.title || "Patent Rights"}</h2>
-            <div className="overflow-x-auto rounded-[14px] border border-card-border">
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-navy mb-4 tracking-tight flex items-baseline gap-3">
+              <span className="text-orange text-[11px] tracking-[0.16em]">02</span>
+              {data?.Patient_Right?.title || "Patent Rights"}
+            </h2>
+            <div className="overflow-x-auto border border-navy/10">
               <table className="min-w-full border-collapse">
                 <thead>
-                  <tr className="bg-surface-tint text-navy border-b border-card-border">
+                  <tr className="bg-navy text-white">
                     {data?.Patient_Right?.Columns?.map((col: string, i: number) => (
-                      <th key={i} className="p-3 border-r border-card-border text-left font-semibold">{col}</th>
+                      <th
+                        key={i}
+                        className="p-3.5 text-left text-sm font-semibold tracking-wide border-r border-white/10 last:border-r-0"
+                      >
+                        {col}
+                      </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {data?.Patient_Right?.Patient_Rights_Table?.map((row: any, i: number) => (
-                    <tr key={i} className="bg-white border-b border-card-border text-body-gray hover:bg-surface-tint/60 transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)]">
-                      {data?.Patient_Right?.Columns?.map((col: string, j: number) => {
-                        let value = "-";
-                        if (col.toLowerCase().includes("serial")) value = row?.SlNo || "-";
-                        else if (col.toLowerCase().includes("patent & journal")) {
-                          value = [row?.Patent_No, row?.Published_Date, row?.Journal_No, row?.Journal_Date]
-                            .filter(Boolean)
-                            .map((v, idx) => `${["Patent No", "Published Date", "Journal No", "Journal Date"][idx]}: ${v}`)
-                            .join("\n");
-                        } else if (col.toLowerCase().includes("inventor & grant")) {
-                          value = [row?.Inventor && `Inventor: ${row?.Inventor}`, row?.Grant_Year && `Grant Year: ${row?.Grant_Year}`]
-                            .filter(Boolean)
-                            .join("\n");
-                        }
-                        return <td key={j} className="py-3 px-3 border-r border-card-border whitespace-pre-line">{value}</td>;
-                      })}
-                    </tr>
-                  ))}
+                  {data?.Patient_Right?.Patient_Rights_Table?.map(
+                    (row: any, i: number) => (
+                      <tr
+                        key={i}
+                        className="border-b border-navy/10 text-body-gray hover:bg-surface-light/80 transition-colors duration-250 even:bg-surface-light/40"
+                      >
+                        {data?.Patient_Right?.Columns?.map(
+                          (col: string, j: number) => {
+                            let value = "-";
+                            if (col.toLowerCase().includes("serial"))
+                              value = row?.SlNo || "-";
+                            else if (
+                              col.toLowerCase().includes("patent & journal")
+                            ) {
+                              value = [
+                                row?.Patent_No,
+                                row?.Published_Date,
+                                row?.Journal_No,
+                                row?.Journal_Date,
+                              ]
+                                .filter(Boolean)
+                                .map(
+                                  (v, idx) =>
+                                    `${
+                                      [
+                                        "Patent No",
+                                        "Published Date",
+                                        "Journal No",
+                                        "Journal Date",
+                                      ][idx]
+                                    }: ${v}`
+                                )
+                                .join("\n");
+                            } else if (
+                              col.toLowerCase().includes("inventor & grant")
+                            ) {
+                              value = [
+                                row?.Inventor && `Inventor: ${row?.Inventor}`,
+                                row?.Grant_Year &&
+                                  `Grant Year: ${row?.Grant_Year}`,
+                              ]
+                                .filter(Boolean)
+                                .join("\n");
+                            }
+                            return (
+                              <td
+                                key={j}
+                                className="py-3.5 px-3.5 border-r border-navy/8 last:border-r-0 whitespace-pre-line text-sm"
+                              >
+                                {value}
+                              </td>
+                            );
+                          }
+                        )}
+                      </tr>
+                    )
+                  )}
                 </tbody>
               </table>
             </div>

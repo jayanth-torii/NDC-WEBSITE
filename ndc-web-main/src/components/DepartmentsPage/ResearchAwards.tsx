@@ -1,63 +1,91 @@
 "use client";
 
 import { useState } from "react";
-import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/ui/Reveal";
 
 const ResearchAwards = ({ data }: any) => {
-  const researchData = data
+  const researchData = data;
   const sections = researchData?.Sections || [];
 
   const [activeTab, setActiveTab] = useState(sections[0]?.TabName || "");
 
-  const activeSection = sections.find((section: any) => section.TabName === activeTab);
+  if (!sections || sections.length === 0) return null;
+
+  const activeSection = sections.find(
+    (section: any) => section.TabName === activeTab
+  );
 
   return (
-    <Reveal as="section" className="mb-30">
-      <SectionHeading title={researchData?.title} className="mb-6" />
+    <Reveal as="section" className="relative bg-white">
+      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-24">
+        <header className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 lg:mb-14">
+          <div>
+            <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+              Recognition
+            </p>
+            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold text-navy tracking-[-0.03em] leading-tight">
+              {researchData?.title || "Research & Awards"}
+            </h2>
+          </div>
 
-      {/* Tabs */}
-      <div className="flex flex-wrap gap-4 border-b border-card-border mb-4">
-        {sections.map((section: any) => (
-          <button
-            key={section.TabName}
-            onClick={() => setActiveTab(section.TabName)}
-            className={`pb-2 cursor-pointer font-semibold text-lg md:text-xl transition-colors duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-              activeTab === section.TabName
-                ? "border-b-4 border-orange text-navy"
-                : "text-body-gray hover:text-navy"
-            }`}
-          >
-            {section.TabName}
-          </button>
-        ))}
-      </div>
+          <div className="flex gap-0 border-b border-navy/15">
+            {sections.map((section: any) => (
+              <button
+                key={section.TabName}
+                type="button"
+                onClick={() => setActiveTab(section.TabName)}
+                className={`relative px-5 py-3 text-sm font-semibold transition-colors duration-300 ${
+                  activeTab === section.TabName
+                    ? "text-navy"
+                    : "text-body-gray hover:text-navy"
+                }`}
+              >
+                {section.TabName}
+                {activeTab === section.TabName && (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-orange" />
+                )}
+              </button>
+            ))}
+          </div>
+        </header>
 
-      {/* Points */}
-      <div className="h-[400px] overflow-y-auto custom-scrollbar">
-        {activeSection?.ListPoints?.map((item: string, idx: number) => (
-          <p
-            key={idx}
-            className="text-body-gray font-medium text-justify mb-2 border-b border-card-border py-2 pb-2"
-          >
-          <span>{idx+1}.</span>  {item}
-          </p>
-        ))}
+        <div className="relative max-h-[480px] md:max-h-[560px] overflow-y-auto pr-2 custom-scrollbar">
+          {activeSection?.ListPoints?.length > 0 ? (
+            <ol className="relative border-l-2 border-navy/10 ml-3 md:ml-4 space-y-0">
+              {activeSection.ListPoints.map((item: string, idx: number) => (
+                <li
+                  key={idx}
+                  className="relative pl-8 md:pl-10 py-5 group"
+                >
+                  <span className="absolute left-0 top-7 -translate-x-[calc(50%+1px)] w-3 h-3 bg-white border-2 border-orange group-hover:bg-orange transition-colors duration-300" />
+                  <div className="flex gap-4 items-start">
+                    <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-1 shrink-0">
+                      {String(idx + 1).padStart(2, "0")}
+                    </span>
+                    <p className="text-body-gray leading-relaxed group-hover:text-navy transition-colors duration-300">
+                      {item}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <div className="text-body-gray italic text-center py-12">
+              No points available for {activeTab}.
+            </div>
+          )}
+        </div>
       </div>
 
       <style jsx>{`
         .custom-scrollbar::-webkit-scrollbar {
-          width: 8px;
+          width: 4px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f8fafc;
+          background: transparent;
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: #f6872a;
-          border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-          background: #e5760f;
+          background: var(--color-orange);
         }
       `}</style>
     </Reveal>
