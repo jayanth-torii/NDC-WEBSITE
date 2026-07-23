@@ -3,7 +3,7 @@
 import React, { useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { DepartmentBanners } from "@/app/Data/DepartmentBanners";
-import GlobalBanner from "@/components/GlobalBanner";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 
 const DepartmentBannerWrapper: React.FC = () => {
   const searchParams = useSearchParams();
@@ -33,7 +33,7 @@ const DepartmentBannerWrapper: React.FC = () => {
     <GlobalBanner
       title={title}
       subtitle={subtitle}
-      badge="ACADEMIC DEPARTMENT"
+      eyebrow="ACADEMIC DEPARTMENT"
       image={image}
     />
   );
