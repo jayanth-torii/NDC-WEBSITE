@@ -62,10 +62,10 @@ const Policies: React.FC<PoliciesProps> = ({ data }) => {
       </div>
 
       {/* Intro Description */}
-      {data?.description?.length > 0 && (
+      {(data?.description?.length ?? 0) > 0 && (
         <div className="bg-[#f8fafc] p-6 md:p-8 rounded-[16px] border border-gray-200 mb-10 relative overflow-hidden flex flex-col md:flex-row items-center gap-8 shadow-sm">
           <div className="flex-1 relative z-10">
-            {data.description.map((desc, idx) => (
+            {data?.description?.map((desc, idx) => (
               <p key={idx} className="text-[15px] md:text-[16px] text-gray-600 leading-relaxed font-medium">
                 {desc}
               </p>
@@ -116,9 +116,9 @@ const Policies: React.FC<PoliciesProps> = ({ data }) => {
           )}
 
           {/* Grid of Points */}
-          {activeTab?.points?.length > 0 && (
+          {(activeTab?.points?.length ?? 0) > 0 && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {activeTab.points.map((point, idx) => (
+              {activeTab?.points?.map((point, idx) => (
                 <div key={idx} className="flex items-center gap-4 bg-white p-4 md:px-6 md:py-5 rounded-[12px] border border-gray-100 hover:border-[#F6872A]/30 hover:shadow-md transition-all duration-300">
                   {/* Icon & Number Column */}
                   <div className="flex items-center gap-4 shrink-0">
