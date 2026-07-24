@@ -18,7 +18,24 @@ const Blogs = () => {
 
   return (
     <section className="relative py-20 bg-white overflow-hidden font-sans">
-      <div className="container mx-auto px-4 lg:px-8 max-w-[1300px]">
+      {/* Decorative Background Shapes */}
+      <div className="absolute top-[10%] right-[-5%] w-[400px] h-[400px] bg-[#F6872A]/5 rounded-[100px] blur-[60px] pointer-events-none rotate-45"></div>
+      <div className="absolute bottom-[20%] left-[-5%] w-[350px] h-[350px] bg-[#1a3668]/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+      {/* Geometric Lines Decor */}
+      <div className="absolute top-[15%] left-[6%] opacity-[0.06] pointer-events-none hidden lg:block">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="60" r="58" stroke="#1a3668" strokeWidth="2" strokeDasharray="6 6"/>
+          <circle cx="60" cy="60" r="40" stroke="#F6872A" strokeWidth="1.5"/>
+        </svg>
+      </div>
+
+      {/* Scattered Plus Decor */}
+      <div className="absolute bottom-[25%] right-[8%] opacity-20 pointer-events-none hidden lg:block text-[#1a3668]">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 max-w-[1300px]">
         
         {/* Top Header Section */}
         <div className="relative mb-12">

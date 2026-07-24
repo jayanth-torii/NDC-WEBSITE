@@ -54,7 +54,9 @@
 }
 
 body {
-  background: var(--background);
+  background-color: #f8fafd;
+  background-image: radial-gradient(rgba(14, 36, 85, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--foreground);
   font-family: var(--font-poppins), "Poppins", sans-serif;
 }
