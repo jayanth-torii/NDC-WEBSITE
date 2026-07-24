@@ -18,17 +18,36 @@ const Education = ({ data } :any) => {
   ];
 
   return (
-    <section className="relative py-24 lg:py-36 bg-gradient-to-b from-white to-surface-light overflow-hidden">
-      {/* Enhanced Decorative Background */}
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.02]" />
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-br from-navy/5 to-blue-50 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-orange/5 to-yellow-50 rounded-full blur-3xl" />
+    <section className="relative py-20 lg:py-28 bg-[#F8F9FB] overflow-hidden">
+      
+      {/* Subtle Dot Grids */}
+      <div className="absolute top-16 left-1/4 opacity-40 pointer-events-none z-0">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="dot-grid-edu-1" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#CBD5E1" />
+          </pattern>
+          <rect x="0" y="0" width="60" height="60" fill="url(#dot-grid-edu-1)" />
+        </svg>
+      </div>
+      
+      <div className="absolute bottom-16 right-16 opacity-50 pointer-events-none z-0">
+        <svg width="96" height="60" viewBox="0 0 96 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="dot-grid-edu-2" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#94A3B8" />
+          </pattern>
+          <rect x="0" y="0" width="96" height="60" fill="url(#dot-grid-edu-2)" />
+        </svg>
+      </div>
 
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
-        <div className="flex flex-col lg:flex-row gap-20 lg:gap-28 items-center">
+      {/* Subtle Geometric Shapes - Reduced Size */}
+      <div className="absolute -top-12 right-0 w-[250px] h-[250px] bg-[#EEF0F6] rounded-full pointer-events-none z-0 translate-x-1/3" />
+      <div className="absolute -bottom-12 left-0 w-[200px] h-[200px] bg-navy rounded-full pointer-events-none z-0 -translate-x-1/2" />
+
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
           
           {/* Enhanced Image Side - Left */}
-          <Reveal className="w-full lg:w-1/2 flex justify-center" delay={0.2}>
+          <Reveal className="w-full lg:w-1/2 flex justify-center relative z-20" delay={0.2}>
             <div className="relative w-full aspect-[4/3] max-w-[650px] group">
               {/* Animated Background Shapes */}
               <div className="absolute inset-0 bg-gradient-to-br from-navy to-navy-dark rounded-[40px] transform -rotate-6 scale-105 transition-transform duration-700 ease-[var(--ease-editorial)] group-hover:-rotate-3 group-hover:scale-100" />

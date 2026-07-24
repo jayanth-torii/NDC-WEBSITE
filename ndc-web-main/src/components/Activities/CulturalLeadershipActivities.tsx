@@ -1,165 +1,241 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import SectionHeading from '@/components/ui/SectionHeading'
-import { Reveal, RevealGroup, RevealItem } from '@/components/ui/Reveal'
+import { Reveal } from '@/components/ui/Reveal'
+import { 
+  Theater, Music, Palette, Users, BookOpen, 
+  Quote, Target, Binoculars, CheckCircle2, 
+  ChevronLeft, ChevronRight 
+} from "lucide-react"
 
-// Picks a column count that keeps the grid's last row filled rather than
-// leaving a lone card next to dead empty space (e.g. 4 items in 3 columns
-// would strand 1 card alone in row 2). A single item goes full width instead
-// of shrinking to a small card stranded in an otherwise empty row.
-function gridColsForCount(count: number, maxCols: 2 | 3 = 3) {
-  if (count <= 1) return "";
-  if (count === 2 || maxCols === 2) return "md:grid-cols-2";
-  if (count % 3 === 1) return "md:grid-cols-2";
-  return "md:grid-cols-2 xl:grid-cols-3";
+const TAB_ICONS: Record<string, any> = {
+  "Ranga Chathanya": Theater,
+  "Raaga Chaitanya": Music,
+  "Fine Arts": Palette,
+  "Rotaract Club": Users,
+  "Leadership Cell": BookOpen,
 }
 
-const CulturalLeadershipActivities = ({data}:any) => {
+const CulturalLeadershipActivities = ({ data }: any) => {
   const [activeTab, setActiveTab] = useState(0)
   const sections = data.Sections
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  if (!sections || sections.length === 0) return null
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollRef.current) {
+      const amount = direction === 'left' ? -300 : 300
+      scrollRef.current.scrollBy({ left: amount, behavior: 'smooth' })
+    }
+  }
+
+  const currentSection = sections[activeTab]
 
   return (
-    <div className="mb-20">
-      <SectionHeading title={data.title.replace(/_/g, " ")} className="mb-8" />
+    <div className="mb-24 relative font-sans">
+      <SectionHeading title={data.title.replace(/_/g, " ")} className="mb-10" />
 
       {/* Pill Tabs */}
-      <div className="flex overflow-x-auto gap-3 mb-10 pb-2 no-scrollbar" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-        {sections?.map((section:any, idx:any) => (
-          <button
-            key={idx}
-            type="button"
-            onClick={() => setActiveTab(idx)}
-            className={`whitespace-nowrap flex-shrink-0 cursor-pointer text-center px-6 py-2.5 rounded-full font-semibold transition-all duration-300 ease-[var(--ease-editorial)] border-2 ${
-              activeTab === idx 
-                ? "bg-navy text-white border-navy shadow-[0_8px_20px_rgba(14,36,85,0.2)]" 
-                : "bg-transparent text-body-gray border-card-border hover:border-orange hover:text-navy"
-            }`}
-          >
-            {section.TabName}
-          </button>
-        ))}
+      <div className="flex overflow-x-auto gap-4 mb-12 pb-4 no-scrollbar" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+        {sections.map((section: any, idx: number) => {
+          const Icon = TAB_ICONS[section.TabName] || Theater;
+          const isActive = activeTab === idx;
+          
+          return (
+            <button
+              key={idx}
+              type="button"
+              onClick={() => setActiveTab(idx)}
+              className={`flex items-center gap-2.5 whitespace-nowrap flex-shrink-0 cursor-pointer px-6 py-3 rounded-[14px] font-bold transition-all duration-300 border border-gray-200 ${
+                isActive 
+                  ? "bg-[#1a3668] text-white shadow-[0_8px_20px_rgba(26,54,104,0.2)] border-[#1a3668]" 
+                  : "bg-white text-gray-500 hover:border-[#F6872A]/50 hover:text-[#1a3668] shadow-sm"
+              }`}
+            >
+              <Icon size={18} className={isActive ? "text-[#F6872A]" : "text-gray-400"} />
+              {section.TabName}
+            </button>
+          )
+        })}
       </div>
 
-      {/* Tab Content */}
-      <Reveal key={activeTab} className="space-y-8 mt-6">
-        {/* About */}
-        {sections[activeTab].About && (
-          <div className="flex flex-col lg:flex-row items-stretch gap-8 bg-surface-tint p-6 md:p-8 rounded-[24px] border border-card-border shadow-[var(--shadow-card)]">
-            {
-              sections[activeTab].About.image && (
-                <div className="flex-shrink-0 w-full lg:w-72">
-                  <img
-                    src={sections[activeTab].About.image}
-                    alt="About"
-                    className="w-full h-full object-cover rounded-[16px] shadow-sm"
-                  />
+      <Reveal key={activeTab} className="space-y-10">
+        
+        {/* Vision & Mission Cards */}
+        {currentSection.VisionMission?.length > 0 && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {currentSection.VisionMission.map((vm: any, idx: number) => {
+              const isVision = vm.title.toLowerCase().includes("vision");
+              const Icon = isVision ? Binoculars : Target;
+              const borderColor = isVision ? "border-[#F6872A]" : "border-[#1a3668]";
+              const iconColor = isVision ? "text-[#F6872A]" : "text-[#1a3668]";
+              const iconBg = isVision ? "bg-[#FFF8F3] border-orange-100" : "bg-blue-50 border-blue-100";
+
+              return (
+                <div key={idx} className={`bg-white rounded-[24px] p-8 lg:p-10 border-l-[6px] ${borderColor} border-y border-r border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.03)] relative overflow-hidden flex items-start gap-6 group hover:-translate-y-1 transition-transform duration-300`}>
+                  {/* Big Quote background */}
+                  <div className="absolute top-4 right-8 text-gray-50 opacity-60 pointer-events-none group-hover:scale-110 transition-transform duration-500">
+                     <Quote size={120} fill="currentColor" />
+                  </div>
+                  
+                  {/* Icon */}
+                  <div className={`w-16 h-16 rounded-[16px] ${iconBg} flex items-center justify-center shrink-0 border z-10 shadow-sm`}>
+                     <Icon size={32} className={iconColor} strokeWidth={1.5} />
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative z-10 pt-2">
+                     <h3 className="text-[22px] font-extrabold text-[#1a3668] mb-3 tracking-tight">{vm.title}</h3>
+                     <p className="text-gray-500 font-medium text-[15px] leading-[1.8]">{vm.description}</p>
+                     
+                     {vm.points?.length > 0 && (
+                        <ul className="mt-4 space-y-2">
+                          {vm.points.map((p: any, i: number) => (
+                            <li key={i} className="flex items-start gap-3">
+                              <CheckCircle2 size={16} className={`shrink-0 mt-1 ${iconColor}`} />
+                              <span className="text-gray-500 text-[14.5px] leading-relaxed">{p.text}</span>
+                            </li>
+                          ))}
+                        </ul>
+                     )}
+                  </div>
                 </div>
               )
-            }
-            <div className="flex flex-col justify-center">
-              {sections[activeTab].About.descriptions?.map((desc:any, i:any) => (
-                <p key={i} className="text-justify text-body-gray leading-relaxed mb-4 last:mb-0 text-[16px] md:text-[17px]">
-                  {desc.text}
-                </p>
-              ))}
-            </div>
+            })}
           </div>
         )}
 
-        {/* Vision & Mission Cards */}
-        {sections[activeTab].VisionMission?.length > 0 && (
-          <div className={`grid grid-cols-1 gap-6 ${gridColsForCount(sections[activeTab].VisionMission.length, 2)}`}>
-            {sections[activeTab].VisionMission?.map((vm:any, idx:any) => (
-              <div className="bg-white p-6 md:p-8 rounded-[20px] border border-card-border shadow-[var(--shadow-card)] relative overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] hover:border-orange/30" key={idx}>
-                <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-300 pointer-events-none text-navy text-8xl font-black italic">
-                  {vm.title.charAt(0)}
-                </div>
-                <h2 className="text-navy mb-4 font-bold text-2xl relative z-10 flex items-center gap-3">
-                  <span className="w-2 h-8 bg-orange rounded-full inline-block"></span>
-                  {vm.title}
-                </h2>
-                <p className="text-body-gray leading-relaxed mb-4 relative z-10">{vm.description}</p>
-                {vm.points?.length > 0 && (
-                  <ul className="list-disc ml-6 text-body-gray space-y-2 marker:text-orange relative z-10">
-                    {vm.points.map((p:any, i:any) => (
-                      <li key={i}>{p.text}</li>
-                    ))}
-                  </ul>
-                )}
+        {/* Objectives Section with Generated Image */}
+        {currentSection.OtherSections?.length > 0 && (
+          <div className="bg-[#FAFAFA] rounded-[32px] p-8 lg:p-12 border border-gray-100 shadow-[0_8px_30px_rgba(0,0,0,0.02)] relative overflow-hidden">
+             
+             {/* Faint background dots */}
+             <div className="absolute top-0 right-0 opacity-20 pointer-events-none">
+               <svg width="150" height="150" xmlns="http://www.w3.org/2000/svg">
+                 <pattern id="dots-obj" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                   <circle cx="2" cy="2" r="1.5" fill="#1a3668" />
+                 </pattern>
+                 <rect width="150" height="150" fill="url(#dots-obj)" />
+               </svg>
+             </div>
+
+             <div className="flex flex-col lg:flex-row gap-10 lg:gap-6 relative z-10">
+               
+               {/* Objectives List (Split into columns if large) */}
+               {currentSection.OtherSections.map((sec: any, idx: number) => {
+                 const mid = Math.ceil(sec.ListPoints.length / 2);
+                 const firstHalf = sec.ListPoints.slice(0, mid);
+                 const secondHalf = sec.ListPoints.slice(mid);
+                 
+                 return (
+                   <React.Fragment key={idx}>
+                     {/* Column 1 */}
+                     <div className="lg:w-2/5">
+                        <h3 className="text-[24px] font-extrabold text-[#1a3668] mb-6 tracking-tight">{sec.title}</h3>
+                        <div className="space-y-4">
+                          {firstHalf.map((p: any, i: number) => (
+                            <div key={i} className="flex items-start gap-3 group">
+                               <CheckCircle2 size={20} className="text-[#F6872A] shrink-0 mt-0.5 opacity-80 group-hover:opacity-100 transition-opacity" />
+                               <span className="text-[14px] text-gray-600 font-medium leading-[1.6] group-hover:text-gray-900 transition-colors">{p.text}</span>
+                            </div>
+                          ))}
+                        </div>
+                     </div>
+                     {/* Column 2 */}
+                     <div className="lg:w-1/4 lg:pt-[60px]">
+                        <div className="space-y-4">
+                          {secondHalf.map((p: any, i: number) => (
+                            <div key={i} className="flex items-start gap-3 group">
+                               <CheckCircle2 size={20} className="text-[#F6872A] shrink-0 mt-0.5 opacity-80 group-hover:opacity-100 transition-opacity" />
+                               <span className="text-[14px] text-gray-600 font-medium leading-[1.6] group-hover:text-gray-900 transition-colors">{p.text}</span>
+                            </div>
+                          ))}
+                        </div>
+                     </div>
+                   </React.Fragment>
+                 )
+               })}
+
+               {/* Column 3 - Theatre Masks Illustration */}
+               <div className="lg:w-[35%] flex items-center justify-center lg:justify-end mt-8 lg:mt-0">
+                  <div className="relative">
+                    <img 
+                      src="/images/theatre_masks.png" 
+                      alt="Theatre Masks Illustration" 
+                      className="w-full max-w-[280px] object-contain drop-shadow-[0_20px_40px_rgba(246,135,42,0.15)] hover:scale-105 transition-transform duration-500" 
+                      onError={(e) => { e.currentTarget.style.display = 'none'; }}
+                    />
+                  </div>
+               </div>
+             </div>
+          </div>
+        )}
+
+        {/* Gallery */}
+        {currentSection.images?.length > 0 && (
+          <div className="pt-6 relative">
+            <h3 className="text-[24px] font-extrabold text-[#1a3668] mb-6 tracking-tight">Gallery</h3>
+            
+            <div className="relative group">
+              {/* Left Arrow */}
+              <button 
+                onClick={() => scroll('left')}
+                className="absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-100 text-[#F6872A] shadow-[0_8px_20px_rgba(0,0,0,0.08)] flex items-center justify-center hover:bg-[#F6872A] hover:text-white transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0"
+              >
+                <ChevronLeft size={24} />
+              </button>
+
+              <div 
+                ref={scrollRef}
+                className="flex overflow-x-auto gap-5 pb-6 no-scrollbar snap-x scroll-smooth" 
+                style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              >
+                {currentSection.images.map((img: string, idx: number) => (
+                  <img
+                    key={idx}
+                    src={img}
+                    alt={`gallery-${idx}`}
+                    className="w-[280px] h-[190px] object-cover flex-shrink-0 snap-start rounded-[20px] border border-gray-100 shadow-sm transition-transform duration-500 hover:scale-[1.03] hover:shadow-[0_12px_30px_rgba(0,0,0,0.08)]"
+                  />
+                ))}
               </div>
-            ))}
-          </div>
-        )}
 
-        {/* Other Sections (Grid layout — sized to actual item count so a lone card doesn't leave a dead gap) */}
-        {sections[activeTab].OtherSections?.length > 0 && (
-          <div className={`grid grid-cols-1 gap-6 ${gridColsForCount(sections[activeTab].OtherSections.length, 3)}`}>
-            {sections[activeTab].OtherSections?.map((sec:any, idx:any) => (
-              <div key={idx} className="bg-surface-light p-6 md:p-8 rounded-[20px] border border-card-border shadow-sm">
-                <h2 className="text-xl text-navy mb-4 font-bold pb-2 border-b-2 border-orange/20 inline-block">{sec.title}</h2>
-                <ul
-                  className={`list-none space-y-3 text-body-gray mt-2 ${
-                    sections[activeTab].OtherSections.length === 1 && sec.ListPoints.length > 4
-                      ? "md:columns-2 md:gap-x-10"
-                      : ""
-                  }`}
-                >
-                  {sec.ListPoints.map((p:any, i:any) => (
-                    <li key={i} className="flex items-start gap-3 break-inside-avoid">
-                      <span className="w-1.5 h-1.5 rounded-full bg-orange mt-2 flex-shrink-0"></span>
-                      <span className="leading-relaxed">{p.text}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* Image Carousel (scrollable) */}
-        {sections[activeTab].images?.length > 0 && (
-          <div className="pt-4">
-            <h2 className="text-xl text-navy font-bold mb-4">Gallery</h2>
-            <div className="flex overflow-x-auto gap-4 pb-6 no-scrollbar snap-x" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
-              {sections[activeTab].images.map((img:any, idx:any) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`activity-${idx}`}
-                  className="w-72 h-48 object-cover flex-shrink-0 snap-start rounded-[16px] border border-card-border shadow-[var(--shadow-card)] transition-transform duration-300 ease-[var(--ease-editorial)] hover:-translate-y-2 hover:shadow-[var(--shadow-card-hover)]"
-                />
-              ))}
+              {/* Right Arrow */}
+              <button 
+                onClick={() => scroll('right')}
+                className="absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white border border-gray-100 text-[#F6872A] shadow-[0_8px_20px_rgba(0,0,0,0.08)] flex items-center justify-center hover:bg-[#F6872A] hover:text-white transition-all opacity-0 group-hover:opacity-100 disabled:opacity-0"
+              >
+                <ChevronRight size={24} />
+              </button>
             </div>
           </div>
         )}
 
         {/* Table */}
-        {sections[activeTab].Table_Section && (
-          <div className="mt-10">
-            {sections[activeTab].Table_Section.title && (
-               <h2 className="text-2xl text-navy font-bold mb-5 flex items-center gap-3">
-                 <span className="w-1.5 h-6 bg-orange rounded-full inline-block"></span>
-                 {sections[activeTab].Table_Section.title}
-               </h2>
-            )}
-
-            <div className="overflow-x-auto rounded-[20px] border border-card-border shadow-[var(--shadow-card)] bg-white">
-              <table className="w-full min-w-[600px] border-collapse">
+        {currentSection.Table_Section && (
+          <div className="mt-12">
+            <div className="relative overflow-hidden rounded-[24px] border border-gray-100 shadow-[0_12px_40px_rgba(0,0,0,0.04)] bg-white">
+              <table className="w-full min-w-[600px] text-left border-collapse">
                 <thead>
-                  <tr className="bg-surface-tint border-b border-card-border">
-                    <th className="py-4 px-6 border-r border-card-border font-bold text-navy text-left uppercase tracking-wider text-sm w-24">Sl.No</th>
-                    <th className="py-4 px-6 border-r border-card-border font-bold text-navy text-left uppercase tracking-wider text-sm">Faculty</th>
-                    <th className="py-4 px-6 font-bold text-navy text-left uppercase tracking-wider text-sm">Role</th>
+                  <tr className="bg-[#1a3668] text-white">
+                    <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase w-28">SL.NO</th>
+                    <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase">FACULTY</th>
+                    <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase">ROLE</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {sections[activeTab].Table_Section.Rows.map((row: any, index: number) => (
-                    <tr key={index} className="group border-b border-card-border last:border-b-0 hover:bg-surface-tint/60 transition-colors duration-250 ease-[var(--ease-editorial)]">
-                      <td className="py-4 px-6 border-r border-card-border text-left font-medium text-body-gray">{row.Slno}</td>
-                      <td className="py-4 px-6 border-r border-card-border text-left font-bold text-navy group-hover:text-orange transition-colors">{row.name}</td>
-                      <td className="py-4 px-6 text-left">
-                        <span className="inline-flex items-center px-3 py-1 rounded-full bg-orange/10 text-orange font-semibold text-sm">
+                  {currentSection.Table_Section.Rows.map((row: any, index: number) => (
+                    <tr key={index} className="group border-b border-gray-50 last:border-b-0 hover:bg-[#FAFAFA] transition-colors">
+                      <td className="py-5 px-8 text-[14px] font-semibold text-gray-400 group-hover:text-[#F6872A] transition-colors">
+                        {String(row.Slno).padStart(2, '0')}
+                      </td>
+                      <td className="py-5 px-8 text-[15px] font-extrabold text-[#1a3668] group-hover:text-[#F6872A] transition-colors">
+                        {row.name}
+                      </td>
+                      <td className="py-5 px-8">
+                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-[#FFF8F3] border border-orange-100/50 text-[#F6872A] font-bold text-[12px]">
                           {row.role}
                         </span>
                       </td>
@@ -167,6 +243,11 @@ const CulturalLeadershipActivities = ({data}:any) => {
                   ))}
                 </tbody>
               </table>
+              
+              {/* Table Watermark */}
+              <div className="absolute bottom-[-20px] right-4 opacity-[0.03] pointer-events-none text-[#1a3668]">
+                <Users size={180} />
+              </div>
             </div>
           </div>
         )}

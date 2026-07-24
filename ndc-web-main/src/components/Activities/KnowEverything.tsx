@@ -1,11 +1,15 @@
 "use client";
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { ArrowRight, Shield, Users, BookOpen, Award, Leaf, Scale, HeartHandshake, Target, Lightbulb, Compass, Flag } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, LayoutGrid } from "lucide-react";
 import StudentCenterContent from "@/app/Data/StudentCenterContent";
-import Image from "next/image";
-import SectionHeading from "@/components/ui/SectionHeading";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import {
+  ACTIVITY_ICONS,
+  AntiRaggingIcon,
+  ActivityLoadingIcon,
+} from "./ActivityIcons";
 
 type Tab =
   | "Student Oriented Cells"
@@ -37,14 +41,29 @@ const parentSlugToTab: Record<string, Tab> = {
   "academic-and-social-engagement-forums": "Academic & Social Engagement Forums",
 };
 
-const ICONS = [Shield, Users, BookOpen, Award, Leaf, Scale, HeartHandshake, Target, Lightbulb, Compass, Flag];
+const TAB_BLURBS: Record<Tab, string> = {
+  "Student Oriented Cells":
+    "Safety, welfare, and equal-opportunity cells that support every student on campus.",
+  "Faculty Oriented Cells":
+    "Welfare, equity, and professional-development cells for our teaching community.",
+  "Academic & Social Engagement Forums":
+    "Service units, study forums, and experiential learning beyond the classroom.",
+};
+
+const TAB_ICONS: Record<Tab, any> = {
+  "Student Oriented Cells": Users,
+  "Faculty Oriented Cells": GraduationCap,
+  "Academic & Social Engagement Forums": LayoutGrid,
+};
 
 const KnowEverything = ({ data }: any) => {
-  const { title, description, image } = data ?? {};
   const router = useRouter();
   const pathname = usePathname();
 
   const [selectedTab, setSelectedTab] = useState<Tab | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const isFirstTab = useRef(true);
+  const loadTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const rawHash = typeof window !== "undefined" ? window.location.hash.replace("#", "") : "";
@@ -80,6 +99,26 @@ const KnowEverything = ({ data }: any) => {
     }
   }, [selectedTab]);
 
+  useEffect(() => {
+    return () => {
+      if (loadTimer.current) clearTimeout(loadTimer.current);
+    };
+  }, []);
+
+  const handleTabChange = (tab: Tab) => {
+    if (tab === selectedTab) return;
+
+    if (isFirstTab.current) {
+      isFirstTab.current = false;
+    }
+
+    setIsLoading(true);
+    setSelectedTab(tab);
+
+    if (loadTimer.current) clearTimeout(loadTimer.current);
+    loadTimer.current = setTimeout(() => setIsLoading(false), 520);
+  };
+
   const handleProgrammeClick = (programmePath: string) => {
     if (!selectedTab) return;
     const tabPath = selectedTab.toLowerCase().replace(/\s+/g, "-");
@@ -87,97 +126,182 @@ const KnowEverything = ({ data }: any) => {
   };
 
   const currentProgrammes = selectedTab ? StudentCenterContent.programmeOptions[selectedTab] : [];
+  const activeIndex = selectedTab
+    ? Math.max(0, StudentCenterContent.tabsList.indexOf(selectedTab))
+    : 0;
+  const skeletonCount = Math.max(currentProgrammes.length, 4);
 
   return (
-    <div className="mb-24 md:mb-32 relative">
-      <header className="mb-10 text-center flex flex-col items-center">
-        <SectionHeading title={title ?? StudentCenterContent.title} className="mb-2" />
-        <p className="text-body-gray text-[17px] max-w-2xl text-center mt-4">
-          Discover the various cells, forums, and committees that make our campus vibrant and supportive.
+    <section className="mb-20 md:mb-24 relative w-full font-sans">
+      
+      {/* Decorative Dots */}
+      <div className="absolute top-10 left-[-40px] opacity-40 hidden xl:block">
+        <svg width="80" height="80" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="dots-act-left" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#F6872A" />
+          </pattern>
+          <rect width="80" height="80" fill="url(#dots-act-left)" />
+        </svg>
+      </div>
+      <div className="absolute top-20 right-[-40px] opacity-40 hidden xl:block">
+        <svg width="80" height="120" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="dots-act-right" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#F6872A" />
+          </pattern>
+          <rect width="80" height="120" fill="url(#dots-act-right)" />
+        </svg>
+      </div>
+
+      {/* Header */}
+      <header className="relative z-10 text-center mb-8">
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="h-[2px] bg-[#F6872A] w-8 opacity-70" />
+          <span className="text-[#F6872A] text-[13px] font-bold tracking-[0.2em] uppercase">Campus Life</span>
+          <div className="h-[2px] bg-[#F6872A] w-8 opacity-70" />
+        </div>
+        <h2 className="text-[32px] md:text-[40px] font-extrabold text-[#1a3668] tracking-tight mb-4">
+          Activities at <span className="text-[#F6872A]">Nagarjuna Degree College</span>
+        </h2>
+        <p className="text-[#53545b] text-[16px] font-medium tracking-wide max-w-2xl mx-auto leading-relaxed">
+          Explore the cells, forums, and committees that keep our campus safe, inclusive, and engaged.
         </p>
       </header>
 
-      {/* Floating Segmented Tabs */}
-      <div className="flex justify-center mb-12 md:mb-16 relative z-20">
-        <div className="inline-flex overflow-x-auto p-1.5 bg-surface-tint border border-card-border rounded-full shadow-sm max-w-[95vw] md:max-w-full no-scrollbar">
-          {StudentCenterContent.tabsList.map((tab) => (
-            <button
-              key={tab}
-              type="button"
-              onClick={() => setSelectedTab(tab as Tab)}
-              className={`whitespace-nowrap px-6 md:px-8 py-3.5 rounded-full font-bold text-[14px] md:text-[15px] transition-all duration-500 ease-[var(--ease-editorial)] ${
-                selectedTab === tab
-                  ? "bg-white text-navy shadow-[0_8px_20px_rgba(14,36,85,0.08)] scale-100"
-                  : "bg-transparent text-body-gray hover:text-navy hover:bg-white/50 scale-95 hover:scale-100"
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
+      {/* Tabs */}
+      <div className="relative z-20 flex justify-center mb-10">
+        <div
+          role="tablist"
+          className="inline-flex flex-wrap justify-center gap-4 max-w-full"
+        >
+          {StudentCenterContent.tabsList.map((tab) => {
+            const isActive = selectedTab === tab;
+            const TabIcon = TAB_ICONS[tab as Tab];
+            return (
+              <button
+                key={tab}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => handleTabChange(tab as Tab)}
+                className={`flex items-center gap-2.5 px-6 py-3.5 rounded-[12px] md:rounded-[20px] text-[13px] md:text-[14px] font-bold transition-all duration-300 ${
+                  isActive
+                    ? "bg-[#1a3668] text-white shadow-[0_8px_20px_rgba(26,54,104,0.3)] border-2 border-[#1a3668]"
+                    : "bg-white text-[#53545b] border-2 border-gray-100 hover:border-[#F6872A]/50 hover:text-[#1a3668] shadow-sm"
+                }`}
+              >
+                <TabIcon size={18} className={isActive ? "text-white" : "text-gray-400"} />
+                {tab}
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Premium Bento Box Layout */}
-      <RevealGroup className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-6">
-        
-        {/* Main Hero Card (Spans 2x2 on large screens) */}
-        <RevealItem className="md:col-span-2 lg:col-span-2 xl:col-span-2 md:row-span-2 rounded-[32px] overflow-hidden group min-h-[450px] flex flex-col justify-end border border-card-border shadow-[var(--shadow-card)] relative">
-          <Image
-            src={image ?? StudentCenterContent.imageSrc}
-            alt={selectedTab || "Activities"}
-            fill
-            sizes="(max-width: 1024px) 100vw, 50vw"
-            priority
-            className="object-cover transition-transform duration-[2000ms] ease-[var(--ease-editorial)] group-hover:scale-110"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/40 to-transparent"></div>
+      {/* Main Content Container */}
+      <Reveal className="relative z-10 mx-auto max-w-[1200px]">
+        <div className="bg-white rounded-[32px] border border-gray-100 shadow-[0_10px_40px_rgba(0,0,0,0.04)] overflow-hidden">
           
-          <div className="relative z-10 p-8 md:p-12">
-            <h2 className="text-3xl md:text-5xl font-black text-white mb-5 leading-[1.1] tracking-tight drop-shadow-md">
-              {selectedTab}
-            </h2>
-            <div className="w-12 h-1 bg-orange rounded-full mb-6"></div>
-            <p className="text-white/90 text-[16px] md:text-[18px] font-medium leading-relaxed drop-shadow-sm max-w-lg">
-              {description ?? StudentCenterContent.description}
-            </p>
-          </div>
-        </RevealItem>
-
-        {/* Programme Bento Cards */}
-        {currentProgrammes.map((prog: any, i: number) => {
-          const Icon = ICONS[i % ICONS.length];
-          return (
-            <RevealItem 
-              key={i} 
-              className="col-span-1"
-            >
-              <div 
-                onClick={() => handleProgrammeClick(prog.path)}
-                className="bg-white rounded-[32px] p-8 border border-card-border shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-card-hover)] hover:border-orange/30 transition-all duration-500 cursor-pointer flex flex-col justify-between group relative overflow-hidden h-full min-h-[240px]"
-              >
-                {/* Subtle Hover Glow */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-orange/5 rounded-full blur-3xl group-hover:bg-orange/15 transition-colors duration-500 -mr-10 -mt-10 pointer-events-none"></div>
-                
-                <div className="w-14 h-14 rounded-full bg-surface-tint flex items-center justify-center text-navy mb-8 group-hover:-translate-y-1 group-hover:bg-orange group-hover:text-white transition-all duration-500 shadow-sm relative z-10">
-                  <Icon size={24} strokeWidth={1.5} />
-                </div>
-                
-                <div className="relative z-10 mb-6">
-                  <h3 className="text-[20px] md:text-[22px] font-bold text-navy leading-[1.3] group-hover:text-orange transition-colors duration-300">
-                    {prog.name}
-                  </h3>
-                </div>
-                
-                {/* Arrow Button */}
-                <div className="absolute bottom-6 right-6 w-12 h-12 rounded-full bg-surface-tint border border-card-border flex items-center justify-center text-navy opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 group-hover:bg-navy group-hover:text-white group-hover:border-navy shadow-lg">
-                  <ArrowRight size={20} />
-                </div>
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 px-8 py-10 pb-6">
+            <div className="min-w-0">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[12px] font-extrabold tracking-[0.15em] uppercase text-[#F6872A]">
+                  Category
+                </span>
+                <span className="text-[12px] font-extrabold text-gray-300 tracking-[0.1em]">
+                  {String(activeIndex + 1).padStart(2, "0")}/{String(StudentCenterContent.tabsList.length).padStart(2, "0")}
+                </span>
               </div>
-            </RevealItem>
-          );
-        })}
-      </RevealGroup>
-    </div>
+              <h3 className="text-[28px] md:text-[32px] font-extrabold text-[#1a3668] tracking-tight leading-tight">
+                {selectedTab}
+              </h3>
+              <p className="mt-2 text-[15px] font-medium text-gray-500 max-w-2xl">
+                {selectedTab ? TAB_BLURBS[selectedTab] : ""}
+              </p>
+            </div>
+
+            <div className="shrink-0 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFF8F3] text-[#F6872A] border border-orange-100/50 text-[13px] font-extrabold">
+              {isLoading ? (
+                <>
+                  <ActivityLoadingIcon size={16} className="text-[#F6872A]" />
+                  <span>Loading</span>
+                </>
+              ) : (
+                <>
+                  <span className="tabular-nums">{currentProgrammes.length}</span>
+                  <span>{currentProgrammes.length === 1 ? "Cell" : "Cells"}</span>
+                </>
+              )}
+            </div>
+          </div>
+
+          {isLoading ? (
+            <div
+              className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 px-8 pb-10"
+              aria-busy="true"
+            >
+              {Array.from({ length: skeletonCount }).map((_, i) => (
+                <div
+                  key={i}
+                  className="flex items-center gap-5 px-6 py-5 rounded-[20px] border border-gray-100 bg-gray-50/50"
+                  style={{ animationDelay: `${i * 60}ms` }}
+                >
+                  <span className="shrink-0 w-12 h-12 rounded-[14px] bg-white border border-gray-100 flex items-center justify-center text-gray-300">
+                    <ActivityLoadingIcon size={24} />
+                  </span>
+                  <span className="flex-1 space-y-2.5">
+                    <span className="block h-2.5 w-8 rounded-full bg-gray-200 animate-pulse" />
+                    <span className="block h-4 w-[60%] rounded-full bg-gray-200 animate-pulse" />
+                  </span>
+                  <span className="shrink-0 w-8 h-8 rounded-full border border-gray-200 bg-white" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <RevealGroup
+              key={selectedTab ?? "default"}
+              className="grid grid-cols-1 lg:grid-cols-2 gap-x-6 gap-y-4 px-8 pb-10"
+            >
+              {currentProgrammes.map((prog: { name: string; path: string }, i: number) => {
+                const Icon = ACTIVITY_ICONS[prog.path] ?? AntiRaggingIcon;
+
+                return (
+                  <RevealItem key={prog.path}>
+                    <button
+                      type="button"
+                      onClick={() => handleProgrammeClick(prog.path)}
+                      className="group w-full h-full text-left flex items-center gap-5 px-6 py-5 rounded-[20px] border border-gray-100 bg-white hover:border-[#F6872A]/40 hover:shadow-[0_8px_30px_rgba(246,135,42,0.08)] transition-all duration-300"
+                    >
+                      {/* Left Thin Icon */}
+                      <span className="shrink-0 w-12 h-12 rounded-[14px] bg-[#FAFAFA] text-[#1a3668] flex items-center justify-center border border-gray-100 shadow-sm group-hover:bg-[#FFF8F3] group-hover:text-[#F6872A] group-hover:border-orange-100 transition-colors duration-300">
+                        <Icon size={24} />
+                      </span>
+
+                      {/* Content */}
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-[12px] font-extrabold text-[#F6872A] mb-1">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="block text-[16px] font-extrabold text-[#1a3668] leading-snug group-hover:text-[#F6872A] transition-colors duration-300">
+                          {prog.name}
+                        </span>
+                      </span>
+
+                      {/* Right Circular Arrow */}
+                      <span
+                        className="shrink-0 w-8 h-8 rounded-full border border-gray-200 bg-white text-gray-400 flex items-center justify-center group-hover:border-[#F6872A] group-hover:text-[#F6872A] transition-all duration-300"
+                        aria-hidden="true"
+                      >
+                        <ArrowRight size={16} strokeWidth={2} />
+                      </span>
+                    </button>
+                  </RevealItem>
+                );
+              })}
+            </RevealGroup>
+          )}
+        </div>
+      </Reveal>
+    </section>
   );
 };
 

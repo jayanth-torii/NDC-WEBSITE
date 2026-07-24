@@ -5,3 +5,4 @@ node_modules/
 Page_Assignments.xlsx
 create_excel.js
 NDC_Website_Sitemap.xlsx
+.playwright-mcp/

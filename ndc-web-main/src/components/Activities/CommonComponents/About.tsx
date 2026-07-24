@@ -15,21 +15,44 @@ export default function AboutIQAC({ data }: { data: any }) {
 
   return (
     <div className="mb-10 md:mb-20">
-      {/* About Description */}
+      {/* Premium Editorial About Description */}
       {data?.AboutDescription?.length > 0 && (
         <Reveal>
-          <div className="rounded-[24px] border border-card-border bg-gradient-to-br from-surface-tint to-white p-8 md:p-12 mb-10 shadow-[var(--shadow-card)] relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-orange/5 rounded-full blur-3xl pointer-events-none -mr-20 -mt-20"></div>
-            <h1 className="text-3xl md:text-4xl font-black mb-8 text-navy tracking-[-0.5px] flex items-center gap-4 relative z-10">
-              <span className="w-2 h-10 bg-orange rounded-full inline-block"></span>
-              {data?.title}
-            </h1>
-            <div className="relative z-10 space-y-4">
-              {data?.AboutDescription?.map((paragraph: string, index: number) => (
-                <p key={index} className="text-justify text-body-gray leading-relaxed text-[16px] md:text-[17px]">
-                  {paragraph}
-                </p>
-              ))}
+          <div className="relative mb-12 md:mb-16 pt-10 md:pt-14 px-6 md:px-12 overflow-hidden rounded-[2rem] md:rounded-[2.5rem] bg-white/40 backdrop-blur-2xl border border-white/60 shadow-[0_8px_32px_rgba(31,38,135,0.03)]">
+            {/* Ambient Background Glows */}
+            <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-orange-100/40 rounded-full blur-[100px] pointer-events-none z-0"></div>
+            <div className="absolute bottom-[-20%] right-[-10%] w-[60%] h-[60%] bg-blue-100/40 rounded-full blur-[120px] pointer-events-none z-0"></div>
+            
+            {/* Large Watermark Letter */}
+            <div className="absolute right-0 top-1/2 -translate-y-1/2 text-[15rem] md:text-[25rem] font-black italic text-navy opacity-[0.02] pointer-events-none select-none z-0 leading-none">
+              {data?.title?.charAt(0)}
+            </div>
+
+            <div className="relative z-10 max-w-4xl mx-auto pb-10 md:pb-14">
+              <div className="flex flex-col items-center md:items-start text-center md:text-left gap-6 md:gap-8">
+                
+                {/* Title Section */}
+                <div className="w-full">
+                  <div className="flex justify-center md:justify-start mb-6 md:mb-8">
+                    <div className="w-16 h-1.5 bg-gradient-to-r from-orange to-orange/60 rounded-full shadow-[0_0_15px_rgba(255,165,0,0.4)]"></div>
+                  </div>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.15] bg-clip-text text-transparent bg-gradient-to-br from-navy to-navy/80 drop-shadow-sm">
+                    {data?.title}
+                  </h1>
+                </div>
+
+                {/* Description Section */}
+                <div className="w-full space-y-5">
+                  {data?.AboutDescription?.map((paragraph: string, index: number) => (
+                    <p 
+                      key={index} 
+                      className={`text-justify md:text-left leading-relaxed text-[16px] md:text-[18px] ${index === 0 ? 'text-navy/90 font-medium text-[17px] md:text-[19px]' : 'text-body-gray'}`}
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </Reveal>
@@ -43,7 +66,7 @@ export default function AboutIQAC({ data }: { data: any }) {
              {data?.VisionMission?.sections?.map((section: any, idx: number) => (
                <div className="bg-white p-6 md:p-8 rounded-[20px] border border-card-border shadow-[var(--shadow-card)] relative overflow-hidden group transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] hover:border-orange/30" key={idx}>
                  <div className="absolute top-0 right-0 p-6 opacity-[0.03] group-hover:opacity-10 transition-opacity duration-300 pointer-events-none text-navy text-8xl font-black italic">
-                   {section.title.charAt(0)}
+                   {section.title.replace(/Our\s+/i, '').charAt(0)}
                  </div>
                  <h3 className="text-navy mb-4 font-bold text-2xl relative z-10 flex items-center gap-3">
                    <span className="w-2 h-8 bg-orange rounded-full inline-block"></span>
@@ -71,6 +94,30 @@ export default function AboutIQAC({ data }: { data: any }) {
           {data?.AccordienSection?.map((section: any, index: number) => {
             const accordionIndex = index + 1;
             const isOpen = openSections?.includes(accordionIndex);
+            const shouldBeStatic = section.title?.toLowerCase().includes("function") || section.title?.toLowerCase().includes("objective");
+
+            if (shouldBeStatic) {
+              return (
+                <RevealItem key={section.title || accordionIndex}>
+                  <div className="mb-6 mt-8">
+                    <h3 className="text-navy mb-4 font-bold text-2xl relative z-10 flex items-center gap-3">
+                      <span className="w-2 h-8 bg-orange rounded-full inline-block"></span>
+                      {section.title}
+                    </h3>
+                    <div className="p-6 md:p-8 bg-white rounded-[20px] border border-card-border shadow-[var(--shadow-card)]">
+                      <ul className="list-none space-y-3">
+                        {section.ListPoints?.map((item: string, j: number) => (
+                          <li key={j} className="flex items-start gap-3 text-justify text-body-gray leading-relaxed text-[15px] md:text-[16px]">
+                            <span className="w-1.5 h-1.5 rounded-full bg-orange mt-2 flex-shrink-0"></span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </RevealItem>
+              );
+            }
 
             return (
               <RevealItem key={section.title || accordionIndex}>

@@ -19,23 +19,28 @@ const PARTNERS = [
 
 const PlacementPartners = () => {
   return (
-    <section className="relative py-20 lg:py-28 bg-gradient-to-b from-surface-light to-white overflow-hidden">
-      {/* Decorative Background */}
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.02]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-navy/5 rounded-full blur-3xl" />
+    <section className="relative py-20 lg:py-28 bg-navy overflow-hidden">
+      {/* Dark Theme Decorative Background - Reference Site Style */}
+      <div className="absolute inset-0 bg-dot-grid opacity-10" />
+      
+      {/* Massive Faint Watermark */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none select-none opacity-[0.03]">
+        <span className="text-[12rem] md:text-[20rem] font-black text-white whitespace-nowrap tracking-tighter">
+          PLACEMENTS
+        </span>
+      </div>
 
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
         <Reveal>
-          <div className="bg-white rounded-[32px] p-8 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.06)] border border-gray-100">
-            <div className="flex items-center justify-center gap-3 mb-10">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-orange/10 to-orange/20 flex items-center justify-center">
-                <Building2 size={24} className="text-orange" />
-              </div>
-              <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-tight">
-                Our Placement Partners
-              </h2>
-            </div>
-            
+          {/* Dark Theme Header */}
+          <div className="text-center mb-12">
+            <h3 className="text-orange font-bold text-lg mb-2 uppercase tracking-widest">Building careers, shaping futures</h3>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight">
+              Trusted by leading <span className="text-orange">companies</span>
+            </h2>
+          </div>
+
+          <div className="bg-white/5 backdrop-blur-md rounded-[32px] p-8 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/10">
             {/* Enhanced Marquee Container */}
             <div className="relative flex overflow-hidden group mask-horizontal pb-4 -mb-4">
               {/* Animate Marquee */}
@@ -43,12 +48,12 @@ const PlacementPartners = () => {
                 {PARTNERS.map((partner, index) => (
                   <div 
                     key={index}
-                    className="flex-shrink-0 w-[180px] h-[110px] border border-gray-200 rounded-2xl flex items-center justify-center p-6 mx-[12px] hover:-translate-y-2 hover:border-orange/30 hover:shadow-[0_16px_40px_rgba(246,135,42,0.15)] transition-all duration-500 bg-white"
+                    className="group/logo flex-shrink-0 w-[180px] h-[110px] border border-white/10 rounded-2xl flex items-center justify-center p-6 mx-[12px] hover:-translate-y-2 hover:border-orange/50 hover:shadow-[0_16px_40px_rgba(246,135,42,0.2)] transition-all duration-500 bg-white/10 backdrop-blur-sm"
                   >
                     <img 
                       src={partner.url} 
                       alt={partner.name}
-                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 transition-all duration-300 hover:opacity-100 hover:scale-105"
+                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 group-hover/logo:scale-110"
                       onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
                   </div>
@@ -60,12 +65,12 @@ const PlacementPartners = () => {
                 {PARTNERS.map((partner, index) => (
                   <div 
                     key={`dup-${index}`}
-                    className="flex-shrink-0 w-[180px] h-[110px] border border-gray-200 rounded-2xl flex items-center justify-center p-6 mx-[12px] hover:-translate-y-2 hover:border-orange/30 hover:shadow-[0_16px_40px_rgba(246,135,42,0.15)] transition-all duration-500 bg-white"
+                    className="group/logo flex-shrink-0 w-[180px] h-[110px] border border-white/10 rounded-2xl flex items-center justify-center p-6 mx-[12px] hover:-translate-y-2 hover:border-orange/50 hover:shadow-[0_16px_40px_rgba(246,135,42,0.2)] transition-all duration-500 bg-white/10 backdrop-blur-sm"
                   >
                     <img 
                       src={partner.url} 
                       alt={partner.name}
-                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 transition-all duration-300 hover:opacity-100 hover:scale-105"
+                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 group-hover/logo:scale-110"
                       onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
                   </div>
@@ -74,18 +79,18 @@ const PlacementPartners = () => {
             </div>
 
             {/* Trust Indicators */}
-            <div className="flex justify-center gap-8 mt-8 pt-8 border-t border-gray-100">
+            <div className="flex justify-center gap-8 mt-8 pt-8 border-t border-white/10">
               <div className="text-center">
-                <p className="text-3xl font-extrabold text-navy">95%</p>
-                <p className="text-sm text-gray-500 font-medium mt-1">Placement Rate</p>
+                <p className="text-3xl font-extrabold text-white">95%</p>
+                <p className="text-sm text-gray-400 font-medium mt-1">Placement Rate</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-extrabold text-navy">100+</p>
-                <p className="text-sm text-gray-500 font-medium mt-1">Companies</p>
+                <p className="text-3xl font-extrabold text-white">100+</p>
+                <p className="text-sm text-gray-400 font-medium mt-1">Companies</p>
               </div>
               <div className="text-center">
-                <p className="text-3xl font-extrabold text-navy">8LPA</p>
-                <p className="text-sm text-gray-500 font-medium mt-1">Avg Package</p>
+                <p className="text-3xl font-extrabold text-white">8LPA</p>
+                <p className="text-sm text-gray-400 font-medium mt-1">Avg Package</p>
               </div>
             </div>
           </div>
