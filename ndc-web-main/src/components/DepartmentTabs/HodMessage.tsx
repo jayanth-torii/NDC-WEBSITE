@@ -16,7 +16,7 @@ const HodMessage = ({ haveContentCheck }: any) => {
     (departmentJson["hod-messages"] as any)?.data || {};
 
   const content = useMemo(() => {
-    let matchedData = null;
+    let matchedData: any = null;
     Object.keys(apiData).forEach((k) => {
       if (normalizeKey(k) === normalizedProgramme) {
         matchedData = apiData[k];
