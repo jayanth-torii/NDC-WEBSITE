@@ -1,68 +1,68 @@
 "use client";
 
-import React, { Suspense, useState, useEffect } from "react";
-import { Box } from "@mantine/core";
+import React, { Suspense } from "react";
 
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import LibraryBanner from "@/components/Library/LibraryBanner";
+import GlobalBanner from "@/components/GlobalBanner";
 import AboutLibrary from "@/components/Library/AboutLibrary";
 import Resources from "@/components/Library/Resources";
 import EventsRules from "@/components/Library/EventsRules";
-import Contact from "@/components/Library/Contact";
 
 import { LibraryContent } from "@/app/Data/LibraryContent";
 
+const libraryData = {
+  aboutLibrary: {
+    title: LibraryContent.aboutPlacementsSection.title,
+    aboutText: LibraryContent.aboutPlacementsSection.aboutText,
+    dropdowns: LibraryContent.aboutPlacementsSection.sections,
+  },
+  digitalResources: LibraryContent.digitalResources,
+  EventsAndRules: {
+    title: LibraryContent.EventsRulesSection.title,
+    events: LibraryContent.EventsRulesSection.aboutText,
+    rulesRegulations: {
+      title: LibraryContent.EventsRulesSection.rulesAndRegulations.title,
+      sections: LibraryContent.EventsRulesSection.rulesAndRegulations.content,
+    },
+  },
+};
+
 const Library = () => {
-  const [libraryData, setLibraryData] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate mapping local static data
-    const mappedData = {
-      BannerSection: LibraryContent.banner,
-      aboutLibrary: {
-        title: LibraryContent.aboutPlacementsSection.title,
-        aboutText: LibraryContent.aboutPlacementsSection.aboutText,
-        dropdowns: LibraryContent.aboutPlacementsSection.sections
-      },
-      digitalResources: LibraryContent.digitalResources,
-      EventsAndRules: {
-        title: LibraryContent.EventsRulesSection.title,
-        events: LibraryContent.EventsRulesSection.aboutText,
-        rulesRegulations: {
-          title: LibraryContent.EventsRulesSection.rulesAndRegulations.title,
-          sections: LibraryContent.EventsRulesSection.rulesAndRegulations.content
-        }
-      },
-      // ContactUs doesn't exist in LibraryContent.tsx, providing fallback or null
-      ContactUs: null
-    };
-    
-    setLibraryData(mappedData);
-    setLoading(false);
-  }, []);
-
-  if (loading || !libraryData) {
-    return (
-      <div className="text-center py-20 text-gray-500 text-lg">
-        Loading Library...
-      </div>
-    );
-  }
-
   return (
-    <Box style={{ margin: "auto", width: "90%" }}>
-      <LibraryBanner data={libraryData?.BannerSection} />
+    <div className="flex flex-col min-h-screen bg-white">
+      <GlobalBanner
+        eyebrow="Academics"
+        title="Library"
+        subtitle="Knowledge today, leaders tomorrow."
+        image="/images/StudentCenter/AcademicEnrichment/Library/gallery_1.png"
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Library" },
+        ]}
+      >
+        {/* Dot grid, upper-left over the dark gradient */}
+        <div className="absolute top-6 left-[6%] w-40 h-40 bg-dot-grid-light opacity-40 [mask-image:radial-gradient(closest-side,#000,transparent)]" />
 
-      <Suspense>
-        <Breadcrumb className="ml-0" />
-      </Suspense>
+        {/* Dashed ring accent */}
+        <svg className="absolute top-10 right-[30%] w-24 h-24 opacity-30 hidden md:block" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="46" stroke="#f6872a" strokeWidth="1.5" strokeDasharray="4 5" />
+        </svg>
 
-      <AboutLibrary data={libraryData?.aboutLibrary} />
-      <Resources data={libraryData?.digitalResources} />
-      <EventsRules data={libraryData?.EventsAndRules} />
-      {libraryData?.ContactUs && <Contact data={libraryData?.ContactUs} />}
-    </Box>
+        {/* Soft orange glow, bottom-left */}
+        <div className="absolute -bottom-16 left-[10%] w-64 h-64 rounded-full bg-orange/25 blur-[90px]" />
+
+        {/* Soft blue glow, top-right */}
+        <div className="absolute -top-20 right-[8%] w-72 h-72 rounded-full bg-[#3270fc]/20 blur-[100px]" />
+
+        {/* Small solid accent dot */}
+        <span className="absolute bottom-10 left-[32%] w-2.5 h-2.5 rounded-full bg-orange/80 hidden sm:block" />
+      </GlobalBanner>
+
+      <div className="container mx-auto px-4 lg:px-8 max-w-7xl">
+        <AboutLibrary data={libraryData.aboutLibrary} />
+        <Resources data={libraryData.digitalResources} />
+        <EventsRules data={libraryData.EventsAndRules} />
+      </div>
+    </div>
   );
 };
 

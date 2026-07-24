@@ -53,28 +53,34 @@ The one-line git message ("Complete structural and aesthetic overhaul of Gallery
 - **Global theme**: `globals.css` and `layout.tsx` updated for the design tokens the new components rely on.
 - **Per-page visual redesign** using the new `ui/` primitives, touching effectively every content component across: Home, About NDC, Admissions, Contact Us, Departments (`DepartmentTabs` + `DepartmentsPage`), Students, Activities, Alumni, Gallery, Research, Library, Question Bank, Certificate Courses, IQAC, IIC, Samashti, Sports, Blog, and the shared `Breadcrumb`/`CommonComponents`.
 
-### Uncommitted, in progress — remaining pages onto `GlobalBanner`
+### `GlobalBanner` migration for Alumni/Blog/IIC/IQAC/Research/Research Forum/Sports — done
 
-At the time of writing, these are modified/added but **not yet committed**:
+The remaining-pages migration described in an earlier draft of this doc is complete and committed (see `f2b4487`, `caf1b9a`, `a81bc3f` and the merge history into `main`): all seven pages render through `GlobalBanner`, the per-page `*Banner.tsx` components are deleted, and the supporting sections were redesigned to match the `ui/` system. Nothing outstanding here.
 
-- **Banner content added to data-export JSON** (`eyebrow` + `subtitle` fields, matching the Sports/Alumni pattern) for: `alumni`, `blog`, `iic`, `iqac`, `research`, `research-forum`, `sports`.
-- **Pages wired onto `GlobalBanner`**, dropping their last dedicated banner component: `alumni/page.tsx`, `blog/page.tsx` + `blog/[id]/page.tsx`, `iic/page.tsx`, `iqac/page.tsx`, `research/page.tsx`, `research-forum/page.tsx`, `sports/page.tsx`. Deleted: `BlogsBanner.tsx`, `IICBanner.tsx`, `IqacBanner.tsx`, `ResearchForumBanner.tsx`, `SportsBanner.tsx`.
-- **Supporting section redesigns**: `AboutNDC/OurCampus.tsx`, `AboutNDC/PrincipalMessage.tsx`, `Alumni/Association.tsx`, `Alumni/VisionMission.tsx`, `BlogsPage/ArticleCard.tsx`, `BlogsPage/BlogCard.tsx`, `IIC/IICMembers.tsx`, `IQAC/About.tsx`, `IQAC/CompositionCell.tsx`, `ResearchForum/Forum.tsx`, `Sports/AboutSections.tsx`, `Sports/Gallery.tsx`, `Sports/HodMessage.tsx`.
-- **New untracked CSS files** (need `git add`, not just modified): `src/app/alumni/alumni-exact.css`, `src/components/AboutNDC/about-ndc.css`.
-- **Also untracked, not part of this feature work** — needs a decision before the next commit: `temp_contact.html` (looks like a scratch file at the repo root) and `NCET-main/` (a full separate project folder, presumably the sibling institution's site kept locally for design reference — likely belongs in `.gitignore` rather than getting committed).
+### Home "Campus Life" section rebuild + Library page onto `GlobalBanner` (this commit)
 
-**Suggested commit message for the pending work above:**
+**`HomePage/LifeAtNDC.tsx`** (renders as the "Glimpse of Campus Life" section on `/`) was rebuilt from a single YouTube-thumbnail strip into a three-part section matching a supplied visual reference:
+- Hero split: eyebrow/heading (with a script-font "Grow." accent — added `Caveat` via `next/font/google` in `layout.tsx` as `--font-script`), a stats strip (Students/Courses/Achievements/Departments), and a circular framed photo with a decorative SVG ring, an "Empowering Young Minds" badge, and a play button.
+- "Moments That Matter" gallery: first built with invented photo/staff-spotlight cards, then corrected to pull directly from the CMS `videos` array (`data-export/_landing/data.json` → `CampusLife.videos`) — real YouTube thumbnails (`img.youtube.com/vi/{id}/hqdefault.jpg`), each opening the actual video in a modal player. A first pass used an arbitrary Tailwind grid template (`grid-cols-[minmax(0,320px)_1fr]`) that Tailwind failed to compile, collapsing the column to ~68px and wrapping "View All Gallery" into a circle; replaced with a plain flex layout (`lg:w-[300px]` sidebar + `flex-1` scroller).
+- Feature strip (Vibrant Campus Life / Experienced Faculty / Modern Infrastructure / Placement Support).
 
-```
-Migrate remaining pages onto GlobalBanner (Alumni, Blog, IIC, IQAC, Research, Research Forum, Sports)
+**Library page** (`app/library/page.tsx` + `components/Library/*`) migrated onto the same `GlobalBanner` used elsewhere instead of its bespoke `LibraryBanner.tsx` (deleted):
+- `GlobalBanner` gained a new optional `children` prop (opt-in, renders nothing unless passed) so a page can layer its own decorative shapes on top of the photo/gradient without changing any other page's banner. Library's banner uses it for a dot-grid patch, a dashed ring, and two blurred glow blobs, plus a real photo (`public/images/StudentCenter/AcademicEnrichment/Library/gallery_1.png` — students at the shelves, chosen because it has no baked-in text, unlike the old `library/banner.png`).
+- `AboutLibrary.tsx`: two-column header (copy + illustration) with the title's last word colored orange, and the two info cards given distinct themes (navy chip / blue-gray card for "Library Services", orange chip / cream card for "Library Collection") with orange checkmark bullets instead of plain dots.
+- New `LibraryIllustration.tsx` — no book-stack/graduation-cap asset existed, so it's hand-built as an inline SVG (three stacked books, tilted cap with tassel, a small potted plant, dot-grid/ring accents) using the site's existing navy/orange tokens, rather than a sourced image.
+- `Resources.tsx`: list/sidebar ratio tightened from 75/25 to 66/33; added a dictionary-specific tab icon.
+- `EventsRules.tsx`: added an icon chip under the "Library Rules and Regulations" heading, and replaced the oversized faded rule numbers with a bold orange number plus a small icon badge inferred per-rule by keyword (timings → clock, eligibility → users, thesis → cap, damage/loss → warning, etc.).
 
-- Add eyebrow/subtitle banner content to data-export JSON for the 7 remaining pages
-- Wire each page's GlobalBanner from that data, removing the last per-page Banner components
-- Redesign supporting sections (About NDC campus/principal message, Alumni association/vision,
-  Blog cards, IIC members, IQAC about/composition, Research Forum, Sports about/gallery/HOD message)
-  to match the ui/ design system introduced in 169c827
-```
+### Animated Activities icon system + shared background decor
 
+New `Activities/ActivityIcons.tsx` (looping SVG icon set) driven by new keyframe/utility classes in `globals.css` (`.act-spin-origin`, `.act-pulse-dot`, `.act-breathe`, `.act-draw-check`, `.act-spark`, `.act-float-y`, `.act-heartbeat`, `.act-pop`, `.act-type-line`, `.act-bridge`), used by `KnowEverything.tsx` and other Activities components. New shared `ui/BackgroundDecor.tsx` (concentric-circle + dot-grid watermark) is now used by `Activities/CommonComponents/PageShell.tsx`. New image assets: `public/images/theatre_masks.png`, `public/images/decor/{plane,squiggle}.png`.
 
+### Continuing editorial redesign pass
+
+The same dot-grid + blurred-glow + navy/orange visual language introduced in `169c827` was extended further into: Home (`AboutNDC`, `Blogs`, `CertificateCourses`, `Education`, `Notifications`, `PlacementPartners`, `Yrs25`), Alumni (`Association`, `VisionMission`), Blog (`app/blog/page.tsx`, `BlogsPage/ArticleCard`, `BlogsPage/BlogCard`, `BlogsPage/Pagination`), and Activities (`AboutNDC/Council`, `Activities/CulturalActivities`, `Activities/CulturalLeadershipActivities`, `Activities/CommonComponents/About`).
+
+### Still sitting in the working tree, not part of this commit
+
+Same caveat as before, still unresolved — needs a decision from whoever owns the repo, left untouched: `NCET-main/` (a full separate project folder, presumably the sibling institution's site kept locally for design reference) and `samashti_source.html` (a scratch file at the repo root). Both likely belong in `.gitignore` rather than getting committed. A local Excel lock file (`~$NDC_Website_Sitemap.xlsx`) and a handful of untracked `lib-*.png` reference screenshots at the repo root are similarly pre-existing and left alone.
 
 Content is now a frozen snapshot (taken 2026-07-22). Future edits made in the Strapi admin panel will **not** appear on the live site until someone reruns the CMS export and rebuilds/redeploys `ndc-web-main`. There is currently no automated refresh — worth adding an npm script (or a scheduled job) if the CMS is still the intended editing surface for content.
