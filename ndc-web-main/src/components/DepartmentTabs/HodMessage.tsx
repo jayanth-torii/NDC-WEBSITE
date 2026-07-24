@@ -1,19 +1,8 @@
-"use client";
-
+import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
-import { Quote, User } from "lucide-react";
 import departmentJson from "@/data-export/department/data.json";
-import Button from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";
-
-interface HodData {
-  hodImage: string;
-  hodName: string;
-  hodDesignation: string;
-  hodMessage: string;
-}
+import { motion } from "framer-motion";
 
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
@@ -23,138 +12,87 @@ const HodMessage = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, HodData> =
+  const apiData: Record<string, any> =
     (departmentJson["hod-messages"] as any)?.data || {};
-  const [isExpanded, setIsExpanded] = useState(false);
 
-  const normalizedMap = useMemo(() => {
-    const map: Record<string, HodData> = {};
-    Object.keys(apiData || {}).forEach((k) => {
-      map[normalizeKey(k)] = apiData[k];
+  const content = useMemo(() => {
+    let matchedData = null;
+    Object.keys(apiData).forEach((k) => {
+      if (normalizeKey(k) === normalizedProgramme) {
+        matchedData = apiData[k];
+      }
     });
-    return map;
-  }, [apiData]);
-
-  const content: HodData | undefined = useMemo(
-    () => normalizedMap[normalizedProgramme],
-    [normalizedMap, normalizedProgramme]
-  );
+    return matchedData;
+  }, [apiData, normalizedProgramme]);
 
   useEffect(() => {
-    const exists =
-      apiData != null &&
-      Object.prototype.hasOwnProperty.call(normalizedMap, normalizedProgramme);
-    haveContentCheck(exists);
-  }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
+    haveContentCheck(content != null);
+  }, [content, haveContentCheck]);
 
-  if (!content) {
-    return (
-      <h1 className="text-center text-red-500">
-        HOD&apos;S Message Not Found for{" "}
-        <span className="font-semibold">{programme}</span>
-      </h1>
-    );
-  }
+  if (!content) return null;
 
-  const MAX_PREVIEW = 500;
-  const fullMessage = (content.hodMessage || "").trim();
-  const paragraphs = fullMessage.split(/\n+/).filter(Boolean);
-
-  let remaining = MAX_PREVIEW;
-  let truncated = false;
-  const previewParagraphs: string[] = [];
-
-  for (const p of paragraphs) {
-    if (remaining <= 0) break;
-    if (p.length <= remaining) {
-      previewParagraphs.push(p);
-      remaining -= p.length + 1;
-    } else {
-      previewParagraphs.push(p.slice(0, remaining));
-      truncated = true;
-      remaining = 0;
-      break;
-    }
-  }
-
-  const showToggle = fullMessage.length > MAX_PREVIEW;
+  const { hodImage, hodName, hodDesignation, hodMessage } = content;
 
   return (
     <Reveal>
-      <div>
-        <header className="pb-6 mb-8 border-b border-navy/10">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
-            Leadership
-          </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
-            HOD&apos;S MESSAGE
-          </h2>
-        </header>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 border border-navy/10">
-          <div className="lg:col-span-5 relative min-h-[280px] bg-surface-tint overflow-hidden">
-            <div
-              className="absolute inset-0 opacity-40 bg-contain bg-center bg-no-repeat"
-              style={{ backgroundImage: 'url("/images/Background.png")' }}
+      <div className="flex flex-col lg:flex-row gap-10 lg:gap-16 items-start">
+        {/* Left Side: Profile */}
+        <div className="w-full lg:w-1/3 flex flex-col items-center">
+          <div className="relative mb-8 mt-4">
+            {/* Rotating dashed ring */}
+            <motion.div 
+              className="absolute -inset-4 border-2 border-dashed border-orange/40 rounded-full"
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 20, ease: "linear" }}
             />
-            {content.hodImage ? (
-              <Image
-                src={content.hodImage}
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                className="object-contain relative z-10"
-                alt="HOD Image"
+            {/* Inner rotating solid ring */}
+            <motion.div 
+              className="absolute -inset-2 border-4 border-navy/10 rounded-full"
+              animate={{ rotate: -360 }}
+              transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
+            />
+            
+            {/* Floating Image */}
+            <motion.div 
+              className="w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.12)] bg-white shrink-0 relative z-10 border-[4px] border-white"
+              animate={{ y: [-6, 6, -6] }}
+              transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+              whileHover={{ scale: 1.05, rotate: 2 }}
+            >
+              <img
+                src={hodImage || "https://placehold.co/400x400/eeeeee/cccccc?text=HOD"}
+                alt={hodName}
+                className="w-full h-full object-cover object-top"
               />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center text-navy z-10">
-                <User size={56} strokeWidth={1.5} />
-              </div>
-            )}
-            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/80 to-transparent p-6 z-20">
-              <p className="font-bold text-xl text-white">{content.hodName}</p>
-              <p className="text-orange text-sm font-bold tracking-wide uppercase mt-1">
-                {content.hodDesignation}
-              </p>
-            </div>
+            </motion.div>
           </div>
+          <div className="text-center">
+            <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-tight mb-2">
+              {hodName}
+            </h2>
+            <p className="text-orange font-medium">
+              {hodDesignation}
+            </p>
+          </div>
+        </div>
 
-          <div className="lg:col-span-7 p-6 md:p-10 relative">
-            <Quote
-              size={64}
-              className="text-orange/15 absolute top-4 right-6 -scale-x-100"
-              aria-hidden
-            />
-            <div className="relative z-10 space-y-3">
-              {isExpanded
-                ? paragraphs.map((msg, idx) => (
-                    <p
-                      key={idx}
-                      className="text-body-gray whitespace-pre-line leading-relaxed"
-                    >
-                      {msg}
-                    </p>
-                  ))
-                : previewParagraphs.map((msg, idx) => {
-                    const isLast = idx === previewParagraphs.length - 1;
-                    return (
-                      <p key={idx} className="text-body-gray leading-relaxed">
-                        {msg}
-                        {isLast && truncated ? "..." : ""}
-                      </p>
-                    );
-                  })}
+        {/* Right Side: Message */}
+        <div className="w-full lg:w-2/3 bg-gray-50/50 rounded-3xl p-8 md:p-10 relative overflow-hidden border border-navy/5 shadow-sm">
+          {/* Decorative quote mark in background */}
+          <div className="absolute -top-6 -left-2 text-[150px] leading-none font-serif text-navy/[0.03] select-none pointer-events-none">
+            &ldquo;
+          </div>
+          
+          <div className="relative z-10">
+            <h3 className="text-2xl md:text-3xl font-extrabold text-navy mb-6 tracking-tight">
+              HOD's Message
+            </h3>
+            
+            <div className="space-y-4 text-[15px] md:text-base text-[#5f6368] leading-relaxed italic font-serif">
+              {hodMessage?.split('\n').map((paragraph: string, idx: number) => (
+                paragraph.trim() ? <p key={idx}>{paragraph}</p> : <br key={idx} />
+              ))}
             </div>
-
-            {showToggle && (
-              <Button
-                variant="primary"
-                onClick={() => setIsExpanded((v) => !v)}
-                aria-expanded={isExpanded}
-                className="mt-6"
-              >
-                {isExpanded ? "SHOW LESS" : "READ MORE..."}
-              </Button>
-            )}
           </div>
         </div>
       </div>

@@ -2,6 +2,8 @@
 
 import React, { useState, useRef, ReactNode, Suspense, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { Info, Target, Users, BookOpen, Search, BookText, Activity, MessageSquare, CheckCircle2, Clock } from "lucide-react";
 
 import AboutCourse from "./AboutCourse";
 import VisionMission from "./VisionMission";
@@ -31,14 +33,29 @@ const tabs = [
   "Syllabus Details",
 ];
 
+const getTabIcon = (tab: string) => {
+  switch (tab) {
+    case "About Department": return <Info size={18} />;
+    case "Vision & Mission": return <Target size={18} />;
+    case "HOD'S Message": return <MessageSquare size={18} />;
+    case "Department Faculty Members": return <Users size={18} />;
+    case "Objectives": return <CheckCircle2 size={18} />;
+    case "Admission Process": return <BookOpen size={18} />;
+    case "Course Duration": return <Clock size={18} />;
+    case "Programme Details": return <BookText size={18} />;
+    case "Research": return <Search size={18} />;
+    case "Books/Patients": return <BookOpen size={18} />;
+    case "Activities": return <Activity size={18} />;
+    case "Syllabus Details": return <BookText size={18} />;
+    default: return null;
+  }
+};
+
 export default function DepartmentTabs() {
   const searchParams = useSearchParams();
   const department = searchParams.get("programme") || "bca";
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const contentRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [showLeftShadow, setShowLeftShadow] = useState(false);
-  const [showRightShadow, setShowRightShadow] = useState(true);
 
   const [aboutOk, setAboutOk] = useState<boolean | null>(null);
   const [visionOk, setVisionOk] = useState<boolean | null>(null);
@@ -52,20 +69,6 @@ export default function DepartmentTabs() {
   const [booksPatientsOk, setBooksPatientsOk] = useState<boolean | null>(null);
   const [activitiesOk, setActivitiesOk] = useState<boolean | null>(null);
   const [syllabusOk, setSyllabusOk] = useState<boolean | null>(null);
-
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setShowLeftShadow(scrollLeft > 0);
-      setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener("resize", handleScroll);
-    return () => window.removeEventListener("resize", handleScroll);
-  }, []);
 
   useEffect(() => {
     setActiveTab(tabs[0]);
@@ -157,89 +160,57 @@ export default function DepartmentTabs() {
     return true;
   });
 
-  const activeIndex = Math.max(0, visibleTabs.indexOf(activeTab));
-
   return (
     <div className="relative w-full scroll-mt-32">
-      {/* Sticky index bar */}
-      <div className="sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-y border-navy/10 shadow-[0_1px_0_rgba(14,36,85,0.04)]">
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="flex items-center gap-6 py-1">
-            <div className="hidden md:flex flex-col shrink-0 py-3 pr-6 border-r border-navy/10">
-              <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-orange">
-                Contents
-              </span>
-              <span className="text-navy font-bold text-sm tabular-nums mt-0.5">
-                {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                {String(visibleTabs.length).padStart(2, "0")}
-              </span>
-            </div>
-
-            <div className="relative flex-1 min-w-0">
-              <div
-                className={`absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
-                  showLeftShadow ? "opacity-100" : "opacity-0"
+      <div className="container mx-auto px-4 lg:px-8 pt-10 lg:pt-14">
+        {/* Pills Tab Navigation */}
+        <div className="flex flex-wrap gap-3 mb-10 md:mb-14 justify-start">
+          {visibleTabs.map((tab) => {
+            const isActive = activeTab === tab;
+            return (
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                key={tab}
+                type="button"
+                onClick={() => handleTabClick(tab)}
+                className={`inline-flex items-center gap-2.5 px-6 py-3 rounded-full text-[14px] md:text-[15px] font-semibold transition-colors duration-300 border shadow-sm ${
+                  isActive
+                    ? "bg-navy text-white border-navy"
+                    : "bg-white text-[#5f6368] border-gray-100 hover:border-transparent hover:text-orange hover:bg-orange/10 hover:shadow-md"
                 }`}
-              />
-              <div
-                className={`absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
-                  showRightShadow ? "opacity-100" : "opacity-0"
-                }`}
-              />
-
-              <div
-                ref={scrollContainerRef}
-                onScroll={handleScroll}
-                className="flex gap-1 overflow-x-auto py-3 hide-scrollbar"
               >
-                {visibleTabs.map((tab, idx) => {
-                  const isActive = activeTab === tab;
-                  return (
-                    <button
-                      key={tab}
-                      type="button"
-                      onClick={() => handleTabClick(tab)}
-                      className={`relative shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-semibold transition-colors duration-300 ${
-                        isActive
-                          ? "text-navy"
-                          : "text-body-gray hover:text-navy"
-                      }`}
-                    >
-                      <span className="text-[10px] font-bold tracking-[0.14em] text-orange/70 mr-2 tabular-nums">
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                      {tab}
-                      {isActive && (
-                        <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-orange" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+                <span className={isActive ? "text-white" : "text-gray-400 transition-colors"}>
+                  {getTabIcon(tab)}
+                </span>
+                {tab}
+              </motion.button>
+            );
+          })}
         </div>
-      </div>
 
-      {/* Content band */}
-      <div
-        ref={contentRef}
-        className="container mx-auto px-4 lg:px-8 pt-10 lg:pt-14 scroll-mt-40"
-      >
-        <div className="min-h-[420px] border border-navy/10 bg-white">
-          <div className="h-1 w-full bg-gradient-to-r from-navy via-orange to-navy/20" />
-          <div className="p-6 md:p-10 lg:p-12">
-            {tabs.map((tab) => {
-              const isActive = activeTab === tab;
-              return (
-                <div
-                  key={tab}
-                  className={isActive ? "block" : "hidden"}
-                  aria-hidden={!isActive}
-                >
-                  {isActive && (components[tab] || <p>Content not available.</p>)}
-                </div>
-              );
+        {/* Content Area with Animation */}
+        <div 
+          ref={contentRef} 
+          className="scroll-mt-40 bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-gray-100 min-h-[420px] p-6 md:p-10 lg:p-12 overflow-hidden"
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeTab}
+              initial={{ opacity: 0, y: 15, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -15, scale: 0.98 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              {components[activeTab] || <p>Content not available.</p>}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Hidden components to ensure data hooks continue to run */}
+          <div className="hidden">
+            {visibleTabs.map((tab) => {
+              if (tab === activeTab) return null;
+              return <div key={tab}>{components[tab]}</div>;
             })}
           </div>
         </div>
