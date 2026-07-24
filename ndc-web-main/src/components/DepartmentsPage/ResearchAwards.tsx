@@ -55,14 +55,14 @@ const ResearchAwards = ({ data }: any) => {
               {activeSection.ListPoints.map((item: string, idx: number) => (
                 <li
                   key={idx}
-                  className="relative pl-8 md:pl-10 py-5 group"
+                  className="relative pl-6 md:pl-8 py-3 group"
                 >
-                  <span className="absolute left-0 top-7 -translate-x-[calc(50%+1px)] w-3 h-3 bg-white border-2 border-orange group-hover:bg-orange transition-colors duration-300" />
+                  <span className="absolute left-0 top-5 -translate-x-[calc(50%+1px)] w-2.5 h-2.5 bg-white border-2 border-orange group-hover:bg-orange transition-colors duration-300 rounded-full" />
                   <div className="flex gap-4 items-start">
                     <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-1 shrink-0">
                       {String(idx + 1).padStart(2, "0")}
                     </span>
-                    <p className="text-body-gray leading-relaxed group-hover:text-navy transition-colors duration-300">
+                    <p className="text-body-gray leading-relaxed group-hover:text-navy transition-colors duration-300 text-justify text-sm md:text-[15px]">
                       {item}
                     </p>
                   </div>

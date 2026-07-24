@@ -4,6 +4,7 @@ import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
+import { motion } from "framer-motion";
 
 interface ResearchData {
   title?: string;
@@ -53,49 +54,50 @@ const Research = ({ haveContentCheck }: any) => {
 
   return (
     <Reveal>
-      <div>
-        <header className="pb-6 mb-2 border-b border-navy/10">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+      <div className="space-y-5">
+        <header className="pb-4 mb-2 border-b border-navy/10">
+          <p className="text-orange text-[10px] font-bold tracking-[0.28em] uppercase mb-2">
             Scholarship
           </p>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
-            {data?.title}
+          <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-tight">
+            {data?.title || "Research"}
           </h2>
         </header>
 
-        <div className="max-h-[420px] md:max-h-[500px] overflow-y-auto custom-scrollbar pr-2">
+        <div className="space-y-3">
           {points.length > 0 ? (
-            <ol className="relative border-l-2 border-navy/10 ml-2">
+            <div className="flex flex-col gap-3">
               {points.map((item, idx) => (
-                <li key={idx} className="relative pl-8 py-4 group">
-                  <span className="absolute left-0 top-6 -translate-x-[calc(50%+1px)] w-2.5 h-2.5 bg-white border-2 border-orange group-hover:bg-orange transition-colors duration-300" />
-                  <div className="flex gap-4 items-start">
-                    <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-0.5 shrink-0">
-                      {String(idx + 1).padStart(2, "0")}
-                    </span>
-                    <p className="text-body-gray leading-relaxed group-hover:text-navy transition-colors duration-300">
-                      {item}
-                    </p>
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, x: -40, y: 20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{
+                    duration: 0.6,
+                    delay: idx * 0.12, // Wave stagger effect
+                    type: "spring",
+                    stiffness: 80,
+                    damping: 12
+                  }}
+                  whileHover={{ scale: 1.02, x: 8, transition: { type: "spring", stiffness: 300 } }}
+                  className="bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.02)] border border-gray-100 p-4 md:p-5 flex items-start gap-4 group cursor-pointer"
+                >
+                  <div className="mt-0.5 w-8 h-8 flex items-center justify-center rounded-lg bg-orange/10 shrink-0 text-orange font-black text-sm tabular-nums group-hover:bg-orange group-hover:text-white transition-colors duration-300">
+                    {String(idx + 1).padStart(2, "0")}
                   </div>
-                </li>
+                  <p className="leading-relaxed text-[14px] font-medium text-[#5f6368] group-hover:text-navy transition-colors duration-300">
+                    {item}
+                  </p>
+                </motion.div>
               ))}
-            </ol>
+            </div>
           ) : (
-            <p className="text-body-gray py-8">No research points available.</p>
+            <div className="bg-white rounded-xl border border-gray-100 p-6 text-center text-[#5f6368] font-medium text-sm">
+              No research points available.
+            </div>
           )}
         </div>
-
-        <style jsx>{`
-          .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-          }
-          .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-          }
-          .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: var(--color-orange);
-          }
-        `}</style>
       </div>
     </Reveal>
   );

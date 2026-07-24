@@ -181,41 +181,38 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
         </header>
       </Reveal>
 
-      <RevealGroup className="flex flex-col border-t border-navy/10">
+      <RevealGroup className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         {currentFaculties.map((faculty: any, idx: number) => (
           <RevealItem key={faculty.id}>
             <button
               type="button"
               onClick={() => setSelectedFaculty(faculty)}
-              className="w-full grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 py-6 border-b border-navy/10 text-left group hover:bg-surface-light/70 transition-colors duration-300 -mx-2 px-2 cursor-pointer"
+              className="w-full bg-white rounded-2xl shadow-sm border border-gray-100 p-8 flex flex-col items-center text-center group hover:-translate-y-1 hover:shadow-lg transition-all duration-300 relative overflow-hidden h-full"
             >
-              <div className="sm:col-span-1 flex items-start">
-                <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums pt-2">
-                  {String(startIndex + idx + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className="sm:col-span-2">
+              {/* Subtle background glow on hover */}
+              <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+              
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-orange/20 rounded-full blur-xl scale-110 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 <FacultyAvatar
                   image={faculty.image}
                   name={faculty.name}
-                  className="w-20 h-20 sm:w-24 sm:h-24 border border-navy/10"
+                  className="w-32 h-32 rounded-full border-4 border-white shadow-md relative z-10"
                 />
               </div>
-              <div className="sm:col-span-6 flex flex-col justify-center">
-                <h2 className="text-lg md:text-xl font-bold text-navy tracking-tight group-hover:text-orange transition-colors duration-300">
-                  {faculty.name}
-                </h2>
-                <p className="text-sm text-orange font-medium mt-1">
-                  {faculty.designation}
-                </p>
-                <p className="text-sm text-body-gray/80 mt-1">
-                  {faculty.qualification}
-                </p>
-              </div>
-              <div className="sm:col-span-3 flex items-center sm:justify-end">
-                <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-navy border border-navy/20 px-4 py-2 group-hover:bg-orange group-hover:border-orange group-hover:text-white transition-all duration-300">
-                  Read more
-                </span>
+              
+              <h2 className="text-xl font-extrabold text-navy tracking-tight group-hover:text-orange transition-colors duration-300 mb-2">
+                {faculty.name}
+              </h2>
+              <p className="text-sm text-orange font-bold uppercase tracking-wider mb-2">
+                {faculty.designation}
+              </p>
+              <p className="text-sm text-body-gray/80 font-medium">
+                {faculty.qualification}
+              </p>
+              
+              <div className="mt-6 inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.2em] text-navy group-hover:text-orange transition-colors duration-300">
+                View Profile
               </div>
             </button>
           </RevealItem>

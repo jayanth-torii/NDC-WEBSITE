@@ -1,13 +1,7 @@
-"use client";
-
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
-
-type Row = { name?: string; courses?: string };
-type Tab = { tabName?: string; rows?: Row[] };
-type DeptEntry = { title?: string; SyllabusSection?: Tab[] };
 
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
@@ -17,130 +11,96 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, DeptEntry> =
+  const apiData: Record<string, any> =
     (departmentJson["syllabus-details"] as any)?.data || {};
 
-  const [activeTab, setActiveTab] = useState(0);
-
-  const normalizedMap = useMemo(() => {
-    const map: Record<string, DeptEntry> = {};
-    Object.entries(apiData || {}).forEach(([k, v]) => {
-      map[normalizeKey(k)] = v as DeptEntry;
+  const content = useMemo(() => {
+    let matchedData = null;
+    Object.keys(apiData).forEach((k) => {
+      if (normalizeKey(k) === normalizedProgramme) {
+        matchedData = apiData[k];
+      }
     });
-    return map;
-  }, [apiData]);
-
-  const dept = useMemo<DeptEntry | undefined>(
-    () => normalizedMap[normalizedProgramme],
-    [normalizedMap, normalizedProgramme]
-  );
-
-  const title = dept?.title ?? "";
-  const tabData = Array.isArray(dept?.SyllabusSection)
-    ? dept!.SyllabusSection!
-    : [];
+    return matchedData;
+  }, [apiData, normalizedProgramme]);
 
   useEffect(() => {
-    setActiveTab(0);
-  }, [normalizedProgramme, tabData.length]);
+    haveContentCheck(content != null);
+  }, [content, haveContentCheck]);
 
-  const currentTab: Tab | undefined = tabData[activeTab];
+  const [activeSem, setActiveSem] = useState(0);
 
-  useEffect(() => {
-    const exists =
-      apiData != null &&
-      Object.prototype.hasOwnProperty.call(normalizedMap, normalizedProgramme);
-    haveContentCheck(exists);
-  }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
+  if (!content) return null;
 
-  if (!dept) {
-    return (
-      <p className="text-center text-body-gray">
-        No data available for <strong>{programme}</strong>.
-      </p>
-    );
-  }
-
-  if (!currentTab) {
-    return <p className="text-center text-body-gray">No data available.</p>;
-  }
-
-  const rows = Array.isArray(currentTab.rows) ? currentTab.rows : [];
+  const { title, SyllabusSection } = content;
+  const sections = Array.isArray(SyllabusSection) ? SyllabusSection : [];
 
   return (
     <Reveal>
-      <div className="w-full text-body-gray">
-        <header className="pb-6 mb-6 border-b border-navy/10">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
-            Syllabus
-          </p>
-          {title && (
-            <h2 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
-              {title}
-            </h2>
-          )}
+      <div className="space-y-8">
+        <header className="pb-4 border-b border-navy/10">
+          <h1 className="text-2xl md:text-3xl text-navy font-extrabold tracking-tight">
+            {title || "Syllabus Details"}
+          </h1>
         </header>
 
-        <div className="flex flex-wrap gap-0 mb-6 border-b border-navy/15 overflow-x-auto">
-          {tabData.map((tab: any, index: number) => (
-            <button
-              key={index}
-              onClick={() => setActiveTab(index)}
-              className={`relative cursor-pointer whitespace-nowrap px-4 py-3 text-sm font-semibold transition-colors duration-300 ${
-                activeTab === index
-                  ? "text-navy"
-                  : "text-body-gray hover:text-navy"
-              }`}
-              type="button"
-            >
-              <span className="text-[10px] font-bold tracking-[0.14em] text-orange/70 mr-2 tabular-nums">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              {tab.tabName}
-              {activeTab === index && (
-                <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-orange" />
-              )}
-            </button>
-          ))}
-        </div>
-
-        <div className="overflow-x-auto border border-navy/10">
-          <table className="min-w-full text-left">
-            <thead>
-              <tr className="bg-navy text-white">
-                <th className="px-4 py-3.5 text-sm font-semibold tracking-wide w-1/3">
-                  Name
-                </th>
-                <th className="px-4 py-3.5 text-sm font-semibold tracking-wide">
-                  Courses
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.length > 0 ? (
-                rows.map((row, index) => (
-                  <tr
-                    key={index}
-                    className="border-b border-navy/10 hover:bg-surface-light/80 transition-colors duration-250 even:bg-surface-light/40"
+        {sections.length > 0 && (
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
+            {/* Semester Navigation */}
+            <div className="w-full lg:w-1/4 shrink-0">
+              <div className="flex lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 scrollbar-hide">
+                {sections.map((sem: any, idx: number) => (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveSem(idx)}
+                    className={`whitespace-nowrap lg:whitespace-normal text-left px-5 py-3.5 rounded-xl font-bold text-[14.5px] transition-all duration-300 ${
+                      activeSem === idx
+                        ? "bg-navy text-white shadow-md border-l-4 border-orange"
+                        : "bg-gray-50 text-gray-500 hover:bg-gray-100 hover:text-navy border-l-4 border-transparent"
+                    }`}
                   >
-                    <td className="px-4 py-3.5 font-medium text-navy align-top">
-                      {row?.name ?? "-"}
-                    </td>
-                    <td className="px-4 py-3.5 whitespace-pre-line text-sm">
-                      {row?.courses ?? "-"}
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td className="px-4 py-3.5" colSpan={2}>
-                    No rows available.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+                    {sem.tabName}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Syllabus Content */}
+            <div className="w-full lg:w-3/4">
+              <div className="bg-white rounded-2xl shadow-[0_4px_20px_rgb(0,0,0,0.04)] border border-gray-100 overflow-hidden">
+                <div className="p-6 md:p-8">
+                  <h3 className="text-xl font-extrabold text-navy mb-6 flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-orange"></span>
+                    {sections[activeSem]?.tabName} Curriculum
+                  </h3>
+
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="bg-gray-50 text-navy font-bold text-[13px] uppercase tracking-wider">
+                          <th className="py-4 px-5 rounded-tl-xl border-b border-gray-100">Category</th>
+                          <th className="py-4 px-5 rounded-tr-xl border-b border-gray-100">Course / Subject</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-gray-50">
+                        {sections[activeSem]?.rows?.map((row: any, rIdx: number) => (
+                          <tr key={rIdx} className="hover:bg-gray-50/50 transition-colors">
+                            <td className="py-4 px-5 text-[14px] font-semibold text-navy w-1/3 whitespace-nowrap align-top">
+                              {row.name}
+                            </td>
+                            <td className="py-4 px-5 text-[14.5px] text-[#5f6368] whitespace-pre-line leading-relaxed">
+                              {row.courses}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </Reveal>
   );
