@@ -66,8 +66,27 @@ const Header = () => {
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const onScroll = () => setIsSticky(window.pageYOffset > 100);
-    window.addEventListener("scroll", onScroll);
+    let ticking = false;
+
+    const update = () => {
+      ticking = false;
+      const y = window.pageYOffset;
+      // Hysteresis: enter sticky past 100px, only leave once back under 60px.
+      // Without a dead zone, hovering right at the threshold (momentum
+      // scroll, trackpad drift) flips isSticky every frame and the header
+      // visibly shakes as it snaps between its tall/short states.
+      setIsSticky((prev) => (prev ? y > 60 : y > 100));
+    };
+
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 

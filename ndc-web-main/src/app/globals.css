@@ -54,7 +54,9 @@
 }
 
 body {
-  background: var(--background);
+  background-color: #f8fafd;
+  background-image: radial-gradient(rgba(14, 36, 85, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
   color: var(--foreground);
   font-family: var(--font-poppins), "Poppins", sans-serif;
 }
@@ -119,4 +121,202 @@ iframe {
 @keyframes editorial-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
+}
+
+/* ─── Activities directory: GIF-style looping SVG icons ─── */
+.act-icon {
+  overflow: visible;
+}
+
+.act-spin-origin {
+  transform-origin: 24px 24px;
+  animation: act-spin 1s linear infinite;
+}
+
+.act-pulse-dot {
+  transform-origin: center;
+  animation: act-pulse 1.4s ease-in-out infinite;
+}
+
+.act-breathe {
+  transform-origin: center;
+  animation: act-breathe 2.8s ease-in-out infinite;
+}
+
+.act-draw-check {
+  stroke-dasharray: 28;
+  stroke-dashoffset: 28;
+  animation: act-draw 2.4s ease-in-out infinite;
+}
+
+.act-spark {
+  transform-origin: center;
+  animation: act-spark 1.8s ease-in-out infinite;
+}
+
+.act-spark-delay {
+  animation-delay: 0.45s;
+}
+
+.act-float-y {
+  animation: act-float-y 2.6s ease-in-out infinite;
+}
+
+.act-heartbeat {
+  transform-origin: center;
+  animation: act-heartbeat 1.5s ease-in-out infinite;
+}
+
+.act-pop {
+  transform-origin: center;
+  animation: act-pop 2.2s ease-in-out infinite;
+}
+
+.act-type-line {
+  stroke-dasharray: 24;
+  animation: act-dash 2.8s ease-in-out infinite;
+}
+
+.act-bridge {
+  stroke-dasharray: 14;
+  animation: act-dash 2s ease-in-out infinite;
+}
+
+.act-leaf-sway {
+  animation: act-sway 3s ease-in-out infinite;
+}
+
+.act-leaf-sway-alt {
+  animation: act-sway-alt 3.2s ease-in-out infinite;
+}
+
+.act-ring {
+  transform-origin: 24px 24px;
+  animation: act-spin 8s linear infinite;
+}
+
+.act-glow-cross {
+  animation: act-glow 1.8s ease-in-out infinite;
+}
+
+.act-balance {
+  transform-origin: 24px 11px;
+  animation: act-tilt 2.4s ease-in-out infinite;
+}
+
+.act-balance-alt {
+  transform-origin: 24px 11px;
+  animation: act-tilt-alt 2.4s ease-in-out infinite;
+}
+
+.act-star-spin {
+  animation: act-twinkle 2s ease-in-out infinite;
+}
+
+.act-chart-draw {
+  stroke-dasharray: 40;
+  stroke-dashoffset: 40;
+  animation: act-draw 2.6s ease-in-out infinite;
+}
+
+.act-glow-flame {
+  transform-origin: center;
+  animation: act-flame 1.4s ease-in-out infinite;
+}
+
+.act-smoke {
+  animation: act-float-y 2s ease-in-out infinite;
+}
+
+@keyframes act-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes act-pulse {
+  0%, 100% { transform: scale(0.85); opacity: 0.65; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+@keyframes act-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.04); opacity: 0.92; }
+}
+
+@keyframes act-draw {
+  0% { stroke-dashoffset: 28; opacity: 0.35; }
+  35% { stroke-dashoffset: 0; opacity: 1; }
+  70% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: -4; opacity: 0.45; }
+}
+
+@keyframes act-spark {
+  0%, 100% { transform: scale(0.6); opacity: 0.35; }
+  50% { transform: scale(1.25); opacity: 1; }
+}
+
+@keyframes act-float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2.5px); }
+}
+
+@keyframes act-heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.12); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.08); }
+  56% { transform: scale(1); }
+}
+
+@keyframes act-pop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
+}
+
+@keyframes act-dash {
+  0%, 100% { stroke-dashoffset: 0; opacity: 0.55; }
+  50% { stroke-dashoffset: 8; opacity: 1; }
+}
+
+@keyframes act-sway {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(7deg); }
+}
+
+@keyframes act-sway-alt {
+  0%, 100% { transform: rotate(5deg); }
+  50% { transform: rotate(-6deg); }
+}
+
+@keyframes act-glow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}
+
+@keyframes act-tilt {
+  0%, 100% { transform: rotate(-5deg); }
+  50% { transform: rotate(5deg); }
+}
+
+@keyframes act-tilt-alt {
+  0%, 100% { transform: rotate(5deg); }
+  50% { transform: rotate(-5deg); }
+}
+
+@keyframes act-twinkle {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.85; }
+  50% { transform: scale(1.12) rotate(12deg); opacity: 1; }
+}
+
+@keyframes act-flame {
+  0%, 100% { transform: scale(1) translateY(0); opacity: 0.75; }
+  50% { transform: scale(1.2) translateY(-1px); opacity: 1; }
+}
+
+.act-shimmer {
+  animation: act-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes act-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
 }

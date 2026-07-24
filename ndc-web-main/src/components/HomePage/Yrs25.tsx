@@ -31,15 +31,38 @@ const Yrs25 = ({ data }: any) => {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-surface-tint via-white to-orange-50 py-24 lg:py-32" aria-labelledby="anniversary-title">
-      {/* Enhanced Decorative Background */}
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.04] [mask-image:radial-gradient(ellipse_70%_70%_at_50%_50%,black,transparent)]" aria-hidden="true" />
-      <div className="absolute top-1/4 -left-40 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-orange-100 to-orange-200/30 blur-3xl pointer-events-none" aria-hidden="true" />
-      <div className="absolute bottom-1/4 -right-40 translate-y-1/2 w-[450px] h-[450px] rounded-full bg-gradient-to-br from-navy/10 to-blue-100/30 blur-3xl pointer-events-none" aria-hidden="true" />
+    <section className="relative overflow-hidden bg-[#F8F9FB] py-20 lg:py-28" aria-labelledby="anniversary-title">
+      
+      {/* Subtle Dot Grids */}
+      <div className="absolute top-12 right-12 opacity-40 pointer-events-none z-0">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="dot-grid-yrs-1" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#CBD5E1" />
+          </pattern>
+          <rect x="0" y="0" width="60" height="60" fill="url(#dot-grid-yrs-1)" />
+        </svg>
+      </div>
+      
+      <div className="absolute bottom-16 left-16 opacity-50 pointer-events-none z-0">
+        <svg width="96" height="60" viewBox="0 0 96 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="dot-grid-yrs-2" x="0" y="0" width="12" height="12" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#94A3B8" />
+          </pattern>
+          <rect x="0" y="0" width="96" height="60" fill="url(#dot-grid-yrs-2)" />
+        </svg>
+      </div>
 
-      <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
+      {/* Subtle Geometric Shapes - Reduced Size */}
+      <div className="absolute -top-10 -left-10 w-[200px] h-[200px] bg-navy rounded-full pointer-events-none z-0" />
+      <div className="absolute -bottom-16 -right-16 w-[250px] h-[250px] bg-[#EEF0F6] rounded-full pointer-events-none z-0" />
+
+      {/* Orange Plus Sign */}
+      <div className="absolute top-1/3 left-[20%] text-orange text-2xl font-bold opacity-60 pointer-events-none z-0">+</div>
+      <div className="absolute bottom-1/4 right-[20%] text-orange text-2xl font-bold opacity-60 pointer-events-none z-0">+</div>
+
+      <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          <Reveal className="flex justify-center order-2 lg:order-1">
+          <Reveal className="flex justify-center order-2 lg:order-1 relative z-20">
             <div className="group relative w-full max-w-[420px] aspect-square flex items-center justify-center">
               {/* Animated Background Shapes */}
               <span className="absolute inset-[-8%] rounded-[40px] bg-gradient-to-br from-navy to-navy-dark rotate-[-12deg] shadow-[0_40px_100px_rgba(14,36,85,0.25)] transition-transform duration-700 ease-[var(--ease-editorial)] group-hover:rotate-0" />

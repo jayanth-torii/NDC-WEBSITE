@@ -2,7 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, BookOpen, MonitorPlay, FileText, Library, FileSearch } from "lucide-react";
+import { ArrowRight, BookOpen, MonitorPlay, FileText, Library, FileSearch, SpellCheck } from "lucide-react";
+import SectionHeading from "@/components/ui/SectionHeading";
+import Button from "@/components/ui/Button";
 
 type ResourceRow = {
   sn: number;
@@ -18,11 +20,12 @@ type DigitalResources = {
 
 const getIconForTab = (tabName: string) => {
   const name = tabName.toLowerCase();
-  if (name.includes("book")) return <BookOpen className="w-5 h-5" />;
-  if (name.includes("video")) return <MonitorPlay className="w-5 h-5" />;
-  if (name.includes("thesis") || name.includes("dissertation")) return <FileText className="w-5 h-5" />;
-  if (name.includes("journal")) return <FileSearch className="w-5 h-5" />;
-  return <Library className="w-5 h-5" />;
+  if (name.includes("dictionar")) return <SpellCheck size={18} />;
+  if (name.includes("book")) return <BookOpen size={18} />;
+  if (name.includes("video")) return <MonitorPlay size={18} />;
+  if (name.includes("thesis") || name.includes("dissertation")) return <FileText size={18} />;
+  if (name.includes("journal")) return <FileSearch size={18} />;
+  return <Library size={18} />;
 };
 
 const Resources = ({ data }: { data: any }) => {
@@ -42,8 +45,8 @@ const Resources = ({ data }: { data: any }) => {
   }, [activeTab]);
 
   const allTabResources = resoursesTable[activeTab] || [];
-  const currentResources = activeLetter === "All" 
-    ? allTabResources 
+  const currentResources = activeLetter === "All"
+    ? allTabResources
     : allTabResources.filter(row => row?.name?.toUpperCase().startsWith(activeLetter));
 
   const visibleResources = currentResources.slice(0, visibleCount);
@@ -60,111 +63,92 @@ const Resources = ({ data }: { data: any }) => {
   };
 
   return (
-    <div className="w-[90%] mx-auto mb-16 text-[#003333]">
-      {/* Title Area */}
-      <div className="mb-10 text-center md:text-left">
-        <h1 className="text-2xl font-extrabold text-[#0E2455] uppercase tracking-wide mb-2">
-          {title}
-        </h1>
-        <p className="text-base text-gray-500 max-w-2xl">
-          Access a wide collection of trusted digital resources to support your learning, research, and academic excellence.
-        </p>
-      </div>
+    <div className="mb-16">
+      <SectionHeading
+        eyebrow="Resources"
+        title={title}
+        subtitle="Access a wide collection of trusted digital resources to support your learning, research, and academic excellence."
+        className="mb-10"
+      />
 
-      {/* Elegant Tabs */}
-      <div className="flex flex-wrap items-center justify-start gap-2 md:gap-8 border-b-2 border-gray-100 mb-8">
+      {/* Tabs */}
+      <div className="inline-flex flex-wrap gap-1.5 bg-surface-tint p-1.5 rounded-2xl mb-8">
         {tabs.map((tab) => {
           const isActive = activeTab === tab;
           return (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex items-center gap-2 pb-3 px-2 text-base font-bold transition-all relative ${
-                isActive ? "text-[#0E2455]" : "text-gray-400 hover:text-[#003333]"
+              className={`flex items-center gap-2 whitespace-nowrap px-4 py-2.5 text-sm font-bold rounded-xl transition-all duration-250 ease-[var(--ease-editorial)] ${
+                isActive ? "bg-navy text-white shadow-sm" : "text-body-gray hover:text-navy"
               }`}
             >
-              <span className={isActive ? "text-orange-500" : ""}>{getIconForTab(tab)}</span>
-              <span>{tab.toUpperCase()}</span>
-              {isActive && (
-                <motion.div
-                  layoutId="bottomTabLine"
-                  className="absolute bottom-[-2px] left-0 w-full h-[3px] bg-[#0E2455] rounded-t-full"
-                />
-              )}
+              {getIconForTab(tab)}
+              {tab}
             </button>
           );
         })}
       </div>
 
       {/* Main Content Area */}
-      <div className="flex flex-col lg:flex-row gap-10 items-start">
-        
+      <div className="flex flex-col lg:flex-row gap-8 items-start">
+
         {/* Left List: Resources */}
-        <div className="w-full lg:w-3/4">
-          <h2 className="text-2xl font-bold text-[#003333] mb-4 uppercase">
-            {activeTab}
-          </h2>
-          <motion.div layout className="flex flex-col border-t border-gray-100">
+        <div className="w-full lg:w-2/3">
+          <motion.div layout className="flex flex-col divide-y divide-card-border border-t border-card-border">
             <AnimatePresence initial={false}>
               {visibleResources.map((row: any, index: number) => (
                 <motion.div
                   key={`${activeTab}-${row.sn || index}`}
                   layout
                   initial={{ opacity: 0, height: 0, padding: 0 }}
-                  animate={{ opacity: 1, height: "auto", padding: "1.5rem 0.5rem" }}
-                  exit={{ opacity: 0, height: 0, padding: 0, overflow: 'hidden' }}
+                  animate={{ opacity: 1, height: "auto", padding: "1.25rem 0.5rem" }}
+                  exit={{ opacity: 0, height: 0, padding: 0, overflow: "hidden" }}
                   transition={{ duration: isShowingLess ? 0.8 : 0.3, ease: "easeInOut" }}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-gray-100 hover:bg-gray-50/50 transition-colors group rounded-lg overflow-hidden"
+                  className="group flex flex-col sm:flex-row sm:items-center justify-between hover:bg-surface-tint/60 transition-colors duration-250 ease-[var(--ease-editorial)] rounded-xl"
                 >
-                  <div className="flex items-center gap-5">
-                    <div className="w-14 h-14 shrink-0 rounded-full bg-[#F6F6F6] text-[#0E2455] flex items-center justify-center text-xl font-bold border border-gray-200 group-hover:bg-[#0E2455] group-hover:text-white transition-colors">
+                  <div className="flex items-center gap-4">
+                    <div className="w-11 h-11 shrink-0 rounded-full bg-chip-bg text-orange flex items-center justify-center text-base font-bold group-hover:bg-navy group-hover:text-white transition-colors duration-250">
                       {row?.name?.charAt(0).toUpperCase()}
                     </div>
-                    
-                    <div className="flex flex-col max-w-xl">
-                      <h3 className="text-base font-bold text-[#003333] mb-1">
+
+                    <div className="flex flex-col">
+                      <h3 className="text-[15px] font-bold text-navy">
                         {row?.name}
                       </h3>
-                      <p className="text-sm text-gray-500 hidden sm:block">
-                        Digital access to {row?.name.toLowerCase()} resources and materials.
-                      </p>
                     </div>
                   </div>
-                  
+
                   <a
                     href={row?.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 sm:mt-0 flex items-center gap-2 text-base font-bold text-gray-400 group-hover:text-orange-500 transition-colors ml-14 sm:ml-0"
+                    className="mt-3 sm:mt-0 flex items-center gap-1.5 text-sm font-bold text-gray-400 group-hover:text-orange transition-colors ml-[60px] sm:ml-0"
                   >
-                    Visit Resource <ArrowRight className="w-4 h-4" />
+                    Visit Resource <ArrowRight size={16} />
                   </a>
                 </motion.div>
               ))}
             </AnimatePresence>
           </motion.div>
 
-          {/* Pagination */}
           {totalItems > 6 && (
-            <motion.div layout className="flex justify-center mt-10">
-              <button
-                onClick={handleToggleShow}
-                className="px-8 py-2.5 rounded-full bg-[#0E2455] text-white font-bold text-base hover:bg-orange-500 transition-colors shadow-md"
-              >
+            <motion.div layout className="flex justify-center mt-8">
+              <Button onClick={handleToggleShow} variant="primary">
                 {visibleCount < totalItems ? "Load More Resources" : "Show Less"}
-              </button>
+              </Button>
             </motion.div>
           )}
         </div>
 
         {/* Right Sidebar: A-Z Index */}
-        <div className="hidden lg:flex w-1/4 flex-col bg-[#F6F6F6] rounded-2xl p-6 border border-gray-100 shadow-sm sticky top-24">
-          <h3 className="text-base font-bold text-[#0E2455] mb-4">Browse A-Z</h3>
-          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[400px] pr-2 custom-scrollbar">
-            <button 
+        <div className="hidden lg:flex w-1/3 flex-col bg-surface-tint rounded-[20px] p-6 border border-card-border sticky top-24">
+          <h3 className="text-sm font-bold text-navy uppercase tracking-wide mb-4">Browse A-Z</h3>
+          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[400px] pr-2 no-scrollbar">
+            <button
               onClick={() => { setActiveLetter("All"); setVisibleCount(6); }}
-              className={`w-full py-1.5 rounded-full text-sm font-bold text-center transition-colors shadow-sm ${
-                activeLetter === "All" ? "bg-[#0E2455] text-white" : "bg-white text-gray-500 hover:bg-gray-200 hover:text-[#003333]"
+              className={`w-full py-1.5 rounded-full text-sm font-bold text-center transition-colors duration-250 ${
+                activeLetter === "All" ? "bg-navy text-white" : "bg-white text-body-gray hover:text-navy border border-card-border"
               }`}
             >
               All
@@ -173,31 +157,14 @@ const Resources = ({ data }: { data: any }) => {
               <button
                 key={letter}
                 onClick={() => { setActiveLetter(letter); setVisibleCount(6); }}
-                className={`w-full py-1.5 rounded-full text-sm font-bold text-center transition-colors shadow-sm ${
-                  activeLetter === letter ? "bg-[#0E2455] text-white" : "bg-white text-gray-500 hover:bg-gray-200 hover:text-[#003333]"
+                className={`w-full py-1.5 rounded-full text-sm font-bold text-center transition-colors duration-250 ${
+                  activeLetter === letter ? "bg-navy text-white" : "bg-white text-body-gray hover:text-navy border border-card-border"
                 }`}
               >
                 {letter}
               </button>
             ))}
           </div>
-          
-          <style dangerouslySetInnerHTML={{__html: `
-            .custom-scrollbar::-webkit-scrollbar {
-              width: 8px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-track {
-              background: #f1f1f1; 
-              border-radius: 10px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb {
-              background: #888; 
-              border-radius: 10px;
-            }
-            .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-              background: #555; 
-            }
-          `}} />
         </div>
 
       </div>

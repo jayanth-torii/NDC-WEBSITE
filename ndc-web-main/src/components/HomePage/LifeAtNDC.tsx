@@ -1,137 +1,380 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Play, Video } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import {
+  Play,
+  X,
+  ChevronRight,
+  Users,
+  GraduationCap,
+  Trophy,
+  Building2,
+  Briefcase,
+  LayoutGrid,
+} from "lucide-react";
 import { Reveal } from "@/components/ui/Reveal";
-import SectionHeading from "@/components/ui/SectionHeading";
+import Kicker from "@/components/ui/Kicker";
 
-export default function LifeAtNDC({data}:any) {
-  const {title, videos} = data
+const STATS = [
+  { icon: Users, value: "1500+", label: "Students" },
+  { icon: GraduationCap, value: "30+", label: "Courses" },
+  { icon: Trophy, value: "25+", label: "Achievements" },
+  { icon: Building2, value: "10+", label: "Departments" },
+];
 
-  const [currentVideo, setCurrentVideo] = useState(videos[0]);
+const FEATURES = [
+  { icon: Users, title: "Vibrant Campus Life", desc: "A perfect blend of learning, fun and personal growth." },
+  { icon: GraduationCap, title: "Experienced Faculty", desc: "Learn from industry experts and dedicated mentors." },
+  { icon: Building2, title: "Modern Infrastructure", desc: "State-of-the-art facilities for a better tomorrow." },
+  { icon: Briefcase, title: "Placement Support", desc: "Strong placement cell for your career success." },
+];
+
+export default function LifeAtNDC({ data }: any) {
+  const { videos } = data || {};
+
+  const [currentVideo, setCurrentVideo] = useState<string | undefined>(videos?.[0]);
+  const [videoOpen, setVideoOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+
+  const playVideo = (video?: string) => {
+    if (!video) return;
+    setCurrentVideo(video);
+    setVideoOpen(true);
+  };
 
   const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
-      const scrollAmount: number = direction === "left" ? -320 : 320;
+      const scrollAmount = direction === "left" ? -300 : 300;
       scrollRef.current.scrollBy({ left: scrollAmount, behavior: "smooth" });
     }
   };
 
-  // Auto-scroll effect
   useEffect(() => {
     const interval = setInterval(() => {
       if (scrollRef.current) {
         if (
           scrollRef.current.scrollLeft + scrollRef.current.clientWidth >=
-          scrollRef.current.scrollWidth
+          scrollRef.current.scrollWidth - 4
         ) {
           scrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
         } else {
           scrollRef.current.scrollBy({ left: 280, behavior: "smooth" });
         }
       }
-    }, 3000);
+    }, 3200);
 
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    if (!videoOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setVideoOpen(false);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [videoOpen]);
+
   return (
-    <section className="relative py-20 lg:py-28 bg-gradient-to-b from-white to-surface-light overflow-hidden">
-      {/* Decorative Background */}
-      <div className="absolute inset-0 bg-dot-grid opacity-[0.02]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-orange/5 rounded-full blur-3xl" />
+    <section className="relative py-20 lg:py-28 bg-white overflow-hidden">
+      {/* Decorative Background & Shapes */}
+      <div className="absolute inset-0 bg-dot-grid opacity-[0.03] pointer-events-none z-0" />
+      
+      {/* Glowing Ambient Blobs */}
+      <div className="absolute top-[-5%] right-[-10%] w-[600px] h-[600px] bg-[#F6872A]/10 rounded-full blur-[120px] pointer-events-none z-0" />
+      <div className="absolute bottom-[-5%] left-[-10%] w-[500px] h-[500px] bg-[#1a3668]/5 rounded-full blur-[120px] pointer-events-none z-0" />
+      
+      {/* Floating Geometric Elements */}
+      <div className="absolute top-[15%] left-[8%] opacity-30 pointer-events-none z-0 hidden lg:block animate-pulse">
+        <svg width="50" height="50" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="50" cy="50" r="40" stroke="#F6872A" strokeWidth="8" strokeDasharray="15 15" />
+        </svg>
+      </div>
+      
+      <div className="absolute top-[45%] right-[5%] opacity-20 pointer-events-none z-0 hidden 2xl:block">
+        <svg width="60" height="60" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+           <path d="M10 90 L50 10 L90 90 Z" stroke="#F6872A" strokeWidth="5" strokeLinejoin="round" transform="rotate(25 50 50)" />
+        </svg>
+      </div>
+
+      <div className="absolute bottom-[25%] right-[10%] opacity-20 pointer-events-none z-0 hidden lg:block">
+        <svg width="70" height="70" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="20" y="20" width="60" height="60" rx="15" stroke="#1a3668" strokeWidth="6" transform="rotate(-15 50 50)" />
+        </svg>
+      </div>
+      
+      {/* Faint Squiggle Line */}
+      <div className="absolute top-[30%] left-[40%] opacity-[0.06] pointer-events-none z-0 hidden md:block">
+        <svg width="120" height="40" viewBox="0 0 120 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 20 Q 15 0, 30 20 T 60 20 T 90 20 T 120 20" stroke="#1a3668" strokeWidth="4" fill="none" />
+        </svg>
+      </div>
 
       <div className="container mx-auto px-4 lg:px-8 max-w-7xl relative z-10">
-        <Reveal>
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-orange/10 text-orange mb-6">
-              <Video size={28} />
-            </div>
-            <SectionHeading eyebrow="Campus Life" title={title} className="justify-center" />
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto mt-4">
-              Experience the vibrant campus life through our video gallery
+        {/* ============ Row 1: Campus Life hero ============ */}
+        <div className="grid lg:grid-cols-2 gap-14 xl:gap-20 items-center">
+          {/* Left: copy */}
+          <Reveal>
+            <Kicker>Campus Life</Kicker>
+            <h2 className="mt-5 text-navy font-extrabold text-[40px] sm:text-[48px] lg:text-[56px] leading-[1.05] tracking-[-1px]">
+              Experience.
+              <br />
+              Learn.{" "}
+              <span className="font-[family-name:var(--font-script)] text-orange font-semibold text-[1.3em] leading-none align-middle">
+                Grow.
+              </span>
+            </h2>
+            <p className="mt-6 text-body-gray text-[17px] leading-[1.7] max-w-md">
+              Discover the vibrant campus life, academic excellence and endless opportunities that shape your future.
             </p>
-          </div>
-        </Reveal>
 
-        {/* Enhanced Video Player */}
-        <Reveal delay={0.1} className="w-full aspect-video mb-8 overflow-hidden rounded-[32px] border border-gray-200 shadow-[0_30px_80px_rgba(14,36,85,0.15)] bg-navy">
-          <div className="relative w-full h-full">
-            <iframe
-              className="w-full h-full"
-              src={`https://www.youtube.com/embed/${currentVideo}`}
-              title="YouTube Video Player"
-              frameBorder="0"
-              allowFullScreen
-            ></iframe>
-            {/* Video Overlay Gradient */}
-            <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-navy/20 to-transparent" />
-          </div>
-        </Reveal>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button
+                onClick={() => playVideo(videos?.[0])}
+                disabled={!videos?.length}
+                className="inline-flex items-center gap-3 bg-navy text-white rounded-full pl-2.5 pr-6 py-2.5 font-bold text-[15px] transition-all duration-300 hover:bg-navy-dark hover:-translate-y-0.5 disabled:opacity-60 disabled:pointer-events-none"
+              >
+                <span className="flex items-center justify-center w-9 h-9 rounded-full bg-white/15">
+                  <Play size={14} fill="currentColor" className="ml-0.5" />
+                </span>
+                Watch Campus Life
+              </button>
+              <Link
+                href="/library"
+                className="inline-flex items-center gap-2 bg-white border-2 border-orange/40 text-navy rounded-full px-6 py-3 font-bold text-[15px] transition-all duration-300 hover:border-orange hover:bg-orange/5"
+              >
+                <LayoutGrid size={16} className="text-orange" />
+                Explore Gallery
+              </Link>
+            </div>
 
-        {/* Enhanced Video Gallery */}
-        <Reveal delay={0.15} className="relative w-full overflow-hidden">
-          {/* Left Arrow */}
-          <button
-            className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-2xl bg-white border border-gray-200 text-navy shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-navy hover:text-white hover:shadow-[0_12px_40px_rgba(14,36,85,0.2)] z-10"
-            onClick={() => scroll("left")}
-          >
-            <ChevronLeft size={24} />
-          </button>
-
-          {/* Scrollable Thumbnails */}
-          <div
-            ref={scrollRef}
-            className="flex gap-5 overflow-x-auto no-scrollbar scroll-smooth whitespace-nowrap px-2 py-2"
-          >
-            {[...videos, ...videos]?.map((video: string, index: number) => {
-              const isActive = video === currentVideo;
-              return (
-                <button
-                  key={`${video}-${index}`}
-                  onClick={() => setCurrentVideo(video)}
-                  aria-label={`Play campus life video ${(index % videos.length) + 1}`}
-                  className={`group relative w-72 sm:w-80 flex-shrink-0 rounded-2xl overflow-hidden border-2 transition-all duration-300 ${
-                    isActive ? "border-orange shadow-[0_16px_40px_rgba(246,135,42,0.3)]" : "border-transparent hover:-translate-y-2 hover:border-orange/30 hover:shadow-[0_12px_30px_rgba(0,0,0,0.1)]"
-                  }`}
-                >
-                  <img
-                    src={`https://img.youtube.com/vi/${video}/hqdefault.jpg`}
-                    alt=""
-                    className="w-full aspect-video object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  {/* Play Button Overlay */}
-                  <span className={`absolute inset-0 flex items-center justify-center bg-navy/30 transition-opacity duration-300 ${isActive ? "opacity-0" : "opacity-0 group-hover:opacity-100"}`}>
-                    <span className="flex items-center justify-center w-14 h-14 rounded-full bg-white/95 text-navy shadow-lg">
-                      <Play size={20} fill="currentColor" className="ml-0.5" />
-                    </span>
-                  </span>
-                  {/* Active Indicator */}
-                  {isActive && (
-                    <span className="absolute top-3 right-3 flex items-center gap-2 bg-gradient-to-r from-orange to-orange-dark text-white text-[11px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full shadow-lg">
-                      <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                      Playing
-                    </span>
-                  )}
-                  {/* Video Number Badge */}
-                  <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white text-xs font-semibold px-2 py-1 rounded-lg">
-                    #{(index % videos.length) + 1}
+            {/* Stats strip */}
+            <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-5 rounded-2xl border border-gray-100 bg-white shadow-[0_10px_30px_rgba(14,36,85,0.06)] px-6 py-5">
+              {STATS.map((stat, index) => {
+                const Icon = stat.icon;
+                return (
+                  <div
+                    key={stat.label}
+                    className={`flex items-center gap-3 ${index !== 0 ? "pl-7 border-l border-gray-100" : ""}`}
+                  >
+                    <Icon size={20} className="text-orange shrink-0" />
+                    <div className="leading-tight">
+                      <p className="text-navy font-extrabold text-lg">{stat.value}</p>
+                      <p className="text-gray-500 text-[12px] font-semibold">{stat.label}</p>
+                    </div>
                   </div>
-                </button>
+                );
+              })}
+            </div>
+          </Reveal>
+
+          {/* Right: framed image */}
+          <Reveal delay={0.1} className="relative flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[440px] aspect-square mt-6">
+              {/* Decorative ring */}
+              <svg
+                className="absolute -inset-5 md:-inset-7 w-[calc(100%+2.5rem)] h-[calc(100%+2.5rem)] md:w-[calc(100%+3.5rem)] md:h-[calc(100%+3.5rem)] pointer-events-none"
+                viewBox="0 0 100 100"
+                fill="none"
+              >
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="48"
+                  stroke="#0e2455"
+                  strokeWidth="1"
+                  strokeDasharray="4 3"
+                  strokeOpacity="0.25"
+                  pathLength={100}
+                />
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="48"
+                  stroke="#f6872a"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeDasharray="26 74"
+                  pathLength={100}
+                  transform="rotate(150 50 50)"
+                />
+              </svg>
+
+              {/* Photo */}
+              <div className="absolute inset-[7%] rounded-full overflow-hidden shadow-[0_30px_80px_rgba(14,36,85,0.25)] border-[6px] border-white bg-navy">
+                <img
+                  src="/images/home-page/glimpse-gallery3.png"
+                  alt="Campus life at Nagarjuna Degree College"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
+              {/* Top-left info badge */}
+              <div className="absolute top-2 left-0 sm:-left-6 z-20 flex items-center gap-3 max-w-[200px] rounded-2xl border border-gray-100 bg-white px-4 py-3 shadow-xl">
+                <div className="w-9 h-9 shrink-0 overflow-hidden rounded-md">
+                  <img
+                    src="/images/NDC-Logo.png"
+                    alt=""
+                    className="w-full h-full object-cover"
+                    style={{ objectPosition: "50% 12%" }}
+                  />
+                </div>
+                <div>
+                  <p className="text-navy font-extrabold text-[12.5px] leading-tight">Empowering Young Minds</p>
+                  <p className="mt-0.5 text-orange text-[11px] font-bold">Since 2002</p>
+                </div>
+              </div>
+
+              {/* Play button */}
+              <button
+                onClick={() => playVideo(videos?.[0])}
+                disabled={!videos?.length}
+                className="group absolute top-1/2 left-[16%] -translate-y-1/2 z-20 flex flex-col items-center gap-2 disabled:pointer-events-none"
+                aria-label="Play campus life video"
+              >
+                <span className="flex items-center justify-center w-16 h-16 rounded-full bg-white/95 shadow-xl transition-transform duration-300 group-hover:scale-105">
+                  <span className="flex items-center justify-center w-11 h-11 rounded-full bg-orange text-white">
+                    <Play size={18} fill="currentColor" className="ml-0.5" />
+                  </span>
+                </span>
+                <span className="rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold text-navy shadow">
+                  Play Video
+                </span>
+              </button>
+
+              {/* Bottom-right program badge */}
+              <div className="absolute bottom-3 right-0 sm:-right-6 z-20 rounded-2xl rounded-tl-none bg-navy px-5 py-3.5 shadow-xl">
+                <p className="text-white font-extrabold text-lg leading-tight">NDC</p>
+                <p className="text-orange text-[11px] font-bold uppercase tracking-wide">Campus Life</p>
+              </div>
+
+              {/* Decorative dot */}
+              <span className="absolute top-6 right-8 w-3 h-3 rounded-full border-2 border-orange" />
+            </div>
+          </Reveal>
+        </div>
+
+        {/* ============ Row 2: Moments That Matter ============ */}
+        <div className="mt-28 lg:mt-32 flex flex-col lg:flex-row gap-10 lg:gap-14 items-start">
+          <Reveal className="lg:w-[300px] lg:shrink-0">
+            <Kicker>Explore</Kicker>
+            <h3 className="mt-4 text-navy font-extrabold text-[28px] sm:text-[32px] leading-[1.15]">
+              Moments That Matter
+            </h3>
+            <p className="mt-4 text-body-gray text-[16px] leading-[1.7] max-w-xs">
+              Relive the best moments from events, activities and student achievements.
+            </p>
+            <Link
+              href="/library"
+              className="mt-6 inline-flex w-fit items-center gap-2 whitespace-nowrap bg-white border-2 border-orange/40 text-navy rounded-full px-5 py-3 font-bold text-[14px] transition-all duration-300 hover:border-orange hover:bg-orange/5"
+            >
+              <LayoutGrid size={15} className="text-orange" />
+              View All Gallery
+            </Link>
+          </Reveal>
+
+          <Reveal delay={0.1} className="relative min-w-0 flex-1 w-full">
+            <div
+              ref={scrollRef}
+              className="flex gap-5 overflow-x-auto no-scrollbar scroll-smooth px-1 py-1"
+            >
+              {(videos || []).map((video: string, index: number) => {
+                const isActive = video === currentVideo && videoOpen;
+                return (
+                  <button
+                    key={`${video}-${index}`}
+                    onClick={() => playVideo(video)}
+                    aria-label={`Play campus life video ${index + 1}`}
+                    className="group relative w-56 sm:w-64 flex-shrink-0 aspect-[4/5] rounded-2xl overflow-hidden shadow-[0_16px_40px_rgba(14,36,85,0.14)]"
+                  >
+                    <span className="absolute top-3 left-3 z-20 rounded-lg bg-navy px-2.5 py-1 text-[11px] font-bold text-white">
+                      #{index + 1}
+                    </span>
+
+                    <img
+                      src={`https://img.youtube.com/vi/${video}/hqdefault.jpg`}
+                      alt={`Campus life video ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+
+                    <span
+                      className={`absolute top-3 right-3 z-20 flex items-center justify-center w-8 h-8 rounded-full transition-colors duration-300 ${
+                        isActive ? "bg-orange text-white" : "bg-white/90 text-navy group-hover:bg-orange group-hover:text-white"
+                      }`}
+                    >
+                      <Play size={13} fill="currentColor" className="ml-0.5" />
+                    </span>
+
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy/95 via-navy/40 to-transparent pt-12 pb-4 px-4">
+                      <p className="text-white font-extrabold text-[13px] uppercase tracking-wide">
+                        Campus Life {index + 1}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+
+            <button
+              className="hidden md:flex items-center justify-center absolute -right-5 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-white border border-gray-200 text-navy shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-navy hover:text-white z-10"
+              onClick={() => scroll("right")}
+              aria-label="Scroll gallery right"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </Reveal>
+        </div>
+
+        {/* ============ Row 3: Feature strip ============ */}
+        <Reveal delay={0.15} className="mt-20 lg:mt-24">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-4 rounded-3xl border border-gray-100 bg-white shadow-[0_20px_50px_rgba(14,36,85,0.05)] px-8 py-9 lg:divide-x divide-gray-100">
+            {FEATURES.map((feature) => {
+              const Icon = feature.icon;
+              return (
+                <div key={feature.title} className="flex items-start gap-4 lg:px-6 lg:first:pl-0 lg:last:pr-0">
+                  <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-orange/10 text-orange shrink-0">
+                    <Icon size={22} />
+                  </div>
+                  <div>
+                    <p className="text-navy font-extrabold text-[15px] leading-tight">{feature.title}</p>
+                    <p className="mt-1.5 text-gray-500 text-[13px] leading-[1.6]">{feature.desc}</p>
+                  </div>
+                </div>
               );
             })}
           </div>
-
-          {/* Right Arrow */}
-          <button
-            className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 w-12 h-12 rounded-2xl bg-white border border-gray-200 text-navy shadow-[0_8px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:bg-navy hover:text-white hover:shadow-[0_12px_40px_rgba(14,36,85,0.2)] z-10"
-            onClick={() => scroll("right")}
-          >
-            <ChevronRight size={24} />
-          </button>
         </Reveal>
       </div>
+
+      {/* Video Modal */}
+      {videoOpen && currentVideo && (
+        <div
+          className="fixed inset-0 z-[999] bg-navy-dark/90 backdrop-blur-sm flex items-center justify-center p-4"
+          onClick={() => setVideoOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-3xl aspect-video rounded-2xl overflow-hidden shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <iframe
+              className="w-full h-full"
+              src={`https://www.youtube.com/embed/${currentVideo}?autoplay=1`}
+              title="Campus life video"
+              allow="autoplay; encrypted-media"
+              frameBorder="0"
+              allowFullScreen
+            />
+            <button
+              onClick={() => setVideoOpen(false)}
+              className="absolute top-3 right-3 flex items-center justify-center w-9 h-9 rounded-full bg-white/90 text-navy hover:bg-white transition-colors"
+              aria-label="Close video"
+            >
+              <X size={18} />
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, ReactNode, Suspense, useRef, useEffect } from "react";
+import React, { useState, ReactNode, Suspense } from "react";
+import { FileSearch, Briefcase, Monitor, GraduationCap, Calendar } from "lucide-react";
 import questionBankJson from "@/data-export/question-bank/data.json";
 
 import FindQuestionBank from "./FindQuestionBank";
@@ -23,36 +24,23 @@ const tabs = [
   "MBA",
 ];
 
+const TAB_ICONS: Record<string, any> = {
+  "Find Question Bank": FileSearch,
+  "B.Com": Briefcase,
+  "B.Com (Hons)": Briefcase,
+  BCA: Monitor,
+  BBA: Briefcase,
+  "B.Sc": Monitor,
+  "M.Com": Briefcase,
+  MBA: GraduationCap,
+};
+
 export default function QuestionBankTabs() {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [showLeftShadow, setShowLeftShadow] = useState(false);
-  const [showRightShadow, setShowRightShadow] = useState(true);
+  const activeIndex = Math.max(0, tabs.indexOf(activeTab));
 
   const allData: Record<string, any> =
     (questionBankJson["question-banks"] as any)?.data || {};
-
-  const handleScroll = () => {
-    if (scrollContainerRef.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
-      setShowLeftShadow(scrollLeft > 0);
-      setShowRightShadow(scrollLeft < scrollWidth - clientWidth - 1);
-    }
-  };
-
-  useEffect(() => {
-    handleScroll();
-    window.addEventListener("resize", handleScroll);
-    return () => window.removeEventListener("resize", handleScroll);
-  }, []);
-
-  const handleTabClick = (tab: string) => {
-    setActiveTab(tab);
-    setTimeout(() => {
-      contentRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
-  };
 
   const tabComponents: Record<string, ReactNode> = {
     "Find Question Bank": (
@@ -97,90 +85,56 @@ export default function QuestionBankTabs() {
     ),
   };
 
-  const activeIndex = Math.max(0, tabs.indexOf(activeTab));
-
   return (
-    <div className="relative w-full scroll-mt-32">
-      <div className="sticky top-[72px] z-30 bg-white/95 backdrop-blur-md border-y border-navy/10">
-        <div className="container mx-auto px-4 lg:px-8 relative">
-          <div className="flex items-center gap-6 py-1">
-            <div className="hidden md:flex flex-col shrink-0 py-3 pr-6 border-r border-navy/10">
-              <span className="text-[10px] font-bold tracking-[0.22em] uppercase text-orange">
-                Archive
-              </span>
-              <span className="text-navy font-bold text-sm tabular-nums mt-0.5">
-                {String(activeIndex + 1).padStart(2, "0")} /{" "}
-                {String(tabs.length).padStart(2, "0")}
-              </span>
+    <div className="w-full scroll-mt-32">
+      <div className="container mx-auto px-4 lg:px-8">
+        {/* Segmented stepper */}
+        <div className="flex items-center gap-4 overflow-x-auto no-scrollbar py-6 px-2 -mx-2">
+          {/* Archive Block */}
+          <div className="flex flex-col items-center justify-center bg-navy text-white rounded-[20px] px-6 py-4 shrink-0 min-w-[130px] shadow-xl relative overflow-hidden h-[90px]">
+            {/* Watermark icon */}
+            <div className="absolute -bottom-4 -right-4 opacity-10">
+              <Calendar size={70} />
             </div>
+            <span className="text-orange text-[11px] font-bold tracking-[0.2em] uppercase mb-1 z-10">
+              Archive
+            </span>
+            <span className="text-2xl font-extrabold tracking-tight z-10">
+              {String(activeIndex + 1).padStart(2, "0")}/{String(tabs.length).padStart(2, "0")}
+            </span>
+          </div>
 
-            <div className="relative flex-1 min-w-0">
-              <div
-                className={`absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
-                  showLeftShadow ? "opacity-100" : "opacity-0"
+          {/* Tabs */}
+          {tabs.map((tab, idx) => {
+            const Icon = TAB_ICONS[tab] || FileSearch;
+            const isActive = activeTab === tab;
+            return (
+              <button
+                key={tab}
+                type="button"
+                onClick={() => setActiveTab(tab)}
+                className={`flex shrink-0 items-center gap-4 h-[90px] px-8 rounded-[20px] transition-all duration-300 bg-white shadow-sm ${
+                  isActive
+                    ? "border-2 border-orange shadow-[0_8px_20px_rgba(246,135,42,0.15)]"
+                    : "border border-gray-100 hover:border-gray-300 hover:shadow-md"
                 }`}
-              />
-              <div
-                className={`absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none transition-opacity duration-300 ${
-                  showRightShadow ? "opacity-100" : "opacity-0"
-                }`}
-              />
-
-              <div
-                ref={scrollContainerRef}
-                onScroll={handleScroll}
-                className="flex gap-1 overflow-x-auto py-3 hide-scrollbar"
               >
-                {tabs.map((tab, idx) => {
-                  const isActive = activeTab === tab;
-                  return (
-                    <button
-                      key={tab}
-                      type="button"
-                      onClick={() => handleTabClick(tab)}
-                      className={`relative shrink-0 whitespace-nowrap px-4 py-2.5 text-sm font-semibold transition-colors duration-300 cursor-pointer ${
-                        isActive
-                          ? "text-navy"
-                          : "text-body-gray hover:text-navy"
-                      }`}
-                    >
-                      <span className="text-[10px] font-bold tracking-[0.14em] text-orange/70 mr-2 tabular-nums">
-                        {String(idx + 1).padStart(2, "0")}
-                      </span>
-                      {tab}
-                      {isActive && (
-                        <span className="absolute bottom-0 left-2 right-2 h-0.5 bg-orange" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+                <Icon size={24} className={isActive ? "text-navy" : "text-gray-400"} />
+                <div className="flex flex-col items-start text-left">
+                  <span className="text-orange text-[13px] font-extrabold tabular-nums leading-none mb-1">
+                    {String(idx + 1).padStart(2, "0")}
+                  </span>
+                  <span className={`text-[14px] font-bold leading-none ${isActive ? "text-navy" : "text-gray-500"}`}>
+                    {tab}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
         </div>
-      </div>
 
-      <div
-        ref={contentRef}
-        className="container mx-auto px-4 lg:px-8 pt-10 lg:pt-14 scroll-mt-40"
-      >
-        <div className="min-h-[420px] border border-navy/10 bg-white">
-          <div className="h-1 w-full bg-gradient-to-r from-navy via-orange to-navy/20" />
-          <div className="p-6 md:p-10 lg:p-12">
-            {tabComponents[activeTab] || <p>Content not available.</p>}
-          </div>
-        </div>
+        <div className="pt-8 lg:pt-10">{tabComponents[activeTab]}</div>
       </div>
-
-      <style jsx>{`
-        .hide-scrollbar::-webkit-scrollbar {
-          display: none;
-        }
-        .hide-scrollbar {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
     </div>
   );
 }

@@ -14,8 +14,20 @@ const IICMembers = ({ data }: { data: any }) => {
   if (!table.length) return null;
 
   return (
-    <section className="py-20 lg:py-28 bg-gray-50 relative overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-8">
+    <section className="py-20 lg:py-28 bg-gray-50 relative overflow-hidden z-0">
+      {/* Background Shapes */}
+      <div className="absolute top-[-10%] left-[-5%] w-[40%] h-[50%] bg-[#f97316]/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-[-10%] right-[-5%] w-[50%] h-[60%] bg-[#0e2455]/5 rounded-full blur-[120px] pointer-events-none z-0"></div>
+      
+      {/* Decorative patterns */}
+      <div className="absolute top-[20%] left-[10%] w-32 h-32 pointer-events-none opacity-[0.03] z-0" style={{ backgroundImage: 'radial-gradient(#0e2455 2px, transparent 2px)', backgroundSize: '16px 16px' }}></div>
+      <div className="absolute bottom-[20%] right-[10%] w-48 h-48 pointer-events-none opacity-10 z-0" style={{ backgroundImage: 'radial-gradient(#f97316 2px, transparent 2px)', backgroundSize: '16px 16px' }}></div>
+      
+      {/* Floating rings */}
+      <div className="absolute top-[30%] right-[15%] w-8 h-8 rounded-full border-[3px] border-[#0e2455]/10 pointer-events-none z-0 animate-[pulse_4s_ease-in-out_infinite]"></div>
+      <div className="absolute bottom-[40%] left-[20%] w-4 h-4 rounded-full bg-[#f97316]/20 pointer-events-none z-0"></div>
+      
+      <div className="container mx-auto px-4 lg:px-8 relative z-10">
         
         <Reveal>
           <div className="text-center max-w-3xl mx-auto mb-16">

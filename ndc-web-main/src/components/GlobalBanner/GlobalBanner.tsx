@@ -14,6 +14,7 @@ interface GlobalBannerProps {
   facts?: string[];
   breadcrumbs?: BreadcrumbItem[];
   className?: string;
+  children?: React.ReactNode;
 }
 
 const GlobalBanner = ({
@@ -24,6 +25,7 @@ const GlobalBanner = ({
   facts = [],
   breadcrumbs = [],
   className = '',
+  children,
 }: GlobalBannerProps) => {
   const titleParts = title.trim().split(' ');
   const titleLast = titleParts.length > 1 ? titleParts.pop() : null;
@@ -32,19 +34,23 @@ const GlobalBanner = ({
   // Otherwise, use the standard fallback gradient from CSS/Tailwind.
   const photoStyle = image
     ? {
-        backgroundColor: '#0a1a3f',
-        backgroundImage: `linear-gradient(90deg, rgba(10, 26, 63, 0.86) 0%, rgba(10, 26, 63, 0.58) 38%, rgba(10, 26, 63, 0.22) 55%, rgba(10, 26, 63, 0) 72%), url("${image}")`,
+        backgroundColor: '#0e2455',
+        backgroundImage: `radial-gradient(800px circle at 5% 5%, rgba(246, 135, 42, 0.04), transparent 40%), linear-gradient(105deg, #0e2455 0%, #0e2455 38%, rgba(14, 36, 85, 0.6) 55%, rgba(14, 36, 85, 0) 100%), url("${image}")`,
         backgroundSize: 'cover',
         backgroundPosition: 'right center',
         backgroundRepeat: 'no-repeat',
       }
     : {
-        background: 'radial-gradient(820px circle at 10% -10%, rgba(246, 135, 42, 0.12), transparent 42%), radial-gradient(820px circle at 92% 0%, rgba(50, 112, 252, 0.16), transparent 46%), linear-gradient(150deg, #0e2455 0%, #0a1a3f 100%)'
+        background: 'radial-gradient(820px circle at 10% -10%, rgba(246, 135, 42, 0.08), transparent 42%), radial-gradient(820px circle at 92% 0%, rgba(50, 112, 252, 0.12), transparent 46%), linear-gradient(150deg, #0e2455 0%, #0a1a3f 100%)'
       };
+
+  const paddingClass = (eyebrow || subtitle)
+    ? 'pt-[100px] pb-[50px] lg:pt-[120px] lg:pb-[60px]'
+    : 'pt-[80px] pb-[40px] lg:pt-[90px] lg:pb-[40px]';
 
   return (
     <section
-      className={`relative overflow-hidden pt-[90px] pb-[50px] lg:pt-[120px] lg:pb-[20px] ${className}`}
+      className={`relative overflow-hidden ${paddingClass} min-h-[160px] flex items-center ${className}`}
       style={photoStyle}
     >
       {/* Decorative dot pattern mask for non-photo banners */}
@@ -59,6 +65,9 @@ const GlobalBanner = ({
           }}
         />
       )}
+
+      {/* Page-specific decorative shapes, layered above the photo/gradient */}
+      {children && <div className="pointer-events-none absolute inset-0 z-[5]">{children}</div>}
 
       {/* Bottom orange gradient border */}
       <div
