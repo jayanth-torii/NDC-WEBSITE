@@ -92,7 +92,7 @@ const Header = () => {
       <nav
         ref={navRef}
         className={`sticky top-0 z-[50] w-full flex items-center justify-between border-b border-card-border bg-white/95 backdrop-blur-sm pl-0 pr-5 md:px-6 transition-all duration-500 ease-[var(--ease-editorial)] ${
-          isSticky ? "h-[70px] md:h-[76px] py-2 shadow-md" : "h-[85px] md:h-[100px] lg:h-[110px] py-4 md:py-8"
+          isSticky ? "h-[70px] md:h-[76px] py-2 shadow-md" : "h-[85px] md:h-[100px] lg:h-[110px] py-2 md:py-4 lg:py-4"
         }`}
       >
         {/* Logo */}
@@ -100,9 +100,7 @@ const Header = () => {
           <Image
             src={Logo}
             alt="Nagarjuna Degree College"
-            width={200}
-            height={50}
-            className={`object-contain ml-6 lg:ml-1 md:ml-1 transition-all duration-500 ease-[var(--ease-editorial)] ${isSticky ? "h-11 md:h-12 w-auto" : "h-14 md:h-auto w-auto"}`}
+            className={`object-contain ml-6 lg:ml-1 md:ml-1 transition-all duration-500 ease-[var(--ease-editorial)] ${isSticky ? "h-11 md:h-14 w-auto" : "h-16 md:h-20 lg:h-24 w-auto"}`}
           />
         </button>
 

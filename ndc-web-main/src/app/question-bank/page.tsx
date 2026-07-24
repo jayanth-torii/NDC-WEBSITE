@@ -1,49 +1,29 @@
 "use client";
 
-import React, {Suspense, useState, useEffect} from "react"
-
-import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-import QuestionBankBanner from "@/components/QuestionBank/QuestionBankBanner";
+import React, { Suspense } from "react";
+import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import QuestionBankTabs from "@/components/QuestionBank/QuestionBankTabs";
 
+const QuestionBankPage = () => {
+  return (
+    <main className="min-h-screen flex flex-col w-full overflow-x-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_40%,#f1f5f9_100%)]">
+      <GlobalBanner
+        eyebrow="Academics"
+        title="Question Bank"
+        image="/images/question-bank/banner.png"
+        breadcrumbs={[
+          { label: "Home", path: "/" },
+          { label: "Question Bank" },
+        ]}
+      />
 
-import axios from "axios";
-import { BASE_URL } from "@/config/apiService";
+      <div className="relative pb-20 lg:pb-28">
+        <Suspense fallback={<div className="container mx-auto px-4 py-16 text-body-gray">Loading…</div>}>
+          <QuestionBankTabs />
+        </Suspense>
+      </div>
+    </main>
+  );
+};
 
-
-
-const Events = () => {
-
-    // const [EventsData, setEventsData] = useState(null);
-    // useEffect(() => {
-    //  const fetchsetEventContent = async () => {
-    //    try {
-    //      const response = await axios.get(`${BASE_URL}/event`);
-    //      setEventsData(response?.data?.data);
-    //    } catch (error) {
-    //      console.error("Error fetching SCST data:", error);
-    //    }
-    //  };
-    //  fetchsetEventContent();
-    // }, []);
-    // console.log("Fetched  fetchsetEventContent Data:=============================>",EventsData);
-
-    return (
-        <div className="m-auto w-[90%]">
-
-          <QuestionBankBanner/>
-
-            <Suspense>
-                <Breadcrumb className="ml-0"/>
-            </Suspense>
-
-            <Suspense>
-                <QuestionBankTabs/>
-            </Suspense> 
-        
-        </div>
-
-    )
-}
-
-export default Events
+export default QuestionBankPage;
