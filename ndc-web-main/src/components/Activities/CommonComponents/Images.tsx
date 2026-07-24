@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, Maximize2, Users, Heart, MessageSquare } from "lucide-react";
 import Image from "next/image";
-import SectionHeading from "@/components/ui/SectionHeading";
+
 
 const Images = ({ data }: any) => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -58,8 +58,23 @@ const Images = ({ data }: any) => {
   if (!data || !data.images) return null;
 
   return (
-    <div className="relative mb-10 md:mb-20">
-      <SectionHeading title={data.title || "Gallery"} className="mb-6" />
+    <div className="relative mb-10 md:mb-20 bg-white rounded-[24px] shadow-sm border border-gray-100 p-6 md:p-8 overflow-hidden">
+      {/* Background Shapes */}
+      <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-[80px] pointer-events-none z-0"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#F6872A]/5 rounded-full blur-[100px] pointer-events-none z-0"></div>
+      <div className="absolute top-1/4 left-10 w-4 h-4 rounded-full border-[3px] border-[#1a3668]/10 pointer-events-none z-0"></div>
+      <div className="absolute bottom-1/3 right-10 w-2 h-2 rounded-full bg-[#F6872A]/20 pointer-events-none z-0"></div>
+
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-32 h-32 pointer-events-none opacity-20" style={{ backgroundImage: 'radial-gradient(#F6872A 2px, transparent 2px)', backgroundSize: '10px 10px' }}></div>
+        <div className="flex items-center gap-4 relative z-10">
+           <div className="w-12 h-12 rounded-full bg-[#F6872A] flex items-center justify-center shrink-0 shadow-[var(--shadow-cta)]">
+             <Users className="text-white" size={24} />
+           </div>
+           <h2 className="text-2xl md:text-3xl font-extrabold text-[#1a3668]">{data.title || "Gallery"}</h2>
+        </div>
+      </div>
 
       {/* Scroll Container */}
       <div
@@ -85,8 +100,19 @@ const Images = ({ data }: any) => {
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                 priority={index < 3}
               />
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center">
-                 <div className="bg-white/90 backdrop-blur-sm text-navy p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-75 group-hover:scale-100 shadow-lg">
+              
+              {/* Bottom Caption Banner */}
+              <div className="absolute bottom-0 left-0 right-0 bg-[#1a3668] p-4 flex items-center justify-between z-20 translate-y-0 transition-transform duration-300">
+                <p className="text-white font-medium text-sm md:text-[15px] max-w-[70%] leading-tight">
+                   {["Awareness Session on Menstrual Hygiene", "Women's Health Awareness Talk", "Interactive Session with Students", "Grievance Redressal Meeting"][index % 4]}
+                </p>
+                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center shrink-0 shadow-md">
+                  {index % 3 === 0 ? <Users className="text-[#1a3668]" size={18} /> : index % 3 === 1 ? <Heart className="text-[#1a3668]" size={18} /> : <MessageSquare className="text-[#1a3668]" size={18} />}
+                </div>
+              </div>
+
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center z-10">
+                 <div className="bg-white/90 backdrop-blur-sm text-[#F6872A] p-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-75 group-hover:scale-100 shadow-lg">
                     <Maximize2 size={24} />
                  </div>
               </div>

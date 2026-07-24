@@ -11,7 +11,26 @@ const CertificateCourses = ({data}:any) => {
 
   return (
     <section className="relative py-20 bg-white overflow-hidden font-sans">
-      <div className="container mx-auto px-4 lg:px-8 max-w-[1200px]">
+      {/* Decorative Background Shapes */}
+      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-[#F6872A]/5 rounded-full blur-[80px] pointer-events-none -translate-x-1/2 -translate-y-1/2"></div>
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#1a3668]/5 rounded-full blur-[100px] pointer-events-none translate-x-1/3 translate-y-1/3"></div>
+      
+      {/* Dotted Pattern Decor */}
+      <div className="absolute top-[20%] right-[3%] opacity-[0.04] pointer-events-none hidden lg:block">
+        <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+          <pattern id="cert-dots" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.5" fill="#1a3668" />
+          </pattern>
+          <rect width="100" height="100" fill="url(#cert-dots)" />
+        </svg>
+      </div>
+      
+      {/* Plus Sign Decor */}
+      <div className="absolute bottom-[30%] left-[4%] opacity-20 pointer-events-none hidden lg:block text-[#F6872A]">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+      </div>
+
+      <div className="relative z-10 container mx-auto px-4 lg:px-8 max-w-[1200px]">
         
         {/* Section Header */}
         <Reveal>
@@ -29,11 +48,11 @@ const CertificateCourses = ({data}:any) => {
         <Reveal delay={0.1}>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
             
-            {/* Left Column (Cols 1-5) */}
-            <div className="col-span-1 lg:col-span-5 flex flex-col gap-6">
+            {/* Left Column */}
+            <div className="col-span-1 lg:col-span-4 flex flex-col gap-6">
               
               {/* Top Text Block */}
-              <div className="bg-white rounded-3xl p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100 relative overflow-hidden h-[60%] flex flex-col justify-center">
+              <div className="bg-white rounded-[32px] p-8 lg:p-10 shadow-[0_4px_24px_rgba(0,0,0,0.04)] border border-gray-100 relative overflow-hidden h-[60%] flex flex-col justify-center">
                 {/* Decorative Dots Top Right */}
                 <div className="absolute top-8 right-8 opacity-40">
                   <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -53,8 +72,8 @@ const CertificateCourses = ({data}:any) => {
                   </svg>
                 </div>
 
-                <h2 className="text-4xl md:text-5xl font-extrabold text-navy leading-tight tracking-tight mb-4 relative z-10">
-                  Explore Certificate <br/> <span className="text-orange">Courses</span>
+                <h2 className="text-4xl md:text-5xl font-extrabold text-[#1a3668] leading-tight tracking-tight mb-4 relative z-10">
+                  Explore <br/> Certificate <br/> <span className="text-[#F6872A]">Courses</span>
                 </h2>
                 <p className="text-gray-500 font-medium leading-relaxed max-w-sm relative z-10 text-[15px]">
                   Enhance your career prospects with our industry-recognized certificate programs designed for real-world success.
@@ -62,35 +81,35 @@ const CertificateCourses = ({data}:any) => {
               </div>
 
               {/* Bottom Two Cards */}
-              <div className="grid grid-cols-2 gap-6 h-[40%]">
+              <div className="grid grid-cols-2 gap-4 h-[40%]">
                 {/* 3-6 Months Card */}
-                <div className="bg-[#FFF8F3] rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-sm border border-orange/10 relative overflow-hidden">
-                  <div className="w-12 h-12 bg-orange rounded-full flex items-center justify-center text-white mb-3 shadow-md">
+                <div className="bg-[#FFF8F3] rounded-[32px] p-6 flex flex-col items-center justify-center text-center shadow-sm border border-orange/10 relative overflow-hidden">
+                  <div className="w-12 h-12 bg-[#F6872A] rounded-full flex items-center justify-center text-white mb-3 shadow-md">
                     <Clock size={22} />
                   </div>
-                  <div className="text-navy font-bold text-lg mb-1">3 - 6 Months</div>
-                  <div className="text-gray-500 text-xs font-medium mb-3">Fast-Track Duration</div>
-                  <div className="w-8 h-1 bg-orange rounded-full" />
+                  <div className="text-[#1a3668] font-bold text-lg mb-1">3 - 6 Months</div>
+                  <div className="text-gray-500 text-[11px] font-medium mb-3">Fast-Track Duration</div>
+                  <div className="w-8 h-1 bg-[#F6872A] rounded-full" />
                 </div>
 
                 {/* 100% Placement Card */}
-                <div className="bg-white rounded-3xl p-6 flex flex-col items-center justify-center text-center shadow-sm border border-gray-100 relative overflow-hidden">
+                <div className="bg-white rounded-[32px] p-6 flex flex-col items-center justify-center text-center shadow-sm border border-gray-100 relative overflow-hidden">
                   <div className="w-12 h-12 bg-[#2D459D] rounded-full flex items-center justify-center text-white mb-3 shadow-md">
                     <Award size={22} />
                   </div>
-                  <div className="text-navy font-bold text-lg mb-1">100%</div>
-                  <div className="text-gray-500 text-xs font-medium mb-3">Placement Assistance</div>
+                  <div className="text-[#1a3668] font-bold text-lg mb-1">100%</div>
+                  <div className="text-gray-500 text-[11px] font-medium mb-3">Placement Assistance</div>
                   <div className="w-8 h-1 bg-[#2D459D] rounded-full" />
                 </div>
               </div>
             </div>
 
-            {/* Right Column (Cols 6-12) - Massive Image */}
-            <div className="col-span-1 lg:col-span-7 relative h-[500px] lg:h-auto rounded-[32px] overflow-hidden shadow-lg">
+            {/* Right Column - Massive Image */}
+            <div className="col-span-1 lg:col-span-8 relative min-h-[400px] lg:min-h-full rounded-[32px] overflow-hidden shadow-lg">
               <img
                 src={image || "/images/placeholders/certificate.jpg"}
                 alt="Students studying"
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover"
               />
               
               {/* Top Right Floating Badge */}
@@ -163,11 +182,6 @@ const CertificateCourses = ({data}:any) => {
 
             {/* Right Button & Decorations */}
             <div className="relative z-10 shrink-0 pr-4 mt-8 md:mt-0">
-               {/* Exact Image Decoration (Top Left of Button) */}
-               <div className="absolute -top-12 -left-8 w-[60px] opacity-80 mix-blend-multiply pointer-events-none">
-                 <img src="/images/decor/squiggle.png" alt="decoration" className="w-full h-auto" />
-               </div>
-               
               <button 
                 onClick={() => router.push(link || "#")}
                 className="bg-[#F6872A] hover:bg-[#e0751f] text-white font-semibold text-[16px] px-8 py-3.5 rounded-full shadow-[0_12px_24px_-8px_rgba(246,135,42,0.8)] transition-all flex items-center gap-2"
