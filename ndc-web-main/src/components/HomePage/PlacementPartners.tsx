@@ -7,13 +7,13 @@ import { Building2 } from "lucide-react";
 const PARTNERS = [
   { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
   { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-  { name: "Bosch", url: "/images/recruiters/Bosch.png" },
+  { name: "Bosch", url: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Bosch_logo.svg", scaleClass: "scale-[1.8] group-hover/logo:scale-[2]" },
   { name: "Toyota", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" },
   { name: "Capgemini", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Capgemini_201x_logo.svg" },
   { name: "Accenture", url: "/images/recruiters/accenture.png" },
   { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
   { name: "IBM", url: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" },
-  { name: "Infosys", url: "/images/recruiters/Infosys.png" },
+  { name: "Infosys", url: "/images/recruiters/Infosys.png", scaleClass: "scale-[1.5] group-hover/logo:scale-[1.7]" },
   { name: "TCS", url: "/images/recruiters/TCS.png" }
 ];
 
@@ -53,7 +53,7 @@ const PlacementPartners = () => {
                     <img 
                       src={partner.url} 
                       alt={partner.name}
-                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 group-hover/logo:scale-110"
+                      className={`max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 ${partner.scaleClass || 'scale-100 group-hover/logo:scale-110'}`}
                       onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
                   </div>
@@ -70,7 +70,7 @@ const PlacementPartners = () => {
                     <img 
                       src={partner.url} 
                       alt={partner.name}
-                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 group-hover/logo:scale-110"
+                      className={`max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 ${partner.scaleClass || 'scale-100 group-hover/logo:scale-110'}`}
                       onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
                   </div>

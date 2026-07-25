@@ -1,50 +1,42 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { articles } from "@/app/Data/BlogsPageContent";
 import React from "react";
-import Button from "@/components/ui/Button";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 interface BlogNavigationProps {
-    currentIndex: number;
+    prevBlogId?: number | string | null;
+    nextBlogId?: number | string | null;
 }
 
-const BlogNavigation: React.FC<BlogNavigationProps> = ({ currentIndex }) => {
+const BlogNavigation: React.FC<BlogNavigationProps> = ({ prevBlogId, nextBlogId }) => {
     const router = useRouter();
 
-    const prevBlog = currentIndex > 0 ? articles[currentIndex - 1] : null;
-    const nextBlog = currentIndex < articles.length - 1 ? articles[currentIndex + 1] : null;
-
     const handleNavigation = (blogId: string | number) => {
-        // Scroll to the top before navigating
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        // Navigate to the next or previous blog
         router.push(`/blog/${blogId}`);
     };
 
     return (
-        <div className="mt-6 flex flex-wrap justify-center gap-4 sm:gap-10 w-full px-4 md:px-8">
+        <div className="mt-8 flex flex-wrap justify-center gap-4 sm:gap-6 w-full">
             {/* Previous Blog Button */}
-            <Button
-                variant="ghost"
+            <button
                 type="button"
-                disabled={!prevBlog}
-                className={!prevBlog ? "pointer-events-none opacity-50" : ""}
-                onClick={() => prevBlog && handleNavigation(prevBlog.id)}
+                disabled={!prevBlogId}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl border border-navy text-navy font-bold text-sm tracking-wider uppercase transition-all duration-300 ${!prevBlogId ? "pointer-events-none opacity-50" : "hover:bg-navy hover:text-white"}`}
+                onClick={() => prevBlogId && handleNavigation(prevBlogId)}
             >
-                READ PREVIOUS BLOG
-            </Button>
+                <ArrowLeft size={16} /> READ PREVIOUS BLOG
+            </button>
 
             {/* Next Blog Button */}
-            <Button
-                variant="primary"
+            <button
                 type="button"
-                disabled={!nextBlog}
-                className={!nextBlog ? "pointer-events-none opacity-50" : ""}
-                onClick={() => nextBlog && handleNavigation(nextBlog.id)}
+                disabled={!nextBlogId}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl bg-orange border border-orange text-white font-bold text-sm tracking-wider uppercase transition-all duration-300 shadow-[0_4px_15px_rgba(246,135,42,0.3)] ${!nextBlogId ? "pointer-events-none opacity-50" : "hover:bg-orange/90 hover:-translate-y-0.5 hover:shadow-[0_8px_25px_rgba(246,135,42,0.4)]"}`}
+                onClick={() => nextBlogId && handleNavigation(nextBlogId)}
             >
-                READ NEXT BLOG
-            </Button>
+                READ NEXT BLOG <ArrowRight size={16} />
+            </button>
         </div>
     );
 };
