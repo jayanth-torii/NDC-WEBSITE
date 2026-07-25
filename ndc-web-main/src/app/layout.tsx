@@ -3,6 +3,7 @@ import { MantineProvider } from "@mantine/core";
 import Script from "next/script";
 import AppliIntegration from "@/components/AppliIntegration";
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 import type { Metadata } from "next";
 import { Geist_Mono, Poppins, Caveat } from "next/font/google";
@@ -64,6 +65,7 @@ export default function RootLayout({
            <AppliIntegration />
         </MantineProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

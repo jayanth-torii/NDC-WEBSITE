@@ -1,0 +1,73 @@
+# Vercel Speed Insights Installation Report
+
+## Summary
+Successfully installed and configured Vercel Speed Insights for the NDC Website Next.js project.
+
+## Implementation Details
+
+### 1. Documentation Retrieved
+- Fetched the latest installation instructions from https://vercel.com/docs/speed-insights/quickstart
+- Confirmed Next.js App Router (v13.5+) integration approach
+
+### 2. Package Installation
+- Installed `@vercel/speed-insights` version 2.0.0
+- Package manager: npm (identified via package-lock.json)
+- Command used: `npm install @vercel/speed-insights`
+
+### 3. Code Changes
+
+#### Modified Files:
+1. **package.json**
+   - Added `@vercel/speed-insights` to dependencies (version ^2.0.0)
+
+2. **package-lock.json**
+   - Updated with new dependency tree for @vercel/speed-insights and its dependencies (247 packages added)
+
+3. **src/app/layout.tsx**
+   - Added import: `import { SpeedInsights } from '@vercel/speed-insights/next';`
+   - Added `<SpeedInsights />` component at the end of the body, right after the existing `<Analytics />` component
+   - Follows Next.js App Router best practices for root layout integration
+
+### 4. Integration Approach
+- Used the Next.js-specific import path: `@vercel/speed-insights/next`
+- Placed the SpeedInsights component alongside the existing Vercel Analytics component
+- Preserved all existing code structure and functionality
+- No breaking changes introduced
+
+### 5. Testing & Verification
+- ✅ Build completed successfully: `npm run build` passed
+- ✅ Type checking passed (included in Next.js build)
+- ✅ Generated 42 static pages without errors
+- ✅ All existing routes compiled successfully
+- Note: ESLint not configured in project (prompted for setup during lint command)
+
+### 6. Technical Notes
+- Project: Next.js 15.2.6 using App Router
+- Framework: Next.js with TypeScript
+- Styling: Tailwind CSS, Mantine UI
+- Already had Vercel Analytics installed, Speed Insights complements it
+- Speed Insights will work alongside existing Analytics implementation
+
+### 7. Usage
+Speed Insights is now active and will automatically:
+- Track Core Web Vitals (LCP, FID, CLS, FCP, TTFB)
+- Collect real user monitoring (RUM) data
+- Send performance metrics to Vercel dashboard
+- Provide insights on page performance
+
+To view the data:
+1. Deploy the application to Vercel
+2. Navigate to Speed Insights in the Vercel dashboard
+3. Enable Speed Insights for the project if not already enabled
+
+## Files Changed
+- `package.json` - Added @vercel/speed-insights dependency
+- `package-lock.json` - Updated with new dependencies
+- `src/app/layout.tsx` - Added SpeedInsights import and component
+
+## No Breaking Changes
+All changes are purely additive. The Speed Insights component:
+- Does not affect existing functionality
+- Loads asynchronously
+- Has minimal performance impact
+- Works seamlessly with existing Vercel Analytics
