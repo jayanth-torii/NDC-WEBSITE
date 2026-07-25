@@ -5,7 +5,7 @@
         "eyebrow": "NDC Sports & Athletics",
         "title": "Physical Education & Sports",
         "subtitle": "Achieving excellence in sports through innovative programs, coaching, and a holistic approach to student wellness.",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_211_1_969d4e20e8.png"
+        "image": "/images/sports/Group_211_1_969d4e20e8.png"
       },
       "aboutSections": {
         "title": "",
@@ -40,7 +40,7 @@
         "title": "Director's Message",
         "name": "Prof. Rajanna R",
         "position": "Director, Department of Physical Education and Sports. NDC. ",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/image_90cac2cd99.png",
+        "image": "/images/sports/image_90cac2cd99.png",
         "message": [
           "“A Sound mind in a Sound body”",
           "Physical Education and sports activities play a crucial role in enhancing the healthy environment and build the society with health and wellness.  A well implemented fitness program is an essential tool for the growth of the health of mind and body.  Involvement of students in sports activities increase their concentration and reduces the stress and they will imbibe a positive attitude in their behaviour. The New Education Policy also has made it mandatory to take sports as a way of life and inculcate sportsman spirit.",
@@ -50,14 +50,14 @@
       "gallerySection": {
         "title": "Gallery",
         "images": [
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2024_01_02_at_11_57_24_1_a5c0de6c6c.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2023_05_05_at_15_40_20_8155bcac45.png",
-          "https://cdn.nagarjunadegreecollege.co.in/BCU_fencing_2197f95822.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_12_13_at_12_48_32_1_rotated_c9f8287fe6.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_07_02_at_10_15_08_AM_b9f1bd8ad9.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_07_02_at_10_14_59_AM_2_420161a7e1.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2022_07_02_at_10_14_59_AM_0c51a783a9.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Whats_App_Image_2024_01_02_at_11_57_24_1_scaled_1_cd3417daae.png"
+          "/images/sports/Whats_App_Image_2024_01_02_at_11_57_24_1_a5c0de6c6c.png",
+          "/images/sports/Whats_App_Image_2023_05_05_at_15_40_20_8155bcac45.png",
+          "/images/sports/BCU_fencing_2197f95822.png",
+          "/images/sports/Whats_App_Image_2022_12_13_at_12_48_32_1_rotated_c9f8287fe6.png",
+          "/images/sports/Whats_App_Image_2022_07_02_at_10_15_08_AM_b9f1bd8ad9.png",
+          "/images/sports/Whats_App_Image_2022_07_02_at_10_14_59_AM_2_420161a7e1.png",
+          "/images/sports/Whats_App_Image_2022_07_02_at_10_14_59_AM_0c51a783a9.png",
+          "/images/sports/Whats_App_Image_2024_01_02_at_11_57_24_1_scaled_1_cd3417daae.png"
         ]
       }
     }

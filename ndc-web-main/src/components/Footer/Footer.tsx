@@ -290,7 +290,7 @@ const Footer = () => {
           >
             <span>Powered by</span>
             <Image
-              src="https://ncet-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/uploads/1782973938696-logo.png"
+              src="/images/footer/torii-minds-logo.png"
               alt="Torii Minds"
               width={80}
               height={20}

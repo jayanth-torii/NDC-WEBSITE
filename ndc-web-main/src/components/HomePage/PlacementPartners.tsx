@@ -5,14 +5,14 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Building2 } from "lucide-react";
 
 const PARTNERS = [
-  { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
-  { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-  { name: "Bosch", url: "https://upload.wikimedia.org/wikipedia/commons/b/b5/Bosch_logo.svg", scaleClass: "scale-[1.8] group-hover/logo:scale-[2]" },
-  { name: "Toyota", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" },
-  { name: "Capgemini", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Capgemini_201x_logo.svg" },
+  { name: "Google", url: "/images/partners/google.svg" },
+  { name: "Amazon", url: "/images/partners/amazon.svg" },
+  { name: "Bosch", url: "/images/partners/bosch.svg", scaleClass: "scale-[1.8] group-hover/logo:scale-[2]" },
+  { name: "Toyota", url: "/images/partners/toyota.svg" },
+  { name: "Capgemini", url: "/images/partners/capgemini.svg" },
   { name: "Accenture", url: "/images/recruiters/accenture.png" },
-  { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
-  { name: "IBM", url: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" },
+  { name: "Microsoft", url: "/images/partners/microsoft.svg" },
+  { name: "IBM", url: "/images/partners/ibm.svg" },
   { name: "Infosys", url: "/images/recruiters/Infosys.png", scaleClass: "scale-[1.5] group-hover/logo:scale-[1.7]" },
   { name: "TCS", url: "/images/recruiters/TCS.png" }
 ];
