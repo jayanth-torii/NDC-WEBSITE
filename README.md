@@ -7,7 +7,7 @@ Official website for **Nagarjuna Degree College (NDC)** — a full-stack web app
 ## 📖 Overview
 
 This repository contains the complete source code for the NDC Website project, composed of two independent applications:
-
+ 
 | Project | Description |
 |---|---|
 | `ndc-web-main` | Next.js (App Router) frontend that renders all public-facing pages |
