@@ -11,7 +11,7 @@ This repository contains the complete source code for the NDC Website project, c
 | Project | Description |
 |---|---|
 | `ndc-web-main` | Next.js (App Router) frontend that renders all public-facing pages |
-| `ndc-cms-main` | Strapi 5 headless CMS used to author and manage site content |
+
 
 The frontend currently reads all content from static JSON files checked into `ndc-web-main/data-export/` rather than fetching from the CMS at request time. Content edited in the Strapi admin panel will not appear on the live site until the JSON export is regenerated and the frontend is rebuilt/redeployed. See [`DEVELOPER.md`](./DEVELOPER.md) for the full breakdown of pages, the CMS → static-JSON migration, and the shared `GlobalBanner` / `ui/` design system.
 
@@ -33,16 +33,12 @@ The frontend currently reads all content from static JSON files checked into `nd
 - React Hook Form
 - Vercel Analytics & Speed Insights
 
-**Backend (`ndc-cms-main`)**
-- Strapi 5 (Node.js headless CMS)
-- PostgreSQL / SQLite
-- AWS S3 upload provider
-- Users & Permissions plugin
+
 
 ## 📁 Repository Structure
 
     NDC-WEBSITE/
-    ├── ndc-cms-main/      # Strapi backend (content management)
+ 
     ├── ndc-web-main/      # Next.js frontend (public website)
     │   └── data-export/   # Static JSON snapshot of CMS content
     ├── DEVELOPER.md       # In-depth developer notes and migration history
@@ -52,13 +48,6 @@ The frontend currently reads all content from static JSON files checked into `nd
 
 **Prerequisites:** Node.js v18+
 
-**Backend (CMS)**
-```bash
-cd ndc-cms-main
-cp .env.example .env
-npm install
-npm run dev
-```
 
 **Frontend (Web)**
 ```bash
