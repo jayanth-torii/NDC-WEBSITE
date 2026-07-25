@@ -3,7 +3,7 @@
     "data": {
       "BannerSection": {
         "title": "Students",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_153_3_2aeab4ed49.png"
+        "image": "/images/students/Group_153_3_2aeab4ed49.png"
       },
       "MentoringCell": {
         "title": "Mentoring Cell",
@@ -123,23 +123,23 @@
       },
       "CareerAdvancementCenter": {
         "title": "Career Advancement Center",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/image_49_c2685b2ae3.png",
+        "image": "/images/students/image_49_c2685b2ae3.png",
         "PlacementPartnersImages": [
-          "https://cdn.nagarjunadegreecollege.co.in/download_4e5cab3cba.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_1_4442491c6d.png",
-          "https://cdn.nagarjunadegreecollege.co.in/OIP_1_e127f60555.jpeg",
-          "https://cdn.nagarjunadegreecollege.co.in/download_3_e150b19c73.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_2_e82757cf82.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_ce672b4517.png",
-          "https://cdn.nagarjunadegreecollege.co.in/Accenture_id4v_Rr_A_Ypl_1_2e6e03fdcb.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_5_ee909d92f6.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_7d9c7bc6ee.jpeg",
-          "https://cdn.nagarjunadegreecollege.co.in/download_1_c54c866945.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_6_f2db7af475.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_7_45885632ef.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_1_a4811111c8.jpeg",
-          "https://cdn.nagarjunadegreecollege.co.in/download_4_e2a40216c0.png",
-          "https://cdn.nagarjunadegreecollege.co.in/download_8_30711266a6.png"
+          "/images/students/download_4e5cab3cba.png",
+          "/images/students/download_1_4442491c6d.png",
+          "/images/students/OIP_1_e127f60555.jpeg",
+          "/images/students/download_3_e150b19c73.png",
+          "/images/students/download_2_e82757cf82.png",
+          "/images/students/download_ce672b4517.png",
+          "/images/students/Accenture_id4v_Rr_A_Ypl_1_2e6e03fdcb.png",
+          "/images/students/download_5_ee909d92f6.png",
+          "/images/students/download_7d9c7bc6ee.jpeg",
+          "/images/students/download_1_c54c866945.png",
+          "/images/students/download_6_f2db7af475.png",
+          "/images/students/download_7_45885632ef.png",
+          "/images/students/download_1_a4811111c8.jpeg",
+          "/images/students/download_4_e2a40216c0.png",
+          "/images/students/download_8_30711266a6.png"
         ],
         "sections": [
           {
@@ -167,8 +167,8 @@
         "title": "Training and Placement Cell",
         "description": "The Training and placement cell of Nagarjuna Degree College was started to impart to Bridge Gap Between Industry And Academic Through Mutually Exploring The Opportunities Organizing Aptitude & Corporate Skills Training Program To Prepare Out Students To Face Campus Recruitment Process To Update Students For The Competitive Examinations From Experts Arranging Technical Seminars And Arranging Guest Lecture By Eminent Personalities From Industry & Career Counselling Arranging Interview Activities for Students",
         "images": [
-          "https://cdn.nagarjunadegreecollege.co.in/image_50_5e8ed95a0e.png",
-          "https://cdn.nagarjunadegreecollege.co.in/image_cb030ba2ae.png"
+          "/images/students/image_50_5e8ed95a0e.png",
+          "/images/students/image_cb030ba2ae.png"
         ],
         "sections": [
           {

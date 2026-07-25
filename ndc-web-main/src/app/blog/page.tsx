@@ -27,7 +27,7 @@ const BlogList = () => {
         eyebrow={bannerSection?.eyebrow || "Insights & Updates"}
         title={bannerSection?.title || "BLOG"}
         subtitle={bannerSection?.subtitle || "Discover the latest news, ideas, and academic insights from Nagarjuna Degree College."}
-        image={bannerSection?.image || "https://cdn.nagarjunadegreecollege.co.in/Rectangle_174_8969614918.png"}
+        image={bannerSection?.image || "/images/blog/Rectangle_174_8969614918.png"}
       />
       
       {/* Background Graphic: Giant Navy Circle with Orange Border */}

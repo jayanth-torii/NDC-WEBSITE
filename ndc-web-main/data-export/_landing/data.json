@@ -6,17 +6,17 @@
           "location": "https://www.google.com/maps?ll=13.116397,77.562246&z=16&t=m&hl=en&gl=IN&mapclient=embed&cid=17815594856769670624",
           "slides": [
             {
-              "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_b22b30ec28.svg",
+              "image": "/images/home/image_1_b22b30ec28.svg",
               "title": "Embracing The Power Of Education",
               "description": "Bringing technology and education together for a better future."
             },
             {
-              "image": "https://cdn.nagarjunadegreecollege.co.in/image_2_b76227a005.svg",
+              "image": "/images/home/image_2_b76227a005.svg",
               "title": "Unlocking Education's Transformative Power",
               "description": "Empowering students with global knowledge and skills."
             },
             {
-              "image": "https://cdn.nagarjunadegreecollege.co.in/image_3_9b7f27f9c7.svg",
+              "image": "/images/home/image_3_9b7f27f9c7.svg",
               "title": "Applications for 2025 is now open",
               "description": "Empowering students with global knowledge and skills."
             }
@@ -26,38 +26,38 @@
           {
             "title": "Happy Alumni",
             "count": "2000+",
-            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_1_7ad3fd4eb9.svg",
-            "icon": "https://cdn.nagarjunadegreecollege.co.in/Vector_3a04fe6a88.svg"
+            "backgroundImage": "/images/home/Rectangle_68_1_7ad3fd4eb9.svg",
+            "icon": "/images/home/Vector_3a04fe6a88.svg"
           },
           {
             "title": "Students Intake",
             "count": "520 +",
-            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_b27a50ddd8.svg",
-            "icon": "https://cdn.nagarjunadegreecollege.co.in/Vector_3a04fe6a88.svg"
+            "backgroundImage": "/images/home/Rectangle_68_b27a50ddd8.svg",
+            "icon": "/images/home/Vector_3a04fe6a88.svg"
           },
           {
             "title": "Library Resources",
             "count": " 2000 +",
-            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_1_7ad3fd4eb9.svg",
-            "icon": "https://cdn.nagarjunadegreecollege.co.in/mdi_library_56d256222e.svg"
+            "backgroundImage": "/images/home/Rectangle_68_1_7ad3fd4eb9.svg",
+            "icon": "/images/home/mdi_library_56d256222e.svg"
           },
           {
             "title": "Certified Teachers",
             "count": " 100 +",
-            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_b27a50ddd8.svg",
-            "icon": "https://cdn.nagarjunadegreecollege.co.in/icon_park_success_7123a733ab.svg"
+            "backgroundImage": "/images/home/Rectangle_68_b27a50ddd8.svg",
+            "icon": "/images/home/icon_park_success_7123a733ab.svg"
           },
           {
             "title": "Approved Courses",
             "count": " 10 +",
-            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_1_7ad3fd4eb9.svg",
-            "icon": "https://cdn.nagarjunadegreecollege.co.in/icon_park_success_7123a733ab.svg"
+            "backgroundImage": "/images/home/Rectangle_68_1_7ad3fd4eb9.svg",
+            "icon": "/images/home/icon_park_success_7123a733ab.svg"
           },
           {
             "title": "Programmes",
             "count": "40+",
-            "backgroundImage": "https://cdn.nagarjunadegreecollege.co.in/Rectangle_68_b27a50ddd8.svg",
-            "icon": "https://cdn.nagarjunadegreecollege.co.in/Vector_3a04fe6a88.svg"
+            "backgroundImage": "/images/home/Rectangle_68_b27a50ddd8.svg",
+            "icon": "/images/home/Vector_3a04fe6a88.svg"
           }
         ],
         "AboutNdcSection": {
@@ -67,16 +67,16 @@
             "Being one of the Top Degree Colleges in Bengaluru, Nagarjuna Degree College is a prominent pillar of the Nagarjuna Group of Institutions. This eminent institution was established in the year 2013 with the vision of Leadership and Excellence in Education. Therefore, with state-of-the-art campus and advanced facilities, it follows the path of experiential learning offering UG and PG programmes in the field of Commerce, Science and Management."
           ],
           "buttonText": "KNOW MORE",
-          "image": "https://cdn.nagarjunadegreecollege.co.in/Group_14_0c6cac3b16.svg",
+          "image": "/images/home/Group_14_0c6cac3b16.svg",
           "link": ""
         },
         "Yrs25Section": {
           "title": "Celebrating 25 Years of Academic Excellence",
           "description": "For the past 25 years, Nagarjuna Degree College has been a hub of innovation, learning, and career-focused education. Our dedication to academic excellence has shaped countless bright minds, equipping them with the skills to excel in an ever-evolving world. As we mark this milestone, we reaffirm our commitment to fostering knowledge, embracing new advancements, and empowering the next generation of leaders. Here's to a future built on excellence and innovation!",
-          "image": "https://cdn.nagarjunadegreecollege.co.in/image_106d4b7b64.svg"
+          "image": "/images/home/image_106d4b7b64.svg"
         },
         "ExploreCertificateCourses": {
-          "image": "https://cdn.nagarjunadegreecollege.co.in/Group_13_b344ff1256.svg",
+          "image": "/images/home/Group_13_b344ff1256.svg",
           "title": "Explore Certificate Courses",
           "link": "/certificate-courses"
         },
@@ -105,7 +105,7 @@
               "url": "/pg-programme"
             }
           ],
-          "image": "https://cdn.nagarjunadegreecollege.co.in/Group_14_1_d6accd571c.svg"
+          "image": "/images/home/Group_14_1_d6accd571c.svg"
         },
         "NotificationsData": {
           "title": "Notifications",
@@ -127,11 +127,11 @@
                 },
                 {
                   "title": "ERCMET 2023",
-                  "pdf": "https://cdn.nagarjunadegreecollege.co.in/Final_ERCMET_2023_5009ccd32b.pdf"
+                  "pdf": "/pdfs/home/Final_ERCMET_2023_5009ccd32b.pdf"
                 },
                 {
                   "title": "Basha Parimal 2023",
-                  "pdf": "https://cdn.nagarjunadegreecollege.co.in/Poster_Bhasha_Parimala_2023_01_1_792240e79a.pdf"
+                  "pdf": "/pdfs/home/Poster_Bhasha_Parimala_2023_01_1_792240e79a.pdf"
                 },
                 {
                   "title": "Industrial visit to Ayesha Embroideries Pvt Ltd by BBA students on 1/6/2023",
@@ -228,7 +228,7 @@
               "Data": [
                 {
                   "title": "Career Mentoring and Pre-Placement Training- Conducted today for Final year BCA & BSC Students- by Mr. Alfred Wilson A, Lead Trainer and Career Mentor.",
-                  "pdf": "https://cdn.nagarjunadegreecollege.co.in/sample_6aeab4e079.pdf"
+                  "pdf": "/pdfs/home/sample_6aeab4e079.pdf"
                 }
               ]
             }

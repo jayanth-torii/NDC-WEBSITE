@@ -3,10 +3,10 @@
     "data": {
       "BannerSection": {
         "title": " CONTACT US",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Contact_Us_1_a27dbca57f.png"
+        "image": "/images/contact-us/Contact_Us_1_a27dbca57f.png"
       },
       "contactDetails": {
-        "image": "https://cdn.nagarjunadegreecollege.co.in/image_7_2829742f6b.png",
+        "image": "/images/contact-us/image_7_2829742f6b.png",
         "details": [
           {
             "title": "Get In Touch",
@@ -36,22 +36,22 @@
         {
           "title": "STAFF LOGIN",
           "url": "https://vapsecampus.azurewebsites.net/#/login/",
-          "image": "https://cdn.nagarjunadegreecollege.co.in/Vector_7033b85c8a.png"
+          "image": "/images/contact-us/Vector_7033b85c8a.png"
         },
         {
           "title": "STUDENT LOGIN",
           "url": "https://vapsecampus.azurewebsites.net/#/login/",
-          "image": "https://cdn.nagarjunadegreecollege.co.in/Vector_1_14f6f7f633.png"
+          "image": "/images/contact-us/Vector_1_14f6f7f633.png"
         },
         {
           "title": "PARENT'S LOGIN",
           "url": "https://vapsecampus.azurewebsites.net/#/login/",
-          "image": "https://cdn.nagarjunadegreecollege.co.in/Vector_2_76ca28734f.png"
+          "image": "/images/contact-us/Vector_2_76ca28734f.png"
         }
       ],
       "MAP": {
-        "BannerMap": "https://cdn.nagarjunadegreecollege.co.in/image_adac7af5ee.png",
-        "AdderssMAP": "https://cdn.nagarjunadegreecollege.co.in/image_9_18cba48f7d.png",
+        "BannerMap": "/images/contact-us/image_adac7af5ee.png",
+        "AdderssMAP": "/images/contact-us/image_9_18cba48f7d.png",
         "MapLink": "https://www.google.com/maps?ll=13.116397,77.562246&z=16&t=m&hl=en&gl=IN&mapclient=embed&cid=17815594856769670624"
       }
     }

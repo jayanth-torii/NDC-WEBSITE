@@ -40,7 +40,7 @@ const SamashtiAbout = ({ data }: any) => {
             {/* The actual image container */}
             <div className="relative z-10 w-full max-w-[420px] mx-auto p-[30px] rounded-[20px] overflow-hidden border border-[#eef1f6] bg-[radial-gradient(120%_100%_at_50%_0%,#e9f0fb_0%,#f8fafc_70%)] shadow-[0_24px_50px_rgba(14,36,85,0.16)] -rotate-[8deg] transition-transform duration-[550ms] ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:rotate-0 flex items-center justify-center aspect-square">
                <div className="relative w-[92%] h-full max-h-[380px] drop-shadow-[0_18px_32px_rgba(14,36,85,0.22)]">
-                 <Image src="https://cdn.nagarjunadegreecollege.co.in/10_b3f02c0b3c_5c17976750.png" alt="Nagarjuna Samashti magazine cover" fill className="object-contain" />
+                 <Image src="/images/samashti/10_b3f02c0b3c_5c17976750.png" alt="Nagarjuna Samashti magazine cover" fill className="object-contain" />
                </div>
             </div>
           </Reveal>

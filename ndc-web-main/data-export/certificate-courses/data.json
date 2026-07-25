@@ -3,7 +3,7 @@
     "data": {
       "BannerSection": {
         "title": "Certificate Courses  ",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_154_1_d0fb938235.png"
+        "image": "/images/certificate-courses/Group_154_1_d0fb938235.png"
       },
       "AboutVisionMissionSections": {
         "title": "VALUE ADDED PROGRAM AND MASSIVE OPEN ONLINE CLASSES (MOOCs)",
@@ -50,8 +50,8 @@
       "Images": {
         "title": "DIPLOMA IN FASHION DESIGNING",
         "images": [
-          "https://cdn.nagarjunadegreecollege.co.in/image001_5_1b2f5431ff.jpg",
-          "https://cdn.nagarjunadegreecollege.co.in/image003_3_1024x682_6564062b63.jpg"
+          "/images/certificate-courses/image001_5_1b2f5431ff.jpg",
+          "/images/certificate-courses/image003_3_1024x682_6564062b63.jpg"
         ]
       },
       "CourseOutcome": {

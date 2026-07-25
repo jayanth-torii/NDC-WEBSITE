@@ -3,16 +3,16 @@
     "data": {
       "BannerSection": {
         "title": "Department ",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Academics_1_6283bdba1f.svg"
+        "image": "/images/departments/Academics_1_6283bdba1f.svg"
       },
       "Programmes": {
         "title": "PROGRAMME THAT YOU ARE LOOKING FOR",
         "description": "Study what you love while working alongside supportive, expert faculty who prioritize hands-on research and service-learning.",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/image_981d5da59c.svg"
+        "image": "/images/departments/image_981d5da59c.svg"
       },
       "International_Collaboration": {
         "title": "International Collabration",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_13592d05a8.svg",
+        "image": "/images/departments/image_1_13592d05a8.svg",
         "Details": [
           {
             "title": "Lincoln University College, Malaysia",
@@ -129,28 +129,28 @@
             "name": "Dr. Nagarathna M",
             "designation": "HOD –  Department Of Hindi",
             "message": "Hindi is the preferred official language in India, learning a heritage language is beneficial to Indian citizens and it enhances social and personal development. It is important to create interest among students about Hindi literature along with academics and encourage them to study the various literary works of Hindi language in depth. Through the class room teaching motivating them to understand that every language has its own beauty.",
-            "image": "https://cdn.nagarjunadegreecollege.co.in/image_429e597ea9.svg"
+            "image": "/images/departments/image_429e597ea9.svg"
           },
           {
             "TabName": "Kannada",
             "name": "Manjunath T N",
             "designation": "HOD – Department Of Kannada ",
             "message": "Kannada is one of the prominent ancient languages which has a rich history of literature and culture. Department of Kannada inculcates moral values, social concern in the student fraternity through various Kannada literature. Faculties of the department implement their innovative and creative ideas in creating awareness about the various forms and stages of Kannada literature. To give a deeper analysis about the Well versed Kannada poets  and their contributions to kannada literature.",
-            "image": "https://cdn.nagarjunadegreecollege.co.in/image_1_bccbd8fcf0.svg"
+            "image": "/images/departments/image_1_bccbd8fcf0.svg"
           },
           {
             "TabName": "English",
             "name": "Rajendran Gopal",
             "designation": "HOD – Department Of English  ",
             "message": "The English language is one of the most prominent and widely spoken languages, boasting a rich history of literature and culture. The Department of English instills moral values and social awareness among students through various literary works. The faculty members actively implement innovative and creative approaches to raise awareness about the different forms and stages of English literature. They also provide an in-depth analysis of renowned English poets and their significant contributions to English literature.",
-            "image": "https://cdn.nagarjunadegreecollege.co.in/image_2_8118a1f715.svg"
+            "image": "/images/departments/image_2_8118a1f715.svg"
           },
           {
             "TabName": "Sanskrit",
             "name": "Ramesh S",
             "designation": "HOD – Department Of Sanskrit",
             "message": "Sanskrit is a historical Indo Aryan language. The main function of the department is to provide knowledge and opportunity to the students through under graduate courses. It has been carrying the great intellectual traditions of this land of sheers of great intellectual depths and spiritual heights. It is the most interesting and scientific language among the world.",
-            "image": "https://cdn.nagarjunadegreecollege.co.in/image_3_975b96c592.svg"
+            "image": "/images/departments/image_3_975b96c592.svg"
           }
         ]
       },

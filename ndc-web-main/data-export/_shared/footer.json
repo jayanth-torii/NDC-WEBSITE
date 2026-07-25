@@ -14,7 +14,7 @@
         "address_link": "https://www.google.com/maps?ll=13.116397,77.562246&z=16&t=m&hl=en&gl=IN&mapclient=embed&cid=17815594856769670624",
         "address": "Nagarjuna Degree College #38/36, Ramagondanahalli, Yelahanka, Bangalore - 560064",
         "rights_reserved": "@ 2026 Nagarjuna Group of Institutions, All Rights Reserved",
-        "logo": "https://cdn.nagarjunadegreecollege.co.in/NGI_Logo_d53c56dedc_228e76e7bc.png"
+        "logo": "/images/footer/NGI_Logo_d53c56dedc_228e76e7bc.png"
       },
       "importantLinks": [
         {
@@ -37,13 +37,13 @@
           "id": 29,
           "title": "NIRF",
           "type": "link",
-          "link": "https://cdn.nagarjunadegreecollege.co.in/NDC_NIRF_b9d7319741.pdf",
+          "link": "/pdfs/footer/NDC_NIRF_b9d7319741.pdf",
           "pdf": {
             "id": 944,
             "documentId": "e89cl2336foqtal2bv865wd8",
-            "url": "https://cdn.nagarjunadegreecollege.co.in/NDC_NIRF_b9d7319741.pdf"
+            "url": "/pdfs/footer/NDC_NIRF_b9d7319741.pdf"
           },
-          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/NDC_NIRF_b9d7319741.pdf"
+          "pdf_link": "/pdfs/footer/NDC_NIRF_b9d7319741.pdf"
         },
         {
           "id": 30,
@@ -89,13 +89,13 @@
           "id": 278,
           "title": "Mandatory Disclosure",
           "type": "link",
-          "link": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2026_10edfd6d41.pdf",
+          "link": "/pdfs/footer/Mandatory_Disclosure_2026_10edfd6d41.pdf",
           "pdf": {
             "id": 945,
             "documentId": "pr1omqhaky7n0bzcuvjxfvgh",
-            "url": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2026_10edfd6d41.pdf"
+            "url": "/pdfs/footer/Mandatory_Disclosure_2026_10edfd6d41.pdf"
           },
-          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/Mandatory_Disclosure_2026_10edfd6d41.pdf"
+          "pdf_link": "/pdfs/footer/Mandatory_Disclosure_2026_10edfd6d41.pdf"
         }
       ],
       "acadamics": [
@@ -123,9 +123,9 @@
           "pdf": {
             "id": 373,
             "documentId": "ipjkgra5k8n9qqjo0qnc4zsd",
-            "url": "https://cdn.nagarjunadegreecollege.co.in/PG_Brochure_12_page_V4_1_c76c895586.pdf"
+            "url": "/pdfs/footer/PG_Brochure_12_page_V4_1_c76c895586.pdf"
           },
-          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/PG_Brochure_12_page_V4_1_c76c895586.pdf"
+          "pdf_link": "/pdfs/footer/PG_Brochure_12_page_V4_1_c76c895586.pdf"
         },
         {
           "id": 51,
@@ -169,9 +169,9 @@
           "pdf": {
             "id": 374,
             "documentId": "hk6k3odunhwwkyeyfauh0p70",
-            "url": "https://cdn.nagarjunadegreecollege.co.in/Nds_Service_Manual_c357528fd6.pdf"
+            "url": "/pdfs/footer/Nds_Service_Manual_c357528fd6.pdf"
           },
-          "pdf_link": "https://cdn.nagarjunadegreecollege.co.in/Nds_Service_Manual_c357528fd6.pdf"
+          "pdf_link": "/pdfs/footer/Nds_Service_Manual_c357528fd6.pdf"
         }
       ],
       "policies": [

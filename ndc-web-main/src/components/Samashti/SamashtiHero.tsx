@@ -29,15 +29,15 @@ const SamashtiHero = ({ data }: any) => {
            {/* Bleeding off the right edge effect */}
            <div className="absolute right-[-10%] md:right-[-20%] lg:right-[-35%] top-1/2 -translate-y-1/2 flex items-center gap-4 md:gap-6">
              <div className="relative w-[180px] md:w-[260px] lg:w-[280px] aspect-[3/4] rounded-lg overflow-hidden shadow-2xl opacity-70 scale-90">
-                <Image src="https://cdn.nagarjunadegreecollege.co.in/4_0d2e2cd8fc_59687c85e4.png" alt="Samashti Cover" fill className="object-cover" />
+                <Image src="/images/samashti/4_0d2e2cd8fc_59687c85e4.png" alt="Samashti Cover" fill className="object-cover" />
              </div>
              
              <div className="relative w-[200px] md:w-[300px] lg:w-[340px] aspect-[3/4] rounded-lg overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10">
-                <Image src="https://cdn.nagarjunadegreecollege.co.in/10_b3f02c0b3c_5c17976750.png" alt="Samashti Cover" fill className="object-cover" />
+                <Image src="/images/samashti/10_b3f02c0b3c_5c17976750.png" alt="Samashti Cover" fill className="object-cover" />
              </div>
 
              <div className="relative w-[180px] md:w-[260px] lg:w-[280px] aspect-[3/4] rounded-lg overflow-hidden shadow-2xl opacity-70 scale-90">
-                <Image src="https://cdn.nagarjunadegreecollege.co.in/1_e71340bb17_a2de769fda.png" alt="Samashti Cover" fill className="object-cover" />
+                <Image src="/images/samashti/1_e71340bb17_a2de769fda.png" alt="Samashti Cover" fill className="object-cover" />
              </div>
            </div>
         </Reveal>

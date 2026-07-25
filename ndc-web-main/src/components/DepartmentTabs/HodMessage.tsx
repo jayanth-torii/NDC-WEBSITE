@@ -60,7 +60,7 @@ const HodMessage = ({ haveContentCheck }: any) => {
               whileHover={{ scale: 1.05, rotate: 2 }}
             >
               <img
-                src={hodImage || "https://placehold.co/400x400/eeeeee/cccccc?text=HOD"}
+                src={hodImage || "/images/shared/hod-placeholder.png"}
                 alt={hodName}
                 className="w-full h-full object-cover object-top"
               />

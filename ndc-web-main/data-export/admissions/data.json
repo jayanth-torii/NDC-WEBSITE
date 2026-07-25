@@ -3,7 +3,7 @@
     "data": {
       "BannerSection": {
         "title": "Admissions ",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Group_153_1_90a59e7c0c.svg"
+        "image": "/images/admissions/Group_153_1_90a59e7c0c.svg"
       },
       "coursesEligibility": {
         "title": "Courses & Eligibility",
@@ -52,7 +52,7 @@
       },
       "applicationProcedure": {
         "title": "Application Procedure",
-        "image": "https://cdn.nagarjunadegreecollege.co.in/Image_36adcacfd4.svg",
+        "image": "/images/admissions/Image_36adcacfd4.svg",
         "procedures": [
           {
             "title": "Online Application",
