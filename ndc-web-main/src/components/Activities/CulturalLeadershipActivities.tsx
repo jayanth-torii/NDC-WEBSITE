@@ -271,32 +271,34 @@ const CulturalLeadershipActivities = ({ data }: any) => {
         {currentSection.Table_Section && (
           <div className="mt-12">
             <div className="relative overflow-hidden rounded-[24px] border border-card-border shadow-[0_12px_40px_rgba(0,0,0,0.04)] bg-white">
-              <table className="w-full min-w-[600px] text-left border-collapse">
-                <thead>
-                  <tr className="bg-navy text-white">
-                    <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase w-28">SL.NO</th>
-                    <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase">FACULTY</th>
-                    <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase">ROLE</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentSection.Table_Section.Rows.map((row: any, index: number) => (
-                    <tr key={index} className="group border-b border-card-border last:border-b-0 hover:bg-surface-tint transition-colors">
-                      <td className="py-5 px-8 text-[14px] font-semibold text-gray-400 group-hover:text-orange transition-colors">
-                        {String(row.Slno).padStart(2, '0')}
-                      </td>
-                      <td className="py-5 px-8 text-[15px] font-extrabold text-navy group-hover:text-orange transition-colors">
-                        {row.name}
-                      </td>
-                      <td className="py-5 px-8">
-                        <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-chip-bg border border-orange-100/50 text-orange font-bold text-[12px]">
-                          {row.role}
-                        </span>
-                      </td>
+              <div className="overflow-x-auto">
+                <table className="w-full min-w-[600px] text-left border-collapse">
+                  <thead>
+                    <tr className="bg-navy text-white">
+                      <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase w-28">SL.NO</th>
+                      <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase">FACULTY</th>
+                      <th className="py-5 px-8 font-extrabold text-[12px] tracking-[0.1em] uppercase">ROLE</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentSection.Table_Section.Rows.map((row: any, index: number) => (
+                      <tr key={index} className="group border-b border-card-border last:border-b-0 hover:bg-surface-tint transition-colors">
+                        <td className="py-5 px-8 text-[14px] font-semibold text-gray-400 group-hover:text-orange transition-colors">
+                          {String(row.Slno).padStart(2, '0')}
+                        </td>
+                        <td className="py-5 px-8 text-[15px] font-extrabold text-navy group-hover:text-orange transition-colors">
+                          {row.name}
+                        </td>
+                        <td className="py-5 px-8">
+                          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-chip-bg border border-orange-100/50 text-orange font-bold text-[12px]">
+                            {row.role}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
               <div className="absolute bottom-[-20px] right-4 opacity-[0.03] pointer-events-none text-navy">
                 <Users size={180} />
