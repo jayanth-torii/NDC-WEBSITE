@@ -33,7 +33,7 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   if (!content) return null;
 
   const { title, SyllabusSection } = content;
-  const sections = Array.isArray(SyllabusSection) ? SyllabusSection : [];
+  const sections: any[] = Array.isArray(SyllabusSection) ? SyllabusSection : [];
 
   return (
     <Reveal>
