@@ -279,14 +279,25 @@
           ]
         },
         {
+          "label": "Best Paper Award",
+          "value": "",
+          "sections": [
+            {
+              "points": [
+                "Prof. Pushpa received Best Paper Award From Sadhana Evening College",
+                "Prof. Anil received Best Paper Award From Seshadripuram Degree College"
+              ]
+            }
+          ]
+        },
+        {
           "label": "Faculties",
           "value": "",
           "sections": [
             {
-              "title": "",
               "points": [
-                " Prof. Pushpa received Best Paper Award From Sadhana Evening College",
-                " Prof. Anil received Best Paper Award From Seshadripuram Degree College"
+                "Prof. Pushpa",
+                "Prof. Anil"
               ]
             }
           ]
@@ -470,7 +481,16 @@
         {
           "label": "Level",
           "value": "PG",
-          "sections": []
+          "sections": [
+            {
+              "title": "Program Level Details",
+              "points": [
+                "Master of Business Administration is a comprehensive two-year postgraduate program.",
+                "Designed to equip students with advanced business management and leadership skills.",
+                "Prepares graduates for mid to senior-level roles in the corporate sector."
+              ]
+            }
+          ]
         },
         {
           "label": "Year of Approval",
@@ -480,7 +500,16 @@
         {
           "label": "Total Intake",
           "value": "120",
-          "sections": []
+          "sections": [
+            {
+              "title": "Intake Capacity",
+              "points": [
+                "The program has a total approved intake of 120 students per academic year.",
+                "Ensures a balanced student-to-faculty ratio for personalized attention.",
+                "Facilitates an interactive and focused collaborative learning environment."
+              ]
+            }
+          ]
         },
         {
           "label": "Message",
@@ -523,7 +552,14 @@
         {
           "label": "Level",
           "value": "PG ",
-          "sections": []
+          "sections": [
+            {
+              "title": "Program Level",
+              "points": [
+                "Master of Computer Applications is a premier postgraduate program focused on advanced computer science and IT."
+              ]
+            }
+          ]
         },
         {
           "label": "Year of Approval ",
@@ -533,7 +569,14 @@
         {
           "label": "Total Intak",
           "value": "60 ",
-          "sections": []
+          "sections": [
+            {
+              "title": "Intake Capacity",
+              "points": [
+                "The MCA program admits 60 students per batch, offering specialized focus and robust placement assistance."
+              ]
+            }
+          ]
         },
         {
           "label": "Uniqueness of MCA in Nagarjuna ",

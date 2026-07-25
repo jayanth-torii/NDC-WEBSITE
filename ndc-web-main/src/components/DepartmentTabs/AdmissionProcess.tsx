@@ -1,20 +1,8 @@
-"use client";
-
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import departmentJson from "@/data-export/department/data.json";
-import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
-
-interface Section {
-  title: string;
-  description?: string;
-  points?: string[];
-}
-
-interface AdmissionData {
-  title: string;
-  sections: Section[];
-}
+import { Reveal } from "@/components/ui/Reveal";
+import { CheckCircle2 } from "lucide-react";
 
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
@@ -24,85 +12,64 @@ const AdmissionProcess = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, AdmissionData> =
+  const apiData: Record<string, any> =
     (departmentJson["admission-processes"] as any)?.data || {};
 
-  const normalizedMap = useMemo(() => {
-    const map: Record<string, AdmissionData> = {};
-    Object.keys(apiData || {}).forEach((k) => {
-      map[normalizeKey(k)] = apiData[k];
+  const content = useMemo(() => {
+    let matchedData: any = null;
+    Object.keys(apiData).forEach((k) => {
+      if (normalizeKey(k) === normalizedProgramme) {
+        matchedData = apiData[k];
+      }
     });
-    return map;
-  }, [apiData]);
-
-  const departmentData = useMemo<AdmissionData | undefined>(
-    () => normalizedMap[normalizedProgramme],
-    [normalizedMap, normalizedProgramme]
-  );
+    return matchedData;
+  }, [apiData, normalizedProgramme]);
 
   useEffect(() => {
-    const exists =
-      apiData != null &&
-      Object.prototype.hasOwnProperty.call(normalizedMap, normalizedProgramme);
-    haveContentCheck(exists);
-  }, [apiData, normalizedMap, normalizedProgramme, haveContentCheck]);
+    haveContentCheck(content != null);
+  }, [content, haveContentCheck]);
 
-  if (!departmentData || !Array.isArray(departmentData.sections)) {
-    return (
-      <div className="text-center py-10 text-red-500">
-        No admission process data found for: {programme}
-      </div>
-    );
-  }
+  if (!content) return null;
+
+  const { title, sections } = content;
 
   return (
     <Reveal>
-      <div>
-        <header className="pb-6 mb-2 border-b border-navy/10">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
-            How to join
-          </p>
-          <h1 className="text-3xl md:text-4xl font-extrabold text-navy tracking-tight">
-            {departmentData?.title}
+      <div className="space-y-8 max-w-4xl">
+        <header className="pb-4 border-b border-navy/10">
+          <h1 className="text-2xl md:text-3xl text-navy font-extrabold tracking-tight">
+            {title || "Admission Process"}
           </h1>
         </header>
 
-        <RevealGroup>
-          {departmentData?.sections.map((section, idx) => (
-            <RevealItem key={idx}>
-              <article className="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-5 md:gap-8 py-8 border-b border-navy/10 last:border-b-0">
-                <span className="text-orange font-extrabold text-sm tracking-[0.16em] tabular-nums pt-1">
-                  {String(idx + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h2 className="text-xl md:text-2xl font-bold text-navy mb-3 tracking-tight">
-                    {section.title}
-                  </h2>
-
-                  {section?.description && (
-                    <p className="leading-relaxed whitespace-pre-line mb-4 text-body-gray max-w-prose">
-                      {section?.description}
-                    </p>
-                  )}
-
-                  {Array.isArray(section?.points) &&
-                    section?.points?.length > 0 && (
-                      <ul className="space-y-2">
-                        {section?.points?.map((point, i) => (
-                          <li key={i} className="flex items-start gap-3">
-                            <span className="mt-2 w-1.5 h-1.5 shrink-0 bg-orange" />
-                            <span className="text-body-gray leading-relaxed">
-                              {point}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                </div>
-              </article>
-            </RevealItem>
+        <div className="space-y-8">
+          {sections?.map((section: any, idx: number) => (
+            <div key={idx} className="bg-gray-50/50 rounded-2xl p-6 md:p-8 border border-navy/5">
+              {section.title && (
+                <h3 className="text-xl font-bold text-navy mb-4">
+                  {section.title}
+                </h3>
+              )}
+              {section.description && (
+                <p className="text-[15px] md:text-base text-[#5f6368] leading-relaxed mb-4">
+                  {section.description}
+                </p>
+              )}
+              {section.points && section.points.length > 0 && (
+                <ul className="space-y-3">
+                  {section.points.map((point: string, pIdx: number) => (
+                    <li key={pIdx} className="flex gap-3 items-start">
+                      <CheckCircle2 size={18} className="text-orange shrink-0 mt-1" />
+                      <span className="text-[15px] text-[#5f6368] leading-relaxed">
+                        {point}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           ))}
-        </RevealGroup>
+        </div>
       </div>
     </Reveal>
   );

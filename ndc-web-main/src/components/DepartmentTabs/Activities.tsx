@@ -2,14 +2,13 @@
 
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
-import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 
-const ImageCarousel = ({ images }: { images: string[] }) => {
+const ImageCarousel = ({ images, title }: { images: string[], title?: string }) => {
   const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
   const [index, setIndex] = useState(0);
-  const VISIBLE_DESKTOP = 3;
 
   const next = useCallback(() => {
     if (!safeImages.length) return;
@@ -23,51 +22,29 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
 
   useEffect(() => {
     if (safeImages.length <= 1) return;
-    const t = setInterval(next, 2500);
+    const t = setInterval(next, 3000);
     return () => clearInterval(t);
   }, [next, safeImages.length]);
 
   if (safeImages.length === 0) return null;
 
-  const desktopWindow = Array.from(
-    { length: Math.min(VISIBLE_DESKTOP, safeImages.length) },
-    (_, i) => {
-      const pos = (index + i) % safeImages.length;
-      return safeImages[pos];
-    }
-  );
+  const isSpecialEvent = title && title.toLowerCase().includes("faculty development program");
 
   return (
-    <div className="relative w-full overflow-hidden mb-2">
-      <div className="sm:hidden w-full">
-        <div className="w-full aspect-[4/3] overflow-hidden border border-navy/10">
-          <img
-            src={safeImages[index]}
-            alt={`Slide ${index + 1}`}
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-
-      <div className="hidden sm:flex gap-3 items-center justify-center">
-        {desktopWindow.map((src, i) => (
-          <div key={`${index}-${i}`} className="w-1/3">
-            <div className="w-full aspect-[4/3] overflow-hidden border border-navy/10">
-              <img
-                src={src}
-                alt={`Slide ${((index + i) % safeImages.length) + 1}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </div>
-        ))}
+    <div className="relative w-full overflow-hidden mb-2 group/carousel bg-transparent rounded-xl">
+      <div className={`w-full overflow-hidden ${isSpecialEvent ? 'aspect-[4/3] md:aspect-[3/2] flex items-center justify-center' : 'aspect-video'}`}>
+        <img
+          src={safeImages[index]}
+          alt={`Slide ${index + 1}`}
+          className={`w-full h-full transition-transform duration-[1000ms] ease-out group-hover/carousel:scale-105 ${isSpecialEvent ? 'object-contain' : 'object-cover'}`}
+        />
       </div>
 
       {safeImages.length > 1 && (
         <>
           <button
             onClick={prev}
-            className="cursor-pointer absolute top-1/2 left-2 -translate-y-1/2 bg-white/95 border border-navy/15 p-2 text-navy hover:bg-orange hover:text-white hover:border-orange transition-all duration-300"
+            className="cursor-pointer absolute top-1/2 left-2 -translate-y-1/2 bg-white/95 shadow-sm border border-navy/10 p-2 text-navy hover:bg-orange hover:text-white hover:border-orange transition-all duration-300 rounded-full opacity-0 group-hover/carousel:opacity-100"
             aria-label="Previous"
             type="button"
           >
@@ -75,12 +52,21 @@ const ImageCarousel = ({ images }: { images: string[] }) => {
           </button>
           <button
             onClick={next}
-            className="cursor-pointer absolute top-1/2 right-2 -translate-y-1/2 bg-white/95 border border-navy/15 p-2 text-navy hover:bg-orange hover:text-white hover:border-orange transition-all duration-300"
+            className="cursor-pointer absolute top-1/2 right-2 -translate-y-1/2 bg-white/95 shadow-sm border border-navy/10 p-2 text-navy hover:bg-orange hover:text-white hover:border-orange transition-all duration-300 rounded-full opacity-0 group-hover/carousel:opacity-100"
             aria-label="Next"
             type="button"
           >
             <ChevronRight size={18} />
           </button>
+          
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10 bg-black/20 px-2.5 py-1.5 rounded-full backdrop-blur-sm">
+            {safeImages.map((_, i) => (
+              <div 
+                key={i} 
+                className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === index ? 'bg-white w-3' : 'bg-white/50'}`}
+              />
+            ))}
+          </div>
         </>
       )}
     </div>
@@ -97,7 +83,6 @@ const Activities = ({ haveContentCheck }: any) => {
 
   const apiData: Record<string, any> =
     (departmentJson["activities"] as any)?.data || {};
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const normalizedMap = useMemo(() => {
     const map: Record<string, any> = {};
@@ -132,68 +117,61 @@ const Activities = ({ haveContentCheck }: any) => {
 
   return (
     <Reveal>
-      <div className="w-full">
-        <header className="pb-6 mb-2 border-b border-navy/10">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
+      <div className="space-y-10">
+        <header className="pb-4 border-b border-navy/10">
+          <p className="text-orange text-[10px] font-bold tracking-[0.28em] uppercase mb-2">
             Campus life
           </p>
-          <h1 className="text-3xl md:text-4xl text-navy font-extrabold tracking-tight">
+          <h1 className="text-2xl md:text-3xl text-navy font-extrabold tracking-tight">
             {title}
           </h1>
         </header>
 
-        {sections.map((section: any, idx: number) => {
-          const open = openIndex === idx;
-          return (
-            <div key={idx} className="border-b border-navy/15 first:border-t">
-              <button
-                onClick={() => setOpenIndex(open ? null : idx)}
-                className="w-full py-5 text-left cursor-pointer text-navy flex justify-between items-center gap-4 group"
-                type="button"
-                aria-expanded={open}
-              >
-                <span className="flex items-baseline gap-3">
-                  <span className="text-orange text-[11px] font-bold tracking-[0.16em] tabular-nums">
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span
-                    className={`text-lg md:text-xl font-bold tracking-tight transition-colors duration-300 ${
-                      open ? "text-orange" : "group-hover:text-orange"
-                    }`}
-                  >
-                    {section.title}
-                  </span>
-                </span>
-                <ChevronDown
-                  size={20}
-                  className={`shrink-0 text-navy/40 transition-transform duration-400 ease-[var(--ease-editorial)] ${
-                    open ? "rotate-180 text-orange" : ""
-                  }`}
-                />
-              </button>
-
+        <div className="flex flex-col gap-10 lg:gap-14">
+          {sections.map((section: any, idx: number) => {
+            const isEven = idx % 2 === 0;
+            const hasImages = Array.isArray(section?.images) && section.images.length > 0;
+            
+            return (
               <div
-                className={`grid transition-all duration-500 ease-[var(--ease-editorial)] ${
-                  open
-                    ? "grid-rows-[1fr] opacity-100 pb-8"
-                    : "grid-rows-[0fr] opacity-0"
-                }`}
+                key={idx}
+                className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-6 lg:gap-12 items-center group`}
               >
-                <div className="overflow-hidden space-y-4 pl-0 sm:pl-10">
+                {/* Image Side */}
+                {hasImages && (
+                  <div className="w-full lg:w-5/12 shrink-0">
+                    <ImageCarousel images={section.images} title={section.title} />
+                  </div>
+                )}
+                
+                {/* Content Side */}
+                <div className={`w-full ${hasImages ? 'lg:w-7/12' : 'w-full'} flex flex-col justify-center`}>
+                  <div className="mb-3">
+                    <h3 className="font-bold text-lg md:text-xl text-navy tracking-tight leading-snug">
+                      {section.title}
+                    </h3>
+                  </div>
+
                   {section?.description && (
-                    <p className="text-body-gray whitespace-pre-line leading-relaxed max-w-prose">
+                    <p className="leading-relaxed text-[13.5px] md:text-sm font-medium text-[#5f6368] whitespace-pre-line mt-1.5">
                       {section.description}
                     </p>
                   )}
-                  {Array.isArray(section?.images) &&
-                    section.images.length > 0 && (
-                      <ImageCarousel images={section.images} />
-                    )}
+                  
+                  <div className="mt-6 flex items-center gap-5">
+                    <button className="group/btn inline-flex items-center gap-1.5 text-[13px] font-bold text-navy hover:text-orange transition-colors duration-300 uppercase tracking-wider relative">
+                      <span className="relative z-10 transition-transform duration-300 group-hover/btn:translate-x-1">Read More</span>
+                      <svg className="relative z-10 transition-transform duration-300 group-hover/btn:translate-x-2" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </Reveal>
   );

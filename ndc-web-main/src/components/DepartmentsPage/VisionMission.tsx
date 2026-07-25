@@ -1,165 +1,126 @@
 "use client";
 
-import React, { useState } from "react";
-import { ChevronDown, Eye, Target, BookOpen } from "lucide-react";
+import React from "react";
 import { Reveal } from "@/components/ui/Reveal";
+import { motion } from "framer-motion";
 
 export default function VisionMission({ data }: { data: any }) {
   if (!data) return null;
   const { title, AboutDescription, VisionMission, AccordienSection } = data;
 
-  const [openAccordion, setOpenAccordion] = useState<number | null>(0);
-
-  const toggleAccordion = (index: number) => {
-    setOpenAccordion(openAccordion === index ? null : index);
-  };
-
-  const getIconForSection = (sectionTitle: string) => {
-    const t = sectionTitle.toLowerCase();
-    if (t.includes("vision")) return <Eye className="text-orange" size={22} />;
-    if (t.includes("mission")) return <Target className="text-orange" size={22} />;
-    return <BookOpen className="text-orange" size={22} />;
-  };
-
   return (
-    <Reveal as="section" className="relative border-b border-navy/10 bg-white">
-      <div className="container mx-auto px-4 lg:px-8 py-16 lg:py-24">
-        <header className="mb-12 lg:mb-16 max-w-3xl">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-3">
-            Language Department
-          </p>
-          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-extrabold text-navy tracking-[-0.03em] leading-tight text-balance">
-            {title}
-          </h2>
-        </header>
-
-        {AboutDescription?.length > 0 && (
-          <div className="mb-14 lg:mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-1">
-              <div className="hidden lg:block w-px h-full min-h-[80px] bg-gradient-to-b from-orange via-orange/40 to-transparent mx-auto" />
-            </div>
-            <div className="lg:col-span-10 space-y-5 border-l-2 border-orange/40 pl-6 lg:border-l-0 lg:pl-0">
-              {AboutDescription.map((desc: string, idx: number) => (
-                <p
-                  key={idx}
-                  className="text-body-gray leading-relaxed text-lg max-w-prose"
-                >
-                  {desc}
-                </p>
-              ))}
-            </div>
+    <Reveal as="section" className="relative bg-[#f8f9fa] border-b border-navy/5">
+      <div className="container mx-auto px-4 lg:px-8 py-10 lg:py-16">
+        
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start max-w-6xl mx-auto">
+          
+          {/* Sticky Left Sidebar */}
+          <div className="w-full lg:w-[320px] shrink-0 lg:sticky lg:top-24">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.02)]"
+            >
+              <p className="text-orange text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
+                Language Department
+              </p>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-tight leading-tight">
+                {title}
+              </h2>
+            </motion.div>
           </div>
-        )}
 
-        {VisionMission?.sections?.length > 0 && (
-          <div className="mb-14 lg:mb-20">
-            <div className="flex items-baseline gap-4 mb-10">
-              <h3 className="text-xl md:text-2xl font-bold text-navy tracking-tight">
-                {VisionMission.title ?? "Our Vision & Mission"}
-              </h3>
-              <div className="h-px flex-1 bg-navy/10 hidden sm:block" />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-0 md:gap-0 border border-navy/10">
-              {VisionMission.sections.map((sec: any, idx: number) => (
-                <div
+          {/* Right Content Stream */}
+          <div className="flex-1 space-y-4 md:space-y-5">
+            
+            {/* Vision & Mission Sections */}
+            {VisionMission?.sections?.map((sec: any, idx: number) => {
+              const isVision = sec.title?.toLowerCase().includes("vision");
+              
+              return (
+                <motion.div 
                   key={idx}
-                  className={`p-8 md:p-10 ${
-                    idx === 0
-                      ? "border-b md:border-b-0 md:border-r border-navy/10 bg-surface-light/60"
-                      : "bg-white"
-                  }`}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.4, delay: idx * 0.1 }}
+                  className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow duration-300"
                 >
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-11 h-11 flex items-center justify-center bg-orange/10">
-                      {getIconForSection(sec.title)}
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className="px-3 py-1.5 rounded-lg bg-orange/10 flex items-center justify-center shrink-0">
+                      <span className="text-orange font-black text-lg tabular-nums leading-none">
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
                     </div>
-                    <h4 className="text-xl md:text-2xl font-extrabold text-navy tracking-tight">
+                    <h3 className="text-xl md:text-2xl font-bold text-navy tracking-tight">
                       {sec.title}
-                    </h4>
+                    </h3>
                   </div>
-
+                  
                   {sec.description && (
-                    <p className="text-body-gray mb-6 leading-relaxed">
+                    <p className="text-[#5f6368] text-[14px] md:text-[15px] leading-relaxed font-medium">
                       {sec.description}
                     </p>
                   )}
-
+                  
                   {sec.points?.length > 0 && (
-                    <ul className="space-y-3">
+                    <ul className="space-y-3 mt-4">
                       {sec.points.map((pt: string, i: number) => (
-                        <li key={i} className="flex items-start gap-3">
-                          <span className="mt-2 w-1.5 h-1.5 shrink-0 bg-orange" />
-                          <span className="text-body-gray leading-relaxed">{pt}</span>
+                        <li key={i} className="flex items-start gap-3 text-[14px] md:text-[15px] text-[#5f6368] leading-relaxed">
+                          <span className="text-orange shrink-0 mt-0.5">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                              <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                          </span>
+                          <span>{pt}</span>
                         </li>
                       ))}
                     </ul>
                   )}
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {AccordienSection?.length > 0 && (
-          <div className="max-w-4xl">
-            {AccordienSection.map((acc: any, index: number) => {
-              const open = openAccordion === index;
-              return (
-                <div
-                  key={index}
-                  className="border-b border-navy/15 first:border-t"
-                >
-                  <button
-                    type="button"
-                    className="w-full flex justify-between items-center py-6 text-left gap-4 group"
-                    onClick={() => toggleAccordion(index)}
-                    aria-expanded={open}
-                  >
-                    <span
-                      className={`font-bold text-lg md:text-xl tracking-tight transition-colors duration-300 ${
-                        open ? "text-orange" : "text-navy group-hover:text-orange"
-                      }`}
-                    >
-                      <span className="text-orange/70 text-sm font-bold tracking-[0.16em] mr-3 tabular-nums">
-                        {String(index + 1).padStart(2, "0")}
-                      </span>
-                      {acc.title}
-                    </span>
-                    <ChevronDown
-                      size={20}
-                      className={`shrink-0 text-navy/40 transition-transform duration-400 ease-[var(--ease-editorial)] ${
-                        open ? "rotate-180 text-orange" : ""
-                      }`}
-                    />
-                  </button>
-
-                  <div
-                    className={`grid transition-all duration-500 ease-[var(--ease-editorial)] ${
-                      open
-                        ? "grid-rows-[1fr] opacity-100 pb-8"
-                        : "grid-rows-[0fr] opacity-0"
-                    }`}
-                  >
-                    <div className="overflow-hidden">
-                      <ul className="space-y-4 pl-0 sm:pl-12">
-                        {acc.ListPoints?.map((point: string, idx: number) => (
-                          <li
-                            key={idx}
-                            className="flex items-start gap-3 text-body-gray leading-relaxed"
-                          >
-                            <span className="mt-2 w-1.5 h-1.5 shrink-0 bg-orange" />
-                            <span>{point}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                </motion.div>
               );
             })}
+
+            {/* Other Accordion Sections (Aim & Milestones) */}
+            {AccordienSection?.map((acc: any, index: number) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: index * 0.1 }}
+                className="bg-white rounded-2xl p-6 md:p-8 border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.02)] hover:shadow-md transition-shadow duration-300"
+              >
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="px-3 py-1.5 rounded-lg bg-navy/5 flex items-center justify-center shrink-0">
+                    <span className="text-navy font-black text-lg tabular-nums leading-none">
+                      {String((VisionMission?.sections?.length || 0) + index + 1).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <h3 className="text-xl md:text-2xl font-bold text-navy tracking-tight">
+                    {acc.title}
+                  </h3>
+                </div>
+
+                {acc.ListPoints?.length > 0 && (
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+                    {acc.ListPoints.map((point: string, idx: number) => (
+                      <li
+                        key={idx}
+                        className="flex items-start gap-3 text-[13px] md:text-[14px] text-[#5f6368] leading-relaxed font-medium"
+                      >
+                        <span className="mt-1.5 w-1.5 h-1.5 shrink-0 bg-orange/60 rounded-full" />
+                        <span>{point}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </motion.div>
+            ))}
+            
           </div>
-        )}
+        </div>
       </div>
     </Reveal>
   );

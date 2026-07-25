@@ -16,87 +16,108 @@ function HODSMessage({ data }: { data: any }) {
   const selectedMessage = hods[activeTab];
 
   return (
-    <Reveal as="section" className="relative border-b border-navy/10">
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
-        <aside className="lg:col-span-3 xl:col-span-3 bg-navy text-white p-8 md:p-10 flex flex-col">
-          <p className="text-orange text-[11px] font-bold tracking-[0.28em] uppercase mb-4">
+    <Reveal as="section" className="relative border-b border-navy/10 bg-[#fafbfc]">
+      <div className="container mx-auto px-4 lg:px-8 py-10 lg:py-16">
+        
+        {/* Header */}
+        <div className="text-center mb-10 max-w-2xl mx-auto">
+          <p className="text-orange text-[10px] font-bold tracking-[0.2em] uppercase mb-2">
             Leadership
           </p>
-          <h2 className="text-2xl md:text-3xl font-extrabold tracking-[-0.03em] leading-tight mb-10 text-balance">
+          <h2 className="text-2xl md:text-3xl font-extrabold text-navy tracking-[-0.02em] leading-tight">
             {messageData?.title}
           </h2>
+        </div>
 
-          <nav className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 mt-auto">
-            {hods.map((hod: any, index: number) => {
-              const active = activeTab === index;
-              return (
-                <button
-                  key={index}
-                  type="button"
-                  onClick={() => setActiveTab(index)}
-                  className={`shrink-0 text-left px-4 py-3.5 border-l-2 transition-all duration-300 ${
-                    active
-                      ? "border-orange bg-white/5 text-white"
-                      : "border-transparent text-white/45 hover:text-white/80 hover:bg-white/[0.03]"
-                  }`}
-                >
-                  <span className="block text-[11px] font-bold tracking-[0.18em] text-orange/80 mb-1 tabular-nums">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="font-semibold text-sm md:text-base">
-                    {hod.TabName}
-                  </span>
-                </button>
-              );
-            })}
-          </nav>
-        </aside>
+        {/* Tabs */}
+        <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
+          {hods.map((hod: any, index: number) => {
+            const active = activeTab === index;
+            return (
+              <button
+                key={index}
+                type="button"
+                onClick={() => setActiveTab(index)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 border ${
+                  active
+                    ? "bg-navy text-white border-navy shadow-md"
+                    : "bg-white text-navy border-gray-200 hover:border-orange hover:text-orange shadow-sm"
+                }`}
+              >
+                {hod.TabName}
+              </button>
+            );
+          })}
+        </div>
 
-        <div className="lg:col-span-9 bg-white">
-          <div className="grid grid-cols-1 md:grid-cols-12 h-full">
-            <div className="md:col-span-5 relative min-h-[320px] md:min-h-full overflow-hidden bg-surface-tint">
+        {/* Content Box */}
+        <div 
+          key={activeTab} 
+          className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm border border-gray-100 p-6 md:p-10 relative overflow-hidden animate-slide-in opacity-0"
+        >
+          <Quote
+            size={80}
+            className="text-orange/10 absolute top-4 right-6 -scale-x-100 pointer-events-none"
+            aria-hidden
+          />
+          
+          <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-center md:items-start relative z-10">
+            {/* Avatar */}
+            <div className="w-24 h-24 md:w-32 md:h-32 shrink-0 rounded-full overflow-hidden border-4 border-white shadow-lg relative bg-gray-50">
               {selectedMessage?.image ? (
                 <Image
                   src={selectedMessage.image}
                   alt={selectedMessage.name}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 35vw"
+                  sizes="128px"
                 />
               ) : (
-                <div className="absolute inset-0 flex items-center justify-center text-navy font-semibold">
+                <div className="absolute inset-0 flex items-center justify-center text-navy font-semibold text-xs">
                   No Image
                 </div>
               )}
-              <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                <p className="text-white text-xl md:text-2xl font-extrabold tracking-tight">
+            </div>
+
+            {/* Message & Details */}
+            <div className="flex-1 text-center md:text-left">
+              {selectedMessage?.message && (
+                <blockquote className="mb-6">
+                  <p className="text-[15px] md:text-base text-body-gray leading-[1.8] italic">
+                    &ldquo;{selectedMessage.message}&rdquo;
+                  </p>
+                </blockquote>
+              )}
+              
+              <div>
+                <p className="text-navy text-lg md:text-xl font-extrabold tracking-tight">
                   {selectedMessage?.name}
                 </p>
-                <p className="text-orange text-sm font-bold tracking-wide uppercase mt-1">
+                <p className="text-orange text-xs md:text-sm font-bold tracking-wide uppercase mt-1">
                   {selectedMessage?.designation}
                 </p>
               </div>
             </div>
-
-            <div className="md:col-span-7 p-8 md:p-10 lg:p-14 flex flex-col justify-center relative">
-              <Quote
-                size={72}
-                className="text-orange/15 absolute top-6 right-8 -scale-x-100"
-                aria-hidden
-              />
-              {selectedMessage?.message && (
-                <blockquote className="relative z-10">
-                  <p className="text-lg md:text-xl text-body-gray leading-[1.75] italic max-w-prose">
-                    &ldquo;{selectedMessage.message}&rdquo;
-                  </p>
-                  <div className="mt-8 h-px w-16 bg-orange" />
-                </blockquote>
-              )}
-            </div>
           </div>
         </div>
+
       </div>
+
+      <style jsx>{`
+        @keyframes slideIn {
+          0% {
+            opacity: 0;
+            transform: translateX(-15px);
+          }
+          100% {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        .animate-slide-in {
+          animation: slideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
     </Reveal>
   );
 }
