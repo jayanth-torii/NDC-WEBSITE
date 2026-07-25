@@ -124,7 +124,7 @@ const Header = () => {
         </button>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex md:items-center gap-7 lg:gap-8 whitespace-nowrap">
+        <div className="hidden lg:flex lg:items-center gap-7 lg:gap-8 whitespace-nowrap">
           {NAV_ITEMS.map((item) => (
             <div key={item.label} className="relative">
               {item.children ? (
@@ -178,7 +178,7 @@ const Header = () => {
         </div>
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <Burger opened={menuOpen} onClick={() => setMenuOpen(!menuOpen)} color="#0e2455" />
           </div>
 
