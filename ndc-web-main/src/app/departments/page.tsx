@@ -32,7 +32,7 @@ const Departments = () => {
   } = deptData;
 
   return (
-    <main className="min-h-screen flex flex-col w-full overflow-x-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_28%,#f1f5f9_100%)]">
+    <main style={{ zoom: '0.9' }} className="min-h-screen flex flex-col w-full bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_28%,#f1f5f9_100%)]">
       <GlobalBanner
         eyebrow="Academics"
         title={BannerSection?.title || "Departments"}

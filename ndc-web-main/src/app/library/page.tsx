@@ -28,7 +28,7 @@ const libraryData = {
 
 const Library = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div style={{ zoom: '0.9' }} className="flex flex-col min-h-screen bg-white">
       <GlobalBanner
         eyebrow="Academics"
         title="Library"
