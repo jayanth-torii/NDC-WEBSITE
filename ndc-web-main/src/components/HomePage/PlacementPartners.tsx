@@ -5,15 +5,15 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Building2 } from "lucide-react";
 
 const PARTNERS = [
-  { name: "Google", url: "/images/partners/google.svg" },
-  { name: "Amazon", url: "/images/partners/amazon.svg" },
-  { name: "Bosch", url: "/images/partners/bosch.svg", scaleClass: "scale-[1.8] group-hover/logo:scale-[2]" },
-  { name: "Toyota", url: "/images/partners/toyota.svg" },
-  { name: "Capgemini", url: "/images/partners/capgemini.svg" },
+  { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
+  { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
+  { name: "Bosch", url: "/images/recruiters/Bosch-optimized.svg" },
+  { name: "Toyota", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" },
+  { name: "Capgemini", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Capgemini_201x_logo.svg" },
   { name: "Accenture", url: "/images/recruiters/accenture.png" },
-  { name: "Microsoft", url: "/images/partners/microsoft.svg" },
-  { name: "IBM", url: "/images/partners/ibm.svg" },
-  { name: "Infosys", url: "/images/recruiters/Infosys.png", scaleClass: "scale-[1.5] group-hover/logo:scale-[1.7]" },
+  { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
+  { name: "IBM", url: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" },
+  { name: "Infosys", url: "/images/recruiters/Infosys.png" },
   { name: "TCS", url: "/images/recruiters/TCS.png" }
 ];
 
@@ -22,10 +22,10 @@ const PlacementPartners = () => {
     <section className="relative py-20 lg:py-28 bg-navy overflow-hidden">
       {/* Dark Theme Decorative Background - Reference Site Style */}
       <div className="absolute inset-0 bg-dot-grid opacity-10" />
-      
+
       {/* Massive Faint Watermark */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none select-none opacity-[0.03]">
-        <span className="text-[12rem] md:text-[20rem] font-black text-white whitespace-nowrap tracking-tighter">
+        <span className="text-[18vw] md:text-[15vw] font-black text-white whitespace-nowrap tracking-tighter">
           PLACEMENTS
         </span>
       </div>
@@ -46,31 +46,31 @@ const PlacementPartners = () => {
               {/* Animate Marquee */}
               <div className="flex animate-marquee whitespace-nowrap group-hover:[animation-play-state:paused]">
                 {PARTNERS.map((partner, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="group/logo flex-shrink-0 w-[180px] h-[110px] border border-white/10 rounded-2xl flex items-center justify-center p-6 mx-[12px] hover:-translate-y-2 hover:border-orange/50 hover:shadow-[0_16px_40px_rgba(246,135,42,0.2)] transition-all duration-500 bg-white/10 backdrop-blur-sm"
                   >
-                    <img 
-                      src={partner.url} 
+                    <img
+                      src={partner.url}
                       alt={partner.name}
-                      className={`max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 ${partner.scaleClass || 'scale-100 group-hover/logo:scale-110'}`}
+                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 group-hover/logo:scale-110"
                       onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
                   </div>
                 ))}
               </div>
-              
+
               {/* Duplicate for seamless loop */}
               <div className="flex animate-marquee whitespace-nowrap group-hover:[animation-play-state:paused]" aria-hidden="true">
                 {PARTNERS.map((partner, index) => (
-                  <div 
+                  <div
                     key={`dup-${index}`}
                     className="group/logo flex-shrink-0 w-[180px] h-[110px] border border-white/10 rounded-2xl flex items-center justify-center p-6 mx-[12px] hover:-translate-y-2 hover:border-orange/50 hover:shadow-[0_16px_40px_rgba(246,135,42,0.2)] transition-all duration-500 bg-white/10 backdrop-blur-sm"
                   >
-                    <img 
-                      src={partner.url} 
+                    <img
+                      src={partner.url}
                       alt={partner.name}
-                      className={`max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 ${partner.scaleClass || 'scale-100 group-hover/logo:scale-110'}`}
+                      className="max-w-[120px] max-h-[60px] object-contain opacity-80 brightness-0 invert transition-all duration-300 group-hover/logo:opacity-100 group-hover/logo:brightness-100 group-hover/logo:invert-0 group-hover/logo:scale-110"
                       onError={(e) => { e.currentTarget.style.display = 'none' }}
                     />
                   </div>
@@ -97,7 +97,8 @@ const PlacementPartners = () => {
         </Reveal>
       </div>
 
-      <style dangerouslySetInnerHTML={{ __html: `
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes marquee {
           0% { transform: translateX(0%); }
           100% { transform: translateX(-100%); }

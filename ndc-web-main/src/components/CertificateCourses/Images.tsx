@@ -1,6 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import SectionHeading from "@/components/ui/SectionHeading";
+import React from "react";
 import { Reveal } from "@/components/ui/Reveal";
 
 type ImagesBlock = {
@@ -9,95 +7,62 @@ type ImagesBlock = {
 };
 
 const Images = ({ data }: { data?: ImagesBlock }) => {
-
   const { title = "", images = [] } = data ?? {};
-
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isUserScrolling, setIsUserScrolling] = useState(false);
-
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer || isUserScrolling || images.length < 2) return;
-
-    const autoScroll = () => {
-      if (!scrollContainer) return;
-      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      if (scrollContainer.scrollLeft >= maxScroll) {
-        scrollContainer.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        scrollContainer.scrollBy({ left: scrollContainer.clientWidth / 2, behavior: "smooth" });
-      }
-    };
-
-    const interval = setInterval(autoScroll, 3000); // Scrolls every 3 seconds
-
-    return () => clearInterval(interval);
-  }, [isUserScrolling, images.length]);
-
-  const handleScroll = (direction: "left" | "right") => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
-
-    setIsUserScrolling(true);
-    const scrollDistance = scrollContainer.clientWidth / 2;
-
-    scrollContainer.scrollBy({
-      left: direction === "left" ? -scrollDistance : scrollDistance,
-      behavior: "smooth",
-    });
-
-    // Resume auto-scroll after 3s
-    const t = setTimeout(() => setIsUserScrolling(false), 3000);
-    return () => clearTimeout(t);
-  };
 
   if (!title && images.length === 0) {
     return null;
   }
 
   return (
-    <Reveal className="relative mb-10 md:mb-20">
+    <Reveal as="section" className="relative mb-10 max-w-7xl mx-auto px-4 lg:px-8">
+      
+      {/* Dark Theme Container */}
+      <div className="bg-navy rounded-[2rem] px-8 py-6 md:px-12 md:py-8 lg:px-16 lg:py-10 overflow-hidden relative shadow-xl">
+        
+        {/* Background glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-orange/5 blur-[80px] rounded-full pointer-events-none" />
 
-      {title && <SectionHeading title={title} align="left" className="mb-6" />}
-      {/* Scroll Container */}
-      <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-x-auto whitespace-nowrap no-scrollbar scrollbar-hide scroll-smooth"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-        }}
-      >
-        {images.map((src, index) => (
-          <div key={index} className="p-2 flex-shrink-0 w-full sm:w-1/2 md:w-1/2 lg:w-1/2">
-            <img
-              src={src}
-              alt={`Image ${index + 1}`}
-              className="w-full h-auto rounded-2xl border border-card-border shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-[var(--shadow-card-hover)] object-cover"
-            />
+        <div className="max-w-6xl mx-auto relative z-10">
+          
+          {/* Header */}
+          {title && (
+            <div className="text-center mb-8">
+              <span className="inline-block px-3 py-1 rounded-full bg-white/10 text-orange text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-2">
+                Specialization
+              </span>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight uppercase">
+                {title}
+              </h2>
+            </div>
+          )}
+
+          {/* Premium Image Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+            {images.map((src, index) => (
+              <div 
+                key={index} 
+                className={`group relative rounded-[1.5rem] overflow-hidden bg-white/5 border border-white/10 shadow-lg transition-all duration-500 hover:shadow-[0_20px_40px_rgba(255,107,0,0.15)] hover:-translate-y-2 aspect-[4/3] ${
+                  index === 0 ? "lg:mt-8" : "lg:-mt-8" // Asymmetrical offset for a premium look
+                }`}
+              >
+                {/* Image */}
+                <img
+                  src={src}
+                  alt={`Fashion Design ${index + 1}`}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                
+                {/* Gradient Overlay on hover */}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                
+                {/* Decorative border line */}
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-orange to-orange/30 opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-1 group-hover:translate-y-0" />
+              </div>
+            ))}
           </div>
-        ))}
+
+        </div>
       </div>
-
-      {images.length > 1 && (
-          <>
-          <button
-            onClick={() => handleScroll("left")}
-            className="absolute left-0 top-1/2 -translate-y-1/2 flex items-center justify-center h-11 w-11 rounded-full bg-white text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange hover:text-white"
-            aria-label="Scroll left"
-          >
-            <ChevronLeft size={22} />
-          </button>
-
-          <button
-            onClick={() => handleScroll("right")}
-            className="absolute right-0 top-1/2 -translate-y-1/2 flex items-center justify-center h-11 w-11 rounded-full bg-white text-navy shadow-[var(--shadow-card)] transition-all duration-250 ease-[cubic-bezier(0.23,1,0.32,1)] hover:bg-orange hover:text-white"
-            aria-label="Scroll right"
-          >
-            <ChevronRight size={22} />
-          </button>
-        </>
-      )}
     </Reveal>
   );
 };
