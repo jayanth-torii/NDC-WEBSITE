@@ -46,6 +46,7 @@ export default function RootLayout({
     <html lang="en">
       {/* <appli-integration id="68afee1c37e33175ed91cb17"></appli-integration> */}
       <body
+        suppressHydrationWarning
         className={`${poppins.variable} ${geistMono.variable} ${caveat.variable} antialiased`}
       >
         <MantineProvider>

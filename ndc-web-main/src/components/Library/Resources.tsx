@@ -34,12 +34,12 @@ const Resources = ({ data }: { data: any }) => {
   const { title, resoursesTable }: DigitalResources = data;
   const tabs = Object.keys(resoursesTable || {});
   const [activeTab, setActiveTab] = useState(tabs[0]);
-  const [visibleCount, setVisibleCount] = useState(6);
+  const [visibleCount, setVisibleCount] = useState(8);
   const [activeLetter, setActiveLetter] = useState("All");
   const [isShowingLess, setIsShowingLess] = useState(false);
 
   useEffect(() => {
-    setVisibleCount(6);
+    setVisibleCount(8);
     setActiveLetter("All");
     setIsShowingLess(false);
   }, [activeTab]);
@@ -55,10 +55,10 @@ const Resources = ({ data }: { data: any }) => {
   const handleToggleShow = () => {
     if (visibleCount < totalItems) {
       setIsShowingLess(false);
-      setVisibleCount((prev) => prev + 6);
+      setVisibleCount((prev) => prev + 8);
     } else {
       setIsShowingLess(true);
-      setVisibleCount(6);
+      setVisibleCount(8);
     }
   };
 
@@ -91,29 +91,61 @@ const Resources = ({ data }: { data: any }) => {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex flex-col lg:flex-row gap-8 items-start">
+      <div className="flex flex-col">
+        
+        {/* A-Z Alphabet Ruler */}
+        <div className="relative w-full max-w-full mb-10 overflow-hidden">
+          <div className="flex items-center gap-1 sm:gap-2 overflow-x-auto no-scrollbar pb-4 border-b border-gray-100">
+            <button
+              onClick={() => { setActiveLetter("All"); setVisibleCount(6); }}
+              className={`shrink-0 px-6 py-2.5 rounded-full text-[13px] tracking-wider font-black uppercase transition-all duration-300 ${
+                activeLetter === "All" 
+                  ? "bg-navy text-white shadow-md" 
+                  : "bg-white text-gray-400 hover:text-navy hover:bg-gray-50 border border-gray-100"
+              }`}
+            >
+              ALL
+            </button>
+            
+            <div className="shrink-0 w-px h-6 bg-gray-200 mx-2 md:mx-4" />
 
-        {/* Left List: Resources */}
-        <div className="w-full lg:w-2/3">
-          <motion.div layout className="flex flex-col divide-y divide-card-border border-t border-card-border">
-            <AnimatePresence initial={false}>
+            {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((letter) => (
+              <button
+                key={letter}
+                onClick={() => { setActiveLetter(letter); setVisibleCount(6); }}
+                className={`shrink-0 w-11 h-11 flex items-center justify-center rounded-full text-[15px] font-black transition-all duration-300 ${
+                  activeLetter === letter 
+                    ? "bg-orange text-white shadow-[0_4px_16px_rgba(246,135,42,0.4)] scale-110" 
+                    : "bg-white text-gray-400 hover:text-navy border border-gray-100 hover:border-navy hover:scale-110"
+                }`}
+              >
+                {letter}
+              </button>
+            ))}
+          </div>
+          {/* Subtle fade effect on the right edge to indicate horizontal scroll */}
+          <div className="absolute top-0 right-0 bottom-4 w-12 bg-gradient-to-l from-white to-transparent pointer-events-none lg:hidden" />
+        </div>
+
+        {/* Resources Grid */}
+        <div className="w-full min-h-[300px]">
+          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+            <AnimatePresence mode="wait">
               {visibleResources.map((row: any, index: number) => (
                 <motion.div
                   key={`${activeTab}-${row.sn || index}`}
-                  layout
-                  initial={{ opacity: 0, height: 0, padding: 0 }}
-                  animate={{ opacity: 1, height: "auto", padding: "1.25rem 0.5rem" }}
-                  exit={{ opacity: 0, height: 0, padding: 0, overflow: "hidden" }}
-                  transition={{ duration: isShowingLess ? 0.8 : 0.3, ease: "easeInOut" }}
-                  className="group flex flex-col sm:flex-row sm:items-center justify-between hover:bg-surface-tint/60 transition-colors duration-250 ease-[var(--ease-editorial)] rounded-xl"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="group flex flex-col justify-between bg-white border border-gray-100 p-4 sm:p-5 rounded-[18px] hover:border-orange/40 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] transition-all duration-400"
                 >
-                  <div className="flex items-center gap-4">
-                    <div className="w-11 h-11 shrink-0 rounded-full bg-chip-bg text-orange flex items-center justify-center text-base font-bold group-hover:bg-navy group-hover:text-white transition-colors duration-250">
+                  <div className="flex items-start gap-3.5 mb-5">
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl bg-[#f8f9fa] border border-gray-100 text-navy flex items-center justify-center text-lg font-black group-hover:bg-orange group-hover:text-white group-hover:border-orange transition-all duration-400 shadow-sm">
                       {row?.name?.charAt(0).toUpperCase()}
                     </div>
-
-                    <div className="flex flex-col">
-                      <h3 className="text-[15px] font-bold text-navy">
+                    <div>
+                      <h3 className="text-[13px] sm:text-[14px] font-extrabold text-navy leading-snug group-hover:text-orange transition-colors duration-300 line-clamp-3">
                         {row?.name}
                       </h3>
                     </div>
@@ -123,50 +155,26 @@ const Resources = ({ data }: { data: any }) => {
                     href={row?.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-3 sm:mt-0 flex items-center gap-1.5 text-sm font-bold text-gray-400 group-hover:text-orange transition-colors ml-[60px] sm:ml-0"
+                    className="flex items-center justify-between w-full pt-3 border-t border-gray-50 text-[11px] sm:text-[12px] uppercase tracking-wider font-bold text-gray-400 group-hover:text-orange transition-colors duration-300"
                   >
-                    Visit Resource <ArrowRight size={16} />
+                    <span>View</span>
+                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-50 flex items-center justify-center group-hover:bg-orange/10 group-hover:translate-x-1.5 transition-all duration-300">
+                      <ArrowRight size={13} />
+                    </div>
                   </a>
                 </motion.div>
               ))}
             </AnimatePresence>
           </motion.div>
 
-          {totalItems > 6 && (
-            <motion.div layout className="flex justify-center mt-8">
+          {totalItems > 8 && (
+            <motion.div layout className="flex justify-center mt-12">
               <Button onClick={handleToggleShow} variant="primary">
                 {visibleCount < totalItems ? "Load More Resources" : "Show Less"}
               </Button>
             </motion.div>
           )}
         </div>
-
-        {/* Right Sidebar: A-Z Index */}
-        <div className="hidden lg:flex w-1/3 flex-col bg-surface-tint rounded-[20px] p-6 border border-card-border sticky top-24">
-          <h3 className="text-sm font-bold text-navy uppercase tracking-wide mb-4">Browse A-Z</h3>
-          <div className="flex flex-col gap-1.5 overflow-y-auto max-h-[400px] pr-2 no-scrollbar">
-            <button
-              onClick={() => { setActiveLetter("All"); setVisibleCount(6); }}
-              className={`w-full py-1.5 rounded-full text-sm font-bold text-center transition-colors duration-250 ${
-                activeLetter === "All" ? "bg-navy text-white" : "bg-white text-body-gray hover:text-navy border border-card-border"
-              }`}
-            >
-              All
-            </button>
-            {"ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map((letter) => (
-              <button
-                key={letter}
-                onClick={() => { setActiveLetter(letter); setVisibleCount(6); }}
-                className={`w-full py-1.5 rounded-full text-sm font-bold text-center transition-colors duration-250 ${
-                  activeLetter === letter ? "bg-navy text-white" : "bg-white text-body-gray hover:text-navy border border-card-border"
-                }`}
-              >
-                {letter}
-              </button>
-            ))}
-          </div>
-        </div>
-
       </div>
     </div>
   );
