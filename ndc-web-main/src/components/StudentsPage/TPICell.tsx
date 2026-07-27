@@ -35,7 +35,7 @@ const TrainingPlacementAndInternshipCell = ({ data }: any) => {
   const { vision, mission, rest } = getMergedSections();
 
   return (
-    <section className="py-20 lg:py-24 bg-white relative overflow-hidden">
+    <section id="tpi-cell" className="py-20 lg:py-24 bg-white relative overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"

@@ -76,7 +76,7 @@ const MentoringCell = ({ MentoringCellData }: any) => {
   };
 
   return (
-    <section className="pt-20 pb-28 lg:pt-24 lg:pb-36 bg-white relative overflow-hidden">
+    <section id="mentoring-cell" className="pt-20 pb-28 lg:pt-24 lg:pb-36 bg-white relative overflow-hidden">
       {/* Decorative background elements */}
       <DotGrid className="absolute top-14 left-6 lg:left-10 opacity-80 pointer-events-none" />
       <div
