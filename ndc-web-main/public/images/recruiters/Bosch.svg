@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 120" width="100%" height="100%">
+  <!-- Magneto Icon (Silver/Grey) -->
+  <g transform="translate(10, 10)">
+    <!-- Outer thick circle -->
+    <circle cx="50" cy="50" r="44" fill="none" stroke="#888c8d" stroke-width="8" />
+    <!-- Armature H shape -->
+    <path d="M 30 25 L 30 75 M 70 25 L 70 75 M 30 50 L 70 50" stroke="#888c8d" stroke-width="14" stroke-linecap="butt" />
+    <!-- Inner thin circle outline -->
+    <circle cx="50" cy="50" r="32" fill="none" stroke="#888c8d" stroke-width="2" />
+  </g>
+  
+  <!-- Bosch Text (Red) -->
+  <text x="130" y="88" font-family="Arial, Helvetica, sans-serif" font-weight="900" font-size="90" letter-spacing="-2" fill="#e20015">BOSCH</text>
+</svg>

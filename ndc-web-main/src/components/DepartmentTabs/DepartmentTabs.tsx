@@ -192,7 +192,7 @@ export default function DepartmentTabs() {
         {/* Content Area with Animation */}
         <div 
           ref={contentRef} 
-          className="scroll-mt-40 bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-gray-100 min-h-[420px] p-6 md:p-10 lg:p-12 overflow-hidden"
+          className="scroll-mt-40 bg-white rounded-2xl shadow-[0_4px_24px_rgba(0,0,0,0.03)] border border-gray-100 min-h-[420px] p-6 md:p-10 lg:p-12"
         >
           <AnimatePresence mode="wait">
             <motion.div
