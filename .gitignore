@@ -9,8 +9,6 @@ NDC_Website_Sitemap.xlsx
 
 # Reference-only project, not part of this repo
 NCET-main/
-# Separate app, not committed to this repo
-ndc-admin-main/
 # Large asset archives, not meant for git
 ndc-web-main/public/images.zip
 ndc-web-main/public/pdfs.zip

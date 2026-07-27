@@ -1,0 +1,290 @@
+/* ==========================================================================
+   NDC Admin Portal — Login page. Ported from NCET admin's
+   pages/Authentication/Login.scss (same glass-card-on-gradient design,
+   same --brand-orange token, since NDC and NCET already share this exact
+   navy/orange brand palette). The <video> background isn't available for
+   NDC, so the dark navy gradient (matching the public site's own Footer
+   gradient) stands in for it.
+   ========================================================================== */
+
+:root {
+    --brand-orange: #F6872A;
+    --brand-orange-hover: #d9701a;
+    --text-white: #ffffff;
+    --text-muted: rgba(255, 255, 255, 0.75);
+    --text-dimmed: rgba(255, 255, 255, 0.55);
+    --input-bg: rgba(255, 255, 255, 1);
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --glass-blur: 24px;
+    --font-main: 'Poppins', sans-serif;
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body.admin-login-page {
+    font-family: var(--font-main);
+    color: var(--text-white);
+    background: radial-gradient(760px circle at 92% -10%, rgba(50, 112, 252, .16), transparent 46%),
+        linear-gradient(160deg, #0e2455 0%, #0a1a3f 58%, #112a5e 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.app-container * {
+    box-sizing: border-box;
+}
+
+.login-main-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4rem;
+    width: 100%;
+    max-width: 900px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.branding-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.logo-container {
+    margin-bottom: 2rem;
+}
+
+.logo-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    position: relative;
+}
+
+.logo-text {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    color: var(--text-white);
+}
+
+.main-heading {
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+}
+
+.subtitle-text {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-white);
+    margin-bottom: 0.85rem;
+    line-height: 1.4;
+}
+
+.description-text {
+    font-size: 0.85rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 440px;
+}
+
+.login-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    animation: fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: 28px;
+    padding: 2.5rem 2rem;
+    width: 100%;
+    max-width: 380px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.input-group label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-bottom: 0.4rem;
+    color: var(--text-white);
+    letter-spacing: 0.02em;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 0.9rem;
+    font-family: var(--font-main);
+    font-size: 0.85rem;
+    background: var(--input-bg);
+    border: 1.5px solid transparent;
+    border-radius: 8px;
+    color: #1e293b;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+.input-group input::placeholder {
+    color: #94a3b8;
+    font-weight: 400;
+}
+
+.input-group input:focus {
+    box-shadow: 0 0 0 4px rgba(246, 135, 42, 0.35);
+}
+
+.input-group.invalid input {
+    border-color: #ef4444;
+}
+
+.error-message {
+    font-size: 0.75rem;
+    color: #f87171;
+    margin-top: 0.4rem;
+    display: none;
+}
+
+.input-group.invalid .error-message {
+    display: block;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--brand-orange);
+    color: var(--text-white);
+    border: none;
+    border-radius: 8px;
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition-smooth);
+    margin-top: 0.5rem;
+}
+
+.submit-btn:hover:not(:disabled) {
+    background-color: var(--brand-orange-hover);
+    transform: translateY(-1px);
+}
+
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.loader {
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 0.8s linear infinite;
+    display: none;
+}
+
+.submit-btn.loading .btn-text {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.submit-btn.loading .loader {
+    display: block;
+    position: absolute;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@media (max-width: 968px) {
+    .login-main-content {
+        grid-template-columns: 1fr;
+        gap: 3.5rem;
+        max-width: 550px;
+        padding-top: 1.5rem;
+    }
+    .branding-section {
+        align-items: center;
+        text-align: center;
+    }
+    .glass-card {
+        padding: 2rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .app-container {
+        padding: 1.5rem 1rem;
+    }
+    .logo-text {
+        font-size: 1.6rem;
+    }
+    .main-heading {
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+    .glass-card {
+        padding: 1.75rem 1.25rem;
+        border-radius: 20px;
+    }
+}
