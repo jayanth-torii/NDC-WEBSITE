@@ -154,7 +154,7 @@ export default function LifeAtNDC({ data }: any) {
                 return (
                   <div
                     key={stat.label}
-                    className={`flex items-center gap-3 ${index !== 0 ? "pl-7 border-l border-gray-100" : ""}`}
+                    className={`flex items-center gap-3 ${index !== STATS.length - 1 ? "pr-7 border-r border-gray-100" : ""}`}
                   >
                     <Icon size={20} className="text-orange shrink-0" />
                     <div className="leading-tight">

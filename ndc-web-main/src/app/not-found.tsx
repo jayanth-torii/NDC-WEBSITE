@@ -1,6 +1,13 @@
 import Link from "next/link";
-import { Home, Compass, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { Home, Compass, Facebook, Youtube, Linkedin, Instagram } from "lucide-react";
 import "./not-found.css";
+
+const SOCIAL_LINKS = [
+  { label: "LinkedIn", href: "https://in.linkedin.com/school/nagarjuna-degree-college/", Icon: Linkedin },
+  { label: "Facebook", href: "https://www.facebook.com/ndcbengaluru", Icon: Facebook },
+  { label: "YouTube", href: "https://www.youtube.com/@NDCYelahanka", Icon: Youtube },
+  { label: "Instagram", href: "https://www.instagram.com/ndcbangalore/", Icon: Instagram },
+];
 
 export default function NotFound() {
   return (
@@ -62,18 +69,18 @@ export default function NotFound() {
               Visit our <Link href="/contact-us" className="text-[#f6872a] font-semibold hover:underline">Help Center</Link> or contact support.
             </p>
             <div className="flex gap-4 mt-6 justify-center">
-              <Link href="#" className="w-10 h-10 rounded-full bg-[#f1f3f7] flex items-center justify-center text-[#111936] hover:bg-[#f6872a] hover:text-white transition-colors">
-                <Facebook size={18} fill="currentColor" className="border-none" />
-              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-[#f1f3f7] flex items-center justify-center text-[#111936] hover:bg-[#f6872a] hover:text-white transition-colors">
-                <Twitter size={18} fill="currentColor" className="border-none" />
-              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-[#f1f3f7] flex items-center justify-center text-[#111936] hover:bg-[#f6872a] hover:text-white transition-colors">
-                <Linkedin size={18} fill="currentColor" className="border-none" />
-              </Link>
-              <Link href="#" className="w-10 h-10 rounded-full bg-[#f1f3f7] flex items-center justify-center text-[#111936] hover:bg-[#f6872a] hover:text-white transition-colors">
-                <Instagram size={18} />
-              </Link>
+              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-full bg-[#f1f3f7] flex items-center justify-center text-[#111936] hover:bg-[#f6872a] hover:text-white transition-colors"
+                >
+                  <Icon size={18} />
+                </a>
+              ))}
             </div>
           </div>
         </div>
