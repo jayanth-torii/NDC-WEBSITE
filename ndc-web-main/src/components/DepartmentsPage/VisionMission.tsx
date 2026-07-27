@@ -9,7 +9,7 @@ export default function VisionMission({ data }: { data: any }) {
   const { title, AboutDescription, VisionMission, AccordienSection } = data;
 
   return (
-    <Reveal as="section" className="relative bg-[#f8f9fa] border-b border-navy/5">
+    <section className="relative bg-[#f8f9fa] border-b border-navy/5">
       <div className="container mx-auto px-4 lg:px-8 py-10 lg:py-16">
         
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start max-w-6xl mx-auto">
@@ -122,6 +122,6 @@ export default function VisionMission({ data }: { data: any }) {
           </div>
         </div>
       </div>
-    </Reveal>
+    </section>
   );
 }

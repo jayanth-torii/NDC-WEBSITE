@@ -22,10 +22,10 @@ const InternalCollaboration = ({ data }: InternalCollaborationProps) => {
     <Reveal as="section" className="relative border-b border-navy/10 py-16 md:py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4 md:px-8">
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center lg:-mx-4">
           
           {/* Animated Framed Image */}
-          <div className="relative w-full max-w-[320px] md:max-w-[380px] mx-auto lg:mx-0 aspect-[4/5] group">
+          <div className="lg:col-span-5 relative w-full max-w-[320px] md:max-w-[380px] mx-auto aspect-[4/5] group">
             
             {/* Background shapes (Navy and Orange frames) */}
             <div className="absolute inset-0 bg-navy rounded-[32px] md:rounded-[48px] rounded-tl-none -translate-x-4 translate-y-4 md:-translate-x-6 md:translate-y-6 transition-transform duration-500 group-hover:-translate-x-6 group-hover:translate-y-8" />
@@ -60,7 +60,7 @@ const InternalCollaboration = ({ data }: InternalCollaborationProps) => {
           </div>
 
           {/* Text Content */}
-          <div className="lg:pl-6">
+          <div className="lg:col-span-7">
             <RevealItem>
               <p className="text-orange text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-2">
                 Partnership
@@ -87,7 +87,7 @@ const InternalCollaboration = ({ data }: InternalCollaborationProps) => {
                         {item.descriptions.map((desc, i) => (
                           <p
                             key={i}
-                            className="text-body-gray leading-relaxed text-sm md:text-[15px] max-w-prose"
+                            className="text-body-gray leading-relaxed text-sm md:text-[15px] max-w-prose text-justify"
                           >
                             {desc}
                           </p>

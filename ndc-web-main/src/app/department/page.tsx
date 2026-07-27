@@ -7,7 +7,7 @@ import HeroCourse from "@/components/DepartmentTabs/HeroCourse";
 
 const Department = () => {
   return (
-    <main className="min-h-screen flex flex-col w-full overflow-x-hidden bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_40%,#f1f5f9_100%)]">
+    <main className="min-h-screen flex flex-col w-full bg-[linear-gradient(180deg,#f8fafc_0%,#ffffff_40%,#f1f5f9_100%)]">
       <Suspense>
         <HeroCourse />
       </Suspense>

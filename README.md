@@ -2,7 +2,7 @@
 
 Official website for **Nagarjuna Degree College (NDC)** — a full-stack web application consisting of a Next.js frontend and a Strapi-powered content backend.
 
-🔗 **Live Site:** https://ndc-website-nine.vercel.app
+🔗 **Live Site:** https://ndc-torii.vercel.app/
 
 ## 📖 Overview
 
