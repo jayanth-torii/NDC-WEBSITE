@@ -123,22 +123,28 @@ export default function HomeHero({ data }: any) {
       </section>
 
       {/* Floating action cluster */}
-      <div className="fixed top-1/2 right-0 -translate-y-1/2 z-[9999] hidden sm:flex flex-col overflow-hidden rounded-l-xl shadow-[var(--shadow-navy)]">
-        <a href="/contact-us">
-          <button
-            style={{ writingMode: "vertical-rl" }}
-            className="cursor-pointer rotate-180 bg-navy px-3 py-5 text-[13px] font-bold tracking-[1.5px] text-white transition-colors duration-250 ease-[var(--ease-editorial)] hover:bg-navy-dark"
-          >
-            Have a query?
-          </button>
+      <div className="fixed top-1/2 right-0 -translate-y-1/2 z-[1200] hidden sm:flex flex-col gap-2.5">
+        <a
+          href="/contact-us"
+          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          className="flex items-center gap-[9px] px-3 py-[18px] text-[13px] font-bold tracking-[1.4px] uppercase text-white no-underline border-0 rounded-r-xl cursor-pointer bg-navy hover:bg-[#0a1a3f] shadow-[6px_-8px_22px_rgba(15,18,22,0.18)] hover:shadow-[10px_-10px_26px_rgba(15,18,22,0.26)] transition-all duration-250 ease-out rotate-180 hover:-translate-x-1"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-4 h-4 rotate-90" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12a8 8 0 01-8 8H7l-4 3V12a8 8 0 018-8h2a8 8 0 016 8z" />
+          </svg>
+          Have a query?
         </a>
-        <a href="https://apply.nagarjunadegreecollege.co.in/" target="_blank" rel="noopener noreferrer">
-          <button
-            style={{ writingMode: "vertical-rl" }}
-            className="cursor-pointer rotate-180 bg-orange px-3 py-5 text-[13px] font-bold tracking-[1.5px] text-white transition-colors duration-250 ease-[var(--ease-editorial)] hover:bg-orange-dark"
-          >
-            Application Form
-          </button>
+        <a
+          href="https://apply.nagarjunadegreecollege.co.in/"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ writingMode: "vertical-rl", textOrientation: "mixed" }}
+          className="flex items-center gap-[9px] px-3 py-[18px] text-[13px] font-bold tracking-[1.4px] uppercase text-white no-underline border-0 rounded-r-xl cursor-pointer bg-orange hover:bg-[#e5760f] shadow-[6px_-8px_22px_rgba(15,18,22,0.18)] hover:shadow-[10px_-10px_26px_rgba(15,18,22,0.26)] transition-all duration-250 ease-out rotate-180 hover:-translate-x-1"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="w-4 h-4 rotate-90" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 3h7v7m0-7L10 14M19 14v5a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h5" />
+          </svg>
+          Application Form
         </a>
       </div>
     </>

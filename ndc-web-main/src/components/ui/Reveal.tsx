@@ -24,10 +24,10 @@ export function Reveal({ children, className = "", delay = 0, as = "div" }: Reve
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: 40, filter: "blur(8px)", scale: 0.98 }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }}
+      initial={{ opacity: 0, y: 20, scale: 0.98 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ type: "spring", stiffness: 70, damping: 15, delay }}
+      transition={{ duration: 0.4, ease: "easeOut", delay }}
     >
       {children}
     </MotionTag>
@@ -36,12 +36,12 @@ export function Reveal({ children, className = "", delay = 0, as = "div" }: Reve
 
 const containerVariants: Variants = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.05 } },
+  show: { transition: { staggerChildren: 0.05, delayChildren: 0.05 } },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 40, filter: "blur(8px)", scale: 0.95 },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", scale: 1, transition: { type: "spring", stiffness: 70, damping: 14 } },
+  hidden: { opacity: 0, y: 20, scale: 0.95 },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.4, ease: "easeOut" } },
 };
 
 interface RevealGroupProps {

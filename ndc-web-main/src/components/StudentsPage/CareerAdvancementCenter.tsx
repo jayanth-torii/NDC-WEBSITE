@@ -24,7 +24,7 @@ const CareerAdvancementCenter = ({ data }: any) => {
   };
 
   return (
-    <section className="py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
+    <section id="career-advancement" className="py-20 lg:py-24 bg-gray-50 relative overflow-hidden">
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         <motion.div
           initial="hidden"
@@ -45,7 +45,7 @@ const CareerAdvancementCenter = ({ data }: any) => {
               <img 
                 src={data.image} 
                 alt="Career Advancement Center" 
-                className="relative w-full h-[50vh] lg:h-[60vh] object-cover rounded-[32px] shadow-2xl border-4 border-white"
+                className="relative w-full h-auto max-h-[70vh] object-contain rounded-[32px] shadow-2xl border-4 border-white bg-white"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 flex items-center gap-4 hidden md:flex">
                 <div className="w-12 h-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0">

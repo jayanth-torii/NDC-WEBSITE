@@ -161,7 +161,7 @@ const Footer = () => {
         NDC
       </span>
 
-      <div className="relative container mx-auto px-4 py-12 md:px-10 md:py-16 lg:px-16">
+      <div className="relative container max-w-[1536px] mx-auto px-4 py-12 md:px-8 md:py-16 lg:px-10 xl:px-16">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:gap-8 lg:gap-10">
           {/* Follow us rail */}
           <div className="flex flex-col items-center gap-4 md:w-12 md:shrink-0 md:pl-8">
