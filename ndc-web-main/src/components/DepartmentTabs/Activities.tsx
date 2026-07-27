@@ -115,6 +115,9 @@ const Activities = ({ haveContentCheck }: any) => {
   const title = content?.title || "Activities";
   const sections = Array.isArray(content?.sections) ? content.sections : [];
 
+  const [isExpanded, setIsExpanded] = useState(false);
+  const visibleSections = isExpanded ? sections : sections.slice(0, 5);
+
   return (
     <Reveal>
       <div className="space-y-10">
@@ -128,7 +131,7 @@ const Activities = ({ haveContentCheck }: any) => {
         </header>
 
         <div className="flex flex-col gap-10 lg:gap-14">
-          {sections.map((section: any, idx: number) => {
+          {visibleSections.map((section: any, idx: number) => {
             const isEven = idx % 2 === 0;
             const hasImages = Array.isArray(section?.images) && section.images.length > 0;
             
@@ -172,6 +175,23 @@ const Activities = ({ haveContentCheck }: any) => {
             );
           })}
         </div>
+
+        {sections.length > 5 && (
+          <div className="flex justify-center mt-10">
+            <button 
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-orange text-orange font-bold text-sm hover:bg-orange hover:text-white transition-colors duration-300 group"
+            >
+              <span>{isExpanded ? "Show Less" : "Load More"}</span>
+              <svg 
+                className={`transition-transform duration-300 ${isExpanded ? "rotate-180" : ""}`}
+                width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+          </div>
+        )}
       </div>
     </Reveal>
   );

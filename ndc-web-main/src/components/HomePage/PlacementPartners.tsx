@@ -24,7 +24,7 @@ const PlacementPartners = () => {
       <div className="absolute inset-0 bg-dot-grid opacity-10" />
 
       {/* Massive Faint Watermark */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none select-none opacity-[0.03]">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none select-none opacity-1">
         <span className="text-[18vw] md:text-[15vw] font-black text-white whitespace-nowrap tracking-tighter">
           PLACEMENTS
         </span>
@@ -40,7 +40,7 @@ const PlacementPartners = () => {
             </h2>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-md rounded-[32px] p-8 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/10">
+          <div className="bg-white/5 rounded-[32px] p-8 lg:p-12 shadow-[0_20px_60px_rgba(0,0,0,0.3)] border border-white/10">
             {/* Enhanced Marquee Container */}
             <div className="relative flex overflow-hidden group mask-horizontal pb-4 -mb-4">
               {/* Animate Marquee */}
