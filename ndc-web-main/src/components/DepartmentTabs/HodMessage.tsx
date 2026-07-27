@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 import { motion } from "framer-motion";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
@@ -12,8 +13,7 @@ const HodMessage = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, any> =
-    (departmentJson["hod-messages"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/hod-message"));
 
   const content = useMemo(() => {
     let matchedData: any = null;

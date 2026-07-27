@@ -4,17 +4,22 @@ import React from "react";
 import { Reveal } from "@/components/ui/Reveal";
 import { Building2 } from "lucide-react";
 
+// This strip is hardcoded (not CMS-driven — there's no backend model for it),
+// so its local-style entries need to point at S3 directly rather than going
+// through data.service's DB-backed rewrite.
+const ASSET_BASE = "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com";
+
 const PARTNERS = [
   { name: "Google", url: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" },
   { name: "Amazon", url: "https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" },
-  { name: "Bosch", url: "/images/recruiters/Bosch-optimized.svg" },
+  { name: "Bosch", url: `${ASSET_BASE}/images/recruiters/Bosch-optimized.svg` },
   { name: "Toyota", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg" },
   { name: "Capgemini", url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Capgemini_201x_logo.svg" },
-  { name: "Accenture", url: "/images/recruiters/accenture.png" },
+  { name: "Accenture", url: `${ASSET_BASE}/images/recruiters/accenture.png` },
   { name: "Microsoft", url: "https://upload.wikimedia.org/wikipedia/commons/9/96/Microsoft_logo_%282012%29.svg" },
   { name: "IBM", url: "https://upload.wikimedia.org/wikipedia/commons/5/51/IBM_logo.svg" },
-  { name: "Infosys", url: "/images/recruiters/Infosys.png" },
-  { name: "TCS", url: "/images/recruiters/TCS.png" }
+  { name: "Infosys", url: `${ASSET_BASE}/images/recruiters/Infosys.png` },
+  { name: "TCS", url: `${ASSET_BASE}/images/recruiters/TCS.png` }
 ];
 
 const PlacementPartners = () => {

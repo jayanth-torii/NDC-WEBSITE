@@ -2,11 +2,12 @@
 
 import React from 'react';
 import styles from "./Banner.module.css";
-import bannerJson from "@/data-export/_shared/banner.json";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getHeadlineBanner } from "@/services/data.service";
 
 const Banner: React.FC = () => {
 
-  const bannerData: Record<string, any> | null = (bannerJson["headline-banner"] as any)?.data ?? null;
+  const { data: bannerData } = useLiveData(getHeadlineBanner);
 
     const title = bannerData?.title?.trim();
     const message = bannerData?.message?.trim();

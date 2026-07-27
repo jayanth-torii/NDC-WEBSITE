@@ -2,7 +2,6 @@
 
 import React, { useState, ReactNode, Suspense } from "react";
 import { FileSearch, Briefcase, Monitor, GraduationCap, Calendar } from "lucide-react";
-import questionBankJson from "@/data-export/question-bank/data.json";
 
 import FindQuestionBank from "./FindQuestionBank";
 import Bcom from "./Bcom";
@@ -35,12 +34,11 @@ const TAB_ICONS: Record<string, any> = {
   MBA: GraduationCap,
 };
 
-export default function QuestionBankTabs() {
+export default function QuestionBankTabs({ data }: { data?: Record<string, any> }) {
   const [activeTab, setActiveTab] = useState<string>(tabs[0]);
   const activeIndex = Math.max(0, tabs.indexOf(activeTab));
 
-  const allData: Record<string, any> =
-    (questionBankJson["question-banks"] as any)?.data || {};
+  const allData: Record<string, any> = data ?? {};
 
   const tabComponents: Record<string, ReactNode> = {
     "Find Question Bank": (

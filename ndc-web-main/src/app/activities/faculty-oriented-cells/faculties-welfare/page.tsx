@@ -1,13 +1,14 @@
-"use client";
 import React from "react";
 
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
-import pageJson from "@/data-export/activities/faculty-oriented-cells/faculties-welfare/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function FacultiesWelfare() {
-  const data: any = (pageJson["faculties-welfare"] as any)?.data || null;
+export const revalidate = 300;
+
+async function FacultiesWelfare() {
+  const data: any = await getActivityCell("faculties-welfare");
 
   if (!data) {
     return null;

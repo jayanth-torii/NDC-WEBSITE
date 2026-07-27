@@ -1,12 +1,12 @@
-"use client";
-
 import React, { Suspense } from "react";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import Forum from "@/components/ResearchForum/Forum";
-import pageJson from "@/data-export/research-forum/data.json";
+import { getResearchForum } from "@/services/data.service";
 
-const ResearchForum = () => {
-  const ResearchForumData: any = (pageJson["research-forum"] as any)?.data || null;
+export const revalidate = 300;
+
+const ResearchForum = async () => {
+  const ResearchForumData: any = await getResearchForum();
 
   if (!ResearchForumData) {
     return null;

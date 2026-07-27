@@ -1,5 +1,3 @@
-"use client"
-
 import React from 'react'
 
 import GlobalBanner from '@/components/GlobalBanner/GlobalBanner'
@@ -7,7 +5,7 @@ import KnowEverything from '@/components/Activities/KnowEverything'
 import CulturalActivities from '@/components/Activities/CulturalActivities'
 import CulturalLeadershipActivities from '@/components/Activities/CulturalLeadershipActivities'
 
-import pageJson from '@/data-export/activities/data.json'
+import { getActivitiesPage } from '@/services/data.service'
 
 interface ActivitiesPageData {
   BannerSection: {
@@ -32,8 +30,8 @@ interface ActivitiesPageData {
 
 
 
-function Activities() {
-  const data: ActivitiesPageData | null = (pageJson["activities-page"] as any)?.data || null
+async function Activities() {
+  const data: ActivitiesPageData | null = await getActivitiesPage()
 
   if (!data) {
     return null

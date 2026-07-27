@@ -1,12 +1,13 @@
-"use client";
 import React from "react";
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import About from "@/components/Activities/CommonComponents/About";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
-import pageJson from "@/data-export/activities/student-oriented-cells/women-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function WomenCell() {
-  const data: any = (pageJson["women-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function WomenCell() {
+  const data: any = await getActivityCell("women-cell");
 
   if (!data) {
     return null;

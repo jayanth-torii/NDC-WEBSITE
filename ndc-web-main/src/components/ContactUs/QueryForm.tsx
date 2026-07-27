@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { BASE_URL } from "@/config/apiService";
+import { submitContactUs } from "@/services/data.service";
 import Button from "@/components/ui/Button";
 import SectionHeading from "@/components/ui/SectionHeading";
 
@@ -78,20 +78,7 @@ const QueryForm = () => {
     const { consent, ...formDataToSend } = formData;
 
     try {
-      const response = await fetch(`${BASE_URL}/contact-us-forms`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ data: formDataToSend }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-
-      const result = await response.json();
-      console.log("Strapi response:", result);
+      await submitContactUs(formDataToSend);
 
       showMessage("Form submitted successfully!", "success");
 

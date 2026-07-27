@@ -1,14 +1,15 @@
-"use client";
 import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-import pageJson from "@/data-export/activities/faculty-oriented-cells/icc-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function IccCell() {
-  const data: any = (pageJson["icc-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function IccCell() {
+  const data: any = await getActivityCell("icc-cell");
 
   if (!data) {
     return null;

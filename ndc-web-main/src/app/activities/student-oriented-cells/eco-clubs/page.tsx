@@ -1,13 +1,14 @@
-"use client";
 import React from "react";
 
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
-import pageJson from "@/data-export/activities/student-oriented-cells/eco-clubs/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function ECOClubs() {
-  const data: any = (pageJson["eco-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function ECOClubs() {
+  const data: any = await getActivityCell("eco-clubs");
 
   if (!data) {
     return null;

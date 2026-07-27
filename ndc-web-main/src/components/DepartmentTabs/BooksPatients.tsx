@@ -2,9 +2,10 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 import { motion } from "framer-motion";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 type Row = Record<string, any>;
 
@@ -34,8 +35,7 @@ const BooksPatients = ({ haveContentCheck }: any) => {
   const normalizedProgramme = normalizeKey(programme);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const apiData: Record<string, DeptData> =
-    (departmentJson["books-patients"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/books-patents"));
 
   const normalizedMap = useMemo(() => {
     const map: Record<string, DeptData> = {};

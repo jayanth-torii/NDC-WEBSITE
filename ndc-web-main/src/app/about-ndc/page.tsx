@@ -1,7 +1,5 @@
-"use client";
-
 import React, { Suspense } from "react";
-import pageJson from "@/data-export/about-ndc/data.json";
+import { getAboutNdc } from "@/services/data.service";
 
 import GlobalBanner from "@/components/GlobalBanner";
 import AboutUs from "@/components/AboutNDC/AboutUs";
@@ -12,8 +10,10 @@ import Council from "@/components/AboutNDC/Council";
 import NewsLetter from "@/components/AboutNDC/NewsLetter";
 import ImpConsiderations from "@/components/AboutNDC/ImpConsiderations";
 
-const AboutNDC = () => {
-  const aboutData: any = (pageJson["about-us"] as any)?.data || null;
+export const revalidate = 300;
+
+const AboutNDC = async () => {
+  const aboutData: any = await getAboutNdc();
 
   if (!aboutData) {
     return null;

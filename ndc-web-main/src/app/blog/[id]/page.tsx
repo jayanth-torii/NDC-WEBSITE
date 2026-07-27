@@ -1,12 +1,11 @@
-"use client";
-
-import { useParams } from "next/navigation";
 import React from "react";
 import Link from "next/link";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import BlogNavigation from "@/components/BlogsPage/BlogNavigation";
-import pageJson from "@/data-export/blog/[id]/data.json";
+import { getBlogByPostId, getBlogs } from "@/services/data.service";
 import { Target, Star, BarChart, ClipboardCheck, Clock, Hourglass, PartyPopper, Microscope, Leaf, GraduationCap, Stethoscope, Wifi, Car, Globe, Lightbulb } from "lucide-react";
+
+export const revalidate = 300;
 
 const renderIcon = (name: string, size = 24) => {
   switch (name) {
@@ -29,11 +28,10 @@ const renderIcon = (name: string, size = 24) => {
   }
 };
 
-const BlogDetail = () => {
-  const { id } = useParams();
+const BlogDetail = async ({ params }: { params: Promise<{ id: string }> }) => {
+  const { id } = await params;
 
-  const blogsData: any[] = (pageJson["blogs-content"] as any)?.data?.blogs || [];
-  const blog = blogsData.find((item: any) => item.id.toString() === id) || null;
+  const [blog, blogsData] = await Promise.all([getBlogByPostId(id), getBlogs()]);
 
   if (!blog) {
     return (
@@ -45,15 +43,16 @@ const BlogDetail = () => {
     );
   }
 
-  const currentIndex = blogsData.findIndex((item) => item.id === blog.id);
-  const prevBlogId = currentIndex > 0 ? blogsData[currentIndex - 1].id : null;
-  const nextBlogId = currentIndex < blogsData.length - 1 ? blogsData[currentIndex + 1].id : null;
-  const otherBlogs = blogsData.filter((item) => item.id !== blog.id).slice(0, 3);
+  const list = blogsData ?? [];
+  const currentIndex = list.findIndex((item) => item.id === blog.id);
+  const prevBlogId = currentIndex > 0 ? list[currentIndex - 1].id : null;
+  const nextBlogId = currentIndex < list.length - 1 ? list[currentIndex + 1].id : null;
+  const otherBlogs = list.filter((item) => item.id !== blog.id).slice(0, 3);
 
   return (
     <main className="min-h-screen bg-[#fafbfc] flex flex-col w-full overflow-hidden">
-      
-      <GlobalBanner 
+
+      <GlobalBanner
         eyebrow="Article"
         title={blog?.title}
         image={blog?.blogImage}
@@ -66,7 +65,7 @@ const BlogDetail = () => {
 
         <div className="container mx-auto px-4 lg:px-8 max-w-[1400px] relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            
+
             {/* Main Article Content */}
             <div className="lg:col-span-8">
               <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed whitespace-pre-line">
@@ -155,7 +154,7 @@ const BlogDetail = () => {
                   return null;
                 })}
               </div>
-              
+
               <div className="mt-16 pt-8 border-t border-gray-100/60">
                 <BlogNavigation prevBlogId={prevBlogId} nextBlogId={nextBlogId} />
               </div>
@@ -168,15 +167,15 @@ const BlogDetail = () => {
                   <span className="w-1.5 h-6 bg-orange rounded-full"></span>
                   Related Articles
                 </h3>
-                
+
                 <div className="flex flex-col gap-5">
                   {otherBlogs.map((relatedItem) => (
                     <Link href={`/blog/${relatedItem.id}`} key={relatedItem.id} className="group flex gap-5 bg-white p-4 rounded-[20px] border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.08)] hover:border-orange/30 transition-all duration-300">
                       <div className="relative w-[110px] h-[110px] rounded-2xl overflow-hidden flex-shrink-0 bg-[#f8fafd]">
-                        <img 
-                          src={relatedItem.blogImage} 
-                          alt={relatedItem.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        <img
+                          src={relatedItem.blogImage}
+                          alt={relatedItem.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
                       </div>
                       <div className="flex flex-col justify-center py-1">
@@ -196,7 +195,7 @@ const BlogDetail = () => {
           </div>
         </div>
       </section>
-      
+
     </main>
   );
 };

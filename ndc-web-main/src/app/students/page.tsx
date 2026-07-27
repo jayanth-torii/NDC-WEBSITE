@@ -1,16 +1,16 @@
-"use client";
-
 import React, { Suspense } from "react";
-import pageJson from "@/data-export/students/data.json";
 
 import GlobalBanner from "@/components/GlobalBanner";
 import MentoringCell from "@/components/StudentsPage/MentoringCell";
 import RedressalCell from "@/components/StudentsPage/RedressalCell";
 import CareerAdvancementCenter from "@/components/StudentsPage/CareerAdvancementCenter";
 import TPICell from "@/components/StudentsPage/TPICell";
+import { getStudents } from "@/services/data.service";
 
-const StudentsPage = () => {
-  const studentsData: any = (pageJson["students"] as any)?.data || null;
+export const revalidate = 300;
+
+const StudentsPage = async () => {
+  const studentsData: any = await getStudents();
 
   if (!studentsData) {
     return null;

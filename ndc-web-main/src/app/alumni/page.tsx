@@ -1,13 +1,13 @@
-"use client";
-
 import React from "react";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import VisionMission from "@/components/Alumni/VisionMission";
 import Association from "@/components/Alumni/Association";
-import pageJson from "@/data-export/alumni/data.json";
+import { getAlumni } from "@/services/data.service";
 
-const Alumni = () => {
-  const alumniData: any = (pageJson["alumni"] as any)?.data || null;
+export const revalidate = 300;
+
+const Alumni = async () => {
+  const alumniData: any = await getAlumni();
 
   if (!alumniData) {
     return null;

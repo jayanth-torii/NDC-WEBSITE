@@ -1,17 +1,16 @@
-"use client";
-
 import React, { Suspense } from "react";
 import SamashtiHero from "@/components/Samashti/SamashtiHero";
 import SamashtiAbout from "@/components/Samashti/SamashtiAbout";
 import SamashtiFeatures from "@/components/Samashti/SamashtiFeatures";
 import SamashtiEditions from "@/components/Samashti/SamashtiEditions";
 import SamashtiCTA from "@/components/Samashti/SamashtiCTA";
-import samashtiJson from "@/data-export/samashti/data.json";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import { getSamashti } from "@/services/data.service";
 
-const Breadcrumb = React.lazy(() => import("@/components/Breadcrumb/Breadcrumb"));
+export const revalidate = 300;
 
-const Samashti = () => {
-  const data: any = (samashtiJson["samashti"] as any)?.data?.[0] || null;
+const Samashti = async () => {
+  const data: any = await getSamashti();
 
   if (!data) {
     return null;

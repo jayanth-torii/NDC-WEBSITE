@@ -3,8 +3,9 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Eye, Target } from "lucide-react";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
@@ -14,7 +15,7 @@ const AboutCourse = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: any = (departmentJson["about-departments"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/about"));
 
   const normalizedMap = useMemo(() => {
     if (!apiData) return {};

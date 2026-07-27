@@ -1,7 +1,4 @@
-"use client";
-
 import React from "react";
-import pageJson from "@/data-export/contact-us/data.json";
 
 import GlobalBanner from "@/components/GlobalBanner";
 import ContactDetails from "@/components/ContactUs/ContactDetails";
@@ -9,9 +6,12 @@ import QueryForm from "@/components/ContactUs/QueryForm";
 import Map from "@/components/ContactUs/Map";
 import LoginPortals from "@/components/ContactUs/LoginPortals";
 import { RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { getContactUsPage } from "@/services/data.service";
 
-const ContactUs = () => {
-  const contactUsData: any = (pageJson["contact-us"] as any)?.data || null;
+export const revalidate = 300;
+
+const ContactUs = async () => {
+  const contactUsData: any = await getContactUsPage();
 
   if (!contactUsData) {
     return null;

@@ -1,13 +1,13 @@
-"use client";
-
 import React from "react";
-import pageJson from "@/data-export/gallery/data.json";
 
 import GlobalBanner from "@/components/GlobalBanner";
 import GalleryImages from "@/components/GalleryPage/GalleryImages";
+import { getGallery } from "@/services/data.service";
 
-const Gallery = () => {
-  const galleryData: any = (pageJson["gallery"] as any)?.data || null;
+export const revalidate = 300;
+
+const Gallery = async () => {
+  const galleryData: any = await getGallery();
 
   if (!galleryData) {
     return null;

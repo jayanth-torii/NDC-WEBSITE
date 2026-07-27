@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
@@ -6,10 +5,12 @@ import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageSh
 import Images from "@/components/Activities/CommonComponents/Images";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-import pageJson from "@/data-export/activities/faculty-oriented-cells/ed-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function EDCell() {
-  const data: any = (pageJson["ed-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function EDCell() {
+  const data: any = await getActivityCell("ed-cell");
 
   if (!data) {
     return null;

@@ -1,5 +1,3 @@
-"use client";
-
 import React, {Suspense} from "react";
 import { Box } from "@mantine/core";
 
@@ -8,11 +6,13 @@ import CertificateCoursesBanner from "@/components/CertificateCourses/Certificat
 import AboutCertificateCourses from "@/components/CertificateCourses/AboutCertificateCourses";
 import Images from "@/components/CertificateCourses/Images";
 import CoursesOutCome from "@/components/CertificateCourses/CoursesOutComes";
-import pageJson from "@/data-export/certificate-courses/data.json";
+import { getCertificateCourses } from "@/services/data.service";
+
+export const revalidate = 300;
 
 
-const CertificateCourses = () => {
-    const apiData: Record<string, any> | null = (pageJson["certificate-course"] as any)?.data || null;
+const CertificateCourses = async () => {
+    const apiData: Record<string, any> | null = await getCertificateCourses();
 
     return (
         <Box style={{ margin: "auto", width: "90%" }}>

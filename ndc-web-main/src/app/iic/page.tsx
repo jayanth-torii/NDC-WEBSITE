@@ -1,12 +1,12 @@
-"use client";
-
 import React, { Suspense } from "react";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import IICMembers from "@/components/IIC/IICMembers";
-import pageJson from "@/data-export/iic/data.json";
+import { getIic } from "@/services/data.service";
 
-function IIC() {
-  const IICData: any = (pageJson["iic"] as any)?.data || null;
+export const revalidate = 300;
+
+async function IIC() {
+  const IICData: any = await getIic();
 
   if (!IICData) {
     return null;

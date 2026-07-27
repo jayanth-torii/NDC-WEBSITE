@@ -1,15 +1,15 @@
-"use client";
-
 import React, { Suspense } from "react";
 import { Box } from "@mantine/core";
 
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import ApplyNowBanner from "@/components/ApplyNow/ApplyNowBanner";
 import QueryForm from "@/components/ApplyNow/QueryForm";
-import pageJson from "@/data-export/apply-now/data.json";
+import { getApplyNowPage } from "@/services/data.service";
 
-const ApplyNow = () => {
-  const applyData: any = (pageJson["apply-now"] as any)?.data || null;
+export const revalidate = 300;
+
+const ApplyNow = async () => {
+  const applyData: any = await getApplyNowPage();
 
   if (!applyData) {
     return null;

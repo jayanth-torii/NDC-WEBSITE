@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
@@ -7,10 +6,12 @@ import AntiragginCommitte from "@/components/Activities/CommonComponents/Antirag
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 import Images from "@/components/Activities/CommonComponents/Images";
 
-import pageJson from "@/data-export/activities/student-oriented-cells/students-grievance-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function StudentsGrievanceRedressalCell() {
-  const data: any = (pageJson["students-grievance-redressal-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function StudentsGrievanceRedressalCell() {
+  const data: any = await getActivityCell("students-grievance-cell");
 
   if (!data) {
     return null;

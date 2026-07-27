@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
@@ -11,10 +9,12 @@ import Programme from "@/components/DepartmentsPage/Programme";
 import ResearchAwards from "@/components/DepartmentsPage/ResearchAwards";
 import VisionMission from "@/components/DepartmentsPage/VisionMission";
 
-import pageJson from "@/data-export/departments/data.json";
+import { getDepartmentsPage } from "@/services/data.service";
 
-const Departments = () => {
-  const deptData: any = (pageJson["department-page"] as any)?.data || null;
+export const revalidate = 300;
+
+const Departments = async () => {
+  const deptData: any = await getDepartmentsPage();
 
   if (!deptData) {
     return null;

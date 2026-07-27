@@ -1,14 +1,15 @@
-"use client";
 import React from "react";
 
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 import Images from "@/components/Activities/CommonComponents/Images";
 
-import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/nss-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function NSSCell() {
-  const data: any = (pageJson["nss-and-red-cross"] as any)?.data || null;
+export const revalidate = 300;
+
+async function NSSCell() {
+  const data: any = await getActivityCell("nss-cell");
 
   if (!data) {
     return null;

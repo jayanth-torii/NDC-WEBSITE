@@ -13,8 +13,9 @@ import {
 } from "@tabler/icons-react";
 import { FaLinkedin, FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
 import Image from "next/image";
-import footerJson from "@/data-export/_shared/footer.json";
 import PdfModal from "../PdfModal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getFooter } from "@/services/data.service";
 
 type FooterLinkItem = {
   id: number;
@@ -114,7 +115,7 @@ const FooterLinkColumn = ({
 
 const Footer = () => {
   const [selectedPdf, setSelectedPdf] = useState<string | null>(null);
-  const footerData: Record<string, any> | null = (footerJson.footer as any)?.data ?? null;
+  const { data: footerData } = useLiveData(getFooter);
 
   const phones = (footerData?.contactInfo?.phone ?? "")
     .split("|")

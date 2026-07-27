@@ -1,5 +1,3 @@
-"use client";
-
 import React, { Suspense } from "react";
 
 import GlobalBanner from "@/components/GlobalBanner";
@@ -7,33 +5,24 @@ import AboutLibrary from "@/components/Library/AboutLibrary";
 import Resources from "@/components/Library/Resources";
 import EventsRules from "@/components/Library/EventsRules";
 
-import { LibraryContent } from "@/app/Data/LibraryContent";
+import { getLibrary } from "@/services/data.service";
 
-const libraryData = {
-  aboutLibrary: {
-    title: LibraryContent.aboutPlacementsSection.title,
-    aboutText: LibraryContent.aboutPlacementsSection.aboutText,
-    dropdowns: LibraryContent.aboutPlacementsSection.sections,
-  },
-  digitalResources: LibraryContent.digitalResources,
-  EventsAndRules: {
-    title: LibraryContent.EventsRulesSection.title,
-    events: LibraryContent.EventsRulesSection.aboutText,
-    rulesRegulations: {
-      title: LibraryContent.EventsRulesSection.rulesAndRegulations.title,
-      sections: LibraryContent.EventsRulesSection.rulesAndRegulations.content,
-    },
-  },
-};
+export const revalidate = 300;
 
-const Library = () => {
+const ASSET_BASE = "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com";
+
+const Library = async () => {
+  const libraryData = await getLibrary();
+
+  if (!libraryData) return null;
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <GlobalBanner
         eyebrow="Academics"
         title="Library"
         subtitle="Knowledge today, leaders tomorrow."
-        image="/images/StudentCenter/AcademicEnrichment/Library/gallery_1.png"
+        image={`${ASSET_BASE}/images/StudentCenter/AcademicEnrichment/Library/gallery_1.png`}
         breadcrumbs={[
           { label: "Home", path: "/" },
           { label: "Library" },

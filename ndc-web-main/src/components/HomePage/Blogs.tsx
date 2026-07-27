@@ -8,12 +8,10 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { ChevronLeft, ChevronRight, ArrowRight, Award, Calendar, Leaf } from "lucide-react";
 import { Pagination, Navigation, Autoplay } from "swiper/modules";
-import blogJson from "@/data-export/blog/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 
-const Blogs = () => {
+const Blogs = ({ articles }: { articles?: any[] | null } = {}) => {
   const router = useRouter();
-  const articles: Record<string, any> | null = (blogJson["blogs-content"] as any)?.data?.blogs || null;
   const swiperRef = useRef<any>(null);
 
   return (

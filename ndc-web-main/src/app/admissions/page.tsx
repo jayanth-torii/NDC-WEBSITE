@@ -1,15 +1,15 @@
-"use client";
-
 import React, { Suspense } from "react";
-import pageJson from "@/data-export/admissions/data.json";
+import { getAdmissions } from "@/services/data.service";
 
 import GlobalBanner from "@/components/GlobalBanner";
 import Courses from "@/components/Admission/Courses";
 import Documents from "@/components/Admission/Documents";
 import Procedure from "@/components/Admission/Procedure";
 
-const Admission = () => {
-  const admissionData: any = (pageJson["admission"] as any)?.data || null;
+export const revalidate = 300;
+
+const Admission = async () => {
+  const admissionData: any = await getAdmissions();
 
   if (!admissionData) {
     return null;

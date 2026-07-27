@@ -3,8 +3,9 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
 import { Text } from "@mantine/core";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 interface Section {
   title?: string;
@@ -16,7 +17,7 @@ const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
 
 export default function VisionMission({ haveContentCheck }: any) {
-  const apiData: any = (departmentJson["vision-missions"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/vision-mission"));
 
   const searchParams = useSearchParams();
   const programme = searchParams.get("programme") || "";

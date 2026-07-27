@@ -1,13 +1,14 @@
-"use client";
 import React from "react";
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
 import { Target, Lightbulb, Users, LineChart, Briefcase, Speech, Presentation, BookOpen, BrainCircuit } from "lucide-react";
-import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/commerce-and-management-forum/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function CommerceAndManagementForum() {
-  const data: any = (pageJson["commerce-and-management-forum"] as any)?.data || null;
+export const revalidate = 300;
+
+async function CommerceAndManagementForum() {
+  const data: any = await getActivityCell("commerce-and-management-forum");
 
   if (!data) return null;
 

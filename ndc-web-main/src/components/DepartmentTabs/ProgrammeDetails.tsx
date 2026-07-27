@@ -2,9 +2,10 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 interface Section {
   title?: string;
@@ -26,8 +27,7 @@ const ProgrammeDetails = ({ haveContentCheck }: any) => {
   const normalizedProgramme = normalizeKey(programme);
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const apiData: Record<string, CourseItem[]> =
-    (departmentJson["programme-details"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/programme-details"));
 
   const normalizedMap = useMemo(() => {
     const map: Record<string, CourseItem[]> = {};

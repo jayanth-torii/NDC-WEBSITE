@@ -1,13 +1,13 @@
-"use client";
-
 import React, { Suspense } from "react";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import About from "@/components/IQAC/About";
 import CompositionCell from "@/components/IQAC/CompositionCell";
-import pageJson from "@/data-export/iqac/data.json";
+import { getIqac } from "@/services/data.service";
 
-function IQAC() {
-  const iqacData: any = (pageJson["iqac"] as any)?.data || null;
+export const revalidate = 300;
+
+async function IQAC() {
+  const iqacData: any = await getIqac();
 
   if (!iqacData) {
     return null;

@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo } from "react";
 import { useSearchParams } from "next/navigation";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 import { CheckCircle2 } from "lucide-react";
 
 const normalizeKey = (key: string) =>
@@ -12,8 +13,7 @@ const AdmissionProcess = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, any> =
-    (departmentJson["admission-processes"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/admission-process"));
 
   const content = useMemo(() => {
     let matchedData: any = null;

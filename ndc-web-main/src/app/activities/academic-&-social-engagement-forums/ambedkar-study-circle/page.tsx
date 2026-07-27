@@ -1,14 +1,15 @@
-"use client";
 import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/ambedkar-study-circle/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function AmbedkarStudyCircle() {
-  const data: any = (pageJson["ambedkar-study-circle"] as any)?.data || null;
+export const revalidate = 300;
+
+async function AmbedkarStudyCircle() {
+  const data: any = await getActivityCell("ambedkar-study-circle");
 
   if (!data) {
     return null;

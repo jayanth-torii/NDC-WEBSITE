@@ -2,9 +2,10 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 interface ResearchData {
   title?: string;
@@ -20,8 +21,7 @@ const Research = ({ haveContentCheck }: any) => {
   const normalizedProgramme = normalizeKey(programme);
   const [visibleCount, setVisibleCount] = useState(6);
 
-  const apiData: Record<string, ResearchData> =
-    (departmentJson["department-researches"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/research"));
 
   const normalizedMap = useMemo(() => {
     const map: Record<string, ResearchData> = {};

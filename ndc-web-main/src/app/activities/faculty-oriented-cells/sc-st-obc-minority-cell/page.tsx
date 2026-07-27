@@ -1,13 +1,14 @@
-"use client";
 import React from "react";
 
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-import pageJson from "@/data-export/activities/faculty-oriented-cells/sc-st-obc-minority-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function SCSTOBCMinorityCell() {
-  const data: any = (pageJson["sc-st-obc-minority-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function SCSTOBCMinorityCell() {
+  const data: any = await getActivityCell("sc-st-obc-minority-cell");
 
   if (!data) {
     return null;

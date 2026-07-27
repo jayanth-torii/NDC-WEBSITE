@@ -1,7 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 const normalizeKey = (key: string) =>
   key.toLowerCase().replace(/[\s.&_-]/g, "").trim();
@@ -11,8 +12,7 @@ const SyllabusDetails = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, any> =
-    (departmentJson["syllabus-details"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/syllabus"));
 
   const content = useMemo(() => {
     let matchedData = null;

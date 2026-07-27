@@ -1,5 +1,3 @@
-"use client"
-
 import React from "react";
 
 import AboutNDC from "@/components/HomePage/AboutNDC"
@@ -13,11 +11,13 @@ import Stats from "@/components/HomePage/Records/Records"
 import Yrs25 from "@/components/HomePage/Yrs25"
 import LifeAtNDC from "@/components/HomePage/LifeAtNDC";
 
-import landingJson from "@/data-export/_landing/data.json";
+import { getHome, getBlogs } from "@/services/data.service";
 
-const Landing = () => {
+export const revalidate = 300;
 
-    const apiData: any = (landingJson["home"] as any)?.data?.[0] || null;
+const Landing = async () => {
+
+    const [apiData, liveBlogs] = await Promise.all([getHome(), getBlogs()]);
 
     if (!apiData) {
       return null;
@@ -45,7 +45,7 @@ const Landing = () => {
             <Education data={EducationExcellence}/>
             <Notifications data={NotificationsData}/>
             <PlacementPartners />
-            <Blogs/>
+            <Blogs articles={liveBlogs ?? undefined}/>
         </div>
     )
 

@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
@@ -6,10 +5,12 @@ import Procedure from "@/components/Activities/CommonComponents/Procedure";
 import Images from "@/components/Activities/CommonComponents/Images";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-import pageJson from "@/data-export/activities/academic-&-social-engagement-forums/ncc-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function NCCCell() {
-  const data: any = (pageJson["ncc"] as any)?.data || null;
+export const revalidate = 300;
+
+async function NCCCell() {
+  const data: any = await getActivityCell("ncc-cell");
 
   if (!data) {
     return null;

@@ -1,13 +1,13 @@
-"use client";
-
 import React, { Suspense } from "react";
-import researchJson from "@/data-export/research/data.json";
 
 import GlobalBanner from "@/components/GlobalBanner";
 import Research from "@/components/Research/Research";
+import { getResearch } from "@/services/data.service";
 
-const ResearchPage = () => {
-  const researchData: any = (researchJson["research"] as any)?.data?.[0] || null;
+export const revalidate = 300;
+
+const ResearchPage = async () => {
+  // Backend already unwraps the source's array-wrapping at seed time, so the  const researchData: any = await getResearch();
 
   if (!researchData) {
     return null;

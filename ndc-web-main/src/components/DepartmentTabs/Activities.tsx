@@ -3,8 +3,9 @@
 import React, { useEffect, useMemo, useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import departmentJson from "@/data-export/department/data.json";
 import { Reveal } from "@/components/ui/Reveal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 const ImageCarousel = ({ images, title }: { images: string[], title?: string }) => {
   const safeImages = Array.isArray(images) ? images.filter(Boolean) : [];
@@ -81,8 +82,7 @@ const Activities = ({ haveContentCheck }: any) => {
   const programme = searchParams.get("programme") || "";
   const normalizedProgramme = normalizeKey(programme);
 
-  const apiData: Record<string, any> =
-    (departmentJson["activities"] as any)?.data || {};
+  const { data: apiData } = useLiveData(() => getDepartmentTab("/department/activities"));
 
   const normalizedMap = useMemo(() => {
     const map: Record<string, any> = {};

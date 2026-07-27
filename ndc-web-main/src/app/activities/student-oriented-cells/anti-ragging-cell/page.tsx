@@ -1,14 +1,15 @@
-"use client";
 import React from "react";
-import pageJson from "@/data-export/activities/student-oriented-cells/anti-ragging-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import About from "@/components/Activities/CommonComponents/About";
 import Policies from "@/components/Activities/CommonComponents/Policies";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-function AntiRaggingCell() {
-  const data: any = (pageJson["anti-ragging-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function AntiRaggingCell() {
+  const data: any = await getActivityCell("anti-ragging-cell");
 
   if (!data) {
     return null;

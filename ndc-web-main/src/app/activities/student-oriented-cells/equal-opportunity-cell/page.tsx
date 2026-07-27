@@ -1,14 +1,15 @@
-"use client";
 import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import AntiragginCommitte from "@/components/Activities/CommonComponents/AntiragginCommitte";
 
-import pageJson from "@/data-export/activities/student-oriented-cells/equal-opportunity-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function EqualOpportunityCell() {
-  const data: any = (pageJson["equal-opportunity-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function EqualOpportunityCell() {
+  const data: any = await getActivityCell("equal-opportunity-cell");
 
   if (!data) {
     return null;

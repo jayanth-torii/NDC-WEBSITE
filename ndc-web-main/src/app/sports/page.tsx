@@ -1,15 +1,15 @@
-"use client";
-
 import React, { Suspense } from "react";
 import GlobalBanner from "@/components/GlobalBanner/GlobalBanner";
 import AboutSections from "@/components/Sports/AboutSections";
 import HodMessage from "@/components/Sports/HodMessage";
 import Gallery from "@/components/Sports/Gallery";
 
-import pageJson from "@/data-export/sports/data.json";
+import { getSports } from "@/services/data.service";
 
-const Sports = () => {
-  const sportsData: any = (pageJson["sports"] as any)?.data || null;
+export const revalidate = 300;
+
+const Sports = async () => {
+  const sportsData: any = await getSports();
 
   if (!sportsData) {
     return null;

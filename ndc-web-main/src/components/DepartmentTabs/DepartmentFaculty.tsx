@@ -4,9 +4,10 @@ import { useEffect, useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence, cubicBezier } from "framer-motion";
 import { ChevronDown, User, X } from "lucide-react";
-import departmentJson from "@/data-export/department/data.json";
 import Button from "@/components/ui/Button";
 import { Reveal, RevealGroup, RevealItem } from "@/components/ui/Reveal";
+import { useLiveData } from "@/hooks/useLiveData";
+import { getDepartmentTab } from "@/services/data.service";
 
 const FacultyAvatar = ({
   image,
@@ -74,8 +75,7 @@ export default function DepartmentFaculty({ haveContentCheck }: any) {
   const searchParams = useSearchParams();
   const programme = searchParams.get("programme") || "";
 
-  const facultyData: Record<string, any> =
-    (departmentJson["department-faculty-member"] as any)?.data || {};
+  const { data: facultyData } = useLiveData(() => getDepartmentTab("/department/faculty"));
   const [selectedFaculty, setSelectedFaculty] = useState<Faculty | null>(null);
   const [itemsPerPage, setItemsPerPage] = useState(6);
   const [currentPage, setCurrentPage] = useState(1);

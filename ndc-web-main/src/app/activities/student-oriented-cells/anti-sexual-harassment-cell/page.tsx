@@ -1,14 +1,15 @@
-"use client";
 import React from "react";
 
 import About from "@/components/Activities/CommonComponents/About";
 import ActivitiesPageShell from "@/components/Activities/CommonComponents/PageShell";
 import Procedure from "@/components/Activities/CommonComponents/Procedure";
 
-import pageJson from "@/data-export/activities/student-oriented-cells/anti-sexual-harassment-cell/data.json";
+import { getActivityCell } from "@/services/data.service";
 
-function AntiSexualHarassmentCell() {
-  const data: any = (pageJson["anti-sexual-harassment-cell"] as any)?.data || null;
+export const revalidate = 300;
+
+async function AntiSexualHarassmentCell() {
+  const data: any = await getActivityCell("anti-sexual-harassment-cell");
 
   if (!data) {
     return null;

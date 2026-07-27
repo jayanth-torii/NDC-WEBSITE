@@ -29,12 +29,12 @@ const StudentCenterContent = {
         ],
     },
     tabsList: ["Student Oriented Cells", "Faculty Oriented Cells", "Academic & Social Engagement Forums"],
-    imageSrc: "/images/activitiesPage/know.png",
+    imageSrc: "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/activitiesPage/know.png",
 
     CulturalActivities: {
         title: "CULTURAL ACTIVITIES",
         description: "India is a county of Tradition and Culture. This tradition finds reflection in the cultural activities at NDC. The various opportunities to showcase the hidden talents lead the students to holistic development.",
-        imageUrl: "/images/activitiesPage/cultural.png"  
+        imageUrl: "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/activitiesPage/cultural.png"  
     },
 
     policyAndComposition: {
@@ -57,19 +57,19 @@ const StudentCenterContent = {
         title: "SAMSTHITHA ACTIVITIES",
         activities: [
             {
-                image: "/images/StudentCenter/Samistha_1.png",
+                image: "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/StudentCenter/Samistha_1.png",
                 title: "Inauguration Of Samsthitha Alumni Association®",
             },
             {
-                image: "/images/StudentCenter/Samistha_2.png",
+                image: "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/StudentCenter/Samistha_2.png",
                 title: "Annual Sports Meet (2016-2019)",
             },
             {
-                image: "/images/StudentCenter/Samistha_1.png",
+                image: "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/StudentCenter/Samistha_1.png",
                 title: "Cultural Fest Celebration",
             },
             {
-                image: "/images/StudentCenter/Samistha_1.png",
+                image: "https://nagarjuna-degree-college-727596873106-ap-south-2-an.s3.ap-south-2.amazonaws.com/images/StudentCenter/Samistha_1.png",
                 title: "Guest Lecture on Career Development",
             },
         ],
