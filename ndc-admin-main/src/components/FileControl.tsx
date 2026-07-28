@@ -70,7 +70,7 @@ export function FileControl({
         {value ? (
           <Badge bg="rgba(246,135,42,0.1)" color="brand.navy" px={2} py={1} display="flex" alignItems="center" gap={1}>
             <PictureAsPdfIcon size={16} style={{ color: "#F6872A" }} />
-            PDF attached
+            {value.toLowerCase().match(/\.(mp4|webm|ogg)(\?.*)?$/) ? "Video attached" : "File attached"}
           </Badge>
         ) : (
           <Badge variant="outline" color="gray.400">
@@ -91,7 +91,7 @@ export function FileControl({
             Download
           </Button>
         )}
-        <input ref={inputRef} type="file" accept="application/pdf" hidden onChange={(e) => handleFile(e.target.files?.[0])} />
+        <input ref={inputRef} type="file" accept="application/pdf,video/*" hidden onChange={(e) => handleFile(e.target.files?.[0])} />
         <Button
           size="xs"
           variant="outline"

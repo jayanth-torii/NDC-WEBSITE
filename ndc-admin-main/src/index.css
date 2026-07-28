@@ -1,6 +1,5 @@
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
+@source "./";
 body {
   margin: 0;
 }

@@ -8,6 +8,8 @@ import { publicPathForRoute } from '../config/publicPathMap';
 import { triggerRevalidate } from '../services/revalidate';
 import { uploadImage } from '../services/data.service';
 
+import Swal from "sweetalert2";
+
 const getPreviewUrl = (url: string) => {
   if (!url) return "";
   if (url.startsWith("http")) return url;
@@ -17,7 +19,7 @@ const getPreviewUrl = (url: string) => {
 export const triggerUpload = (callback: (url: string) => void) => {
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = 'image/*,application/pdf';
+  input.accept = 'image/*,application/pdf,video/*';
   input.onchange = async (e: any) => {
     const file = e.target.files?.[0];
     if (file) {
@@ -38,13 +40,19 @@ const ImagePreviewControl = ({ label, value, onChange }) => {
       <label className="themed-label">{label}</label>
       <div className="flex gap-2">
         {value && (
-          <div className="image-preview" style={{width: '50px', height: '50px', flexShrink: 0, borderRadius: '6px', overflow: 'hidden', border: '1px solid #e0e5fa'}}>
-             <img src={getPreviewUrl(value)} style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="preview" />
+          <div className="image-preview" style={{width: '50px', height: '50px', flexShrink: 0, borderRadius: '6px', overflow: 'hidden', border: '1px solid #e0e5fa', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', fontSize: '10px', color: '#64748b', textAlign: 'center'}}>
+             {value.toLowerCase().match(/\.(mp4|webm|ogg)(\?.*)?$/) ? "Video attached" : value.toLowerCase().match(/\.pdf(\?.*)?$/) ? "PDF attached" : <img src={getPreviewUrl(value)} style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="preview" />}
           </div>
         )}
-        <div style={{flex: 1, position: 'relative', overflow: 'hidden'}}>
-          <input className="themed-input" type="text" value={value || ""} onChange={(e) => onChange(e.target.value)} />
-          <button type="button" className="btn btn-sm" style={{position: 'absolute', right: '4px', top: '4px', background: '#f5f7fc', border: '1px solid #e0e5fa', fontSize: '11px', padding: '4px 8px', color: '#1a1a1a', borderRadius: '4px'}} onClick={() => triggerUpload(onChange)}>Upload</button>
+        <div style={{flex: 1, display: 'flex', alignItems: 'center', gap: '8px'}}>
+          <button type="button" className="btn btn-sm" style={{background: '#f5f7fc', border: '1px solid #e0e5fa', fontSize: '11px', padding: '6px 12px', color: '#1a1a1a', borderRadius: '4px'}} onClick={() => triggerUpload(onChange)}>
+            {value ? "Change File" : "Upload File"}
+          </button>
+          {value && (
+            <button type="button" className="btn btn-sm" style={{background: '#fee2e2', border: '1px solid #fca5a5', fontSize: '11px', padding: '6px 12px', color: '#dc2626', borderRadius: '4px'}} onClick={() => onChange("")}>
+              Remove
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -117,16 +125,28 @@ export function AboutNdcPage() {
   };
 
   const handleArrayRemove = (section, arrayField, index) => {
-    setFormData(prev => {
-      const newArr = [...(prev[section][arrayField] || [])];
-      newArr.splice(index, 1);
-      return {
-        ...prev,
-        [section]: {
-          ...prev[section],
-          [arrayField]: newArr
-        }
-      };
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Are you sure you want to delete this? This action cannot be undone.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#F6872A",
+      cancelButtonColor: "#0e2455",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        setFormData(prev => {
+          const newArr = [...(prev[section][arrayField] || [])];
+          newArr.splice(index, 1);
+          return {
+            ...prev,
+            [section]: {
+              ...prev[section],
+              [arrayField]: newArr
+            }
+          };
+        });
+      }
     });
   };
 
@@ -220,12 +240,20 @@ export function AboutNdcPage() {
     setSaving(true);
     try {
       await putPage("about-ndc", formData);
-      alert("About data saved successfully!");
+      Swal.fire({
+        title: "Success",
+        text: "About data saved successfully!",
+        icon: "success",
+        toast: true,
+        position: "top-end",
+        timer: 3000,
+        showConfirmButton: false,
+      });
       const publicPath = publicPathForRoute("about-ndc");
       if (publicPath) triggerRevalidate(publicPath);
     } catch (error) {
       console.error("Error saving data:", error);
-      alert("Failed to save data. Check console for details.");
+      Swal.fire("Error", "Failed to save data. Check console for details.", "error");
     } finally {
       setSaving(false);
     }

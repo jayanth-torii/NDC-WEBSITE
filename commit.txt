@@ -1,0 +1,31 @@
+feat: comprehensive UI/UX overhaul and new generic singleton pages
+
+This commit introduces major improvements to the admin application's UI/UX,
+focusing on consistency, visual appeal, and ease of use. It also adds new 
+singleton pages to manage core website sections.
+
+## Major Changes
+
+- **New Singleton Pages Added**:
+  - `AdmissionsPage`, `AlumniPage`, `LibraryPage`, and `QuestionBankPage` have been introduced to manage their respective domains using the structured AutoForm editor.
+  - Sidebar routing updated to include these new pages.
+
+- **UI System Standardization**:
+  - Removed Tailwind CSS (`postcss.config.js`, `tailwind.config.js`) to fully rely on Chakra UI, ensuring consistent styling across the dashboard.
+  - Implemented the `brand.orange` (`#F6872A`) and `brand.navy` (`#0e2455`) global color palette across all custom components and popups.
+
+- **Media & Link Field Enhancements**:
+  - Raw URL text inputs for media (images, PDFs, videos) are no longer exposed in the UI.
+  - Integrated `ImageControl` and `FileControl` deeply into the `AutoForm` heuristics to detect standard media fields.
+  - Introduced `YoutubeControl` to automatically render video thumbnails for YouTube IDs.
+  - Introduced `MapLocationControl` to render a clean map icon and status for Google Maps links instead of broken iframes or raw URLs.
+  - Added dedicated SweetAlert prompts to modify these special links, preventing chaotic URLs from cluttering the forms.
+
+- **Global SweetAlert Integration**:
+  - Replaced browser-native `window.confirm()` and `window.alert()` calls with beautifully themed SweetAlert2 modals.
+  - Delete actions globally (including nested arrays and page elements) now require confirmation through a branded modal (Orange confirm, Navy cancel).
+  - Toast notifications implemented for save success/failure states in custom pages.
+
+- **Component Refactoring**:
+  - Standardized the visual design of `AboutNdcPage` and `IicPage` to match the new Chakra UI generic page layouts.
+  - Refactored `editorKit` controls to utilize Chakra UI's `<Button>` and `<IconButton>` with consistent hover states and shadows.

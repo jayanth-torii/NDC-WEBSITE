@@ -12,13 +12,9 @@ import {
   type IconButtonProps,
 } from "@chakra-ui/react";
 import { MdAdd, MdClose, MdDelete, MdInbox, MdSave } from "react-icons/md";
+import Swal from "sweetalert2";
 
-// Shared editor UI kit — ported from NCET admin's `_editorKit.js` onto Chakra
-// v3 + this app's own brand tokens (brand.navy/navyDeep/orange, radii, the
-// "card" shadow — see src/theme/system.ts), so every content-editing page
-// reads as one product instead of each page hand-rolling its own plain box.
-// Purely presentational — no data/fetch logic lives here.
-
+// Shared editor UI kit
 type IconComp = ComponentType<{ size?: number; style?: CSSProperties }>;
 
 export function IconChip({
@@ -38,12 +34,14 @@ export function IconChip({
       flex="0 0 auto"
       w={`${box}px`}
       h={`${box}px`}
-      borderRadius="lg"
+      borderRadius="2xl"
       align="center"
       justify="center"
       bg={onDark ? "rgba(255,255,255,0.12)" : "orange.50"}
-      border={onDark ? "1px solid rgba(255,255,255,0.2)" : "none"}
-      color="brand.orange"
+      border={onDark ? "1px solid rgba(255,255,255,0.2)" : "1px solid"}
+      borderColor={onDark ? "transparent" : "orange.100"}
+      color={onDark ? "white" : "brand.orange"}
+      boxShadow={onDark ? "inset 0 2px 4px rgba(255,255,255,0.1)" : "inset 0 2px 4px rgba(246,135,42,0.05)"}
     >
       <Icon size={size} />
     </Flex>
@@ -53,7 +51,17 @@ export function IconChip({
 // Card surface used for every content region.
 export function Panel({ children, ...rest }: BoxProps) {
   return (
-    <Box bg="white" border="1px solid" borderColor="gray.200" borderRadius="lg" boxShadow="card" overflow="hidden" {...rest}>
+    <Box 
+      bg="white" 
+      border="1px solid" 
+      borderColor="gray.100" 
+      borderRadius="24px" 
+      boxShadow="0 8px 30px -4px rgba(0,0,0,0.04)" 
+      overflow="hidden" 
+      transition="all 0.3s"
+      _hover={{ boxShadow: "0 12px 40px -8px rgba(0,0,0,0.06)" }}
+      {...rest}
+    >
       {children}
     </Box>
   );
@@ -76,47 +84,70 @@ export function EditorHeader({
   mode?: "edit" | "create";
 }) {
   return (
-    <Panel border="none" bgGradient="to-br" gradientFrom="brand.navy" gradientTo="brand.navyDeep" position="relative" mb={5}>
-      <Box position="absolute" right="-60px" top="-60px" w="220px" h="220px" borderRadius="full" bg="rgba(246,135,42,0.18)" filter="blur(8px)" />
-      <Flex wrap="wrap" justify="space-between" align="center" gap={4} px={7} py={6} position="relative">
-        <Flex align="center" gap={3}>
-          <IconChip icon={icon} size={28} box={56} />
+    <Panel 
+      border="none" 
+      bgGradient="to-br" 
+      gradientFrom="brand.navy" 
+      gradientTo="brand.navyDeep" 
+      position="relative" 
+      mb={8} 
+      borderRadius="32px"
+      boxShadow="0 20px 40px -12px rgba(14,36,85,0.3)"
+      overflow="hidden"
+    >
+      {/* Decorative ambient glows */}
+      <Box position="absolute" right="-10%" top="-40%" w="400px" h="400px" borderRadius="full" bg="brand.orange" filter="blur(120px)" opacity={0.25} pointerEvents="none" />
+      <Box position="absolute" left="-10%" bottom="-40%" w="400px" h="400px" borderRadius="full" bg="blue.500" filter="blur(120px)" opacity={0.2} pointerEvents="none" />
+      
+      {/* Slanted decoration */}
+      <Box position="absolute" left={0} top={0} w="4px" h="full" bgGradient="to-b" gradientFrom="brand.orange" gradientTo="#ffb677" />
+
+      <Flex wrap="wrap" justify="space-between" align="center" gap={6} px={10} py={10} position="relative" zIndex={1}>
+        <Flex align="center" gap={5}>
+          <IconChip icon={icon} size={32} box={64} />
           <Box>
-            <Text fontSize="xs" fontWeight={700} letterSpacing="0.12em" textTransform="uppercase" color="rgba(255,255,255,0.65)">
-              {eyebrow}
-            </Text>
-            <Text fontSize="xl" fontWeight={800} color="white" mt="2px">
+            <Flex align="center" gap={2} mb={1}>
+                <Box w="6px" h="6px" borderRadius="full" bg="brand.orange" animation="pulse 2s infinite" />
+                <Text fontSize="10px" fontWeight={800} letterSpacing="0.2em" textTransform="uppercase" color="brand.orange">
+                  {eyebrow}
+                </Text>
+            </Flex>
+            <Text fontSize="4xl" fontWeight={900} color="white" mt={1} letterSpacing="-0.02em" lineHeight={1.1}>
               {title}
             </Text>
             {subtitle && (
-              <Text fontSize="sm" color="rgba(255,255,255,0.7)" mt={1}>
+              <Text fontSize="sm" fontWeight={500} color="rgba(255,255,255,0.8)" mt={3} borderLeft="2px solid" borderColor="brand.orange" pl={3}>
                 {subtitle}
               </Text>
             )}
           </Box>
         </Flex>
-        <Flex align="center" gap={2} wrap="wrap">
+        
+        <Flex align="center" gap={3} wrap="wrap">
           {stats?.map((s, i) => (
-            <Box key={i} textAlign="center" px={4} py={2} borderRadius="lg" bg="rgba(255,255,255,0.1)" border="1px solid rgba(255,255,255,0.15)" minW="88px">
-              <Text fontSize="lg" fontWeight={800} color="white" lineHeight={1}>
+            <Flex key={i} direction="column" justify="center" align="center" px={5} py={3} borderRadius="2xl" bg="rgba(255,255,255,0.06)" border="1px solid rgba(255,255,255,0.1)" backdropFilter="blur(8px)" minW="100px" transition="transform 0.3s" _hover={{ transform: "translateY(-2px)" }}>
+              <Text fontSize="2xl" fontWeight={900} color="white" lineHeight={1} mb={1}>
                 {s.value}
               </Text>
-              <Text fontSize="2xs" textTransform="uppercase" letterSpacing="0.06em" color="rgba(255,255,255,0.72)" mt={1}>
+              <Text fontSize="9px" textTransform="uppercase" letterSpacing="0.1em" color="rgba(255,255,255,0.6)" fontWeight={700}>
                 {s.label}
               </Text>
-            </Box>
+            </Flex>
           ))}
           {mode && (
             <Box
-              px={4}
-              py={2}
-              borderRadius="lg"
-              bg={mode === "edit" ? "rgba(52,211,153,0.18)" : "rgba(251,191,36,0.2)"}
-              border={`1px solid ${mode === "edit" ? "rgba(52,211,153,0.4)" : "rgba(251,191,36,0.45)"}`}
-              color="white"
-              fontWeight={700}
-              fontSize="xs"
+              px={5}
+              py={2.5}
+              borderRadius="full"
+              bg={mode === "edit" ? "rgba(52,211,153,0.15)" : "rgba(251,191,36,0.15)"}
+              border={`1px solid ${mode === "edit" ? "rgba(52,211,153,0.3)" : "rgba(251,191,36,0.3)"}`}
+              color={mode === "edit" ? "#6ee7b7" : "#fcd34d"}
+              fontWeight={800}
+              fontSize="10px"
+              letterSpacing="0.1em"
+              textTransform="uppercase"
               whiteSpace="nowrap"
+              backdropFilter="blur(4px)"
             >
               {mode === "edit" ? "● Edit Mode" : "○ Create Mode"}
             </Box>
@@ -127,8 +158,7 @@ export function EditorHeader({
   );
 }
 
-// Lighter section intro — icon chip + title/subtitle + optional right slot.
-// Used atop list pages, where a full gradient hero would be overkill.
+// Lighter section intro
 export function SectionHead({
   icon,
   title,
@@ -141,33 +171,33 @@ export function SectionHead({
   right?: ReactNode;
 }) {
   return (
-    <Flex align="flex-start" justify="space-between" gap={3} mb={4} wrap="wrap">
-      <Flex align="flex-start" gap={3}>
-        <IconChip icon={icon} size={20} box={44} onDark={false} />
-        <Box>
-          <Text fontSize="md" fontWeight={800} color="brand.navy" letterSpacing="-0.01em">
+    <Flex align="flex-start" justify="space-between" gap={4} mb={6} wrap="wrap" bg="white" p={5} borderRadius="2xl" boxShadow="0 4px 20px -4px rgba(0,0,0,0.02)" border="1px solid" borderColor="gray.100">
+      <Flex align="flex-start" gap={4}>
+        <IconChip icon={icon} size={22} box={48} onDark={false} />
+        <Box pt={1}>
+          <Text fontSize="xl" fontWeight={900} color="brand.navy" letterSpacing="-0.02em">
             {title}
           </Text>
           {subtitle && (
-            <Text fontSize="sm" color="gray.500" mt={1}>
+            <Text fontSize="sm" fontWeight={500} color="gray.500" mt={1}>
               {subtitle}
             </Text>
           )}
         </Box>
       </Flex>
-      {right && <Box flex="0 0 auto">{right}</Box>}
+      {right && <Box flex="0 0 auto" pt={1}>{right}</Box>}
     </Flex>
   );
 }
 
 const CALLOUT_TONES = {
-  info: { bg: "orange.50", border: "orange.200", fg: "orange.800" },
-  error: { bg: "red.50", border: "red.200", fg: "red.600" },
-  success: { bg: "green.50", border: "green.200", fg: "green.700" },
-  blue: { bg: "blue.50", border: "blue.200", fg: "blue.800" },
+  info: { bg: "orange.50", border: "orange.100", fg: "orange.800" },
+  error: { bg: "red.50", border: "red.100", fg: "red.700" },
+  success: { bg: "green.50", border: "green.100", fg: "green.800" },
+  blue: { bg: "blue.50", border: "blue.100", fg: "blue.800" },
 } as const;
 
-// Colored callout box — replaces every page's ad hoc inline alert Box.
+// Colored callout box
 export function Callout({
   tone = "info",
   icon,
@@ -182,23 +212,23 @@ export function Callout({
   const c = CALLOUT_TONES[tone];
   const Icon = icon;
   return (
-    <Flex align="flex-start" gap={2} bg={c.bg} border="1px solid" borderColor={c.border} color={c.fg} borderRadius="md" px={4} py={3} fontSize="sm">
-      {Icon && <Icon size={16} style={{ flexShrink: 0, marginTop: 2 }} />}
+    <Flex align="flex-start" gap={3} bg={c.bg} border="1px solid" borderColor={c.border} color={c.fg} borderRadius="xl" px={5} py={4} fontSize="sm" fontWeight={500} mb={6} boxShadow="sm">
+      {Icon && <Icon size={18} style={{ flexShrink: 0, marginTop: 2, color: c.fg }} />}
       <Box flex="1">{children}</Box>
       {onClose && (
-        <IconButton aria-label="Dismiss" size="xs" variant="ghost" color={c.fg} onClick={onClose}>
-          <MdClose size={16} />
+        <IconButton aria-label="Dismiss" size="xs" variant="ghost" color={c.fg} _hover={{ bg: "rgba(0,0,0,0.05)" }} onClick={onClose}>
+          <MdClose size={18} />
         </IconButton>
       )}
     </Flex>
   );
 }
 
-// Sticky footer save bar with a summary + submit button.
+// Sticky footer save bar
 export function SaveBar({
   summary,
   saving,
-  label = "Save",
+  label = "Save Changes",
   onSave,
   disabled,
 }: {
@@ -209,15 +239,30 @@ export function SaveBar({
   disabled?: boolean;
 }) {
   return (
-    <Box position="sticky" bottom={0} zIndex={10} mt={6}>
-      <Panel display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center" gap={3} px={6} py={4} boxShadow="0 -4px 24px rgba(14,36,85,0.10)">
+    <Box position="sticky" bottom={0} zIndex={10} mt={10} pb={6}>
+      <Panel display="flex" flexWrap="wrap" justifyContent="space-between" alignItems="center" gap={4} px={8} py={5} boxShadow="0 -10px 40px rgba(14,36,85,0.08)" borderRadius="2xl">
         {summary && (
-          <Text color="gray.500" fontSize="sm">
+          <Text color="gray.500" fontSize="sm" fontWeight={500}>
             {summary}
           </Text>
         )}
-        <Button bg="brand.navy" color="white" _hover={{ bg: "brand.navyDeep" }} onClick={onSave} disabled={saving || disabled} ml="auto">
-          {saving ? <Spinner size="sm" /> : <MdSave size={16} />}
+        <Button 
+          bgGradient="to-r" 
+          gradientFrom="brand.orange" 
+          gradientTo="#f89c4d" 
+          color="white" 
+          _hover={!disabled && !saving ? { transform: "translateY(-2px)", boxShadow: "0 12px 25px rgba(246,135,42,0.4)" } : undefined} 
+          transition="all 0.3s"
+          onClick={onSave} 
+          disabled={saving || disabled} 
+          ml="auto"
+          px={8}
+          py={6}
+          borderRadius="xl"
+          fontWeight={800}
+          boxShadow="0 8px 20px rgba(246,135,42,0.25)"
+        >
+          {saving ? <Spinner size="sm" mr={2} /> : <MdSave size={20} style={{ marginRight: '8px' }} />}
           {saving ? "Saving..." : label}
         </Button>
       </Panel>
@@ -225,7 +270,7 @@ export function SaveBar({
   );
 }
 
-// Dashed empty-state placeholder.
+// Dashed empty-state placeholder
 export function EmptyState({
   icon = MdInbox,
   title,
@@ -237,17 +282,19 @@ export function EmptyState({
 }) {
   const Icon = icon;
   return (
-    <Box border="2px dashed" borderColor="gray.200" borderRadius="lg" px={4} py={12} textAlign="center" color="gray.400">
-      <Flex justify="center">
-        <Icon size={40} style={{ opacity: 0.5 }} />
+    <Box border="2px dashed" borderColor="gray.200" borderRadius="2xl" px={6} py={16} textAlign="center" color="gray.400" bg="gray.50/50" transition="all 0.3s" _hover={{ bg: "gray.50" }}>
+      <Flex justify="center" mb={4}>
+        <Flex w="80px" h="80px" borderRadius="full" bg="white" border="1px solid" borderColor="gray.100" align="center" justify="center" boxShadow="sm">
+            <Icon size={40} color="#CBD5E1" />
+        </Flex>
       </Flex>
       {title && (
-        <Text mt={3} fontWeight={600} color="gray.500">
+        <Text mt={2} fontSize="lg" fontWeight={800} color="brand.navy">
           {title}
         </Text>
       )}
       {hint && (
-        <Text mt={1} fontSize="sm">
+        <Text mt={2} fontSize="sm" fontWeight={500} color="gray.500" maxW="400px" mx="auto">
           {hint}
         </Text>
       )}
@@ -255,28 +302,28 @@ export function EmptyState({
   );
 }
 
-// Nested item card container (object/array entries within AutoForm).
+// Nested item card container
 export function SubtleCard({ children, ...rest }: BoxProps) {
   return (
-    <Box bg="gray.50" border="1px solid" borderColor="gray.200" borderRadius="lg" mb={4} overflow="hidden" {...rest}>
+    <Box bg="white" border="1px solid" borderColor="gray.200" borderRadius="2xl" mb={5} overflow="hidden" boxShadow="0 2px 10px rgba(0,0,0,0.02)" transition="all 0.3s" _hover={{ borderColor: "brand.orange", boxShadow: "0 4px 20px rgba(246,135,42,0.08)" }} {...rest}>
       {children}
     </Box>
   );
 }
 
-// Header strip for a SubtleCard (icon chip + content + actions).
+// Header strip for a SubtleCard
 export function CardHeader({ children, ...rest }: FlexProps) {
   return (
-    <Flex align="center" gap={3} bg="white" borderBottom="1px solid" borderColor="gray.100" px={4} py={3} {...rest}>
+    <Flex align="center" gap={4} bg="gray.50/80" borderBottom="1px solid" borderColor="gray.100" px={5} py={4} {...rest}>
       {children}
     </Flex>
   );
 }
 
-// Light inner row (a paragraph/file/link row inside a card body or list).
+// Light inner row
 export function RowCard({ children, ...rest }: FlexProps) {
   return (
-    <Flex align="center" gap={2} bg="white" border="1px solid" borderColor="gray.100" borderRadius="md" px={3} py={2} mb={2} {...rest}>
+    <Flex align="center" gap={3} bg="white" border="1px solid" borderColor="gray.100" borderRadius="xl" px={4} py={3} mb={3} transition="all 0.2s" _hover={{ borderColor: "gray.200", boxShadow: "sm" }} {...rest}>
       {children}
     </Flex>
   );
@@ -297,24 +344,26 @@ export function AddButton({
     <Button
       type="button"
       size="sm"
-      bg={dashed ? "transparent" : "brand.navy"}
+      bg={dashed ? "white" : "brand.navy"}
       color={dashed ? "brand.navy" : "white"}
-      border={dashed ? "1px dashed" : "none"}
+      border={dashed ? "2px dashed" : "none"}
       borderColor={dashed ? "gray.300" : "transparent"}
-      fontWeight={dashed ? 600 : 700}
-      _hover={{ bg: dashed ? "gray.50" : "brand.navyDeep" }}
+      fontWeight={800}
+      borderRadius="xl"
+      px={5}
+      py={4}
+      _hover={{ bg: dashed ? "gray.50" : "brand.navyDeep", transform: "translateY(-1px)", boxShadow: dashed ? "sm" : "md" }}
+      transition="all 0.2s"
       alignSelf="flex-start"
       {...rest}
     >
-      <Icon size={15} />
+      <Icon size={18} style={{ marginRight: '6px' }} />
       {children}
     </Button>
   );
 }
 
-// Small square icon button (default / danger). Danger buttons gate their
-// click behind a confirm() by default — pass confirm={false} to opt out, or
-// confirmMessage to customise the copy.
+// Small square icon button
 export function IconBtn({
   icon: Icon = MdDelete,
   tone = "danger",
@@ -331,34 +380,79 @@ export function IconBtn({
 } & Omit<IconButtonProps, "onClick">) {
   const needsConfirm = confirm === undefined ? tone === "danger" : confirm;
   function handleClick() {
-    if (needsConfirm && !window.confirm(confirmMessage || "Are you sure you want to delete this? This action cannot be undone.")) {
+    if (needsConfirm) {
+      Swal.fire({
+        title: "Are you sure?",
+        text: confirmMessage || "Are you sure you want to delete this? This action cannot be undone.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#F6872A",
+        cancelButtonColor: "#0e2455",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          onClick?.();
+        }
+      });
       return;
     }
     onClick?.();
   }
-  const toneProps = tone === "danger" ? { color: "red.600", borderColor: "red.200" } : { color: "brand.navy", borderColor: "gray.200" };
+  const isDanger = tone === "danger";
   return (
-    <IconButton type="button" aria-label="Remove" size="xs" variant="outline" bg="white" {...toneProps} {...rest} onClick={handleClick}>
-      <Icon size={15} />
+    <IconButton 
+        type="button" 
+        aria-label="Action" 
+        size="sm" 
+        bg={isDanger ? "red.50" : "gray.50"} 
+        color={isDanger ? "red.500" : "gray.500"} 
+        borderRadius="lg"
+        _hover={{ bg: isDanger ? "red.500" : "gray.200", color: isDanger ? "white" : "gray.800", transform: "scale(1.05)" }}
+        transition="all 0.2s"
+        {...rest} 
+        onClick={handleClick}
+    >
+      <Icon size={16} />
     </IconButton>
   );
 }
 
-// Gradient primary button — standalone CTAs outside a SaveBar (e.g. "New Post").
+// Gradient primary button
 export function PrimaryButton({ children, icon: Icon, ...rest }: { children: ReactNode; icon?: IconComp } & ButtonProps) {
   return (
-    <Button bg="brand.navy" color="white" _hover={{ bg: "brand.navyDeep" }} {...rest}>
-      {Icon && <Icon size={16} />}
+    <Button 
+        bgGradient="to-r" 
+        gradientFrom="brand.navy" 
+        gradientTo="brand.navyDeep" 
+        color="white" 
+        borderRadius="xl"
+        fontWeight={800}
+        px={6}
+        _hover={{ transform: "translateY(-2px)", boxShadow: "0 8px 20px rgba(14,36,85,0.2)" }} 
+        transition="all 0.3s"
+        {...rest}
+    >
+      {Icon && <Icon size={18} style={{ marginRight: '8px' }} />}
       {children}
     </Button>
   );
 }
 
-// Neutral outline button (Apply / Cancel / secondary actions).
+// Neutral outline button
 export function GhostButton({ children, icon: Icon, ...rest }: { children: ReactNode; icon?: IconComp } & ButtonProps) {
   return (
-    <Button variant="outline" borderColor="gray.200" color="gray.600" {...rest}>
-      {Icon && <Icon size={15} />}
+    <Button 
+        variant="outline" 
+        borderColor="gray.200" 
+        color="gray.600" 
+        borderRadius="xl"
+        fontWeight={700}
+        px={5}
+        _hover={{ bg: "gray.50", borderColor: "gray.300" }}
+        transition="all 0.2s"
+        {...rest}
+    >
+      {Icon && <Icon size={18} style={{ marginRight: '8px' }} />}
       {children}
     </Button>
   );

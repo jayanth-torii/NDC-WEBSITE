@@ -2,8 +2,10 @@ import { Accordion, Box, Flex, Input, Stack, Switch, Text, Textarea } from "@cha
 import { MdExpandMore as ExpandMoreIcon, MdFolder as SectionIcon, MdInbox as EmptyIcon } from "react-icons/md";
 import { ImageControl } from "./ImageControl";
 import { FileControl } from "./FileControl";
+import { YoutubeControl } from "./YoutubeControl";
+import { MapLocationControl } from "./MapLocationControl";
 import { AddButton, EmptyState, IconChip, IconBtn, RowCard } from "./editorKit";
-import { HIDDEN_KEYS, emptyLike, humanize, isImageField, isPdfField, itemLabel } from "./fieldHeuristics";
+import { HIDDEN_KEYS, emptyLike, humanize, isImageField, isPdfField, isVideoField, itemLabel, isYoutubeField, isMapLocationField } from "./fieldHeuristics";
 
 type Json = any;
 
@@ -53,12 +55,20 @@ function FieldRow({
     return <ImageControl label={label} value={value || ""} onChange={onChange} />;
   }
 
-  if (isPdfField(fieldKey, value)) {
+  if (isPdfField(fieldKey, value) || isVideoField(fieldKey, value)) {
     return <FileControl label={label} value={value || ""} onChange={onChange} />;
+  }
+  
+  if (isYoutubeField(fieldKey, value)) {
+    return <YoutubeControl label={label} value={value || ""} onChange={onChange} />;
+  }
+  
+  if (isMapLocationField(fieldKey, value)) {
+    return <MapLocationControl label={label} value={value || ""} onChange={onChange} />;
   }
 
   if (Array.isArray(value)) {
-    return <ArrayField label={label} value={value} onChange={onChange} />;
+    return <ArrayField fieldKey={fieldKey} label={label} value={value} onChange={onChange} />;
   }
 
   if (value !== null && typeof value === "object") {
@@ -125,7 +135,7 @@ function FieldRow({
   );
 }
 
-function ArrayField({ label, value, onChange }: { label: string; value: Json[]; onChange: (v: Json[]) => void }) {
+function ArrayField({ fieldKey, label, value, onChange }: { fieldKey: string; label: string; value: Json[]; onChange: (v: Json[]) => void }) {
   const isObjectArray = value.length > 0 && value.every((v) => v !== null && typeof v === "object" && !Array.isArray(v));
 
   function addItem() {
@@ -187,7 +197,15 @@ function ArrayField({ label, value, onChange }: { label: string; value: Json[]; 
             </Box>
           ) : (
             <RowCard key={i} mb={0}>
-              <Input value={item ?? ""} onChange={(e) => updateItem(i, e.target.value)} size="sm" bg="white" flex="1" />
+              <Box flex="1">
+                {isYoutubeField(fieldKey, item) ? (
+                  <YoutubeControl value={item ?? ""} onChange={(v) => updateItem(i, v)} />
+                ) : isMapLocationField(fieldKey, item) ? (
+                  <MapLocationControl value={item ?? ""} onChange={(v) => updateItem(i, v)} />
+                ) : (
+                  <Input value={item ?? ""} onChange={(e) => updateItem(i, e.target.value)} size="sm" bg="white" w="full" />
+                )}
+              </Box>
               <IconBtn aria-label="Remove item" tone="danger" size="xs" onClick={() => removeItem(i)} />
             </RowCard>
           )

@@ -56,13 +56,13 @@ export const HIDDEN_KEYS = new Set([
 
 const IMAGE_KEY_RE = /image|banner|logo|photo|cover|avatar|picture/i;
 const PDF_KEY_RE = /pdf|brochure|document|newsletter.?file|syllabus.?file|certificate.?file/i;
+const VIDEO_KEY_RE = /video|mp4|media/i;
 const IMAGE_VALUE_RE = /\.(png|jpe?g|webp|gif|svg)(\?.*)?$/i;
 const PDF_VALUE_RE = /\.pdf(\?.*)?$/i;
+const VIDEO_VALUE_RE = /\.(mp4|webm|ogg)(\?.*)?$/i;
 
 export function isImageField(key: string, value: unknown): boolean {
   if (typeof value === "string" && IMAGE_VALUE_RE.test(value)) return true;
-  // Unset (null/undefined/"") fields fall back to key-name matching, so a
-  // blank image field still gets an upload control before any value exists.
   if ((value == null || value === "") && IMAGE_KEY_RE.test(key)) return true;
   return false;
 }
@@ -70,6 +70,30 @@ export function isImageField(key: string, value: unknown): boolean {
 export function isPdfField(key: string, value: unknown): boolean {
   if (typeof value === "string" && PDF_VALUE_RE.test(value)) return true;
   if ((value == null || value === "") && PDF_KEY_RE.test(key)) return true;
+  return false;
+}
+
+export function isVideoField(key: string, value: unknown): boolean {
+  if (typeof value === "string" && VIDEO_VALUE_RE.test(value)) return true;
+  if ((value == null || value === "") && VIDEO_KEY_RE.test(key)) return true;
+  return false;
+}
+
+const MAP_LOCATION_KEY_RE = /location|map|addressLink/i;
+const MAP_LOCATION_VALUE_RE = /google\.com\/maps|maps\.app\.goo\.gl|google\.com.*?mapclient/i;
+
+export function isMapLocationField(key: string, value: unknown): boolean {
+  if (typeof value === "string" && MAP_LOCATION_VALUE_RE.test(value)) return true;
+  if ((value == null || value === "") && MAP_LOCATION_KEY_RE.test(key)) return true;
+  return false;
+}
+
+const YOUTUBE_KEY_RE = /youtube|videos?|yt/i;
+const YOUTUBE_VALUE_RE = /^[a-zA-Z0-9_-]{11}$/;
+
+export function isYoutubeField(key: string, value: unknown): boolean {
+  if (typeof value === "string" && YOUTUBE_VALUE_RE.test(value) && value.length === 11) return true;
+  if ((value == null || value === "") && YOUTUBE_KEY_RE.test(key)) return true;
   return false;
 }
 

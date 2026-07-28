@@ -16,6 +16,10 @@ import { GalleryPage } from "./pages/GalleryPage";
 import { AboutNdcPage } from "./pages/AboutNdcPage";
 import { IicPage } from "./pages/IicPage";
 import { IqacPage } from "./pages/IqacPage";
+import { AlumniPage } from "./pages/AlumniPage";
+import { AdmissionsPage } from "./pages/AdmissionsPage";
+import { LibraryPage } from "./pages/LibraryPage";
+import { QuestionBankPage } from "./pages/QuestionBankPage";
 
 export default function App() {
   return (
@@ -35,6 +39,10 @@ export default function App() {
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/iic" element={<IicPage />} />
               <Route path="/iqac" element={<IqacPage />} />
+              <Route path="/alumni" element={<AlumniPage />} />
+              <Route path="/admissions" element={<AdmissionsPage />} />
+              <Route path="/library" element={<LibraryPage />} />
+              <Route path="/question-bank" element={<QuestionBankPage />} />
               <Route path="/blogs" element={<BlogsListPage />} />
               <Route path="/blogs/:postId" element={<BlogEditPage />} />
               <Route path="/submissions/:kind" element={<SubmissionsInboxPage />} />
