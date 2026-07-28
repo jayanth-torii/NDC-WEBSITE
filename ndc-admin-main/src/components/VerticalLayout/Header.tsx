@@ -1,63 +1,116 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
+import { Box, Flex, Heading, IconButton, Menu, Portal, Text } from "@chakra-ui/react";
+import { MdMenu as MenuIcon, MdPerson as PersonIcon, MdLogout as LogoutIcon } from "react-icons/md";
+import Swal from "sweetalert2";
 import { useAuth } from "../../auth/AuthContext";
+import { useLayout, HEADER_HEIGHT, SIDEBAR_WIDTH } from "./LayoutContext";
+import ndcLogo from "../../assets/NDC-Logo.png";
 
 // Mirrors NCET admin's Header.js: brand box + burger toggle + heading +
-// profile dropdown. Sidebar-collapse toggling uses a body class instead of
-// Redux (state management intentionally kept local, per confirmed scope).
+// profile dropdown. #page-topbar: white bg, fixed, box-shadow "topbar" token
+// (_topbar.scss's exact value) — topbarTheme default is "light" in NCET.
 export function Header() {
   const { user, logout } = useAuth();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const { toggle } = useLayout();
 
-  function toggleSidebar() {
-    document.body.classList.toggle("sidebar-collapsed");
+  function handleLogout() {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You will be logged out of your admin session.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#f6872a",
+      cancelButtonColor: "#0e2455",
+      confirmButtonText: "Yes, log out!",
+    }).then((result) => {
+      if (result.isConfirmed) logout();
+    });
   }
 
   return (
-    <header id="page-topbar">
-      <div className="navbar-header">
-        <div className="d-flex align-items-center">
-          <div className="navbar-brand-box">
-            <Link to="/" className="d-flex align-items-center gap-2 text-decoration-none">
-              <span
-                style={{
-                  width: 34,
-                  height: 34,
-                  borderRadius: 8,
-                  background: "var(--ndc-navy)",
-                  color: "#fff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 700,
-                  fontSize: 14,
-                }}
-              >
-                NDC
-              </span>
-            </Link>
-          </div>
-          <button type="button" onClick={toggleSidebar} className="vertical-menu-btn" aria-label="Toggle sidebar">
-            &#9776;
-          </button>
-          <div className="d-none d-sm-flex align-items-center ms-2">
-            <h4 className="mb-0" style={{ fontWeight: 600, fontSize: 18, color: "var(--ndc-navy)", letterSpacing: "0.3px" }}>
-              NDC Administration Panel
-            </h4>
-          </div>
-        </div>
-        <div className="d-flex align-items-center pe-3">
-          <Dropdown isOpen={menuOpen} toggle={() => setMenuOpen((o) => !o)}>
-            <DropdownToggle tag="button" className="btn btn-light d-flex align-items-center gap-2">
-              <span>{user?.name}</span>
-            </DropdownToggle>
-            <DropdownMenu end>
-              <DropdownItem onClick={logout}>Log out</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
-      </div>
-    </header>
+    <Flex
+      as="header"
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      h={HEADER_HEIGHT}
+      bg="white"
+      boxShadow="topbar"
+      zIndex={1002}
+      align="center"
+      justify="space-between"
+      pr={4}
+    >
+      <Flex align="center" h="100%">
+        <Flex w={{ base: "auto", lg: SIDEBAR_WIDTH }} px={4} align="center" justify="center">
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <Flex
+              w="auto"
+              h="50px"
+              align="center"
+              justify="center"
+            >
+              <img src={ndcLogo} alt="NDC Logo" style={{ maxHeight: "50px", maxWidth: "180px", objectFit: "contain" }} />
+            </Flex>
+          </Link>
+        </Flex>
+        <IconButton aria-label="Toggle sidebar" variant="ghost" onClick={toggle} color="brand.navy">
+          <MenuIcon size={22} />
+        </IconButton>
+        <Box display={{ base: "none", sm: "block" }} ml={2}>
+          <Heading as="h4" size="md" fontWeight={600} color="brand.navy" letterSpacing="0.3px">
+            NDC Administration Panel
+          </Heading>
+        </Box>
+      </Flex>
+
+      <Menu.Root>
+        <Menu.Trigger asChild>
+          <Flex
+            as="button"
+            align="center"
+            gap={2}
+            px={3}
+            py={2}
+            borderRadius="sm"
+            _hover={{ bg: "gray.100" }}
+            cursor="pointer"
+          >
+            <Flex
+              w="32px"
+              h="32px"
+              borderRadius="full"
+              bg="brand.orange"
+              color="white"
+              align="center"
+              justify="center"
+              fontWeight={700}
+              fontSize="14px"
+            >
+              {(user?.name || "A")[0].toUpperCase()}
+            </Flex>
+            <Text fontWeight={500}>{user?.name}</Text>
+          </Flex>
+        </Menu.Trigger>
+        <Portal>
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.Item value="profile" asChild>
+                <Link to="/profile">
+                  <PersonIcon size={16} style={{ marginRight: 8 }} />
+                  Profile
+                </Link>
+              </Menu.Item>
+              <Menu.Separator />
+              <Menu.Item value="logout" color="red.500" onClick={handleLogout}>
+                <LogoutIcon size={16} style={{ marginRight: 8 }} />
+                Log out
+              </Menu.Item>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu.Root>
+    </Flex>
   );
 }

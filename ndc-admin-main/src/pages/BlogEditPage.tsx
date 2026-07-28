@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Alert, Box, Button, IconButton, Paper, Stack, TextField, Typography, Switch, FormControlLabel } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
+import { Box, Input, Stack, Switch, Text, Textarea } from "@chakra-ui/react";
+import { MdArticle as BlogIcon } from "react-icons/md";
 import { ImageControl } from "../components/ImageControl";
 import { getBlogById, addBlog, updateBlog, getBlogs } from "../services/data.service";
 import { triggerRevalidate } from "../services/revalidate";
+import { AddButton, Callout, EditorHeader, IconBtn, Panel, RowCard, SaveBar } from "../components/editorKit";
 
 const emptyForm = {
   postId: 0,
@@ -76,67 +76,110 @@ export function BlogEditPage() {
   if (loading) return null;
 
   return (
-    <Paper sx={{ p: 3, maxWidth: 800 }}>
-      <Stack spacing={3}>
-        <Typography variant="h6">{isNew ? "New Blog Post" : `Edit Blog Post #${form.postId}`}</Typography>
-        {error && <Alert severity="error">{error}</Alert>}
-
-        <TextField label="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} fullWidth />
-        <TextField
-          label="Description (excerpt)"
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-          multiline
-          minRows={3}
-          fullWidth
+    <Box maxW="800px">
+      <Stack gap={5}>
+        <EditorHeader
+          icon={BlogIcon}
+          eyebrow="Blog"
+          title={isNew ? "New Blog Post" : `Edit Blog Post #${form.postId}`}
+          subtitle={isNew ? "Publish a new post to the public blog." : "Update this published post."}
+          mode={isNew ? "create" : "edit"}
         />
+        {error && <Callout tone="error">{error}</Callout>}
 
-        <Box>
-          <Typography variant="subtitle2" gutterBottom>
-            Cover Image
-          </Typography>
-          <ImageControl value={form.blogImage} onChange={(url) => setForm({ ...form, blogImage: url })} />
-        </Box>
+        <Panel p={6}>
+          <Stack gap={5}>
+            <Box>
+              <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                Title
+              </Text>
+              <Input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} bg="white" />
+            </Box>
 
-        <Box>
-          <Typography variant="subtitle2" gutterBottom>
-            Content (one box per paragraph block, rendered in order)
-          </Typography>
-          <Stack spacing={2}>
-            {form.content.map((p, i) => (
-              <Stack key={i} direction="row" spacing={1} alignItems="flex-start">
-                <TextField value={p} onChange={(e) => updateParagraph(i, e.target.value)} multiline minRows={3} fullWidth />
-                <IconButton onClick={() => removeParagraph(i)} disabled={form.content.length <= 1}>
-                  <DeleteIcon />
-                </IconButton>
+            <Box>
+              <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                Description (excerpt)
+              </Text>
+              <Textarea
+                value={form.description}
+                onChange={(e) => setForm({ ...form, description: e.target.value })}
+                rows={3}
+                bg="white"
+              />
+            </Box>
+
+            <Box>
+              <Text fontSize="sm" fontWeight={600} mb={2}>
+                Cover Image
+              </Text>
+              <ImageControl value={form.blogImage} onChange={(url) => setForm({ ...form, blogImage: url })} />
+            </Box>
+
+            <Box>
+              <Text fontSize="sm" fontWeight={600} mb={2}>
+                Content (one box per paragraph block, rendered in order)
+              </Text>
+              <Stack gap={2}>
+                {form.content.map((p, i) => (
+                  <RowCard key={i} align="flex-start" mb={0}>
+                    <Textarea
+                      value={p}
+                      onChange={(e) => updateParagraph(i, e.target.value)}
+                      rows={3}
+                      bg="white"
+                      border="none"
+                      px={0}
+                      flex="1"
+                    />
+                    <IconBtn
+                      aria-label="Remove paragraph"
+                      tone="danger"
+                      confirm={false}
+                      onClick={() => removeParagraph(i)}
+                      disabled={form.content.length <= 1}
+                    />
+                  </RowCard>
+                ))}
+                <AddButton dashed size="sm" onClick={addParagraph}>
+                  Add paragraph
+                </AddButton>
               </Stack>
-            ))}
-            <Button startIcon={<AddIcon />} onClick={addParagraph} sx={{ alignSelf: "flex-start" }}>
-              Add paragraph
-            </Button>
+            </Box>
+
+            <Stack direction="row" gap={6} align="center">
+              <Box maxW="120px">
+                <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                  Order
+                </Text>
+                <Input
+                  type="number"
+                  value={form.order}
+                  onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
+                  bg="white"
+                />
+              </Box>
+              <Switch.Root
+                checked={form.isActive}
+                onCheckedChange={(e) => setForm({ ...form, isActive: e.checked })}
+                colorPalette="orange"
+              >
+                <Switch.HiddenInput />
+                <Switch.Control>
+                  <Switch.Thumb />
+                </Switch.Control>
+                <Switch.Label>Active</Switch.Label>
+              </Switch.Root>
+            </Stack>
           </Stack>
-        </Box>
+        </Panel>
 
-        <Stack direction="row" spacing={3} alignItems="center">
-          <TextField
-            label="Order"
-            type="number"
-            value={form.order}
-            onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
-            sx={{ width: 120 }}
-          />
-          <FormControlLabel
-            control={<Switch checked={form.isActive} onChange={(e) => setForm({ ...form, isActive: e.target.checked })} />}
-            label="Active"
-          />
-        </Stack>
-
-        <Box>
-          <Button variant="contained" onClick={handleSave} disabled={saving}>
-            {saving ? "Saving..." : "Save"}
-          </Button>
-        </Box>
+        <SaveBar
+          saving={saving}
+          onSave={handleSave}
+          label={isNew ? "Publish" : "Save Changes"}
+          summary={isNew ? "This will add a new post to the blog." : "Changes go live immediately."}
+        />
       </Stack>
-    </Paper>
+    </Box>
   );
 }

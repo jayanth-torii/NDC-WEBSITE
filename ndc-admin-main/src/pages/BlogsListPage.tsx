@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
-import { DataGrid, type GridColDef } from "@mui/x-data-grid";
+import { Badge, Flex, Spinner, Table } from "@chakra-ui/react";
+import { MdAdd, MdArticle as BlogIcon } from "react-icons/md";
 import { getBlogs, deleteBlog } from "../services/data.service";
+import { EmptyState, GhostButton, IconBtn, Panel, PrimaryButton, SectionHead } from "../components/editorKit";
 
 export function BlogsListPage() {
   const [rows, setRows] = useState<any[]>([]);
@@ -21,51 +22,74 @@ export function BlogsListPage() {
   }, []);
 
   async function handleDelete(postId: number) {
-    if (!window.confirm("Delete this blog post?")) return;
     await deleteBlog(postId);
     refresh();
   }
 
-  const columns: GridColDef[] = [
-    { field: "postId", headerName: "ID", width: 70 },
-    { field: "title", headerName: "Title", flex: 1 },
-    { field: "order", headerName: "Order", width: 90 },
-    { field: "isActive", headerName: "Active", width: 90 },
-    {
-      field: "actions",
-      headerName: "",
-      width: 160,
-      sortable: false,
-      renderCell: (params) => (
-        <Stack direction="row" spacing={1}>
-          <Button size="small" onClick={() => navigate(`/blogs/${params.row.postId}`)}>
-            Edit
-          </Button>
-          <Button size="small" color="error" onClick={() => handleDelete(params.row.postId)}>
-            Delete
-          </Button>
-        </Stack>
-      ),
-    },
-  ];
+  const headerCellProps = {
+    fontSize: "xs",
+    textTransform: "uppercase" as const,
+    letterSpacing: "wide",
+    color: "gray.500",
+    fontWeight: 700,
+    borderColor: "gray.200",
+  };
 
   return (
-    <Stack spacing={2}>
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Typography variant="h5">Blog Posts</Typography>
-        <Button variant="contained" onClick={() => navigate("/blogs/new")}>
-          New Post
-        </Button>
-      </Box>
-      <Paper sx={{ height: 560 }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          getRowId={(row) => row.postId}
-          loading={loading}
-          disableRowSelectionOnClick
-        />
-      </Paper>
-    </Stack>
+    <Panel p={6}>
+      <SectionHead
+        icon={BlogIcon}
+        title="Blog Posts"
+        subtitle="Manage every post shown on the public blog."
+        right={
+          <PrimaryButton icon={MdAdd} onClick={() => navigate("/blogs/new")}>
+            New Post
+          </PrimaryButton>
+        }
+      />
+      {loading ? (
+        <Spinner size="md" />
+      ) : rows.length === 0 ? (
+        <EmptyState icon={BlogIcon} title="No blog posts yet" hint="Create your first post to publish it on the public blog." />
+      ) : (
+        <Table.Root size="sm" interactive>
+          <Table.Header>
+            <Table.Row bg="gray.50">
+              <Table.ColumnHeader {...headerCellProps}>ID</Table.ColumnHeader>
+              <Table.ColumnHeader {...headerCellProps}>Title</Table.ColumnHeader>
+              <Table.ColumnHeader {...headerCellProps}>Order</Table.ColumnHeader>
+              <Table.ColumnHeader {...headerCellProps}>Active</Table.ColumnHeader>
+              <Table.ColumnHeader {...headerCellProps}></Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {rows.map((row) => (
+              <Table.Row key={row.postId} _hover={{ bg: "gray.50" }}>
+                <Table.Cell>{row.postId}</Table.Cell>
+                <Table.Cell>{row.title}</Table.Cell>
+                <Table.Cell>{row.order}</Table.Cell>
+                <Table.Cell>
+                  <Badge colorPalette={row.isActive ? "green" : "gray"}>{row.isActive ? "Yes" : "No"}</Badge>
+                </Table.Cell>
+                <Table.Cell>
+                  <Flex gap={2}>
+                    <GhostButton size="xs" onClick={() => navigate(`/blogs/${row.postId}`)}>
+                      Edit
+                    </GhostButton>
+                    <IconBtn
+                      aria-label="Delete post"
+                      tone="danger"
+                      size="xs"
+                      confirmMessage="Delete this blog post?"
+                      onClick={() => handleDelete(row.postId)}
+                    />
+                  </Flex>
+                </Table.Cell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table.Root>
+      )}
+    </Panel>
   );
 }

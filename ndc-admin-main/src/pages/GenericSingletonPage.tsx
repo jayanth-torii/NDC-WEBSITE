@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { JsonPageEditor } from "../components/JsonPageEditor";
+import { PageEditor } from "../components/PageEditor";
 
 export function GenericSingletonPage() {
   const { title, route } = useParams<{ title: string; route: string }>();
-  return <JsonPageEditor title={(title || "Page").replace(/-/g, " ")} route={decodeURIComponent(route || "")} />;
+  return <PageEditor title={(title || "Page").replace(/-/g, " ")} route={decodeURIComponent(route || "")} />;
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
 import "./Login.scss";
+import ndcLogo from "../../assets/NDC-Logo.png";
 
 // Mirrors NCET admin's pages/Authentication/Login.js structure (branding
 // panel + glass card), simplified to single-step JWT login — the OTP step
@@ -65,10 +66,8 @@ export function Login() {
     <div className="app-container">
       <main className="login-main-content">
         <section className="branding-section">
-          <div className="logo-container">
-            <div className="logo-wrapper">
-              <span className="logo-text">NDC</span>
-            </div>
+          <div className="logo-container" style={{background: 'transparent', padding: 0}}>
+            <img src={ndcLogo} alt="NDC Logo" style={{ maxHeight: "80px", objectFit: "contain" }} />
           </div>
           <h1 className="main-heading">
             ADMIN

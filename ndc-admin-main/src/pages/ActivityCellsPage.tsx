@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { Alert, Box, Button, MenuItem, Paper, Stack, TextField, Typography, CircularProgress } from "@mui/material";
+import { Box, NativeSelect, Spinner, Stack, Text } from "@chakra-ui/react";
+import { MdGroups as CellIcon } from "react-icons/md";
 import { ACTIVITY_GROUPS } from "../config/adminPages";
 import { getActivityCellById, updateActivityCell } from "../services/data.service";
 import { triggerRevalidate } from "../services/revalidate";
+import { StructuredEditorBody } from "../components/StructuredEditorBody";
+import { Callout, EditorHeader, Panel, SaveBar } from "../components/editorKit";
 
 export function ActivityCellsPage() {
   const groups = Object.keys(ACTIVITY_GROUPS);
   const [group, setGroup] = useState(groups[0]);
   const [cellId, setCellId] = useState(ACTIVITY_GROUPS[groups[0]][0]);
 
-  const [raw, setRaw] = useState("");
+  const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -20,10 +23,10 @@ export function ActivityCellsPage() {
     setError(null);
     setSavedAt(null);
     getActivityCellById(cellId)
-      .then((res) => setRaw(JSON.stringify(res?.data ?? {}, null, 2)))
+      .then((res) => setData(res?.data ?? {}))
       .catch((err) => {
         // 404 on a cell that hasn't been seeded yet is expected — start empty.
-        if (err.response?.status === 404) setRaw("{}");
+        if (err.response?.status === 404) setData({});
         else setError(err.message);
       })
       .finally(() => setLoading(false));
@@ -31,16 +34,9 @@ export function ActivityCellsPage() {
 
   async function handleSave() {
     setError(null);
-    let parsed;
-    try {
-      parsed = JSON.parse(raw);
-    } catch {
-      setError("Invalid JSON — fix the syntax before saving.");
-      return;
-    }
     setSaving(true);
     try {
-      await updateActivityCell(cellId, group, parsed);
+      await updateActivityCell(cellId, group, data);
       setSavedAt(Date.now());
       triggerRevalidate(`/activities/${group}/${cellId}`);
     } catch (err: any) {
@@ -51,63 +47,68 @@ export function ActivityCellsPage() {
   }
 
   return (
-    <Stack spacing={2}>
-      <Paper sx={{ p: 2 }}>
-        <Stack direction="row" spacing={2}>
-          <TextField
-            select
-            label="Group"
-            value={group}
-            onChange={(e) => {
-              const g = e.target.value;
-              setGroup(g);
-              setCellId(ACTIVITY_GROUPS[g][0]);
-            }}
-            sx={{ minWidth: 320 }}
-          >
-            {groups.map((g) => (
-              <MenuItem key={g} value={g}>
-                {g}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField select label="Cell" value={cellId} onChange={(e) => setCellId(e.target.value)} sx={{ minWidth: 260 }}>
-            {ACTIVITY_GROUPS[group].map((c) => (
-              <MenuItem key={c} value={c}>
-                {c}
-              </MenuItem>
-            ))}
-          </TextField>
-        </Stack>
-      </Paper>
-      <Paper sx={{ p: 3 }}>
-        <Stack spacing={2}>
-          <Typography variant="h6">{cellId}</Typography>
-          {error && <Alert severity="error">{error}</Alert>}
-          {savedAt && <Alert severity="success">Saved.</Alert>}
-          {loading ? (
-            <CircularProgress size={24} />
-          ) : (
-            <TextField
-              multiline
-              minRows={18}
-              maxRows={40}
-              value={raw}
-              onChange={(e) => {
-                setRaw(e.target.value);
-                setSavedAt(null);
-              }}
-              fullWidth
-              slotProps={{ input: { sx: { fontFamily: "monospace", fontSize: 13 } } }}
-            />
-          )}
+    <Stack gap={4}>
+      <Panel p={4}>
+        <Stack direction="row" gap={4}>
           <Box>
-            <Button variant="contained" onClick={handleSave} disabled={loading || saving}>
-              {saving ? "Saving..." : "Save"}
-            </Button>
+            <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+              Group
+            </Text>
+            <NativeSelect.Root maxW="360px" size="sm">
+              <NativeSelect.Field
+                value={group}
+                onChange={(e) => {
+                  const g = e.target.value;
+                  setGroup(g);
+                  setCellId(ACTIVITY_GROUPS[g][0]);
+                }}
+              >
+                {groups.map((g) => (
+                  <option key={g} value={g}>
+                    {g}
+                  </option>
+                ))}
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
+          </Box>
+          <Box>
+            <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+              Cell
+            </Text>
+            <NativeSelect.Root maxW="300px" size="sm">
+              <NativeSelect.Field value={cellId} onChange={(e) => setCellId(e.target.value)}>
+                {ACTIVITY_GROUPS[group].map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </NativeSelect.Field>
+              <NativeSelect.Indicator />
+            </NativeSelect.Root>
           </Box>
         </Stack>
-      </Paper>
+      </Panel>
+
+      <EditorHeader icon={CellIcon} eyebrow="Activity Cells" title={cellId} subtitle={group.replace(/-/g, " ")} />
+      {error && <Callout tone="error">{error}</Callout>}
+      {savedAt && <Callout tone="success">Saved.</Callout>}
+
+      {loading ? (
+        <Spinner size="md" />
+      ) : (
+        <>
+          <Panel p={6}>
+            <StructuredEditorBody data={data} onChange={setData} />
+          </Panel>
+          <SaveBar
+            saving={saving}
+            onSave={handleSave}
+            label={saving ? "Saving..." : "Save"}
+            summary="Changes revalidate the public activities page."
+          />
+        </>
+      )}
     </Stack>
   );
 }
