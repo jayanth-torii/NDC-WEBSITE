@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Box, chakra, Input, Spinner, Stack, Text } from "@chakra-ui/react";
-import { MdArrowBack as BackIcon, MdDescription as ContentIcon } from "react-icons/md";
+import { MdArrowBack as BackIcon, MdDescription as ContentIcon, MdImage as BannerTabIcon, MdFolder as SectionIcon } from "react-icons/md";
 import { ACTIVITY_GROUPS } from "../config/adminPages";
-import { humanize } from "../components/fieldHeuristics";
+import { HIDDEN_KEYS, humanize } from "../components/fieldHeuristics";
 import { ImageControl } from "../components/ImageControl";
 import { getActivityCellById, updateActivityCell } from "../services/data.service";
 import { triggerRevalidate } from "../services/revalidate";
 import { StructuredEditorBody } from "../components/StructuredEditorBody";
-import { Callout, Panel, SaveBar, SectionHead } from "../components/editorKit";
+import { Callout, EditorLayout, Panel, SaveBar, SectionHead, type TabCardSpec } from "../components/editorKit";
 
 function findGroup(cellId: string): string {
   for (const [group, cells] of Object.entries(ACTIVITY_GROUPS)) {
@@ -40,11 +40,13 @@ export function ActivityCellDetailPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState("banner");
 
   useEffect(() => {
     setLoading(true);
     setError(null);
     setSavedAt(null);
+    setTabKey("banner");
     getActivityCellById(cellId)
       .then((res) => setData(res?.data ?? {}))
       .catch((err) => {
@@ -56,6 +58,19 @@ export function ActivityCellDetailPage() {
 
   const bannerSection = data?.bannerSection ?? {};
   const { bannerSection: _omit, ...rest } = data ?? {};
+
+  // Every cell has its own bespoke set of top-level keys (only bannerSection
+  // overlaps across cells — see the comment below), so tabs beyond "Banner"
+  // are derived at runtime from whatever keys this cell's document actually
+  // has, same approach as PageEditor.tsx uses for the generic singleton pages.
+  const tabs: TabCardSpec[] = useMemo(() => {
+    const contentTabs = Object.keys(rest)
+      .filter((k) => !HIDDEN_KEYS.has(k))
+      .map((k) => ({ id: k, label: humanize(k), icon: SectionIcon }));
+    return [{ id: "banner", label: "Banner", icon: BannerTabIcon }, ...contentTabs];
+  }, [rest]);
+
+  const activeTab = tabs.some((t) => t.id === tabKey) ? tabKey : "banner";
 
   function updateBannerField(field: "title" | "image", value: string) {
     setData((prev: any) => ({ ...prev, bannerSection: { ...(prev?.bannerSection ?? {}), [field]: value } }));
@@ -128,27 +143,30 @@ export function ActivityCellDetailPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
-          <Panel p={6}>
-            <SectionHead icon={ContentIcon} title="Banner" subtitle="Shown at the top of this cell's public page." />
-            <Stack gap={4}>
-              <Box>
-                <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
-                  Title
-                </Text>
-                <Input value={bannerSection.title ?? ""} onChange={(e) => updateBannerField("title", e.target.value)} bg="white" />
-              </Box>
-              <ImageControl label="Banner Image" value={bannerSection.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
-            </Stack>
-          </Panel>
-
-          <Panel p={6}>
-            <SectionHead
-              icon={ContentIcon}
-              title="Page Content"
-              subtitle="The rest of this cell's content — every cell has its own bespoke set of sections."
-            />
-            <StructuredEditorBody data={rest} onChange={(next) => setData((prev: any) => ({ ...prev, ...next }))} />
+        <EditorLayout tabs={tabs} activeTab={activeTab} onChange={setTabKey}>
+          <Panel p={5}>
+            {activeTab === "banner" ? (
+              <>
+                <SectionHead icon={ContentIcon} title="Banner" subtitle="Shown at the top of this cell's public page." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Title
+                    </Text>
+                    <Input value={bannerSection.title ?? ""} onChange={(e) => updateBannerField("title", e.target.value)} bg="white" />
+                  </Box>
+                  <ImageControl label="Banner Image" value={bannerSection.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
+                </Stack>
+              </>
+            ) : (
+              <>
+                <SectionHead icon={SectionIcon} title={humanize(activeTab)} subtitle="Bespoke to this cell — not shared with other activity cells." />
+                <StructuredEditorBody
+                  data={{ [activeTab]: rest[activeTab] }}
+                  onChange={(next) => setData((prev: any) => ({ ...prev, [activeTab]: next[activeTab] }))}
+                />
+              </>
+            )}
           </Panel>
 
           <SaveBar
@@ -157,7 +175,7 @@ export function ActivityCellDetailPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes revalidate this cell's public page."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

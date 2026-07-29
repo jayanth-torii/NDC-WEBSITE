@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, chakra, Flex, Grid, Input, Menu, Portal, Spinner, Stack, Text, Textarea } from "@chakra-ui/react";
 import {
   MdMoreVert as KebabIcon,
@@ -8,42 +8,44 @@ import {
   MdPhone as PhoneIcon,
   MdPerson as PersonIcon,
   MdCheck as CheckIcon,
-  MdCameraAlt as CameraIcon,
+  MdLightbulb as IicIcon,
+  MdImage as BannerIcon,
+  MdGroups as MembersIcon,
 } from "react-icons/md";
-import { FaUsers, FaHandshake, FaChartLine, FaChartPie } from "react-icons/fa";
+import { ImageControl } from "../components/ImageControl";
 import { getIic, updateIic } from "../services/data.service";
-import { uploadFile } from "../services/upload.service";
-import { Callout, SaveBar } from "../components/editorKit";
+import { Callout, EditorHeader, EditorLayout, Panel, SaveBar, SectionHead, type TabCardSpec } from "../components/editorKit";
 
-// Dedicated IIC editor, restyled to a client-approved mockup: a public-site-
-// style shell wrapping the real editable content. Real doc shape (confirmed
-// via GET /iic): { BannerSection: {eyebrow, title, subtitle, image},
-// IICMembers: {title, MembersTable: [{name, designation, role, contact}]} }.
-//
-// The hero/nav header, footer, and "Be a Part of Innovation" CTA band from
-// the original mockup were all decorative admin chrome (not bound to page
-// content) and have been removed per request — this now starts directly
-// with the functional Banner Management editor. Genuinely editable/real
-// data: the Banner Management card (eyebrow/title/subtitle/image), the
-// "Members" count (stats bar), the IICMembers section title, and every
-// member card (name, designation, role, contact — add/edit/delete).
-//
-// One intentional deviation from a literal 1:1 copy, a functional necessity
-// for an admin tool: the mockup's "View All Members" button slot is
-// repurposed as "Add Member" (there'd be no way to add a member otherwise).
+// IIC editor — originally a 1:1 port of a client-approved public-site-style
+// mockup (full-bleed hero/stats-bar chrome instead of the admin Panel/
+// EditorHeader/EditorLayout shell used by every other page). Restyled onto
+// the shared studio kit for consistency with the rest of the app (explicit
+// tradeoff: the approved mockup look is dropped in favor of matching every
+// other editor page — Banner/Members as sidebar tabs, ImageControl instead
+// of the bespoke upload button, EditorHeader instead of the fabricated
+// stats bar that showed hardcoded, not-real, numbers like "10+ Events").
+// Real doc shape (confirmed via GET /iic): { BannerSection: {eyebrow, title,
+// subtitle, image}, IICMembers: {title, MembersTable: [{name, designation,
+// role, contact}]} }. The member-card grid with inline kebab-menu edit/
+// delete is kept as-is inside its tab — it's a legitimate, working directory-
+// style UI for a list of people, not something that needs to become a plain
+// AutoForm list.
 
 const ROLE_PILL = { bg: "blue.50", color: "blue.600" };
+
+const IIC_TABS: TabCardSpec[] = [
+  { id: "banner", label: "Banner", icon: BannerIcon },
+  { id: "members", label: "Members", icon: MembersIcon },
+];
 
 export function IicPage() {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [uploadingBanner, setUploadingBanner] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
-
-  const bannerInputRef = useRef<HTMLInputElement>(null);
+  const [tabKey, setTabKey] = useState(IIC_TABS[0].id);
 
   useEffect(() => {
     setLoading(true);
@@ -83,20 +85,6 @@ export function IicPage() {
     setEditingIndex((cur) => (cur === i ? null : cur));
   }
 
-  async function handleBannerImageUpload(file: File) {
-    setError(null);
-    setUploadingBanner(true);
-    try {
-      const res = await uploadFile(file);
-      updateBannerField("image", res.data.url);
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Banner image upload failed.");
-    } finally {
-      setUploadingBanner(false);
-      if (bannerInputRef.current) bannerInputRef.current.value = "";
-    }
-  }
-
   async function handleSave() {
     setError(null);
     setSaving(true);
@@ -119,205 +107,59 @@ export function IicPage() {
   }
 
   return (
-    <Stack gap={0} mx="-20px" mt="-20px">
-      {error && (
-        <Box px={5} pt={4}>
-          <Callout tone="error">{error}</Callout>
-        </Box>
-      )}
-      {savedAt && (
-        <Box px={5} pt={4}>
-          <Callout tone="success">Saved.</Callout>
-        </Box>
-      )}
+    <Stack gap={4}>
+      <EditorHeader
+        icon={IicIcon}
+        eyebrow="IIC"
+        title="Institution's Innovation Council"
+        subtitle="Manage the IIC page's banner and member directory."
+        stats={[{ value: table.length, label: "Members" }]}
+        mode={savedAt ? "edit" : undefined}
+      />
+      {error && <Callout tone="error">{error}</Callout>}
+      {savedAt && <Callout tone="success">Saved.</Callout>}
 
-      {/* Banner Management */}
-      <Box bg="gray.50" px={{ base: 5, lg: 10 }} pt="56px" pb="40px">
-        <Stack align="center" gap={1} mb={7} textAlign="center">
-          <Text color="brand.orange" fontWeight={800} fontSize="xs" letterSpacing="0.15em" textTransform="uppercase">
-            Manage Public Page
-          </Text>
-          <Text color="brand.navy" fontWeight={800} fontSize="2xl">
-            Banner Management
-          </Text>
-          <Box w="50px" h="3px" bg="brand.orange" borderRadius="full" mt={1} />
-        </Stack>
-
-        <Box bg="white" borderRadius="2xl" boxShadow="card" p={{ base: 5, lg: 8 }} maxW="1100px" mx="auto">
-          <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={8}>
-            <Stack gap={4}>
-              <Box>
-                <Flex align="center" gap={2} mb={1}>
-                  <PersonIcon color="var(--chakra-colors-gray-400)" size={14} />
-                  <Text fontSize="xs" fontWeight={600} color="gray.600">
+      <EditorLayout tabs={IIC_TABS} activeTab={tabKey} onChange={setTabKey}>
+        <Panel p={5}>
+          {tabKey === "banner" && (
+            <>
+              <SectionHead icon={BannerIcon} title="Banner" subtitle="Shown at the top of the public IIC page." />
+              <Stack gap={4}>
+                <Box>
+                  <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
                     Eyebrow
                   </Text>
-                </Flex>
-                <Input value={banner.eyebrow ?? ""} onChange={(e) => updateBannerField("eyebrow", e.target.value)} bg="gray.50" borderRadius="lg" />
-              </Box>
-              <Box>
-                <Text fontSize="xs" fontWeight={600} color="gray.600" mb={1}>
-                  Title
-                </Text>
-                <Input value={banner.title ?? ""} onChange={(e) => updateBannerField("title", e.target.value)} bg="gray.50" borderRadius="lg" />
-              </Box>
-              <Box>
-                <Text fontSize="xs" fontWeight={600} color="gray.600" mb={1}>
-                  Subtitle
-                </Text>
-                <Textarea
-                  value={banner.subtitle ?? ""}
-                  onChange={(e) => updateBannerField("subtitle", e.target.value)}
-                  rows={3}
-                  bg="gray.50"
-                  borderRadius="lg"
-                />
-              </Box>
-
-              <input
-                ref={bannerInputRef}
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                hidden
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) handleBannerImageUpload(file);
-                }}
-              />
-              <chakra.button
-                type="button"
-                onClick={() => bannerInputRef.current?.click()}
-                disabled={uploadingBanner}
-                display="flex"
-                alignItems="center"
-                gap={2}
-                w="fit-content"
-                bg="brand.navy"
-                color="white"
-                fontSize="sm"
-                fontWeight={700}
-                px={5}
-                py={2.5}
-                borderRadius="lg"
-                _hover={{ bg: "brand.navyDeep" }}
-              >
-                {uploadingBanner ? <Spinner size="xs" /> : <CameraIcon size={16} />}
-                {uploadingBanner ? "Uploading..." : "Edit Banner"}
-              </chakra.button>
-            </Stack>
-
-            <Box>
-              <Text fontSize="xs" fontWeight={600} color="gray.600" mb={2}>
-                Banner Preview
-              </Text>
-              <Box position="relative" borderRadius="xl" overflow="hidden" h="220px" bg="brand.navy" boxShadow="card">
-                {banner.image && (
-                  <chakra.img
-                    src={banner.image}
-                    alt="Banner preview"
-                    position="absolute"
-                    inset={0}
-                    w="100%"
-                    h="100%"
-                    objectFit="cover"
-                    opacity={0.55}
-                    style={{ mixBlendMode: "overlay" }}
-                  />
-                )}
-                <Box
-                  position="absolute"
-                  inset={0}
-                  bgGradient="to-br"
-                  gradientFrom="brand.navy"
-                  gradientTo="rgba(14,36,85,0.2)"
-                  style={{ clipPath: "polygon(0 0, 62% 0, 48% 100%, 0% 100%)" }}
-                />
-                <Box position="absolute" inset={0} bg="brand.orange" style={{ clipPath: "polygon(0 0, 66% 0, 52% 100%, 0% 100%)" }} zIndex={-1} />
-                <Box position="absolute" bottom={5} left={6} zIndex={1}>
-                  <Text color="white" fontWeight={800} fontSize="xl">
-                    {banner.title || "IIC"}
-                  </Text>
-                  <Text color="brand.orange" fontWeight={700} fontSize="2xs" textTransform="uppercase" letterSpacing="0.1em">
-                    {banner.eyebrow || "Nagarjuna Degree College"}
-                  </Text>
+                  <Input value={banner.eyebrow ?? ""} onChange={(e) => updateBannerField("eyebrow", e.target.value)} bg="white" />
                 </Box>
+                <Box>
+                  <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                    Title
+                  </Text>
+                  <Input value={banner.title ?? ""} onChange={(e) => updateBannerField("title", e.target.value)} bg="white" />
+                </Box>
+                <Box>
+                  <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                    Subtitle
+                  </Text>
+                  <Textarea value={banner.subtitle ?? ""} onChange={(e) => updateBannerField("subtitle", e.target.value)} rows={3} bg="white" />
+                </Box>
+                <ImageControl label="Banner Image" value={banner.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
+              </Stack>
+            </>
+          )}
+
+          {tabKey === "members" && (
+            <>
+              <SectionHead icon={MembersIcon} title="IIC Members" subtitle="Add, edit, and remove member cards shown on the public page." />
+              <Box maxW="480px" mb={6}>
+                <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                  Section Title (shown on the public page)
+                </Text>
+                <Input value={members.title ?? ""} onChange={(e) => updateMembersField("title", e.target.value)} bg="white" />
               </Box>
-              <Flex justify="center" gap={1.5} mt={3}>
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <Box key={i} w="6px" h="6px" borderRadius="full" bg={i === 2 ? "brand.orange" : "gray.200"} />
-                ))}
-              </Flex>
-            </Box>
-          </Grid>
-        </Box>
 
-        {/* Stats bar */}
-        <Grid
-          templateColumns={{ base: "1fr 1fr", lg: "repeat(4, 1fr)" }}
-          gap={4}
-          bg="brand.navy"
-          borderRadius="2xl"
-          p={6}
-          mt={8}
-          maxW="1100px"
-          mx="auto"
-        >
-          {[
-            { icon: FaUsers, value: String(table.length).padStart(2, "0"), label: "Members", sub: "Active Members", bg: "orange.400" },
-            { icon: FaHandshake, value: "01", label: "Section", sub: "IIC Section", bg: "blue.400" },
-            { icon: FaChartLine, value: "10+", label: "Events", sub: "Organized", bg: "purple.400" },
-            { icon: FaChartPie, value: "100+", label: "Students", sub: "Impacted", bg: "green.400" },
-          ].map((s, i) => (
-            <Flex key={i} align="center" gap={3}>
-              <Flex w="52px" h="52px" borderRadius="full" bg={s.bg} align="center" justify="center" color="white" flex="0 0 auto">
-                <s.icon size={20} />
-              </Flex>
-              <Box>
-                <Text color="white" fontWeight={800} fontSize="xl" lineHeight={1}>
-                  {s.value}
-                </Text>
-                <Text color="whiteAlpha.600" fontSize="2xs" fontWeight={600} textTransform="uppercase" letterSpacing="0.04em" mt="2px">
-                  {s.label}
-                </Text>
-                <Text color="whiteAlpha.500" fontSize="2xs">
-                  {s.sub}
-                </Text>
-              </Box>
-            </Flex>
-          ))}
-        </Grid>
-      </Box>
-
-      {/* Members */}
-      <Box bg="white" px={{ base: 5, lg: 10 }} py="56px">
-        <Stack align="center" gap={1} mb={2} textAlign="center">
-          <Text color="brand.orange" fontWeight={800} fontSize="xs" letterSpacing="0.15em" textTransform="uppercase">
-            Our Team
-          </Text>
-          <Text color="brand.navy" fontWeight={800} fontSize="2xl">
-            IIC Members
-          </Text>
-          <Box w="50px" h="3px" bg="brand.orange" borderRadius="full" mt={1} mb={2} />
-          <Text color="gray.500" fontSize="sm" maxW="480px">
-            Meet the dedicated members driving innovation and collaboration.
-          </Text>
-        </Stack>
-
-        <Box maxW="640px" mx="auto" mb={8}>
-          <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1} textAlign="center">
-            Section Title (shown on the public page)
-          </Text>
-          <Input
-            value={members.title ?? ""}
-            onChange={(e) => updateMembersField("title", e.target.value)}
-            bg="gray.50"
-            borderRadius="lg"
-            textAlign="center"
-          />
-        </Box>
-
-        <Grid templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "repeat(4, 1fr)" }} gap={5} maxW="1200px" mx="auto">
-          {table.map((row, i) => {
+              <Grid templateColumns={{ base: "1fr", sm: "1fr 1fr", lg: "repeat(4, 1fr)" }} gap={5}>
+                {table.map((row, i) => {
             const editing = editingIndex === i;
             return (
               <Box
@@ -437,8 +279,10 @@ export function IicPage() {
             </Text>
           </chakra.button>
         </Grid>
-      </Box>
-
+            </>
+          )}
+        </Panel>
+      </EditorLayout>
       <Box px={5} py={5} bg="gray.50">
         <SaveBar saving={saving} onSave={handleSave} label={saving ? "Saving..." : "Save Changes"} summary="Changes apply to the public IIC page once saved." />
       </Box>

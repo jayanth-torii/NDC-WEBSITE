@@ -22,12 +22,13 @@ import {
   CardHeader,
   Callout,
   EditorHeader,
+  EditorLayout,
   IconBtn,
   Panel,
   RowCard,
   SaveBar,
+  SectionHead,
   SubtleCard,
-  TabCardGrid,
   type TabCardSpec,
 } from "../components/editorKit";
 
@@ -369,8 +370,10 @@ export function DepartmentsOverviewPage() {
     }
   }
 
+  const activeTabSpec = TABS.find((t) => t.id === activeTab) || TABS[0];
+
   return (
-    <Stack gap={5}>
+    <Stack gap={4}>
       <EditorHeader
         icon={DeptIcon}
         eyebrow="Departments"
@@ -388,10 +391,9 @@ export function DepartmentsOverviewPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
-          <TabCardGrid tabs={TABS} activeTab={activeTab} onChange={setActiveTab} />
-
-          <Panel p={6}>
+        <EditorLayout tabs={TABS} activeTab={activeTab} onChange={setActiveTab}>
+          <Panel p={5}>
+            <SectionHead icon={activeTabSpec.icon} title={activeTabSpec.label} subtitle={activeTabSpec.desc} />
             {activeTab === "banner" && (
               <Stack gap={4}>
                 <Box>
@@ -729,7 +731,7 @@ export function DepartmentsOverviewPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public Departments page once saved."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

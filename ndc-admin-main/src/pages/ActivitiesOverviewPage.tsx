@@ -17,13 +17,22 @@ import {
   CardHeader,
   Callout,
   EditorHeader,
+  EditorLayout,
   IconBtn,
   Panel,
   RowCard,
   SaveBar,
   SectionHead,
   SubtleCard,
+  type TabCardSpec,
 } from "../components/editorKit";
+
+const ACTIVITIES_TABS: TabCardSpec[] = [
+  { id: "banner", label: "Banner", icon: BannerIcon },
+  { id: "know", label: "Know Everything", icon: KnowIcon },
+  { id: "cultural", label: "Cultural & Leadership", icon: CulturalIcon },
+  { id: "highlight", label: "Activities Highlight", icon: HighlightIcon },
+];
 
 // Dedicated Activities overview editor. Real doc shape (confirmed via GET
 // /activities-page + ndc-web-main's src/app/activities/page.tsx +
@@ -89,6 +98,7 @@ export function ActivitiesOverviewPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState(ACTIVITIES_TABS[0].id);
 
   useEffect(() => {
     setLoading(true);
@@ -266,9 +276,11 @@ export function ActivitiesOverviewPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
+        <EditorLayout tabs={ACTIVITIES_TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
           {/* Banner */}
-          <Panel p={6}>
+          {tabKey === "banner" && (
+          <>
             <SectionHead icon={BannerIcon} title="Banner" subtitle="Shown at the top of the public Activities page." />
             <Stack gap={4}>
               <Box>
@@ -279,10 +291,12 @@ export function ActivitiesOverviewPage() {
               </Box>
               <ImageControl label="Banner Image" value={banner.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
             </Stack>
-          </Panel>
+          </>
+          )}
 
           {/* Know Every Thing */}
-          <Panel p={6}>
+          {tabKey === "know" && (
+          <>
             <SectionHead icon={KnowIcon} title="Know Everything" subtitle="The introductory summary section." />
             <Stack gap={4}>
               <Box>
@@ -299,10 +313,12 @@ export function ActivitiesOverviewPage() {
               </Box>
               <ImageControl label="Image" value={know.image ?? ""} onChange={(url) => updateKnowField("image", url)} />
             </Stack>
-          </Panel>
+          </>
+          )}
 
           {/* Cultural & Leadership Activities */}
-          <Panel p={6}>
+          {tabKey === "cultural" && (
+          <>
             <SectionHead icon={CulturalIcon} title="Cultural & Leadership Activities" subtitle="The tabbed activity groups (theatre, clubs, cells, etc.)." />
             <Box mb={4}>
               <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
@@ -525,10 +541,12 @@ export function ActivitiesOverviewPage() {
                 Add Tab
               </AddButton>
             </Stack>
-          </Panel>
+          </>
+          )}
 
           {/* Activities highlight */}
-          <Panel p={6}>
+          {tabKey === "highlight" && (
+          <>
             <SectionHead icon={HighlightIcon} title="Activities Highlight" subtitle="A single featured highlight card on the page." />
             <Stack gap={4}>
               <Box>
@@ -550,6 +568,8 @@ export function ActivitiesOverviewPage() {
               </Box>
               <ImageControl label="Image" value={highlight.image ?? ""} onChange={(url) => updateHighlightField("image", url)} />
             </Stack>
+          </>
+          )}
           </Panel>
 
           <SaveBar
@@ -558,7 +578,7 @@ export function ActivitiesOverviewPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public Activities page once saved."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

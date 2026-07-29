@@ -3,7 +3,26 @@ import { Box, Input, Spinner, Stack, Text, Textarea } from "@chakra-ui/react";
 import { MdGroups as AlumniIcon, MdImage as BannerIcon, MdTrackChanges as VisionIcon, MdGroup as AssociationIcon } from "react-icons/md";
 import { ImageControl } from "../components/ImageControl";
 import { getAlumni, updateAlumni } from "../services/data.service";
-import { Callout, EditorHeader, IconBtn, Panel, RowCard, SaveBar, SectionHead, AddButton } from "../components/editorKit";
+import {
+  AddButton,
+  Callout,
+  EditorHeader,
+  EditorLayout,
+  IconBtn,
+  Panel,
+  RowCard,
+  SaveBar,
+  SectionHead,
+  type TabCardSpec,
+} from "../components/editorKit";
+
+// Sidebar-tab switcher for this page's three always-stacked sections — same
+// "one Panel, swap the active tab's block" shape as HomePage.tsx.
+const ALUMNI_TABS: TabCardSpec[] = [
+  { id: "banner", label: "Banner", icon: BannerIcon },
+  { id: "visionMission", label: "Vision & Mission", icon: VisionIcon },
+  { id: "association", label: "Alumni Association", icon: AssociationIcon },
+];
 
 // Dedicated Alumni editor. Real doc shape (confirmed via ndc-web-main's
 // src/app/alumni/page.tsx + src/components/Alumni/VisionMission.tsx +
@@ -73,6 +92,7 @@ export function AlumniPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState(ALUMNI_TABS[0].id);
 
   useEffect(() => {
     setLoading(true);
@@ -135,8 +155,10 @@ export function AlumniPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
-          <Panel p={6}>
+        <EditorLayout tabs={ALUMNI_TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
+          {tabKey === "banner" && (
+          <>
             <SectionHead icon={BannerIcon} title="Banner" subtitle="Shown at the top of the public Alumni page." />
             <Stack gap={4}>
               <Box>
@@ -159,9 +181,11 @@ export function AlumniPage() {
               </Box>
               <ImageControl label="Banner Image" value={banner.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "visionMission" && (
+          <>
             <SectionHead icon={VisionIcon} title="Vision & Mission" subtitle="The two cards shown on the public page." />
             <Stack gap={5}>
               <Box>
@@ -211,9 +235,11 @@ export function AlumniPage() {
                 />
               </Box>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "association" && (
+          <>
             <SectionHead icon={AssociationIcon} title="Alumni Association" subtitle="The dark objectives card shown on the public page." />
             <Stack gap={4}>
               <Box>
@@ -238,6 +264,8 @@ export function AlumniPage() {
                 </Text>
               </Box>
             </Stack>
+          </>
+          )}
           </Panel>
 
           <SaveBar
@@ -246,7 +274,7 @@ export function AlumniPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public Alumni page once saved."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

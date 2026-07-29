@@ -16,12 +16,14 @@ import {
   CardHeader,
   Callout,
   EditorHeader,
+  EditorLayout,
   IconBtn,
   Panel,
   RowCard,
   SaveBar,
   SectionHead,
   SubtleCard,
+  type TabCardSpec,
 } from "../components/editorKit";
 
 // Dedicated Sports editor. Real doc shape (confirmed via GET /sports +
@@ -46,6 +48,13 @@ import {
 const VISION_TITLE = "Our Vision";
 const MISSION_TITLE = "Our Mission";
 const OBJECTIVES_TITLE = "Objectives";
+
+const SPORTS_TABS: TabCardSpec[] = [
+  { id: "banner", label: "Banner", icon: BannerIcon },
+  { id: "about", label: "Vision, Mission & Objectives", icon: AboutIcon },
+  { id: "hod", label: "Director's Message", icon: HodIcon },
+  { id: "gallery", label: "Gallery", icon: GalleryIcon },
+];
 
 function PointsEditor({ points, onChange }: { points: string[]; onChange: (points: string[]) => void }) {
   function updatePoint(i: number, value: string) {
@@ -80,6 +89,7 @@ export function SportsPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState(SPORTS_TABS[0].id);
 
   useEffect(() => {
     setLoading(true);
@@ -172,9 +182,11 @@ export function SportsPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
+        <EditorLayout tabs={SPORTS_TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
           {/* Banner */}
-            <Panel p={6}>
+          {tabKey === "banner" && (
+          <>
               <SectionHead icon={BannerIcon} title="Banner" subtitle="Shown at the top of the public Sports page." />
               <Stack gap={4}>
                 <Box>
@@ -197,10 +209,12 @@ export function SportsPage() {
                 </Box>
                 <ImageControl label="Banner Image" value={banner.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
               </Stack>
-            </Panel>
+          </>
+          )}
 
-            {/* About: Vision / Mission / Objectives */}
-            <Panel p={6}>
+          {/* About: Vision / Mission / Objectives */}
+          {tabKey === "about" && (
+          <>
               <SectionHead icon={AboutIcon} title="Vision, Mission & Objectives" subtitle="Shown as three cards below the banner." />
               <Callout tone="info">
                 These three section names are matched exactly by the public site — renaming them would make that section stop appearing, so
@@ -282,10 +296,12 @@ export function SportsPage() {
                   </Box>
                 </SubtleCard>
               </Stack>
-            </Panel>
+          </>
+          )}
 
-            {/* HOD Message */}
-            <Panel p={6}>
+          {/* HOD Message */}
+          {tabKey === "hod" && (
+          <>
               <SectionHead icon={HodIcon} title="Director's Message" subtitle="Photo, name, and message shown in the message card." />
               <Stack gap={4}>
                 <Box>
@@ -343,10 +359,12 @@ export function SportsPage() {
                   </Stack>
                 </Box>
               </Stack>
-            </Panel>
+          </>
+          )}
 
-            {/* Gallery */}
-            <Panel p={6}>
+          {/* Gallery */}
+          {tabKey === "gallery" && (
+          <>
               <SectionHead icon={GalleryIcon} title="Gallery" subtitle="Photo grid shown at the bottom of the public page." />
               <Stack gap={4}>
                 <Box>
@@ -374,7 +392,9 @@ export function SportsPage() {
                   </AddButton>
                 </Stack>
               </Stack>
-            </Panel>
+          </>
+          )}
+          </Panel>
 
           <SaveBar
             saving={saving}
@@ -382,7 +402,7 @@ export function SportsPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public Sports page once saved."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

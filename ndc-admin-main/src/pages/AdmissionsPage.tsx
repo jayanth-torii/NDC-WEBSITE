@@ -9,7 +9,28 @@ import {
 } from "react-icons/md";
 import { ImageControl } from "../components/ImageControl";
 import { getAdmissions, updateAdmissions } from "../services/data.service";
-import { AddButton, CardHeader, Callout, EditorHeader, EmptyState, IconBtn, Panel, RowCard, SaveBar, SectionHead, SubtleCard } from "../components/editorKit";
+import {
+  AddButton,
+  CardHeader,
+  Callout,
+  EditorHeader,
+  EditorLayout,
+  EmptyState,
+  IconBtn,
+  Panel,
+  RowCard,
+  SaveBar,
+  SectionHead,
+  SubtleCard,
+  type TabCardSpec,
+} from "../components/editorKit";
+
+const ADMISSIONS_TABS: TabCardSpec[] = [
+  { id: "banner", label: "Banner", icon: BannerIcon },
+  { id: "courses", label: "Courses & Eligibility", icon: CoursesIcon },
+  { id: "procedure", label: "Application Procedure", icon: ProcedureIcon },
+  { id: "documents", label: "Important Documents", icon: DocumentsIcon },
+];
 
 // Dedicated Admissions editor. Real doc shape (confirmed via ndc-web-main's
 // src/app/admissions/page.tsx + src/components/Admission/{Courses,Documents,
@@ -69,6 +90,7 @@ export function AdmissionsPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState(ADMISSIONS_TABS[0].id);
 
   useEffect(() => {
     setLoading(true);
@@ -206,8 +228,10 @@ export function AdmissionsPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
-          <Panel p={6}>
+        <EditorLayout tabs={ADMISSIONS_TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
+          {tabKey === "banner" && (
+          <>
             <SectionHead icon={BannerIcon} title="Banner" subtitle="Shown at the top of the public Admissions page." />
             <Stack gap={4}>
               <Box>
@@ -218,9 +242,11 @@ export function AdmissionsPage() {
               </Box>
               <ImageControl label="Banner Image" value={banner.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "courses" && (
+          <>
             <SectionHead icon={CoursesIcon} title="Courses & Eligibility" subtitle="Programme tabs shown on the public page." />
             <Stack gap={4}>
               <Box>
@@ -314,9 +340,11 @@ export function AdmissionsPage() {
                 </AddButton>
               </Stack>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "procedure" && (
+          <>
             <SectionHead icon={ProcedureIcon} title="Application Procedure" subtitle="The step cards on the public page." />
             <Stack gap={4}>
               <Box>
@@ -366,9 +394,11 @@ export function AdmissionsPage() {
                 </Stack>
               </Box>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "documents" && (
+          <>
             <SectionHead icon={DocumentsIcon} title="Important Documents" subtitle="Document checklist tabs on the public page." />
             <Stack gap={4}>
               <Box>
@@ -437,6 +467,8 @@ export function AdmissionsPage() {
                 </AddButton>
               </Stack>
             </Stack>
+          </>
+          )}
           </Panel>
 
           <SaveBar
@@ -445,7 +477,7 @@ export function AdmissionsPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public Admissions page once saved."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

@@ -10,7 +10,27 @@ import {
 } from "react-icons/md";
 import { ImageControl } from "../components/ImageControl";
 import { getIqac, updateIqac } from "../services/data.service";
-import { AddButton, Callout, EditorHeader, EmptyState, IconBtn, Panel, RowCard, SaveBar, SectionHead } from "../components/editorKit";
+import {
+  AddButton,
+  Callout,
+  EditorHeader,
+  EditorLayout,
+  EmptyState,
+  IconBtn,
+  Panel,
+  RowCard,
+  SaveBar,
+  SectionHead,
+  type TabCardSpec,
+} from "../components/editorKit";
+
+const IQAC_TABS: TabCardSpec[] = [
+  { id: "banner", label: "Banner", icon: BannerIcon },
+  { id: "about", label: "About", icon: AboutIcon },
+  { id: "visionMission", label: "Vision & Mission", icon: VisionIcon },
+  { id: "objectives", label: "Objectives & Functions", icon: ObjectivesIcon },
+  { id: "composition", label: "Composition of IQAC Cell", icon: CompositionIcon },
+];
 
 // Dedicated IQAC editor. Real doc shape (confirmed via ndc-web-main's
 // src/app/iqac/page.tsx + src/components/IQAC/About.tsx + CompositionCell.tsx)
@@ -85,6 +105,7 @@ export function IqacPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState(IQAC_TABS[0].id);
 
   useEffect(() => {
     setLoading(true);
@@ -180,8 +201,10 @@ export function IqacPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
-          <Panel p={6}>
+        <EditorLayout tabs={IQAC_TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
+          {tabKey === "banner" && (
+          <>
             <SectionHead icon={BannerIcon} title="Banner" subtitle="Shown at the top of the public IQAC page." />
             <Stack gap={4}>
               <Box>
@@ -204,9 +227,11 @@ export function IqacPage() {
               </Box>
               <ImageControl label="Banner Image" value={banner.image ?? ""} onChange={(url) => updateBannerField("image", url)} />
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "about" && (
+          <>
             <SectionHead icon={AboutIcon} title="About" subtitle="Intro copy shown above the Vision & Mission cards." />
             <Stack gap={4}>
               <Box>
@@ -227,9 +252,11 @@ export function IqacPage() {
                 />
               </Box>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "visionMission" && (
+          <>
             <SectionHead icon={VisionIcon} title="Vision & Mission" subtitle="The two cards shown side-by-side on the public page." />
             <Stack gap={5}>
               <Box>
@@ -255,9 +282,11 @@ export function IqacPage() {
                 />
               </Box>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "objectives" && (
+          <>
             <SectionHead icon={ObjectivesIcon} title="Objectives & Functions" subtitle="The two highlighted grids further down the public page." />
             <Stack gap={5}>
               <Box>
@@ -283,9 +312,11 @@ export function IqacPage() {
                 />
               </Box>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "composition" && (
+          <>
             <SectionHead icon={CompositionIcon} title="Composition of IQAC Cell" subtitle="The committee table shown on the public page." />
             <Stack gap={4}>
               <Box>
@@ -330,6 +361,8 @@ export function IqacPage() {
                 </AddButton>
               </Box>
             </Stack>
+          </>
+          )}
           </Panel>
 
           <SaveBar
@@ -338,7 +371,7 @@ export function IqacPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public IQAC page once saved."
           />
-        </>
+        </EditorLayout>
       )}
     </Stack>
   );

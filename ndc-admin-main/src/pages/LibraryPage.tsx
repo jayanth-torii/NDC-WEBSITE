@@ -13,6 +13,7 @@ import {
   AddButton,
   Callout,
   EditorHeader,
+  EditorLayout,
   EmptyState,
   GhostButton,
   IconBtn,
@@ -24,7 +25,18 @@ import {
   SectionHead,
   SubtleCard,
   CardHeader,
+  type TabCardSpec,
 } from "../components/editorKit";
+
+// Sidebar tab list — one entry per always-visible content section below.
+// Digital Resources' own tab-name list (resoursesTable) is a separate,
+// nested record-management concept and keeps its existing Add/Edit/Delete
+// dialogs untouched.
+const LIBRARY_TABS: TabCardSpec[] = [
+  { id: "about", label: "About Library", icon: AboutIcon },
+  { id: "resources", label: "Digital Resources", icon: ResourcesIcon },
+  { id: "events", label: "Events & Rules", icon: EventsIcon },
+];
 
 // Dedicated Library editor. Real doc shape (confirmed via ndc-web-main's
 // src/app/library/page.tsx + src/components/Library/{AboutLibrary,Resources,
@@ -93,6 +105,7 @@ export function LibraryPage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [savedAt, setSavedAt] = useState<number | null>(null);
+  const [tabKey, setTabKey] = useState(LIBRARY_TABS[0].id);
 
   const [addTabOpen, setAddTabOpen] = useState(false);
   const [newTabName, setNewTabName] = useState("");
@@ -234,8 +247,10 @@ export function LibraryPage() {
       {loading ? (
         <Spinner size="md" />
       ) : (
-        <>
-          <Panel p={6}>
+        <EditorLayout tabs={LIBRARY_TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
+          {tabKey === "about" && (
+          <>
             <SectionHead icon={AboutIcon} title="About Library" subtitle="Intro copy and the two highlight cards." />
             <Stack gap={5}>
               <Box>
@@ -279,9 +294,11 @@ export function LibraryPage() {
                 </AddButton>
               </Stack>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "resources" && (
+          <>
             <SectionHead icon={ResourcesIcon} title="Digital Resources" subtitle="Tabbed resource tables shown on the public page." />
             <Stack gap={4}>
               <Box>
@@ -326,9 +343,11 @@ export function LibraryPage() {
                 </AddButton>
               </Box>
             </Stack>
-          </Panel>
+          </>
+          )}
 
-          <Panel p={6}>
+          {tabKey === "events" && (
+          <>
             <SectionHead icon={EventsIcon} title="Events & Rules" subtitle="Campus life copy plus the rules & regulations grid." />
             <Stack gap={5}>
               <Box>
@@ -356,6 +375,8 @@ export function LibraryPage() {
                 <StringListEditor items={rules} onChange={(v) => updateRulesField("sections", v)} addLabel="Add rule" />
               </Box>
             </Stack>
+          </>
+          )}
           </Panel>
 
           <SaveBar
@@ -364,7 +385,7 @@ export function LibraryPage() {
             label={saving ? "Saving..." : "Save"}
             summary="Changes apply to the public Library page once saved."
           />
-        </>
+        </EditorLayout>
       )}
 
       {/* Add Tab modal */}

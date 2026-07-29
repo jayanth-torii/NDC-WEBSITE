@@ -1,517 +1,609 @@
-// @ts-nocheck
-import React, { useEffect, useState } from "react";
-import classnames from 'classnames';
-import { getPage, putPage } from '../services/data.service';
-import './about-ndc.scss';
+import { useEffect, useState } from "react";
+import { Box, Grid, Input, Spinner, Stack, Text, Textarea } from "@chakra-ui/react";
+import {
+  MdInfo as AboutIcon,
+  MdRecordVoiceOver as PrincipalIcon,
+  MdStars as VisionIcon,
+  MdNewspaper as NewsletterIcon,
+  MdLocationCity as CampusIcon,
+  MdAccountBalance as CouncilIcon,
+  MdFactCheck as ConsiderationsIcon,
+} from "react-icons/md";
+import { ImageControl } from "../components/ImageControl";
+import { FileControl } from "../components/FileControl";
+import { getPage, putPage } from "../services/data.service";
+import { publicPathForRoute } from "../config/publicPathMap";
+import { triggerRevalidate } from "../services/revalidate";
+import {
+  AddButton,
+  CardHeader,
+  Callout,
+  EditorHeader,
+  EditorLayout,
+  IconBtn,
+  Panel,
+  RowCard,
+  SaveBar,
+  SectionHead,
+  SubtleCard,
+  type TabCardSpec,
+} from "../components/editorKit";
 
-import { publicPathForRoute } from '../config/publicPathMap';
-import { triggerRevalidate } from '../services/revalidate';
-import { uploadImage } from '../services/data.service';
+// Bespoke studio-style editor for the /about-ndc singleton — the public
+// About NDC page. Real doc shape (confirmed by reading the original
+// @ts-nocheck version of this file plus ndc-web-main's
+// src/components/AboutNDC/OurCampus.tsx destructure): { aboutUs: {title,
+// image, description:string[]}, VisionMission: {dropdowns:[{title,
+// description:string[]}]}, principalMessage: {title, principalName,
+// position, image, message:string[]}, NewsLetter: {title,
+// sections:[{title,pdf}]}, OurCampuses: {title, campuses:[{collegeName,
+// collegeDescription, location, link, image}]}, GoverningCouncilMembers:
+// {title, members:[{name,designation,position}]}, ImportantConsiderations:
+// {title, sections:[{title,pdf}]} }.
+//
+// `campuses[].location` is a plain city string and `campuses[].link` is a
+// "Visit Website" external URL (confirmed via OurCampus.tsx) — neither is a
+// Google Maps embed, so plain Inputs are used for both rather than
+// MapLocationControl. No YouTube/video fields exist anywhere in this shape.
+//
+// The original 4-tab grouping ("About & Principal" / "Vision & Mission" /
+// "Governance & News" / "Campuses & More") bundled unrelated sections
+// together to keep the tab count down for its old Bootstrap tab bar. The
+// sidebar EditorLayout used by every other page here has no such pressure,
+// so each of the 7 top-level formData keys gets its own tab instead —
+// About, Principal, Vision & Mission, Newsletters, Our Campuses, Governing
+// Council, Important Considerations.
+const TABS: TabCardSpec[] = [
+  { id: "about", label: "About Us", desc: "Intro section", icon: AboutIcon },
+  { id: "principal", label: "Principal's Message", desc: "Message & photo", icon: PrincipalIcon },
+  { id: "vision", label: "Vision & Mission", desc: "Dropdown blocks", icon: VisionIcon },
+  { id: "newsletter", label: "Newsletters", desc: "PDF volumes", icon: NewsletterIcon },
+  { id: "campuses", label: "Our Campuses", desc: "Campus cards", icon: CampusIcon },
+  { id: "council", label: "Governing Council", desc: "Member list", icon: CouncilIcon },
+  { id: "considerations", label: "Important Considerations", desc: "PDF sections", icon: ConsiderationsIcon },
+];
 
-import Swal from "sweetalert2";
+// Leading slash required: publicPathForRoute() does an exact-key lookup
+// against publicPathMap.ts's "/about-ndc" entry. The pre-migration version of
+// this file called getPage("about-ndc")/putPage("about-ndc", ...) without
+// the slash — axios's combineURLs tolerated that for the GET/PUT calls
+// themselves, but it silently broke the post-save revalidate (never matched
+// the map key, so the public page's cache was never busted after a save).
+const ROUTE = "/about-ndc";
 
-const getPreviewUrl = (url: string) => {
-  if (!url) return "";
-  if (url.startsWith("http")) return url;
-  return `${import.meta.env.VITE_API_URL || 'http://localhost:5001'}${url}`;
-};
-
-export const triggerUpload = (callback: (url: string) => void) => {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'image/*,application/pdf,video/*';
-  input.onchange = async (e: any) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      try {
-        const res = await uploadImage(file);
-        if (res?.data?.url) callback(res.data.url);
-      } catch (err) {
-        console.error("Upload failed", err);
-      }
-    }
-  };
-  input.click();
-};
-
-const ImagePreviewControl = ({ label, value, onChange }) => {
+function StringListEditor({
+  items,
+  onChange,
+  addLabel = "Add item",
+  placeholder,
+  multiline = false,
+}: {
+  items: string[];
+  onChange: (items: string[]) => void;
+  addLabel?: string;
+  placeholder?: string;
+  multiline?: boolean;
+}) {
+  function updateItem(i: number, value: string) {
+    const next = [...items];
+    next[i] = value;
+    onChange(next);
+  }
+  function addItem() {
+    onChange([...items, ""]);
+  }
+  function removeItem(i: number) {
+    onChange(items.filter((_, idx) => idx !== i));
+  }
   return (
-    <div className="mb-3">
-      <label className="themed-label">{label}</label>
-      <div className="flex gap-2">
-        {value && (
-          <div className="image-preview" style={{width: '50px', height: '50px', flexShrink: 0, borderRadius: '6px', overflow: 'hidden', border: '1px solid #e0e5fa', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', fontSize: '10px', color: '#64748b', textAlign: 'center'}}>
-             {value.toLowerCase().match(/\.(mp4|webm|ogg)(\?.*)?$/) ? "Video attached" : value.toLowerCase().match(/\.pdf(\?.*)?$/) ? "PDF attached" : <img src={getPreviewUrl(value)} style={{width: '100%', height: '100%', objectFit: 'cover'}} alt="preview" />}
-          </div>
-        )}
-        <div style={{flex: 1, display: 'flex', alignItems: 'center', gap: '8px'}}>
-          <button type="button" className="btn btn-sm" style={{background: '#f5f7fc', border: '1px solid #e0e5fa', fontSize: '11px', padding: '6px 12px', color: '#1a1a1a', borderRadius: '4px'}} onClick={() => triggerUpload(onChange)}>
-            {value ? "Change File" : "Upload File"}
-          </button>
-          {value && (
-            <button type="button" className="btn btn-sm" style={{background: '#fee2e2', border: '1px solid #fca5a5', fontSize: '11px', padding: '6px 12px', color: '#dc2626', borderRadius: '4px'}} onClick={() => onChange("")}>
-              Remove
-            </button>
+    <Stack gap={2}>
+      {items.map((item, i) => (
+        <RowCard key={i} align={multiline ? "flex-start" : "center"} mb={0}>
+          {multiline ? (
+            <Textarea value={item} onChange={(e) => updateItem(i, e.target.value)} rows={2} bg="white" border="none" px={0} flex="1" />
+          ) : (
+            <Input value={item} onChange={(e) => updateItem(i, e.target.value)} bg="white" size="sm" flex="1" placeholder={placeholder} />
           )}
-        </div>
-      </div>
-    </div>
+          <IconBtn aria-label="Remove item" tone="danger" confirm={false} onClick={() => removeItem(i)} />
+        </RowCard>
+      ))}
+      <AddButton dashed size="sm" onClick={addItem}>
+        {addLabel}
+      </AddButton>
+    </Stack>
   );
-};
+}
+
+// Shared by NewsLetter.sections and ImportantConsiderations.sections — both
+// are an identically-shaped {title, pdf}[] array (a titled PDF download).
+function TitlePdfListEditor({
+  items,
+  onChange,
+  addLabel = "Add Item",
+}: {
+  items: any[];
+  onChange: (items: any[]) => void;
+  addLabel?: string;
+}) {
+  function updateItem(i: number, field: "title" | "pdf", value: string) {
+    onChange(items.map((it, idx) => (idx === i ? { ...it, [field]: value } : it)));
+  }
+  function addItem() {
+    onChange([...items, { title: "", pdf: "" }]);
+  }
+  function removeItem(i: number) {
+    onChange(items.filter((_, idx) => idx !== i));
+  }
+  return (
+    <Stack gap={3}>
+      {items.map((item, i) => (
+        <SubtleCard key={i} mb={0}>
+          <CardHeader justify="space-between">
+            <Input
+              value={item.title ?? ""}
+              onChange={(e) => updateItem(i, "title", e.target.value)}
+              bg="white"
+              fontWeight={700}
+              flex="1"
+              maxW="360px"
+              placeholder="Title"
+            />
+            <IconBtn aria-label="Remove item" tone="danger" onClick={() => removeItem(i)} />
+          </CardHeader>
+          <Box p={4}>
+            <FileControl label="PDF File" value={item.pdf ?? ""} onChange={(url) => updateItem(i, "pdf", url)} />
+          </Box>
+        </SubtleCard>
+      ))}
+      <AddButton dashed size="sm" onClick={addItem}>
+        {addLabel}
+      </AddButton>
+    </Stack>
+  );
+}
 
 export function AboutNdcPage() {
-  const [activeTab, setActiveTab] = useState("1");
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  
-  const [formData, setFormData] = useState({
+  const [tabKey, setTabKey] = useState(TABS[0].id);
+  const [formData, setFormData] = useState<any>({
     aboutUs: { title: "", image: "", description: [] },
     VisionMission: { dropdowns: [] },
     principalMessage: { title: "", principalName: "", position: "", image: "", message: [] },
     NewsLetter: { title: "", sections: [] },
     OurCampuses: { title: "", campuses: [] },
     GoverningCouncilMembers: { title: "", members: [] },
-    ImportantConsiderations: { title: "", sections: [] }
+    ImportantConsiderations: { title: "", sections: [] },
   });
-
-  const tabs = [
-    { id: "1", label: "About & Principal", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg> },
-    { id: "2", label: "Vision & Mission", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg> },
-    { id: "3", label: "Governance & News", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg> },
-    { id: "4", label: "Campuses & More", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg> }
-  ];
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [savedAt, setSavedAt] = useState<number | null>(null);
 
   useEffect(() => {
-    fetchData();
-  }, []);
-  
-  const fetchData = async () => {
-    try {
-      const response = await getPage("about-ndc");
-      if (response?.data) {
-        setFormData(prev => ({...prev, ...response.data}));
-        setIsEditMode(true);
-      }
-    } catch (error) {
-      console.error("Error fetching About data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const toggleTab = (tab) => {
-    if (activeTab !== tab) setActiveTab(tab);
-  };
-
-  const handleNestedChange = (section, field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [field]: value
-      }
-    }));
-  };
-
-  const handleArrayAdd = (section, arrayField, emptyObj) => {
-    setFormData(prev => ({
-      ...prev,
-      [section]: {
-        ...prev[section],
-        [arrayField]: [...(prev[section][arrayField] || []), emptyObj]
-      }
-    }));
-  };
-
-  const handleArrayRemove = (section, arrayField, index) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "Are you sure you want to delete this? This action cannot be undone.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#F6872A",
-      cancelButtonColor: "#0e2455",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        setFormData(prev => {
-          const newArr = [...(prev[section][arrayField] || [])];
-          newArr.splice(index, 1);
-          return {
-            ...prev,
-            [section]: {
-              ...prev[section],
-              [arrayField]: newArr
-            }
-          };
-        });
-      }
-    });
-  };
-
-  const handleArrayChange = (section, arrayField, index, key, value) => {
-    setFormData(prev => {
-      const newArr = [...(prev[section][arrayField] || [])];
-      newArr[index] = { ...newArr[index], [key]: value };
-      return {
-        ...prev,
-        [section]: {
-          ...prev[section],
-          [arrayField]: newArr
+    setLoading(true);
+    getPage(ROUTE)
+      .then((response: any) => {
+        if (response?.data) {
+          setFormData((prev: any) => ({ ...prev, ...response.data }));
+          setIsEditMode(true);
         }
-      };
-    });
-  };
-  
-  const handleStringArrayChange = (section, field, value) => {
-    handleNestedChange(section, field, value.split("\n\n"));
-  };
-  
-  const handleStringArrayInObjectArrayChange = (section, arrayField, index, key, value) => {
-    handleArrayChange(section, arrayField, index, key, value.split("\n\n"));
-  };
+      })
+      .catch((err) => console.error("Error fetching About data:", err))
+      .finally(() => setLoading(false));
+  }, []);
 
-  const renderArrayEditor = (section, arrayField, fieldsConfig, emptyItemTemplate, title) => {
-    const arr = formData[section]?.[arrayField] || [];
-    return (
-      <div className="array-editor">
-        <div className="array-editor__header">
-          <h6>{title}</h6>
-          <button 
-            type="button"
-            className="btn array-editor__add-btn"
-            onClick={() => handleArrayAdd(section, arrayField, emptyItemTemplate)}
-          >
-            + Add Item
-          </button>
-        </div>
-        {arr.map((item, index) => (
-          <div key={index} className="array-editor__item">
-            <button 
-              type="button"
-              className="btn array-editor__remove-btn"
-              onClick={() => handleArrayRemove(section, arrayField, index)}
-            >
-              Remove
-            </button>
-            <div className="flex flex-wrap -mx-3">
-              {fieldsConfig.map((f, i) => (
-                <div className="w-full md:w-1/2 px-3" key={i}>
-                  {f.isImage ? (
-                    <ImagePreviewControl
-                      label={f.label}
-                      value={item[f.key] || ""}
-                      onChange={(val) => handleArrayChange(section, arrayField, index, f.key, val)}
-                    />
-                  ) : f.isTextarea ? (
-                    <div className="mb-3">
-                      <label className="themed-label">{f.label}</label>
-                      <textarea
-                        className="themed-input"
-                        rows={f.rows || 3}
-                        value={f.isStringArray ? (item[f.key] || []).join("\n\n") : (item[f.key] || "")}
-                        onChange={(e) => f.isStringArray ? handleStringArrayInObjectArrayChange(section, arrayField, index, f.key, e.target.value) : handleArrayChange(section, arrayField, index, f.key, e.target.value)}
-                      />
-                    </div>
-                  ) : (
-                    <div className="mb-3">
-                      <label className="themed-label">{f.label}</label>
-                      <input
-                        className="themed-input"
-                        type={f.type || "text"}
-                        value={item[f.key] || ""}
-                        onChange={(e) => handleArrayChange(section, arrayField, index, f.key, e.target.value)}
-                      />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-        {arr.length === 0 && <p className="array-editor__empty">No items added yet.</p>}
-      </div>
+  const aboutUs = formData?.aboutUs ?? {};
+  const aboutDescription: string[] = aboutUs.description ?? [];
+
+  const principal = formData?.principalMessage ?? {};
+  const principalMessageParas: string[] = principal.message ?? [];
+
+  const visionMission = formData?.VisionMission ?? {};
+  const dropdowns: any[] = visionMission.dropdowns ?? [];
+
+  const newsletter = formData?.NewsLetter ?? {};
+  const newsletterSections: any[] = newsletter.sections ?? [];
+
+  const campusesSection = formData?.OurCampuses ?? {};
+  const campuses: any[] = campusesSection.campuses ?? [];
+
+  const council = formData?.GoverningCouncilMembers ?? {};
+  const members: any[] = council.members ?? [];
+
+  const considerations = formData?.ImportantConsiderations ?? {};
+  const considerationsSections: any[] = considerations.sections ?? [];
+
+  // About Us
+  function updateAboutField(field: "title" | "image" | "description", value: any) {
+    setFormData((prev: any) => ({ ...prev, aboutUs: { ...(prev?.aboutUs ?? {}), [field]: value } }));
+  }
+
+  // Principal's Message
+  function updatePrincipalField(field: "title" | "principalName" | "position" | "image" | "message", value: any) {
+    setFormData((prev: any) => ({ ...prev, principalMessage: { ...(prev?.principalMessage ?? {}), [field]: value } }));
+  }
+
+  // Vision & Mission dropdown blocks
+  function updateVisionField(field: "dropdowns", value: any) {
+    setFormData((prev: any) => ({ ...prev, VisionMission: { ...(prev?.VisionMission ?? {}), [field]: value } }));
+  }
+  function updateDropdownItem(i: number, field: "title" | "description", value: any) {
+    updateVisionField(
+      "dropdowns",
+      dropdowns.map((d, idx) => (idx === i ? { ...d, [field]: value } : d))
     );
-  };
-
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    setSaving(true);
-    try {
-      await putPage("about-ndc", formData);
-      Swal.fire({
-        title: "Success",
-        text: "About data saved successfully!",
-        icon: "success",
-        toast: true,
-        position: "top-end",
-        timer: 3000,
-        showConfirmButton: false,
-      });
-      const publicPath = publicPathForRoute("about-ndc");
-      if (publicPath) triggerRevalidate(publicPath);
-    } catch (error) {
-      console.error("Error saving data:", error);
-      Swal.fire("Error", "Failed to save data. Check console for details.", "error");
-    } finally {
-      setSaving(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="about-loading">
-        <div className="spinner-border text-warning" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      </div>
+  }
+  function addDropdown() {
+    updateVisionField("dropdowns", [...dropdowns, { title: "", description: [] }]);
+  }
+  function removeDropdown(i: number) {
+    updateVisionField(
+      "dropdowns",
+      dropdowns.filter((_, idx) => idx !== i)
     );
   }
 
+  // Newsletters
+  function updateNewsletterField(field: "title" | "sections", value: any) {
+    setFormData((prev: any) => ({ ...prev, NewsLetter: { ...(prev?.NewsLetter ?? {}), [field]: value } }));
+  }
+
+  // Our Campuses
+  function updateCampusesField(field: "title" | "campuses", value: any) {
+    setFormData((prev: any) => ({ ...prev, OurCampuses: { ...(prev?.OurCampuses ?? {}), [field]: value } }));
+  }
+  function updateCampusItem(i: number, field: "collegeName" | "collegeDescription" | "location" | "link" | "image", value: string) {
+    updateCampusesField(
+      "campuses",
+      campuses.map((c, idx) => (idx === i ? { ...c, [field]: value } : c))
+    );
+  }
+  function addCampus() {
+    updateCampusesField("campuses", [...campuses, { collegeName: "", collegeDescription: "", location: "", link: "", image: "" }]);
+  }
+  function removeCampus(i: number) {
+    updateCampusesField(
+      "campuses",
+      campuses.filter((_, idx) => idx !== i)
+    );
+  }
+
+  // Governing Council Members
+  function updateCouncilField(field: "title" | "members", value: any) {
+    setFormData((prev: any) => ({ ...prev, GoverningCouncilMembers: { ...(prev?.GoverningCouncilMembers ?? {}), [field]: value } }));
+  }
+  function updateMemberItem(i: number, field: "name" | "designation" | "position", value: string) {
+    updateCouncilField(
+      "members",
+      members.map((m, idx) => (idx === i ? { ...m, [field]: value } : m))
+    );
+  }
+  function addMember() {
+    updateCouncilField("members", [...members, { name: "", designation: "", position: "" }]);
+  }
+  function removeMember(i: number) {
+    updateCouncilField(
+      "members",
+      members.filter((_, idx) => idx !== i)
+    );
+  }
+
+  // Important Considerations
+  function updateConsiderationsField(field: "title" | "sections", value: any) {
+    setFormData((prev: any) => ({ ...prev, ImportantConsiderations: { ...(prev?.ImportantConsiderations ?? {}), [field]: value } }));
+  }
+
+  async function handleSave() {
+    setError(null);
+    setSaving(true);
+    try {
+      await putPage(ROUTE, formData);
+      setSavedAt(Date.now());
+      const publicPath = publicPathForRoute(ROUTE);
+      if (publicPath) triggerRevalidate(publicPath);
+    } catch (err: any) {
+      setError(err.response?.data?.message || err.message || "Failed to save data.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
-    <div className="page-content about-admin-container">
-      <div className="container about-admin-shell">
-        <div className="about-hero">
-          <div>
-            <h2>About NDC - Content Studio</h2>
-            <p>Manage content for the public About page with a cleaner structured editor.</p>
-          </div>
-          <div className="about-meta-pills">
-            <span className="about-meta-pill">{isEditMode ? "Edit Mode" : "Create Mode"}</span>
-            <span className="about-meta-pill">{saving ? "Saving..." : "Ready"}</span>
-          </div>
-        </div>
+    <Stack gap={4}>
+      <EditorHeader
+        icon={AboutIcon}
+        eyebrow="About"
+        title="About NDC Page Studio"
+        subtitle="Manage the college introduction, principal's message, vision & mission, newsletters, campuses, governing council, and PDF resources on the public About NDC page."
+        stats={[
+          { value: campuses.length, label: "Campuses" },
+          { value: members.length, label: "Council" },
+          { value: newsletterSections.length, label: "Newsletters" },
+        ]}
+        mode={isEditMode ? "edit" : "create"}
+      />
+      {error && <Callout tone="error">{error}</Callout>}
+      {savedAt && <Callout tone="success">Saved.</Callout>}
 
-        <form onSubmit={handleSubmit}>
-          <div className="nav nav-tabs about-tabs custom-tabs">
-            {tabs.map((tab) => (
-              <div className="nav-item" key={tab.id}>
-                <button type="button" 
-                  className={classnames('nav-link', { active: activeTab === tab.id })}
-                  onClick={() => toggleTab(tab.id)}
-                >
-                  {tab.icon}
-                  {tab.label}
-                </button>
-              </div>
-            ))}
-          </div>
+      {loading ? (
+        <Spinner size="md" />
+      ) : (
+        <EditorLayout tabs={TABS} activeTab={tabKey} onChange={setTabKey}>
+          <Panel p={5}>
+            {/* About Us */}
+            {tabKey === "about" && (
+              <>
+                <SectionHead icon={AboutIcon} title="About Us" subtitle="The main introduction section." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Title
+                    </Text>
+                    <Input value={aboutUs.title ?? ""} onChange={(e) => updateAboutField("title", e.target.value)} bg="white" />
+                  </Box>
+                  <Box>
+                    <Text fontSize="sm" fontWeight={600} mb={2}>
+                      Description Paragraphs
+                    </Text>
+                    <StringListEditor
+                      items={aboutDescription}
+                      onChange={(v) => updateAboutField("description", v)}
+                      addLabel="Add paragraph"
+                      multiline
+                    />
+                  </Box>
+                  <ImageControl label="Cover Image" value={aboutUs.image ?? ""} onChange={(url) => updateAboutField("image", url)} />
+                </Stack>
+              </>
+            )}
 
-          <div className="tab-content about-tab-content">
-            {activeTab === "1" && (<div className="tab-pane active">
-              <div className="purpose-principal-section">
-                <div className="pp-card" style={{ flex: 1 }}>
-                   <div className="pp-card__header">
-                      <div className="icon-box">
-                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                      </div>
-                      <div>
-                         <h4>About Us</h4>
-                         <p>The main introduction section.</p>
-                      </div>
-                   </div>
-                   
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <label>TITLE</label>
-                         <div className="input-wrapper">
-                            <input type="text" value={formData.aboutUs?.title || ""} onChange={(e) => handleNestedChange("aboutUs", "title", e.target.value)} />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <label>DESCRIPTION (Separate paragraphs with double newline)</label>
-                         <div className="input-wrapper">
-                            <textarea rows={5} value={(formData.aboutUs?.description || []).join("\n\n")} onChange={(e) => handleStringArrayChange("aboutUs", "description", e.target.value)} />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <ImagePreviewControl label="COVER IMAGE" value={formData.aboutUs?.image || ""} onChange={(url) => handleNestedChange("aboutUs", "image", url)} />
-                      </div>
-                   </div>
-                </div>
+            {/* Principal's Message */}
+            {tabKey === "principal" && (
+              <>
+                <SectionHead icon={PrincipalIcon} title="Principal's Message" subtitle="Details and message from the principal." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Section Title
+                    </Text>
+                    <Input value={principal.title ?? ""} onChange={(e) => updatePrincipalField("title", e.target.value)} bg="white" />
+                  </Box>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Principal Name
+                    </Text>
+                    <Input
+                      value={principal.principalName ?? ""}
+                      onChange={(e) => updatePrincipalField("principalName", e.target.value)}
+                      bg="white"
+                    />
+                  </Box>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Position
+                    </Text>
+                    <Input value={principal.position ?? ""} onChange={(e) => updatePrincipalField("position", e.target.value)} bg="white" />
+                  </Box>
+                  <Box>
+                    <Text fontSize="sm" fontWeight={600} mb={2}>
+                      Message Paragraphs
+                    </Text>
+                    <StringListEditor
+                      items={principalMessageParas}
+                      onChange={(v) => updatePrincipalField("message", v)}
+                      addLabel="Add paragraph"
+                      multiline
+                    />
+                  </Box>
+                  <ImageControl label="Principal Photo" value={principal.image ?? ""} onChange={(url) => updatePrincipalField("image", url)} />
+                </Stack>
+              </>
+            )}
 
-                <div className="pp-card" style={{ flex: 1 }}>
-                   <div className="pp-card__header">
-                      <div className="icon-box">
-                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                      </div>
-                      <div>
-                         <h4>Principal's Message</h4>
-                         <p>Details and message from the principal.</p>
-                      </div>
-                   </div>
-                   
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <label>SECTION TITLE</label>
-                         <div className="input-wrapper">
-                            <input type="text" value={formData.principalMessage?.title || ""} onChange={(e) => handleNestedChange("principalMessage", "title", e.target.value)} />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <label>PRINCIPAL NAME</label>
-                         <div className="input-wrapper">
-                            <input type="text" value={formData.principalMessage?.principalName || ""} onChange={(e) => handleNestedChange("principalMessage", "principalName", e.target.value)} />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <label>POSITION</label>
-                         <div className="input-wrapper">
-                            <input type="text" value={formData.principalMessage?.position || ""} onChange={(e) => handleNestedChange("principalMessage", "position", e.target.value)} />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <label>MESSAGE (Separate paragraphs with double newline)</label>
-                         <div className="input-wrapper">
-                            <textarea rows={5} value={(formData.principalMessage?.message || []).join("\n\n")} onChange={(e) => handleStringArrayChange("principalMessage", "message", e.target.value)} />
-                         </div>
-                      </div>
-                   </div>
-                   <div className="field-with-icon">
-                      <div className="field-content" style={{width: '100%'}}>
-                         <ImagePreviewControl label="PRINCIPAL PHOTO" value={formData.principalMessage?.image || ""} onChange={(url) => handleNestedChange("principalMessage", "image", url)} />
-                      </div>
-                   </div>
-                </div>
-              </div>
-            </div>)}
+            {/* Vision & Mission */}
+            {tabKey === "vision" && (
+              <>
+                <SectionHead icon={VisionIcon} title="Vision & Mission" subtitle="Dropdown blocks shown on the public page." />
+                <Stack gap={3}>
+                  {dropdowns.map((d, i) => (
+                    <SubtleCard key={i} mb={0}>
+                      <CardHeader justify="space-between">
+                        <Input
+                          value={d.title ?? ""}
+                          onChange={(e) => updateDropdownItem(i, "title", e.target.value)}
+                          bg="white"
+                          fontWeight={700}
+                          flex="1"
+                          maxW="360px"
+                          placeholder="e.g. Vision"
+                        />
+                        <IconBtn aria-label="Remove block" tone="danger" onClick={() => removeDropdown(i)} />
+                      </CardHeader>
+                      <Box p={4}>
+                        <StringListEditor
+                          items={d.description ?? []}
+                          onChange={(v) => updateDropdownItem(i, "description", v)}
+                          addLabel="Add paragraph"
+                          multiline
+                        />
+                      </Box>
+                    </SubtleCard>
+                  ))}
+                  <AddButton dashed size="sm" onClick={addDropdown}>
+                    Add Dropdown Block
+                  </AddButton>
+                </Stack>
+              </>
+            )}
 
-            {activeTab === "2" && (<div className="tab-pane active">
-              <div className="themed-card">
-                 <div className="themed-card__header">
-                   <h5>Vision & Mission</h5>
-                 </div>
-                 <div className="themed-card__body">
-                    {renderArrayEditor(
-                      "VisionMission",
-                      "dropdowns",
-                      [
-                        { label: "Title (e.g. Vision)", key: "title", type: "text" },
-                        { label: "Description (paragraphs)", key: "description", isTextarea: true, isStringArray: true, rows: 4 }
-                      ],
-                      { title: "", description: [] },
-                      "Dropdown Blocks"
-                    )}
-                 </div>
-              </div>
-            </div>)}
+            {/* Newsletters */}
+            {tabKey === "newsletter" && (
+              <>
+                <SectionHead icon={NewsletterIcon} title="Newsletters" subtitle="Newsletter volumes, each with a PDF file." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Section Title
+                    </Text>
+                    <Input value={newsletter.title ?? ""} onChange={(e) => updateNewsletterField("title", e.target.value)} bg="white" />
+                  </Box>
+                  <TitlePdfListEditor
+                    items={newsletterSections}
+                    onChange={(v) => updateNewsletterField("sections", v)}
+                    addLabel="Add Newsletter Volume"
+                  />
+                </Stack>
+              </>
+            )}
 
-            {activeTab === "3" && (<div className="tab-pane active">
-              <div className="themed-card mb-4">
-                 <div className="themed-card__header">
-                   <h5>Newsletters</h5>
-                 </div>
-                 <div className="themed-card__body">
-                    <div className="mb-4">
-                      <label className="themed-label">Section Title</label>
-                      <input className="themed-input" type="text" value={formData.NewsLetter?.title || ""} onChange={(e) => handleNestedChange("NewsLetter", "title", e.target.value)} />
-                    </div>
-                    {renderArrayEditor(
-                      "NewsLetter",
-                      "sections",
-                      [
-                        { label: "Volume Title", key: "title", type: "text" },
-                        { label: "PDF URL", key: "pdf", type: "text", isImage: true }
-                      ],
-                      { title: "", pdf: "" },
-                      "Newsletter Volumes"
-                    )}
-                 </div>
-              </div>
+            {/* Our Campuses */}
+            {tabKey === "campuses" && (
+              <>
+                <SectionHead icon={CampusIcon} title="Our Campuses" subtitle="Every campus card shown in the campuses carousel." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Section Title
+                    </Text>
+                    <Input value={campusesSection.title ?? ""} onChange={(e) => updateCampusesField("title", e.target.value)} bg="white" />
+                  </Box>
+                  <Grid templateColumns={{ base: "1fr", lg: "1fr 1fr" }} gap={4}>
+                    {campuses.map((c, i) => (
+                      <SubtleCard key={i} mb={0}>
+                        <CardHeader justify="space-between">
+                          <Input
+                            value={c.collegeName ?? ""}
+                            onChange={(e) => updateCampusItem(i, "collegeName", e.target.value)}
+                            bg="white"
+                            fontWeight={700}
+                            flex="1"
+                            maxW="260px"
+                            placeholder="College Name"
+                          />
+                          <IconBtn aria-label="Delete campus" tone="danger" onClick={() => removeCampus(i)} />
+                        </CardHeader>
+                        <Box p={4}>
+                          <Stack gap={3}>
+                            <Input
+                              value={c.location ?? ""}
+                              onChange={(e) => updateCampusItem(i, "location", e.target.value)}
+                              placeholder="Location"
+                              size="sm"
+                              bg="white"
+                            />
+                            <Input
+                              value={c.link ?? ""}
+                              onChange={(e) => updateCampusItem(i, "link", e.target.value)}
+                              placeholder="Website link"
+                              size="sm"
+                              bg="white"
+                            />
+                            <Textarea
+                              value={c.collegeDescription ?? ""}
+                              onChange={(e) => updateCampusItem(i, "collegeDescription", e.target.value)}
+                              placeholder="Description"
+                              rows={3}
+                              size="sm"
+                              bg="white"
+                            />
+                            <ImageControl value={c.image ?? ""} onChange={(url) => updateCampusItem(i, "image", url)} />
+                          </Stack>
+                        </Box>
+                      </SubtleCard>
+                    ))}
+                  </Grid>
+                  <AddButton dashed size="sm" onClick={addCampus}>
+                    Add Campus
+                  </AddButton>
+                </Stack>
+              </>
+            )}
 
-              <div className="themed-card">
-                 <div className="themed-card__header">
-                   <h5>Governing Council Members</h5>
-                 </div>
-                 <div className="themed-card__body">
-                    <div className="mb-4">
-                      <label className="themed-label">Section Title</label>
-                      <input className="themed-input" type="text" value={formData.GoverningCouncilMembers?.title || ""} onChange={(e) => handleNestedChange("GoverningCouncilMembers", "title", e.target.value)} />
-                    </div>
-                    {renderArrayEditor(
-                      "GoverningCouncilMembers",
-                      "members",
-                      [
-                        { label: "Name", key: "name", type: "text" },
-                        { label: "Designation", key: "designation", type: "text" },
-                        { label: "Position", key: "position", type: "text" }
-                      ],
-                      { name: "", designation: "", position: "" },
-                      "Members List"
-                    )}
-                 </div>
-              </div>
-            </div>)}
+            {/* Governing Council Members */}
+            {tabKey === "council" && (
+              <>
+                <SectionHead icon={CouncilIcon} title="Governing Council Members" subtitle="The list of governing council members." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Section Title
+                    </Text>
+                    <Input value={council.title ?? ""} onChange={(e) => updateCouncilField("title", e.target.value)} bg="white" />
+                  </Box>
+                  <Stack gap={2}>
+                    {members.map((m, i) => (
+                      <RowCard key={i} align="flex-start" wrap="wrap" mb={0}>
+                        <Stack flex="1" minW="180px" gap={2}>
+                          <Input
+                            value={m.name ?? ""}
+                            onChange={(e) => updateMemberItem(i, "name", e.target.value)}
+                            placeholder="Name"
+                            size="sm"
+                            bg="white"
+                          />
+                        </Stack>
+                        <Stack flex="1" minW="180px" gap={2}>
+                          <Input
+                            value={m.designation ?? ""}
+                            onChange={(e) => updateMemberItem(i, "designation", e.target.value)}
+                            placeholder="Designation"
+                            size="sm"
+                            bg="white"
+                          />
+                        </Stack>
+                        <Stack flex="1" minW="180px" gap={2}>
+                          <Input
+                            value={m.position ?? ""}
+                            onChange={(e) => updateMemberItem(i, "position", e.target.value)}
+                            placeholder="Position"
+                            size="sm"
+                            bg="white"
+                          />
+                        </Stack>
+                        <IconBtn aria-label="Remove member" tone="danger" onClick={() => removeMember(i)} />
+                      </RowCard>
+                    ))}
+                    <AddButton dashed size="sm" onClick={addMember}>
+                      Add Member
+                    </AddButton>
+                  </Stack>
+                </Stack>
+              </>
+            )}
 
-            {activeTab === "4" && (<div className="tab-pane active">
-              <div className="themed-card mb-4">
-                 <div className="themed-card__header">
-                   <h5>Our Campuses</h5>
-                 </div>
-                 <div className="themed-card__body">
-                    <div className="mb-4">
-                      <label className="themed-label">Section Title</label>
-                      <input className="themed-input" type="text" value={formData.OurCampuses?.title || ""} onChange={(e) => handleNestedChange("OurCampuses", "title", e.target.value)} />
-                    </div>
-                    {renderArrayEditor(
-                      "OurCampuses",
-                      "campuses",
-                      [
-                        { label: "College Name", key: "collegeName", type: "text" },
-                        { label: "Location", key: "location", type: "text" },
-                        { label: "Link", key: "link", type: "text" },
-                        { label: "Image URL", key: "image", isImage: true },
-                        { label: "Description", key: "collegeDescription", isTextarea: true, rows: 3 }
-                      ],
-                      { collegeName: "", collegeDescription: "", location: "", link: "", image: "" },
-                      "Campuses"
-                    )}
-                 </div>
-              </div>
+            {/* Important Considerations */}
+            {tabKey === "considerations" && (
+              <>
+                <SectionHead icon={ConsiderationsIcon} title="Important Considerations" subtitle="PDF resources shown on the public page." />
+                <Stack gap={4}>
+                  <Box>
+                    <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+                      Section Title
+                    </Text>
+                    <Input
+                      value={considerations.title ?? ""}
+                      onChange={(e) => updateConsiderationsField("title", e.target.value)}
+                      bg="white"
+                    />
+                  </Box>
+                  <TitlePdfListEditor
+                    items={considerationsSections}
+                    onChange={(v) => updateConsiderationsField("sections", v)}
+                    addLabel="Add PDF Section"
+                  />
+                </Stack>
+              </>
+            )}
+          </Panel>
 
-              <div className="themed-card">
-                 <div className="themed-card__header">
-                   <h5>Important Considerations</h5>
-                 </div>
-                 <div className="themed-card__body">
-                    <div className="mb-4">
-                      <label className="themed-label">Section Title</label>
-                      <input className="themed-input" type="text" value={formData.ImportantConsiderations?.title || ""} onChange={(e) => handleNestedChange("ImportantConsiderations", "title", e.target.value)} />
-                    </div>
-                    {renderArrayEditor(
-                      "ImportantConsiderations",
-                      "sections",
-                      [
-                        { label: "Title", key: "title", type: "text" },
-                        { label: "PDF URL", key: "pdf", type: "text", isImage: true }
-                      ],
-                      { title: "", pdf: "" },
-                      "PDF Sections"
-                    )}
-                 </div>
-              </div>
-            </div>)}
-
-          </div>
-
-          <div className="about-footer-actions">
-            <button type="submit" className="save-btn" disabled={saving}>
-              {saving ? "Saving Changes..." : "Save About Content"}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+          <SaveBar
+            saving={saving}
+            onSave={handleSave}
+            label={saving ? "Saving Changes..." : "Save About Content"}
+            summary="Changes apply to the public About NDC page once saved."
+          />
+        </EditorLayout>
+      )}
+    </Stack>
   );
 }

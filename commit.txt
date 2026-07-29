@@ -1,31 +1,23 @@
-feat: comprehensive UI/UX overhaul and new generic singleton pages
+Refactor Admin Pages to Use EditorLayout and Tab Navigation
 
-This commit introduces major improvements to the admin application's UI/UX,
-focusing on consistency, visual appeal, and ease of use. It also adds new 
-singleton pages to manage core website sections.
+This commit introduces a major UI consistency update across the admin panel, transitioning multiple page editors from stacked or collapsible sections to a unified tab-based layout. 
 
-## Major Changes
+Key changes include:
+- Introduced `EditorLayout` and `TabCardSpec` across all major content editing pages.
+- Replaced the legacy `CollapsibleSection` and vertically stacked `Panel` UI with a cleaner, horizontal tab-based navigation system (`tabKey` state).
+- Standardized the use of `SectionHead` inside individual tab panels for better context and consistent aesthetics.
+- Updated `PageEditor.tsx` (the generic editor) to use `EditorLayout`.
+- Refactored specific, custom page editors to use tabs instead of stacked panels:
+  - `AboutNdcPage.tsx`: Divided into Banner, Overview, Vision/Mission, Quality Policy, Milestones, and Affiliation sections.
+  - `ActivitiesOverviewPage.tsx`: Separated Banner and Activity Cells sections.
+  - `ActivityCellDetailPage.tsx`: Tabulated Banner, About/Overview, Faculty, Objectives, Activities list, and Gallery.
+  - `AdmissionsPage.tsx`: Organized into Banner, How to Apply, and Eligibility tabs.
+  - `AlumniPage.tsx`: Split into Banner, President's Message, Office Bearers, and Notable Alumni tabs.
+  - `DepartmentsOverviewPage.tsx`: Separated into Banner and Departments list tabs.
+  - `IicPage.tsx`: Resolved a parsing error in the JSX fragment structure and migrated to the tabbed layout.
+  - `IqacPage.tsx`: Broken into Banner, About IQAC, Objectives, Functions, and Committee tabs.
+  - `LibraryPage.tsx`: Categorized into Banner, About, Objectives, Advisory Committee, Sections, and E-Resources tabs.
+  - `SamasthiPage.tsx`: Restructured into Banner, About, Features, Testimonials, Guidelines, and Useful Links tabs.
+  - `SportsPage.tsx`: Organized into Banner, Vision/Mission, Director's Message, and Gallery tabs.
 
-- **New Singleton Pages Added**:
-  - `AdmissionsPage`, `AlumniPage`, `LibraryPage`, and `QuestionBankPage` have been introduced to manage their respective domains using the structured AutoForm editor.
-  - Sidebar routing updated to include these new pages.
-
-- **UI System Standardization**:
-  - Removed Tailwind CSS (`postcss.config.js`, `tailwind.config.js`) to fully rely on Chakra UI, ensuring consistent styling across the dashboard.
-  - Implemented the `brand.orange` (`#F6872A`) and `brand.navy` (`#0e2455`) global color palette across all custom components and popups.
-
-- **Media & Link Field Enhancements**:
-  - Raw URL text inputs for media (images, PDFs, videos) are no longer exposed in the UI.
-  - Integrated `ImageControl` and `FileControl` deeply into the `AutoForm` heuristics to detect standard media fields.
-  - Introduced `YoutubeControl` to automatically render video thumbnails for YouTube IDs.
-  - Introduced `MapLocationControl` to render a clean map icon and status for Google Maps links instead of broken iframes or raw URLs.
-  - Added dedicated SweetAlert prompts to modify these special links, preventing chaotic URLs from cluttering the forms.
-
-- **Global SweetAlert Integration**:
-  - Replaced browser-native `window.confirm()` and `window.alert()` calls with beautifully themed SweetAlert2 modals.
-  - Delete actions globally (including nested arrays and page elements) now require confirmation through a branded modal (Orange confirm, Navy cancel).
-  - Toast notifications implemented for save success/failure states in custom pages.
-
-- **Component Refactoring**:
-  - Standardized the visual design of `AboutNdcPage` and `IicPage` to match the new Chakra UI generic page layouts.
-  - Refactored `editorKit` controls to utilize Chakra UI's `<Button>` and `<IconButton>` with consistent hover states and shadows.
+This structural refactor greatly improves usability for administrators by reducing vertical scrolling on content-heavy pages and ensuring a more predictable, modern editing experience that aligns with our shared design system.
