@@ -52,13 +52,30 @@ const SamashtiAbout = ({ data }: any) => {
             </span>
             
             <h2 className="text-[36px] font-extrabold text-[#0e2455] leading-[1.14] tracking-[-0.6px] mb-4 mt-[6px]">
-              <span className="block">Voices of Innovation.</span>
-              <span className="block">Stories that Inspire.</span>
+              {data?.title ? (
+                <>
+                  <span className="block">{data.title.substring(0, Math.floor(data.title.length / 2))}</span>
+                  <span className="block">{data.title.substring(Math.floor(data.title.length / 2))}</span>
+                </>
+              ) : (
+                <>
+                  <span className="block">Voices of Innovation.</span>
+                  <span className="block">Stories that Inspire.</span>
+                </>
+              )}
             </h2>
 
-            <p className="text-[15.5px] text-[#53545b] leading-[1.7] max-w-[560px] mb-6">
-              Nagarjuna Samashti is more than a magazine—it's a reflection of our campus spirit. Each edition brings together ideas that challenge, achievements that inspire, and stories that connect the NCET community.
-            </p>
+            {data?.description && Array.isArray(data.description) ? (
+              data.description.map((desc: string, i: number) => (
+                <p key={i} className="text-[15.5px] text-[#53545b] leading-[1.7] max-w-[560px] mb-4">
+                  {desc}
+                </p>
+              ))
+            ) : (
+              <p className="text-[15.5px] text-[#53545b] leading-[1.7] max-w-[560px] mb-6">
+                {data?.description || "Nagarjuna Samashti is more than a magazine—it's a reflection of our campus spirit. Each edition brings together ideas that challenge, achievements that inspire, and stories that connect the NCET community."}
+              </p>
+            )}
             
             <div className="grid grid-cols-3 gap-4 max-w-[540px]">
                <div className="bg-white border border-[#eef1f6] rounded-[14px] p-[18px_14px] text-center shadow-[0_12px_28px_rgba(15,18,22,0.05)] flex flex-col items-center">

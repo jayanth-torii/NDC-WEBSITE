@@ -63,7 +63,7 @@ export function MapLocationControl({ label, value, onChange }: { label?: string;
               {value ? `Location Saved` : "No Location"}
             </Text>
           </Flex>
-          <Text fontSize="xs" color="gray.500" mb={2} noOfLines={1} maxW="300px">
+          <Text fontSize="xs" color="gray.500" mb={1} lineClamp={1} maxW="300px">
             {value ? "Map Link is active." : "Raw URL is hidden."}
           </Text>
           <Button 

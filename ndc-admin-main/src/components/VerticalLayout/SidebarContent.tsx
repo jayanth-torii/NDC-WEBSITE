@@ -27,6 +27,7 @@ import {
   MdCampaign as CampaignIcon,
   MdArticle as ArticleIcon,
   MdMarkunreadMailbox as MarkunreadMailboxIcon,
+  MdWidgets as WidgetsIcon,
 } from "react-icons/md";
 import { API_ROUTES } from "../../services/route";
 
@@ -44,7 +45,7 @@ const NAV_GROUPS: { title?: string; items: NavItem[] }[] = [
   {
     title: "Pages",
     items: [
-      { label: "Home Page", to: `/page/home/${encodeURIComponent(API_ROUTES.HOME.GET)}`, icon: HomeIcon },
+      { label: "Home Page", to: "/home-page", icon: HomeIcon },
       { label: "About NDC", to: "/about-ndc", icon: InfoIcon },
       { label: "Admissions", to: "/admissions", icon: HowToRegIcon },
       { label: "Alumni", to: "/alumni", icon: GroupsIcon },
@@ -56,7 +57,7 @@ const NAV_GROUPS: { title?: string; items: NavItem[] }[] = [
   {
     title: "Departments",
     items: [
-      { label: "Departments (overview)", to: `/page/departments-page/${encodeURIComponent(API_ROUTES.DEPARTMENTS_PAGE.GET)}`, icon: ApartmentIcon },
+      { label: "Departments (overview)", to: "/departments-page", icon: ApartmentIcon },
       { label: "Department Details Editor", to: "/department-details-editor", icon: TuneIcon },
     ],
   },
@@ -70,16 +71,16 @@ const NAV_GROUPS: { title?: string; items: NavItem[] }[] = [
       { label: "Question Bank", to: "/question-bank", icon: QuizIcon },
       { label: "Research", to: `/page/research/${encodeURIComponent(API_ROUTES.RESEARCH.GET)}`, icon: ScienceIcon },
       { label: "Research Forum", to: `/page/research-forum/${encodeURIComponent(API_ROUTES.RESEARCH_FORUM.GET)}`, icon: ForumIcon },
-      { label: "Samashti", to: `/page/samashti/${encodeURIComponent(API_ROUTES.SAMASHTI.GET)}`, icon: MenuBookIcon },
-      { label: "Sports", to: `/page/sports/${encodeURIComponent(API_ROUTES.SPORTS.GET)}`, icon: SportsIcon },
+      { label: "Samashti", to: "/samashti", icon: MenuBookIcon },
+      { label: "Sports", to: "/sports", icon: SportsIcon },
       { label: "Students", to: `/page/students/${encodeURIComponent(API_ROUTES.STUDENTS.GET)}`, icon: GroupIcon },
     ],
   },
   {
     title: "Activities",
     items: [
-      { label: "Activities (overview)", to: `/page/activities-page/${encodeURIComponent(API_ROUTES.ACTIVITIES_PAGE.GET)}`, icon: EventNoteIcon },
-      { label: "Activity Cells (16)", to: "/activity-cells", icon: GroupsIcon },
+      { label: "Activities (overview)", to: "/activities-page", icon: EventNoteIcon },
+      { label: "Activity Cells (16)", to: "/activity-cells", icon: WidgetsIcon },
     ],
   },
   {

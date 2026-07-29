@@ -5,6 +5,7 @@ export const API_ROUTES = {
   AUTH: {
     LOGIN: "/auth/login",
     ME: "/auth/me",
+    UPDATE_PROFILE: "/auth/profile",
   },
   HOME: { GET: "/home", UPDATE: "/home" },
   FOOTER: { GET: "/footer", UPDATE: "/footer" },

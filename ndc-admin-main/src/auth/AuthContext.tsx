@@ -1,12 +1,22 @@
 import { createContext, useContext, useState, useMemo, type ReactNode } from "react";
 import { login as loginRequest } from "../services/data.service";
 
-type AdminUser = { id: string; name: string; email: string; role: string };
+type AdminUser = { 
+  id: string; 
+  name: string; 
+  email: string; 
+  role: string;
+  dob?: string;
+  address?: string;
+  profileImage?: string;
+  createdAt?: string;
+};
 
 type AuthContextValue = {
   user: AdminUser | null;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
+  updateUser: (user: AdminUser) => void;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -31,6 +41,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem("ndc_admin_token");
         localStorage.removeItem("ndc_admin_user");
         setUser(null);
+      },
+      updateUser(updatedUser: AdminUser) {
+        localStorage.setItem("ndc_admin_user", JSON.stringify(updatedUser));
+        setUser(updatedUser);
       },
     }),
     [user]

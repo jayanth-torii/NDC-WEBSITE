@@ -1,42 +1,47 @@
-import { Accordion, Box, Flex, Input, Stack, Switch, Text, Textarea } from "@chakra-ui/react";
-import { MdExpandMore as ExpandMoreIcon, MdFolder as SectionIcon, MdInbox as EmptyIcon } from "react-icons/md";
+import { Box, Flex, Input, Switch, Text, Textarea } from "@chakra-ui/react";
+import { MdFolder as SectionIcon, MdInbox as EmptyIcon } from "react-icons/md";
 import { ImageControl } from "./ImageControl";
 import { FileControl } from "./FileControl";
 import { YoutubeControl } from "./YoutubeControl";
 import { MapLocationControl } from "./MapLocationControl";
-import { AddButton, EmptyState, IconChip, IconBtn, RowCard } from "./editorKit";
+import { AddButton, EmptyState, IconChip, IconBtn } from "./editorKit";
 import { HIDDEN_KEYS, emptyLike, humanize, isImageField, isPdfField, isVideoField, itemLabel, isYoutubeField, isMapLocationField } from "./fieldHeuristics";
 
 type Json = any;
 
-// Recursively renders proper fields (text/number/switch/image/pdf/repeatable
-// list) for an arbitrary JSON value — the structured replacement for the
-// raw-JSON textarea. There's no backend schema to drive this off (every
-// content model is `data: Mixed`), so field type is inferred per-key/value
-// via fieldHeuristics. Edits clone-and-patch the source object at the
-// changed path only, so fields this renderer doesn't recognize (or hides,
-// like technical bookkeeping keys) are never dropped on save.
 export function AutoForm({ value, onChange }: { value: Json; onChange: (v: Json) => void }) {
-  return <ObjectFields value={value ?? {}} onChange={onChange} />;
+  return (
+    <Box bg="white" borderRadius="xl" boxShadow="sm" overflow="hidden" borderWidth="1px" borderColor="gray.200">
+      <ObjectFields value={value ?? {}} onChange={onChange} level={0} />
+    </Box>
+  );
 }
 
-function ObjectFields({ value, onChange }: { value: Record<string, Json>; onChange: (v: any) => void }) {
+function ObjectFields({ value, onChange, level = 0 }: { value: Record<string, Json>; onChange: (v: any) => void; level?: number }) {
   const keys = Object.keys(value ?? {}).filter((k) => !HIDDEN_KEYS.has(k));
   if (keys.length === 0) {
     return <EmptyState icon={EmptyIcon} title="No fields yet" hint='Use "Advanced: raw JSON" below to seed the initial shape.' />;
   }
   return (
-    <Stack gap={5}>
-      {keys.map((key) => (
-        <FieldRow
+    <Box>
+      {keys.map((key, index) => (
+        <Box 
           key={key}
-          fieldKey={key}
-          label={humanize(key)}
-          value={value[key]}
-          onChange={(next: Json) => onChange({ ...value, [key]: next })}
-        />
+          borderBottom={index < keys.length - 1 ? "1px solid" : "none"} 
+          borderColor="gray.100"
+          p={level === 0 ? 5 : 4}
+          bg={level === 0 ? "white" : "gray.50"}
+        >
+          <FieldRow
+            fieldKey={key}
+            label={humanize(key)}
+            value={value[key]}
+            level={level}
+            onChange={(next: Json) => onChange({ ...value, [key]: next })}
+          />
+        </Box>
       ))}
-    </Stack>
+    </Box>
   );
 }
 
@@ -44,11 +49,13 @@ function FieldRow({
   fieldKey,
   label,
   value,
+  level,
   onChange,
 }: {
   fieldKey: string;
   label: string;
   value: Json;
+  level: number;
   onChange: (v: Json) => void;
 }) {
   if (isImageField(fieldKey, value)) {
@@ -68,53 +75,48 @@ function FieldRow({
   }
 
   if (Array.isArray(value)) {
-    return <ArrayField fieldKey={fieldKey} label={label} value={value} onChange={onChange} />;
+    return <ArrayField fieldKey={fieldKey} label={label} value={value} level={level} onChange={onChange} />;
   }
 
   if (value !== null && typeof value === "object") {
     return (
-      <Accordion.Root collapsible defaultValue={[fieldKey]} variant="outline" borderRadius="lg" overflow="hidden">
-        <Accordion.Item value={fieldKey} bg="gray.50" borderWidth="1px" borderColor="gray.200" borderRadius="lg">
-          <Accordion.ItemTrigger bg="white" borderBottom="1px solid" borderColor="gray.100" px={4} py={3}>
-            <Flex align="center" gap={3} flex="1">
-              <IconChip icon={SectionIcon} size={16} box={32} onDark={false} />
-              <Text fontWeight={700} color="brand.navy" textAlign="left">
-                {label}
-              </Text>
-            </Flex>
-            <Accordion.ItemIndicator>
-              <ExpandMoreIcon size={16} />
-            </Accordion.ItemIndicator>
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody px={4} pt={4} pb={4}>
-              <ObjectFields value={value} onChange={onChange} />
-            </Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
-      </Accordion.Root>
+      <Box borderLeft="3px solid" borderColor="brand.orange" pl={4} ml={1}>
+        <Flex align="center" gap={3} mb={4}>
+          <IconChip icon={SectionIcon} size={16} box={32} onDark={false} />
+          <Text fontWeight={700} color="brand.navy" fontSize="sm" textTransform="uppercase" letterSpacing="wide">
+            {label}
+          </Text>
+        </Flex>
+        <Box borderRadius="md" overflow="hidden" borderWidth="1px" borderColor="gray.200">
+          <ObjectFields value={value} onChange={onChange} level={level + 1} />
+        </Box>
+      </Box>
     );
   }
 
   if (typeof value === "boolean") {
     return (
-      <Switch.Root checked={value} onCheckedChange={(e) => onChange(e.checked)} colorPalette="orange">
-        <Switch.HiddenInput />
-        <Switch.Control>
-          <Switch.Thumb />
-        </Switch.Control>
-        <Switch.Label>{label}</Switch.Label>
-      </Switch.Root>
+      <Flex align="center" justify="space-between" maxW="400px">
+        <Text fontSize="sm" fontWeight={600} color="gray.700">
+          {label}
+        </Text>
+        <Switch.Root checked={value} onCheckedChange={(e) => onChange(e.checked)} colorPalette="orange">
+          <Switch.HiddenInput />
+          <Switch.Control>
+            <Switch.Thumb />
+          </Switch.Control>
+        </Switch.Root>
+      </Flex>
     );
   }
 
   if (typeof value === "number") {
     return (
-      <Box maxW="240px">
-        <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+      <Box maxW="400px">
+        <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1} textTransform="uppercase" letterSpacing="wide">
           {label}
         </Text>
-        <Input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))} size="sm" bg="white" />
+        <Input type="number" value={value} onChange={(e) => onChange(Number(e.target.value))} bg="white" borderColor="gray.300" _focus={{ borderColor: "brand.orange", boxShadow: "none" }} />
       </Box>
     );
   }
@@ -123,19 +125,19 @@ function FieldRow({
   const multiline = str.length > 90 || str.includes("\n");
   return (
     <Box>
-      <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1}>
+      <Text fontSize="xs" fontWeight={600} color="gray.500" mb={1} textTransform="uppercase" letterSpacing="wide">
         {label}
       </Text>
       {multiline ? (
-        <Textarea value={str} onChange={(e) => onChange(e.target.value)} rows={3} size="sm" bg="white" />
+        <Textarea value={str} onChange={(e) => onChange(e.target.value)} rows={4} bg="white" borderColor="gray.300" _focus={{ borderColor: "brand.orange", boxShadow: "none" }} />
       ) : (
-        <Input value={str} onChange={(e) => onChange(e.target.value)} size="sm" bg="white" />
+        <Input value={str} onChange={(e) => onChange(e.target.value)} bg="white" borderColor="gray.300" _focus={{ borderColor: "brand.orange", boxShadow: "none" }} />
       )}
     </Box>
   );
 }
 
-function ArrayField({ fieldKey, label, value, onChange }: { fieldKey: string; label: string; value: Json[]; onChange: (v: Json[]) => void }) {
+function ArrayField({ fieldKey, label, value, level, onChange }: { fieldKey: string; label: string; value: Json[]; level: number; onChange: (v: Json[]) => void }) {
   const isObjectArray = value.length > 0 && value.every((v) => v !== null && typeof v === "object" && !Array.isArray(v));
 
   function addItem() {
@@ -153,67 +155,54 @@ function ArrayField({ fieldKey, label, value, onChange }: { fieldKey: string; la
 
   return (
     <Box>
-      <Text fontWeight={700} color="brand.navy" mb={2}>
-        {label}
-      </Text>
-      <Stack gap={3}>
-        {value.map((item, i) =>
-          isObjectArray ? (
-            // The delete button sits in a relatively-positioned wrapper, as a
-            // sibling of Accordion.Item rather than a child of ItemTrigger —
-            // ItemTrigger renders as a <button>, and nesting an IconButton
-            // (also a <button>) inside it is invalid HTML/hydration-unsafe.
-            <Box key={i} position="relative">
-              <Accordion.Root collapsible variant="outline" borderRadius="lg" overflow="hidden">
-                <Accordion.Item value={`item-${i}`} bg="gray.50" borderWidth="1px" borderColor="gray.200" borderRadius="lg">
-                  <Accordion.ItemTrigger bg="white" borderBottom="1px solid" borderColor="gray.100" px={4} py={3} pr={12}>
-                    <Flex align="center" gap={3} flex="1">
-                      <IconChip icon={SectionIcon} size={16} box={32} onDark={false} />
-                      <Text fontWeight={600} textAlign="left">
-                        {itemLabel(item, i)}
-                      </Text>
-                    </Flex>
-                    <Accordion.ItemIndicator>
-                      <ExpandMoreIcon size={16} />
-                    </Accordion.ItemIndicator>
-                  </Accordion.ItemTrigger>
-                  <Accordion.ItemContent>
-                    <Accordion.ItemBody px={4} pt={4} pb={4}>
-                      <ObjectFields value={item} onChange={(next) => updateItem(i, next)} />
-                    </Accordion.ItemBody>
-                  </Accordion.ItemContent>
-                </Accordion.Item>
-              </Accordion.Root>
-              <IconBtn
-                aria-label="Remove item"
-                tone="danger"
-                size="xs"
-                position="absolute"
-                top="10px"
-                right="40px"
-                zIndex={1}
-                onClick={() => removeItem(i)}
-              />
-            </Box>
-          ) : (
-            <RowCard key={i} mb={0}>
-              <Box flex="1">
-                {isYoutubeField(fieldKey, item) ? (
-                  <YoutubeControl value={item ?? ""} onChange={(v) => updateItem(i, v)} />
-                ) : isMapLocationField(fieldKey, item) ? (
-                  <MapLocationControl value={item ?? ""} onChange={(v) => updateItem(i, v)} />
-                ) : (
-                  <Input value={item ?? ""} onChange={(e) => updateItem(i, e.target.value)} size="sm" bg="white" w="full" />
-                )}
-              </Box>
-              <IconBtn aria-label="Remove item" tone="danger" size="xs" onClick={() => removeItem(i)} />
-            </RowCard>
-          )
-        )}
+      <Flex justify="space-between" align="center" mb={4}>
+        <Text fontWeight={700} color="brand.navy" fontSize="sm" textTransform="uppercase" letterSpacing="wide">
+          {label}
+        </Text>
         <AddButton dashed size="xs" onClick={addItem}>
           Add {singularish(label)}
         </AddButton>
-      </Stack>
+      </Flex>
+      
+      {value.length > 0 ? (
+        <Box borderWidth="1px" borderColor="gray.200" borderRadius="md" overflow="hidden">
+          {value.map((item, i) =>
+            isObjectArray ? (
+              <Box key={i} borderBottom={i < value.length - 1 ? "1px solid" : "none"} borderColor="gray.200" bg="white">
+                <Flex align="center" justify="space-between" bg="gray.100" px={4} py={3} borderBottom="1px solid" borderColor="gray.200">
+                  <Flex align="center" gap={3}>
+                    <IconChip icon={SectionIcon} size={14} box={24} onDark={false} />
+                    <Text fontWeight={600} fontSize="sm" color="brand.navy">
+                      {itemLabel(item, i)}
+                    </Text>
+                  </Flex>
+                  <IconBtn aria-label="Remove item" tone="danger" size="xs" onClick={() => removeItem(i)} />
+                </Flex>
+                <Box>
+                  <ObjectFields value={item} onChange={(next) => updateItem(i, next)} level={level + 1} />
+                </Box>
+              </Box>
+            ) : (
+              <Flex key={i} align="center" p={3} gap={3} borderBottom={i < value.length - 1 ? "1px solid" : "none"} borderColor="gray.200" bg="white">
+                <Box flex="1">
+                  {isYoutubeField(fieldKey, item) ? (
+                    <YoutubeControl value={item ?? ""} onChange={(v) => updateItem(i, v)} />
+                  ) : isMapLocationField(fieldKey, item) ? (
+                    <MapLocationControl value={item ?? ""} onChange={(v) => updateItem(i, v)} />
+                  ) : (
+                    <Input value={item ?? ""} onChange={(e) => updateItem(i, e.target.value)} bg="white" w="full" borderColor="gray.300" _focus={{ borderColor: "brand.orange", boxShadow: "none" }} />
+                  )}
+                </Box>
+                <IconBtn aria-label="Remove item" tone="danger" size="xs" onClick={() => removeItem(i)} />
+              </Flex>
+            )
+          )}
+        </Box>
+      ) : (
+        <Box p={4} borderWidth="1px" borderColor="gray.200" borderStyle="dashed" borderRadius="md" textAlign="center">
+          <Text fontSize="sm" color="gray.500">No items yet.</Text>
+        </Box>
+      )}
     </Box>
   );
 }

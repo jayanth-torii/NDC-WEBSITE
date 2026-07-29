@@ -9,6 +9,7 @@ import { API_ROUTES } from "./route";
 
 export const login = (email: string, password: string) => postRequest(API_ROUTES.AUTH.LOGIN, { email, password });
 export const getMe = () => getRequest(API_ROUTES.AUTH.ME);
+export const updateProfile = (data: any) => putRequest(API_ROUTES.AUTH.UPDATE_PROFILE, data);
 
 // Generic singleton-page getter/setter — takes any backend route directly.
 // Used by the generic JSON fallback editor (works for every Mixed-data page

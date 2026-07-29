@@ -14,13 +14,66 @@ const login = asyncHandler(async (req, res) => {
   const token = signToken(user);
   res.json({
     success: true,
-    data: { token, user: { id: user._id, name: user.name, email: user.email, role: user.role } },
+    data: {
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+        dob: user.dob,
+        address: user.address,
+        profileImage: user.profileImage,
+        createdAt: user.createdAt,
+      },
+    },
   });
 });
 
 const me = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
-  res.json({ success: true, data: user });
+  const user = await User.findById(req.user.id);
+  if (!user) return res.status(404).json({ success: false, message: "User not found" });
+  res.json({
+    success: true,
+    data: {
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      dob: user.dob,
+      address: user.address,
+      profileImage: user.profileImage,
+      createdAt: user.createdAt,
+    },
+  });
 });
 
-module.exports = { login, me };
+const updateProfile = asyncHandler(async (req, res) => {
+  const { name, dob, address, profileImage } = req.body;
+  
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user.id,
+    { name, dob, address, profileImage },
+    { new: true, runValidators: true }
+  );
+
+  if (!updatedUser) {
+    return res.status(404).json({ success: false, message: "User not found" });
+  }
+
+  res.json({
+    success: true,
+    data: {
+      id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      dob: updatedUser.dob,
+      address: updatedUser.address,
+      profileImage: updatedUser.profileImage,
+      createdAt: updatedUser.createdAt,
+    },
+  });
+});
+
+module.exports = { login, me, updateProfile };

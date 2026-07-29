@@ -15,6 +15,9 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, enum: ["admin", "editor"], default: "editor" },
     permissions: { type: [permissionSchema], default: [] },
+    dob: { type: String },
+    address: { type: String },
+    profileImage: { type: String },
   },
   { timestamps: true }
 );

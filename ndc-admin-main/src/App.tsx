@@ -7,7 +7,10 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { GenericSingletonPage } from "./pages/GenericSingletonPage";
 import { SiteSettingsPage } from "./pages/SiteSettingsPage";
 import { DepartmentEditorPage } from "./pages/DepartmentEditorPage";
+import { DepartmentsOverviewPage } from "./pages/DepartmentsOverviewPage";
 import { ActivityCellsPage } from "./pages/ActivityCellsPage";
+import { ActivityCellDetailPage } from "./pages/ActivityCellDetailPage";
+import { ActivitiesOverviewPage } from "./pages/ActivitiesOverviewPage";
 import { BlogsListPage } from "./pages/BlogsListPage";
 import { BlogEditPage } from "./pages/BlogEditPage";
 import { SubmissionsInboxPage } from "./pages/SubmissionsInboxPage";
@@ -20,6 +23,9 @@ import { AlumniPage } from "./pages/AlumniPage";
 import { AdmissionsPage } from "./pages/AdmissionsPage";
 import { LibraryPage } from "./pages/LibraryPage";
 import { QuestionBankPage } from "./pages/QuestionBankPage";
+import { HomePage } from "./pages/HomePage";
+import { SportsPage } from "./pages/SportsPage";
+import { SamasthiPage } from "./pages/SamasthiPage";
 
 export default function App() {
   return (
@@ -35,7 +41,10 @@ export default function App() {
               <Route path="/about-ndc" element={<AboutNdcPage />} />
               <Route path="/page/:title/:route" element={<GenericSingletonPage />} />
               <Route path="/department-details-editor" element={<DepartmentEditorPage />} />
+              <Route path="/departments-page" element={<DepartmentsOverviewPage />} />
               <Route path="/activity-cells" element={<ActivityCellsPage />} />
+              <Route path="/activity-cells/:cellId" element={<ActivityCellDetailPage />} />
+              <Route path="/activities-page" element={<ActivitiesOverviewPage />} />
               <Route path="/gallery" element={<GalleryPage />} />
               <Route path="/iic" element={<IicPage />} />
               <Route path="/iqac" element={<IqacPage />} />
@@ -43,6 +52,9 @@ export default function App() {
               <Route path="/admissions" element={<AdmissionsPage />} />
               <Route path="/library" element={<LibraryPage />} />
               <Route path="/question-bank" element={<QuestionBankPage />} />
+              <Route path="/home-page" element={<HomePage />} />
+              <Route path="/sports" element={<SportsPage />} />
+              <Route path="/samashti" element={<SamasthiPage />} />
               <Route path="/blogs" element={<BlogsListPage />} />
               <Route path="/blogs/:postId" element={<BlogEditPage />} />
               <Route path="/submissions/:kind" element={<SubmissionsInboxPage />} />

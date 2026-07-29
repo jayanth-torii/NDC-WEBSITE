@@ -15,8 +15,8 @@ const SamashtiHero = ({ data }: any) => {
             <span className="text-orange font-bold text-xs md:text-sm tracking-[2px] uppercase">Official Magazine</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-extrabold text-white tracking-tight mb-5 leading-[1.1]">
-            Nagarjuna <span className="text-orange">Samashti</span>
+          <h1 className="text-4xl md:text-5xl lg:text-[56px] font-extrabold text-white tracking-tight mb-5 leading-[1.1] capitalize">
+            {data?.title ? data.title.split(' ')[0] : 'Nagarjuna'} <span className="text-orange">{data?.title ? data.title.split(' ').slice(1).join(' ') || data.title : 'Samashti'}</span>
           </h1>
           
           <p className="text-gray-400 text-[15px] md:text-[17px] leading-[1.7] max-w-lg font-medium">
@@ -32,8 +32,8 @@ const SamashtiHero = ({ data }: any) => {
                 <Image src="/images/samashti/4_0d2e2cd8fc_59687c85e4.png" alt="Samashti Cover" fill className="object-cover" />
              </div>
              
-             <div className="relative w-[200px] md:w-[300px] lg:w-[340px] aspect-[3/4] rounded-lg overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10">
-                <Image src="/images/samashti/10_b3f02c0b3c_5c17976750.png" alt="Samashti Cover" fill className="object-cover" />
+             <div className="relative w-[200px] md:w-[300px] lg:w-[340px] aspect-[3/4] rounded-lg overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] z-10 bg-[#0a1a3f]">
+                <Image src={data?.image || "/images/samashti/10_b3f02c0b3c_5c17976750.png"} alt={data?.title || "Samashti Cover"} fill className="object-cover" />
              </div>
 
              <div className="relative w-[180px] md:w-[260px] lg:w-[280px] aspect-[3/4] rounded-lg overflow-hidden shadow-2xl opacity-70 scale-90">

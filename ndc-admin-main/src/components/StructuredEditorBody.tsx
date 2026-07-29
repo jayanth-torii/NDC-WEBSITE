@@ -1,17 +1,13 @@
 import { useEffect, useState } from "react";
-import { Accordion, Box, Stack, Text, Textarea } from "@chakra-ui/react";
-import { MdExpandMore as ExpandMoreIcon } from "react-icons/md";
+import { Box, Button, Flex, Text, Textarea } from "@chakra-ui/react";
+import { MdCode as CodeIcon } from "react-icons/md";
 import { AutoForm } from "./AutoForm";
-import { Callout, GhostButton } from "./editorKit";
+import { Callout } from "./editorKit";
 
-// Shared body for every content editor: AutoForm's structured fields plus a
-// collapsed "Advanced: raw JSON" escape hatch underneath — for shapes the
-// heuristics don't cover well, and for seeding the very first fields into an
-// empty/not-yet-seeded document (AutoForm alone has nothing to render for
-// `{}`, since there's no schema to infer fields from).
 export function StructuredEditorBody({ data, onChange }: { data: any; onChange: (v: any) => void }) {
   const [rawText, setRawText] = useState("");
   const [rawError, setRawError] = useState<string | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   useEffect(() => {
     setRawText(JSON.stringify(data ?? {}, null, 2));
@@ -28,45 +24,61 @@ export function StructuredEditorBody({ data, onChange }: { data: any; onChange: 
   }
 
   return (
-    <Stack gap={5}>
+    <Box>
       <AutoForm value={data} onChange={onChange} />
 
-      <Accordion.Root collapsible borderWidth="1px" borderColor="orange.200" borderRadius="lg" overflow="hidden">
-        <Accordion.Item value="advanced" border="none">
-          <Accordion.ItemTrigger px={4} py={3} bg="orange.50">
-            <Text flex="1" fontSize="sm" fontWeight={600} color="orange.800" textAlign="left">
-              Advanced: raw JSON
+      <Box mt={8} borderWidth="1px" borderColor="gray.200" borderRadius="xl" overflow="hidden" bg="white">
+        <Flex 
+          align="center" 
+          justify="space-between" 
+          px={5} 
+          py={4} 
+          bg="gray.50" 
+          cursor="pointer" 
+          onClick={() => setShowAdvanced(!showAdvanced)}
+          borderBottom={showAdvanced ? "1px solid" : "none"}
+          borderColor="gray.200"
+        >
+          <Flex align="center" gap={3}>
+            <CodeIcon size={18} color="var(--chakra-colors-gray-600)" />
+            <Text fontSize="sm" fontWeight={700} color="gray.700" textTransform="uppercase" letterSpacing="wide">
+              Advanced: Raw JSON
             </Text>
-            <Accordion.ItemIndicator color="orange.800">
-              <ExpandMoreIcon size={16} />
-            </Accordion.ItemIndicator>
-          </Accordion.ItemTrigger>
-          <Accordion.ItemContent>
-            <Accordion.ItemBody px={4} pb={4} bg="white">
-              <Stack gap={3}>
-                <Text fontSize="xs" color="gray.400">
-                  For fields the form above doesn't cover cleanly, or to seed the first fields into an empty page.
-                  Edit the JSON, then Apply to load it into the form above — Save still applies to the whole page.
-                </Text>
-                {rawError && <Callout tone="error">{rawError}</Callout>}
-                <Textarea
-                  value={rawText}
-                  onChange={(e) => setRawText(e.target.value)}
-                  rows={10}
-                  fontFamily="mono"
-                  fontSize="xs"
-                  bg="white"
-                />
-                <Box>
-                  <GhostButton size="sm" onClick={applyRawText}>
-                    Apply
-                  </GhostButton>
-                </Box>
-              </Stack>
-            </Accordion.ItemBody>
-          </Accordion.ItemContent>
-        </Accordion.Item>
-      </Accordion.Root>
-    </Stack>
+          </Flex>
+          <Text fontSize="xs" color="gray.500" fontWeight={600}>
+            {showAdvanced ? "Hide" : "Show"}
+          </Text>
+        </Flex>
+        
+        {showAdvanced && (
+          <Box p={5}>
+            <Text fontSize="xs" color="gray.500" mb={4}>
+              For fields the form above doesn't cover cleanly, or to seed the first fields into an empty page.
+              Edit the JSON, then Apply to load it into the form above — Save still applies to the whole page.
+            </Text>
+            {rawError && (
+              <Box mb={4}>
+                <Callout tone="error">{rawError}</Callout>
+              </Box>
+            )}
+            <Textarea
+              value={rawText}
+              onChange={(e) => setRawText(e.target.value)}
+              rows={12}
+              fontFamily="mono"
+              fontSize="xs"
+              bg="gray.900"
+              color="gray.100"
+              borderColor="gray.700"
+              _focus={{ borderColor: "brand.orange", boxShadow: "none" }}
+              mb={4}
+            />
+            <Button size="sm" bg="brand.navy" color="white" _hover={{ bg: "brand.orange" }} onClick={applyRawText}>
+              Apply JSON
+            </Button>
+          </Box>
+        )}
+      </Box>
+    </Box>
   );
 }
